@@ -12,6 +12,9 @@ public class Pedido {
 	private float subtotal;
 	private boolean aceptado;
 
+	public Pedido() {
+	}
+
 	public Pedido(int idPedido, Producto producto, int cantidad, Local local, Cliente cliente,
 			Empleado vendedorOriginal, Empleado vendedorAuxiliar, boolean aceptado) {
 		super();
@@ -23,14 +26,13 @@ public class Pedido {
 		this.vendedorOriginal = vendedorOriginal;
 		this.vendedorAuxiliar = vendedorAuxiliar;
 		this.aceptado = aceptado;
-		this.subtotal = CalcularSubtotal();
 	}
 
 	public Producto getProducto() {
 		return producto;
 	}
 
-	public void setProducto(Producto producto) {
+	protected void setProducto(Producto producto) {
 		this.producto = producto;
 	}
 
@@ -103,11 +105,5 @@ public class Pedido {
 		return "Pedido [producto=" + producto + ", cantidad=" + cantidad + ", local=" + local + ", cliente=" + cliente
 				+ ", vendedorOriginal=" + vendedorOriginal + ", vendedorAuxiliar=" + vendedorAuxiliar + "]\n\n";
 	}
-	
-	public float CalcularSubtotal() {
-		return producto.getPrecio()*cantidad;
-	}
-	
-	
 
 }

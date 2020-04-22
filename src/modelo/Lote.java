@@ -10,8 +10,11 @@ public class Lote {
 	private LocalDate fechaIngreso;
 	private Producto producto;
 	private boolean estado;
-	
-	public Lote(int idLote,int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto) {
+
+	public Lote() {
+	}
+
+	public Lote(int idLote, int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto) {
 		super();
 		this.idLote = idLote;
 		this.cantidadInicial = cantidadInicial;
@@ -25,7 +28,7 @@ public class Lote {
 		return idLote;
 	}
 
-	public void setIdLote(int idLote) {
+	protected void setIdLote(int idLote) {
 		this.idLote = idLote;
 	}
 
