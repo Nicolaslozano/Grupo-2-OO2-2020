@@ -10,14 +10,14 @@
 <property name="fechaNacimiento" column="fechaNacimiento" type="LocalDate"/>
 <property name="nombre" column="nombre" type="string"/>
 <joined-subclass name="modelo.Cliente" table="cliente">
-<key column="idCliente" />
+<key column="dni" />
 <property column="email" name="email" type="string"/>
 </joined-subclass>
 <joined-subclass name="datos.Empleado" table="empleado">
-<key column="idEmpleado" />
+<key column="dni" />
 <property column="franjaHoraria" name="franjaHoraria" type="string"/>
 <property column="tipoEmpleado" name="tipoEmpleado" type="boolean"/>
-<property column="local" name="local" type="Local"/>
+<many-to-one name="empleado" class="modelo.Empleado" column="dni" not-null="true"/>
 </joined-subclass>
 </class>
 </hibernate-mapping>
