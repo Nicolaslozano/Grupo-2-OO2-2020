@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+
+<hibernate-mapping>
+<class name="modelo.Stock" table="stock">
+<id column="idStock" name="dni">
+<generator class="identity"/>
+</id>
+<property name="cantidad" column="cantidad" type="int"/>
+
+
+<set name="lote" cascade="save-update" table="lote" order-by="idLote asc" inverse="true"
+		lazy="true" fetch="select">
+			<key column="idLote" not-null="true"/>
+			<one-to-many class="modelo.Stock"/>
+		</set>
+
+
+<one-to-one name="local" class="modelo."></one-to-one>
+
+</class>
+</hibernate-mapping>
