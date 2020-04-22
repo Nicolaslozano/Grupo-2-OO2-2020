@@ -3,16 +3,18 @@ package modelo;
 import java.time.LocalDate;
 
 public class SolicitudStock {
+	private int idSolicitud;
 	private LocalDate fecha;
 	private Producto producto;
 	private int cantidad;
 	private Empleado vendedor;
 	private Empleado colaborador;
 	private boolean aceptado;
-	private int idSolicitud;
-	
+
+	public SolicitudStock() {
+	}
+
 	public SolicitudStock(int idSolicitud, LocalDate fecha, Producto producto, int cantidad, Empleado vendedor) {
-		super();
 		this.idSolicitud = idSolicitud;
 		this.fecha = fecha;
 		this.producto = producto;
@@ -22,16 +24,13 @@ public class SolicitudStock {
 		this.aceptado = false;
 	}
 
-	
 	public int getIdSolicitud() {
 		return idSolicitud;
 	}
 
-
-	public void setIdSolicitud(int idSolicitud) {
+	protected void setIdSolicitud(int idSolicitud) {
 		this.idSolicitud = idSolicitud;
 	}
-
 
 	public LocalDate getFecha() {
 		return fecha;
@@ -86,10 +85,4 @@ public class SolicitudStock {
 		return "SolicitudStock [fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad + ", vendedor="
 				+ vendedor + ", colaborador=" + colaborador + ", aceptado=" + aceptado + "]";
 	}
-	
-	
-	
-	
-	
-
 }
