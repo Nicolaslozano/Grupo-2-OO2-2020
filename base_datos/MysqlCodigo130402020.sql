@@ -3,15 +3,15 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 
-CREATE SCHEMA IF NOT EXISTS `bd_tpc` DEFAULT CHARACTER SET utf8 ;
-USE `bd_tpc` ;
+CREATE SCHEMA IF NOT EXISTS bd_tpc;
+USE bd_tpc;
 
 CREATE TABLE persona(
 	dni int(11) primary key,
 	nombre varchar(45) NOT NULL,
 	apellido varchar(45) NOT NULL,
 	fechaNacimiento date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE cliente(
 	idCliente int(11) primary key AUTO_INCREMENT,
@@ -35,7 +35,7 @@ CREATE TABLE empleado(
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE producto(
-	idProducto int(11) PRIMARY KEY,
+	idProducto int(11) PRIMARY KEY AUTO_INCREMENT,
 	nombre varchar(45) not null,
 	descripcion varchar(100),
 	precio double not null,
@@ -48,7 +48,7 @@ CREATE TABLE factura(
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE lote(
-	idLote int(11) primary key,
+	idLote int(11) primary key AUTO_INCREMENT,
 	cantidadInicial int(11) not null,
 	cantidadActual int(11),
 	fechaIngreso date not null,
@@ -60,13 +60,13 @@ CREATE TABLE lote(
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 create table stock(
-	idStock int(11) primary key,
+	idStock int(11) primary key AUTO_INCREMENT,
 	cantidad int(11) not null
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 CREATE TABLE comercio(
-	idLocal int(11) primary key,
+	idLocal int(11) primary key AUTO_INCREMENT,
 	direccion varchar(45) not null,
 	latitud double not null,
 	longitud double not null,
@@ -76,3 +76,59 @@ CREATE TABLE comercio(
     FOREIGN KEY (idStock) 
         REFERENCES stock(idStock)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+create table pedido(
+	idPedido int(11) primary key AUTO_INCREMENT,
+	idProducto int(11) not null,
+	cantidad int(11) not null,
+	idLocal int(11) not null,
+	idCliente int(11) not null,
+	idEmpleado_original int(11) not null,
+	idEmpleado_auxiliar int(11),
+	subtotal float,
+	aceptado bit(1) not null,
+	CONSTRAINT fk_producto_pedido
+    FOREIGN KEY (idProducto) 
+        REFERENCES producto(idProducto),
+    CONSTRAINT fk_comercio_pedido
+    FOREIGN KEY (idLocal) 
+        REFERENCES comercio(idLocal),
+	CONSTRAINT fk_cliente
+    FOREIGN KEY (idCliente) 
+        REFERENCES cliente(idCliente),
+	CONSTRAINT fk_empleado_original
+    FOREIGN KEY (idEmpleado_original) 
+        REFERENCES empleado(idEmpleado)	
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+create table solicitudStock(
+	idSolicitudStock int(11) primary key AUTO_INCREMENT,
+	fecha date not null,
+	idProducto int(11) not null,
+	cantidad int(11) not null,
+	idEmpleado_vendedor int(11) not null,
+	idEmpleado_colaborador int(11),
+	aceptado bit(1) not null,
+	CONSTRAINT fk_producto_solicitud
+    FOREIGN KEY (idProducto) 
+        REFERENCES producto(idProducto),
+	CONSTRAINT fk_empleado_vendedor
+    FOREIGN KEY (idEmpleado_vendedor) 
+        REFERENCES empleado(idEmpleado)	
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+create table carrito (
+	idCarrito int(11) primary key AUTO_INCREMENT,
+	fecha date not null,
+	total float	
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+
+
+
+
+
+
