@@ -1,5 +1,8 @@
 package modelo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Pedido {
 
 	private int idPedido;
@@ -7,8 +10,7 @@ public class Pedido {
 	private int cantidad;
 	private Local local;
 	private Cliente cliente;
-	private Empleado vendedorOriginal;
-	private Empleado vendedorAuxiliar;
+	private Set<Empleado> empleados = new HashSet<>();
 	private float subtotal;
 	private boolean aceptado;
 
@@ -23,8 +25,8 @@ public class Pedido {
 		this.cantidad = cantidad;
 		this.local = local;
 		this.cliente = cliente;
-		this.vendedorOriginal = vendedorOriginal;
-		this.vendedorAuxiliar = vendedorAuxiliar;
+		this.empleados.add(vendedorOriginal);
+		if (vendedorAuxiliar != null) this.empleados.add(vendedorAuxiliar); //VALIDACIONES EN SET, CAMBIAR LUEGO
 		this.aceptado = aceptado;
 	}
 
@@ -68,21 +70,17 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public Empleado getVendedorOriginal() {
-		return vendedorOriginal;
+	public Set<Empleado> getEmpleados() {
+
+		return this.empleados;
 	}
 
-	public void setVendedorOriginal(Empleado vendedorOriginal) {
-		this.vendedorOriginal = vendedorOriginal;
+	public void setEmpleados(Set<Empleado> empleados) {
+
+		this.empleados = empleados;
 	}
 
-	public Empleado getVendedorAuxiliar() {
-		return vendedorAuxiliar;
-	}
-
-	public void setVendedorAuxiliar(Empleado vendedorAuxiliar) {
-		this.vendedorAuxiliar = vendedorAuxiliar;
-	}
+	//ADD EMPLEADO EN ABM
 
 	public int getIdPedido() {
 		return idPedido;
@@ -103,7 +101,7 @@ public class Pedido {
 	@Override
 	public String toString() {
 		return "Pedido [producto=" + producto + ", cantidad=" + cantidad + ", local=" + local + ", cliente=" + cliente
-				+ ", vendedorOriginal=" + vendedorOriginal + ", vendedorAuxiliar=" + vendedorAuxiliar + "]\n\n";
+				+ ", empleados: "+empleados+"]\n\n";
 	}
 
 }

@@ -1,14 +1,16 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SolicitudStock {
 	private int idSolicitud;
 	private LocalDate fecha;
 	private Producto producto;
 	private int cantidad;
-	private Empleado vendedor;
-	private Empleado colaborador;
+	private Set<Empleado> empleados = new HashSet<>();
+	//colaborador tmb
 	private boolean aceptado;
 
 	public SolicitudStock() {
@@ -19,8 +21,8 @@ public class SolicitudStock {
 		this.fecha = fecha;
 		this.producto = producto;
 		this.cantidad = cantidad;
-		this.vendedor = vendedor;
-		this.colaborador = null;
+		this.empleados.add(vendedor);
+
 		this.aceptado = false;
 	}
 
@@ -56,21 +58,17 @@ public class SolicitudStock {
 		this.cantidad = cantidad;
 	}
 
-	public Empleado getVendedor() {
-		return vendedor;
+	public Set<Empleado> getEmpleados() {
+
+		return this.empleados;
 	}
 
-	public void setVendedor(Empleado vendedor) {
-		this.vendedor = vendedor;
+	public void setEmpleados(Set<Empleado> empleados) {
+
+		this.empleados = empleados;
 	}
 
-	public Empleado getColaborador() {
-		return colaborador;
-	}
-
-	public void setColaborador(Empleado colaborador) {
-		this.colaborador = colaborador;
-	}
+	//ADD EMPLEADO EN ABM
 
 	public boolean isAceptado() {
 		return aceptado;
@@ -82,7 +80,7 @@ public class SolicitudStock {
 
 	@Override
 	public String toString() {
-		return "SolicitudStock [fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad + ", vendedor="
-				+ vendedor + ", colaborador=" + colaborador + ", aceptado=" + aceptado + "]";
+		return "SolicitudStock [fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad +
+		 "empleados: "+ empleados + ", aceptado=" + aceptado + "]";
 	}
 }

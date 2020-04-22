@@ -61,7 +61,11 @@ CREATE TABLE lote(
 
 create table stock(
 	idStock int(11) primary key AUTO_INCREMENT,
-	cantidad int(11) not null
+	idLocal int(11) not null,
+	cantidad int(11) not null,
+	CONSTRAINT fk_comercio_stock
+    FOREIGN KEY (idLocal) 
+        REFERENCES comercio(idLocal)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
@@ -84,8 +88,6 @@ create table pedido(
 	cantidad int(11) not null,
 	idLocal int(11) not null,
 	idCliente int(11) not null,
-	idEmpleado_original int(11) not null,
-	idEmpleado_auxiliar int(11),
 	subtotal float,
 	aceptado bit(1) not null,
 	CONSTRAINT fk_producto_pedido
@@ -96,27 +98,19 @@ create table pedido(
         REFERENCES comercio(idLocal),
 	CONSTRAINT fk_cliente
     FOREIGN KEY (idCliente) 
-        REFERENCES cliente(idCliente),
-	CONSTRAINT fk_empleado_original
-    FOREIGN KEY (idEmpleado_original) 
-        REFERENCES empleado(idEmpleado)	
+        REFERENCES cliente(idCliente)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 create table solicitudStock(
-	idSolicitudStock int(11) primary key AUTO_INCREMENT,
+	idSolicitud int(11) primary key AUTO_INCREMENT,
 	fecha date not null,
 	idProducto int(11) not null,
 	cantidad int(11) not null,
-	idEmpleado_vendedor int(11) not null,
-	idEmpleado_colaborador int(11),
 	aceptado bit(1) not null,
 	CONSTRAINT fk_producto_solicitud
     FOREIGN KEY (idProducto) 
-        REFERENCES producto(idProducto),
-	CONSTRAINT fk_empleado_vendedor
-    FOREIGN KEY (idEmpleado_vendedor) 
-        REFERENCES empleado(idEmpleado)	
+        REFERENCES producto(idProducto)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
