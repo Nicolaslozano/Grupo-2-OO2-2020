@@ -4,28 +4,20 @@
 
 
 <hibernate-mapping>
-	<class name=modelo.Pedido" table="pedido">
+	<class name="modelo.Pedido" table="pedido">
 		<id column="idPedido" name="idPedido">
 			<generator class="identity"/>
 		</id>
 		<property cloumn="producto" name="producto" type="Producto"/>
 		<property cloumn="cantidad" name="cantidad" type="int"/>
-		<property cloumn="local" name="Local" type="Local"/>
-		<property cloumn="cliente" name="cliente" type="Cliente"/>
-		<property cloumn="vendedorOriginal" name="vendedorOriginal" type="Empleado"/>
-		<property cloumn="vendedorAuxiliar" name="vendedorAuxiliar"  type="Empleado"/>
 		<property cloumn="subtotal" name="subtotal" type="float"/>
 		<property cloumn="aceptado" name="aceptado" type="boolean"/>
-		
-	
-	
-	<one-to-one name="carrito" class="modelo.Carrito" ></one-to-one>
 
-
-
-
-
-
+		<one-to-one name="producto" class="modelo.Producto" ></one-to-one>
+		<one-to-one name="cliente" class="modelo.Cliente" ></one-to-one>
+		<one-to-one name="vendedorOriginal" class="modelo.Empleado" column="idEmpleado_original"></one-to-one>
+		//WIP
 
 	</class>
+
 </hibernate-mapping>

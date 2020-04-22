@@ -11,17 +11,10 @@
 		<property column="cantidadInicial" name="cantidadInicial" type="int"/>
 		<property column="cantidadActual" name="cantidadActual" type="int"/>
 		<property column="fechaIngreso" name="fechaIngreso" type="LocalDate"/>
-		<property column="producto" name="producto" type="Producto"/>
-		<property column="estado" name="estado" type="boolean"/> 
-		
-		
-		<one-to-one name="lote" class="modelo.Producto"/>
-		
-		
-		
-		
-		
-		
-	
+		<property column="estado" name="estado" type="boolean"/>
+
+		<one-to-one name="producto" class="modelo.Producto"></one-to-one>
+
 	</class>
+
 </hibernate-mapping>

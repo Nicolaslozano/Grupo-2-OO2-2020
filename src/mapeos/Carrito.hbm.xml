@@ -8,15 +8,14 @@
 		<id column="idCarrito" name="idCarrito">
 			<generator class="identity"/>
 		</id>
-		<property column="listaPedidos" name="listaPedidos" type="Pedidos"/>
 		<property column="fecha" name="fecha" type="LocalDate"/>
 		<property column="total" name="total" type="float"/>
-		
-	
-		
-	
-	
-	</class>
+		<set name="pedidos" cascade="save-update" table="pedido" order-by="idPedido asc" inverse="true"
+		lazy="true" fetch="select">
+			<key column="idCarrito" not-null="true"/>
+			<one-to-many class="modelo.Pedido"/>
+		</set>
 
+	</class>
 
 </hibernate-mapping>
