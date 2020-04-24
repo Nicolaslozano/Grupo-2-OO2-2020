@@ -4,12 +4,13 @@ import java.time.LocalDate;
 
 public class Cliente extends Persona {
 	private String email;
-
+	
 	public Cliente() {
+		
 	}
 
-	public Cliente(int idPersona, String email, String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
-		super(idPersona, nombre, apellido, fechaNacimiento, dni);
+	public Cliente(String email,int idPersona,String nombre,String apellido,LocalDate fechaNacimiento,long dni) {
+		super(idPersona,nombre,apellido,fechaNacimiento,dni);
 		this.email = email;
 	}
 
@@ -24,7 +25,8 @@ public class Cliente extends Persona {
 	@Override
 	public String toString() {
 		return "Cliente [email=" + email + ", idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido
-				+ ", fechaNacimiento=" + fechaNacimiento + "]";
+				+ ", fechaNacimiento=" + fechaNacimiento + ", dni=" + dni + "]";
 	}
+
 
 }

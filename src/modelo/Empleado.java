@@ -48,6 +48,7 @@ public class Empleado extends Persona {
 				+ ", idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento="
 				+ fechaNacimiento + ", dni=" + dni + "]";
 	}
+
 	
 	
 
