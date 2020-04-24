@@ -93,13 +93,13 @@ create table pedido(
 	aceptado bit(1) not null,
 	CONSTRAINT fk_producto_pedido
     FOREIGN KEY (idProducto) 
-        REFERENCES producto(idProducto),
+        REFERENCES producto (idProducto),
     CONSTRAINT fk_comercio_pedido
     FOREIGN KEY (idLocal) 
         REFERENCES comercio(idLocal),
 	CONSTRAINT fk_cliente
     FOREIGN KEY (idCliente) 
-        REFERENCES cliente(idCliente)
+        REFERENCES cliente(idPersona)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
