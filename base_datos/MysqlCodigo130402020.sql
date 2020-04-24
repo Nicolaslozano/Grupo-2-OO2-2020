@@ -7,7 +7,8 @@ CREATE SCHEMA IF NOT EXISTS bd_tpc;
 USE bd_tpc;
 
 CREATE TABLE persona(
-	dni int(11) primary key,
+	idPersona int(11) primary key AUTO_INCREMENT,
+	dni int(11) not null,
 	nombre varchar(45) NOT NULL,
 	apellido varchar(45) NOT NULL,
 	fechaNacimiento date NOT NULL
@@ -15,14 +16,14 @@ CREATE TABLE persona(
 
 CREATE TABLE cliente(
 	idCliente int(11) primary key AUTO_INCREMENT,
-	dni int(11) not null,
+	idPersona int(11) not null,
 	email varchar(45) not null,
-  CONSTRAINT persona_fk FOREIGN KEY (dni) REFERENCES persona (dni) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT persona_fk FOREIGN KEY (idPersona) REFERENCES persona (idPersona) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE empleado(
 	idEmpleado int(11) PRIMARY KEY AUTO_INCREMENT,
-	dni int(11) NOT NULL,
+	idPersona int(11) NOT NULL,
 	franjaHoraria varchar(45),
 	tipoEmpleado bit(1) NOT NULL,
 	idLocal int(11) NOT NULL,
@@ -30,8 +31,8 @@ CREATE TABLE empleado(
     FOREIGN KEY (idLocal) 
         REFERENCES comercio(idLocal),
     CONSTRAINT fk_persona
-    FOREIGN KEY (dni) 
-        REFERENCES persona(dni)
+    FOREIGN KEY (idPersona) 
+        REFERENCES persona(idPersona)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE producto(
