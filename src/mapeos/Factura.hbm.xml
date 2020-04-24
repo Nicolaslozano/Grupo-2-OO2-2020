@@ -6,9 +6,7 @@
 		<id column="idFactura" name="idFactura">
 			<generator class="identity" />
 		</id>
-	
-		
-
 
 	</class>
+
 </hibernate-mapping>
