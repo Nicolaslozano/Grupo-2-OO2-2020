@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="modelo.Local" table="comercio">
+		<id column="idLocal" name="idLocal">
+			<generator class="identity"/>
+		</id>
+		<property column="direccion" name="direccion" type="string" />
+		<property column="latitud" name="latitud" type="double" />
+		<property column="longitud" name="longitud" type="double" />
+		<property column="telefono" name="telefono" type="long" />
+
+		<one-to-one name="stock" class="modelo.Stock" column="idStock"/>
+
+		<set name="solicitudes" table="solicitudStock"
+			order-by="idSolicitud" inverse="true" lazy="true" fetch="select">
+			<key column="idLocal" not-null="true" />
+			<one-to-many class="modelo.SolicitudStock" />
+
+		</set>
+
+		<set name="empleados" table="empleado" order-by="idEmpleado"
+			inverse="true" lazy="true" fetch="select">
+			<key column="idLocal" not-null="true" />
+			<one-to-many class="modelo.Empleado" />
+		</set>
+
+		<set name="facturas" table="factura" order-by="idFactura"
+			inverse="true" lazy="true" fetch="select">
+			<key column="idLocal" not-null="true" />
+			<one-to-many class="modelo.Factura" />
+		</set>
+
+	</class>
+
+</hibernate-mapping>
