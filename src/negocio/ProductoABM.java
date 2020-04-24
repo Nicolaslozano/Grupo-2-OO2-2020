@@ -29,12 +29,22 @@ public class ProductoABM {
         dao.agregar(p);
     }
 
-    public void eliminar() {
-
+    public void eliminar(int idProducto) {
+    	Producto p=  traerProducto(idProducto);
+    	dao.eliminar(p);
     }
 
-    public void modificar() {
-
+    public void modificar(int idProducto,String descripcion,LocalDate fechaAlta,String nombre,float precio) {
+    	Producto p= traerProducto(idProducto);
+    	p.setDescripcion(descripcion);
+    	p.setFechaAlta(fechaAlta);
+    	p.setNombre(nombre);
+    	p.setPrecio(precio);
+    	
+    }
+    
+    public Producto traerProducto(int idProducto) {
+    return dao.traerProducto(1);
     }
 
 }
