@@ -10,6 +10,7 @@ public class Lote {
 	private LocalDate fechaIngreso;
 	private Producto producto;
 	private boolean estado;
+	private Stock stock;
 
 	public Lote() {
 	}
@@ -72,10 +73,20 @@ public class Lote {
 		this.estado = estado;
 	}
 
+	public Stock getStock() {
+
+		return this.stock;
+	}
+
+	public void setStock(Stock stock) {
+
+		this.stock = stock;
+	}
+
 	@Override
 	public String toString() {
 		return "Lote [idLote=" + idLote + ", cantidadInicial=" + cantidadInicial + ", cantidadActual=" + cantidadActual
-				+ ", fechaIngreso=" + fechaIngreso + ", producto=" + producto + ", estado=" + estado + "]\n";
+				+ ", fechaIngreso=" + fechaIngreso + ", producto=" + producto + ", estado=" + estado + "Stock: "+stock+"]\n";
 	}
 
 }

@@ -8,9 +8,9 @@
 		<id column="idSolicitud" name="idSolicitud">
 			<generator class="identity"/>
 		</id>
-		<property cloumn="fecha" name="fecha" type="LocalDate"/>
-		<property cloumn="cantidad" name="cantidad" type="int"/>
-		<property cloumn="aceptado" name="aceptado" type="boolean"/>
+		<property column="fecha" name="fecha" type="LocalDate"/>
+		<property column="cantidad" name="cantidad" type="int"/>
+		<property column="aceptado" name="aceptado" type="boolean"/>
 
 		<one-to-one name="producto" class="modelo.Producto" ></one-to-one>
 

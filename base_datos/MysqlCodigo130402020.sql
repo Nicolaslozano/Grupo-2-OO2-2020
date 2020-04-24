@@ -15,25 +15,25 @@ CREATE TABLE persona(
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE cliente(
-	idCliente int(11) primary key AUTO_INCREMENT,
-	idPersona int(11) not null,
+	idPersona int(11) primary key,
 	email varchar(45) not null,
-  CONSTRAINT persona_fk FOREIGN KEY (idPersona) REFERENCES persona (idPersona) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+  CONSTRAINT fk_cliente_id 
+  	FOREIGN KEY (idPersona) 
+  	REFERENCES persona (idPersona) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE empleado(
-	idEmpleado int(11) PRIMARY KEY AUTO_INCREMENT,
-	idPersona int(11) NOT NULL,
+	idPersona int(11) primary key,
 	franjaHoraria varchar(45),
 	tipoEmpleado bit(1) NOT NULL,
 	idLocal int(11) NOT NULL,
-	CONSTRAINT fk_comercio
+	CONSTRAINT fk_empleado_comercio
     FOREIGN KEY (idLocal) 
-        REFERENCES comercio(idLocal),
-    CONSTRAINT fk_persona
+        REFERENCES comercio (idLocal) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_empleado_id
     FOREIGN KEY (idPersona) 
-        REFERENCES persona(idPersona)
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+        REFERENCES persona (idPersona) ON DELETE NO ACTION ON UPDATE NO ACTION
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE producto(
 	idProducto int(11) PRIMARY KEY AUTO_INCREMENT,
@@ -54,19 +54,19 @@ CREATE TABLE lote(
 	cantidadActual int(11),
 	fechaIngreso date not null,
 	idProducto int(11) not null,
+	idStock int(11) not null,
 	estado bit(1) not null,
 	CONSTRAINT fk_producto
     FOREIGN KEY (idProducto) 
-        REFERENCES producto(idProducto)
+        REFERENCES producto(idProducto),
+	CONSTRAINT fk_stock_lote
+    FOREIGN KEY (idStock) 
+        REFERENCES stock(idStock)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 create table stock(
 	idStock int(11) primary key AUTO_INCREMENT,
-	idLocal int(11) not null,
-	cantidad int(11) not null,
-	CONSTRAINT fk_comercio_stock
-    FOREIGN KEY (idLocal) 
-        REFERENCES comercio(idLocal)
+	cantidad int(11) not null
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
@@ -77,9 +77,9 @@ CREATE TABLE comercio(
 	longitud double not null,
 	telefono int(11),
 	idStock int(11) not null,
-	CONSTRAINT fk_stock
+	CONSTRAINT fk_comercio_stock
     FOREIGN KEY (idStock) 
-        REFERENCES stock(idStock)
+        REFERENCES stock (idStock)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 

@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-
-
 <hibernate-mapping>
 	<class name="modelo.Lote" table="lote">
 		<id column="idLote" name="idLote">
 			<generator class="identity"/>
 		</id>
+
 		<property column="cantidadInicial" name="cantidadInicial" type="int"/>
 		<property column="cantidadActual" name="cantidadActual" type="int"/>
 		<property column="fechaIngreso" name="fechaIngreso" type="LocalDate"/>
 		<property column="estado" name="estado" type="boolean"/>
 
-		<one-to-one name="producto" class="modelo.Producto"></one-to-one>
+		<one-to-one name="producto" class="modelo.Producto" column="idProducto"/>
+
+		<many-to-one name="stock" class="modelo.Stock" column="idStock"/>
 
 	</class>
 
