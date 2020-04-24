@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public abstract class Persona {
 
+	protected int idPersona;
 	protected String nombre;
 	protected String apellido;
 	protected LocalDate fechaNacimiento;
@@ -12,11 +13,20 @@ public abstract class Persona {
 	public Persona() {
 	}
 
-	public Persona(String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
+	public Persona(int idPersona,String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
+		this.idPersona= idPersona;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;
 		this.dni = dni;
+	}
+
+	public int getIdPersona() {
+		return idPersona;
+	}
+
+	protected void setIdPersona(int idPersona) {
+		this.idPersona = idPersona;
 	}
 
 	public String getNombre() {
@@ -53,8 +63,11 @@ public abstract class Persona {
 
 	@Override
 	public String toString() {
-		return "Persona [nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento
-				+ ", dni=" + dni + "]";
+		return "Persona [idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", fechaNacimiento=" + fechaNacimiento + ", dni=" + dni + "]";
 	}
+
+	
+	
 
 }

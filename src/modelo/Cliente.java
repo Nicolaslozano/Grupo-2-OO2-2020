@@ -3,26 +3,14 @@ package modelo;
 import java.time.LocalDate;
 
 public class Cliente extends Persona {
-	private int idCliente;
 	private String email;
 
 	public Cliente() {
 	}
 
-	public Cliente(int idCliente, String email, String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
-		super(nombre, apellido, fechaNacimiento, dni);
-		this.idCliente = idCliente;
+	public Cliente(int idPersona, String email, String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
+		super(idPersona, nombre, apellido, fechaNacimiento, dni);
 		this.email = email;
-	}
-
-
-
-	public int getIdCliente() {
-		return idCliente;
-	}
-
-	protected void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
 	}
 
 	public String getEmail() {
@@ -33,10 +21,10 @@ public class Cliente extends Persona {
 		this.email = email;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Cliente [email=" + email + "]";
+		return "Cliente [email=" + email + ", idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido
+				+ ", fechaNacimiento=" + fechaNacimiento + "]";
 	}
 
 }
