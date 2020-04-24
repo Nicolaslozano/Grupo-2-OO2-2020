@@ -1,0 +1,19 @@
+<hibernate-configuration>
+	<session-factory>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<!--MODIFICAR -->
+		<property name="connection.url">jdbc:mysql://localhost/bd_tpc</property>
+		<!--MODIFICAR -->
+		<property name="connection.username">root</property>
+		<!--MODIFICAR -->
+		<property name="connection.password">root</property>
+		<property name="connection.pool_size">1</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="show_sql">false</property>
+		<!-- en true muestra hql en consola -->
+		<!--Mapeo Entidades -->
+		<!--MODIFICAR -->
+		<mapping resource="mapeos/Persona.hbm.xml"/>
+		
+	</session-factory>
+</hibernate-configuration>
