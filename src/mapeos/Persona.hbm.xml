@@ -10,13 +10,18 @@
 <property name="fechaNacimiento" column="fechaNacimiento" type="LocalDate"/>
 <property name="nombre" column="nombre" type="string"/>
 <joined-subclass name="modelo.Cliente" table="cliente">
-<key column="idCliente" />
+<key column="idPersona" />
 <property column="email" name="email" type="string"/>
 </joined-subclass>
 <joined-subclass name="modelo.Empleado" table="empleado">
 <key column="idPersona" />
 <property column="franjaHoraria" name="franjaHoraria" type="string"/>
 <property column="tipoEmpleado" name="tipoEmpleado" type="boolean"/>
+<set name="local" cascade="save-update" table="local" order-by="idLocal asc" inverse="true"
+			lazy="true" fetch="select">
+				<key column="idPersona" not-null="true"/>
+				<one-to-many class="modelo.Local"/>
+			</set>
 </joined-subclass>
 </class>
 </hibernate-mapping>
