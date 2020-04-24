@@ -13,8 +13,8 @@ public abstract class Persona {
 	public Persona() {
 	}
 
-	public Persona(int idPersona,String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
-		this.idPersona= idPersona;
+	public Persona(String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
+
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;

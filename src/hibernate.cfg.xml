@@ -13,7 +13,14 @@
 		<!-- en true muestra hql en consola -->
 		<!--Mapeo Entidades -->
 		<!--MODIFICAR -->
+		<mapping resource="mapeos/Producto.hbm.xml"/>
 		<mapping resource="mapeos/Persona.hbm.xml"/>
-		
+		<mapping resource="mapeos/Local.hbm.xml"/>
+		<mapping resource="mapeos/Stock.hbm.xml"/>
+		<mapping resource="mapeos/SolicitudStock.hbm.xml"/>
+		<mapping resource="mapeos/Pedido.hbm.xml"/>
+		<mapping resource="mapeos/Factura.hbm.xml"/>
+		<mapping resource="mapeos/Lote.hbm.xml"/>
+
 	</session-factory>
 </hibernate-configuration>

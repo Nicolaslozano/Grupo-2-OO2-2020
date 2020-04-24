@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+"http://www.hibernate.org/dtd/hibernate-mapping">
 <hibernate-mapping>
 	<class name="modelo.Lote" table="lote">
 		<id column="idLote" name="idLote">
@@ -12,7 +12,7 @@
 		<property column="fechaIngreso" name="fechaIngreso" type="LocalDate"/>
 		<property column="estado" name="estado" type="boolean"/>
 
-		<one-to-one name="producto" class="modelo.Producto" column="idProducto"/>
+		<one-to-one name="producto" class="modelo.Producto"/>
 
 		<many-to-one name="stock" class="modelo.Stock" column="idStock"/>
 

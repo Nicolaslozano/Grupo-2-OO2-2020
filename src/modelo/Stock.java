@@ -12,8 +12,8 @@ public class Stock {
 	public Stock() {
 	}
 
-	public Stock(int idStock, int cantidad, Local local) {
-		this.idStock = idStock;
+	public Stock(int cantidad, Local local) {
+		super();
 		this.lotes = new HashSet<Lote>();
 		this.cantidad = cantidad;
 		this.local = local;

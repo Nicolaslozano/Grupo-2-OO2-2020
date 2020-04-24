@@ -10,9 +10,9 @@ public class Empleado extends Persona {
 	public Empleado() {
 	}
 
-	public Empleado(int idPersona, String nombre, String apellido, LocalDate fechaNacimiento, long dni,
+	public Empleado(String nombre, String apellido, LocalDate fechaNacimiento, long dni,
 			String franjaHoraria, boolean tipoEmpleado, Local local) {
-		super(idPersona,nombre, apellido, fechaNacimiento, dni);
+		super(nombre, apellido, fechaNacimiento, dni);
 		this.franjaHoraria = franjaHoraria;
 		this.tipoEmpleado = tipoEmpleado;
 		this.local = local;

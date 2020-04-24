@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+"http://www.hibernate.org/dtd/hibernate-mapping">
 <hibernate-mapping>
 	<class name="modelo.Local" table="comercio">
 		<id column="idLocal" name="idLocal">
@@ -11,22 +11,22 @@
 		<property column="longitud" name="longitud" type="double" />
 		<property column="telefono" name="telefono" type="long" />
 
-		<one-to-one name="stock" class="modelo.Stock" column="idStock"/>
+		<one-to-one name="stock" class="modelo.Stock"/>
 
-		<set name="solicitudes" table="solicitudStock"
+		<set name="listaSolicitudesStock" table="solicitudStock"
 			order-by="idSolicitud" inverse="true" lazy="true" fetch="select">
 			<key column="idLocal" not-null="true" />
 			<one-to-many class="modelo.SolicitudStock" />
 
 		</set>
 
-		<set name="empleados" table="empleado" order-by="idEmpleado"
+		<set name="listaEmpleados" table="empleado" order-by="idPersona"
 			inverse="true" lazy="true" fetch="select">
 			<key column="idLocal" not-null="true" />
 			<one-to-many class="modelo.Empleado" />
 		</set>
 
-		<set name="facturas" table="factura" order-by="idFactura"
+		<set name="listaFacturas" table="factura" order-by="idFactura"
 			inverse="true" lazy="true" fetch="select">
 			<key column="idLocal" not-null="true" />
 			<one-to-many class="modelo.Factura" />

@@ -16,8 +16,9 @@ public class SolicitudStock {
 	public SolicitudStock() {
 	}
 
-	public SolicitudStock(int idSolicitud, LocalDate fecha, Producto producto, int cantidad, Empleado vendedor) {
-		this.idSolicitud = idSolicitud;
+	public SolicitudStock(LocalDate fecha, Producto producto, int cantidad, Empleado vendedor) {
+
+		super();
 		this.fecha = fecha;
 		this.producto = producto;
 		this.cantidad = cantidad;

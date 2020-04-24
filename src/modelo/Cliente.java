@@ -10,7 +10,7 @@ public class Cliente extends Persona {
 	}
 
 	public Cliente(String email,int idPersona,String nombre,String apellido,LocalDate fechaNacimiento,long dni) {
-		super(idPersona,nombre,apellido,fechaNacimiento,dni);
+		super(nombre,apellido,fechaNacimiento,dni);
 		this.email = email;
 	}
 

@@ -94,6 +94,14 @@ public class Local {
 		this.listaSolicitudesStock = listaSolicitudesStock;
 	}
 
+	public Set<Empleado> getListaEmpleados() {
+		return listaEmpleados;
+	}
+
+	public void setListaEmpleados(Set<Empleado> listaEmpleados) {
+		this.listaEmpleados = listaEmpleados;
+	}
+
 	@Override
 	public String toString() {
 		return "Local [idLocal=" + idLocal + ", direccion=" + direccion + ", latitud=" + latitud + ", longitud="

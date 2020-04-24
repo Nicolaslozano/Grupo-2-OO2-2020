@@ -15,9 +15,9 @@ public class Lote {
 	public Lote() {
 	}
 
-	public Lote(int idLote, int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto) {
+	public Lote(int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto) {
 		super();
-		this.idLote = idLote;
+
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = fechaIngreso;

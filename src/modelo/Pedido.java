@@ -17,10 +17,10 @@ public class Pedido {
 	public Pedido() {
 	}
 
-	public Pedido(int idPedido, Producto producto, int cantidad, Local local, Cliente cliente,
+	public Pedido(Producto producto, int cantidad, Local local, Cliente cliente,
 			Empleado vendedorOriginal, Empleado vendedorAuxiliar, boolean aceptado) {
 		super();
-		this.idPedido = idPedido;
+
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.local = local;
@@ -31,9 +31,9 @@ public class Pedido {
 	}
 
 	public Producto getProducto() {
-		return producto;
-	}
 
+		return this.producto;
+	}
 	protected void setProducto(Producto producto) {
 		this.producto = producto;
 	}
@@ -80,22 +80,24 @@ public class Pedido {
 		this.empleados = empleados;
 	}
 
+	public float getSubtotal() {
+
+		return this.subtotal;
+	}
+
+	public void setSubtotal(float subtotal) {
+
+		this.subtotal = subtotal;
+	}
+
 	//ADD EMPLEADO EN ABM
 
 	public int getIdPedido() {
 		return idPedido;
 	}
 
-	public void setIdPedido(int idPedido) {
+	protected void setIdPedido(int idPedido) {
 		this.idPedido = idPedido;
-	}
-
-	public float getTotal() {
-		return subtotal;
-	}
-
-	public void setTotal(float subtotal) {
-		this.subtotal = subtotal;
 	}
 
 	@Override

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+"http://www.hibernate.org/dtd/hibernate-mapping">
 <hibernate-mapping>
 <class name="modelo.Persona" table="persona">
-<id column="dni" name="dni">
+<id column="idPersona" name="idPersona">
 <generator class="identity"/>
 </id>
 <property name="apellido" column="apellido" type="string"/>

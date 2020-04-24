@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+"http://www.hibernate.org/dtd/hibernate-mapping">
 
 
 <hibernate-mapping>
@@ -14,7 +14,7 @@
 
 		<one-to-one name="producto" class="modelo.Producto" ></one-to-one>
 
-		<set name="empleados" cascade="save-update" table="empleado" order-by="idEmpleado asc" inverse="true"
+		<set name="empleados" cascade="save-update" table="empleado" order-by="idPersona asc" inverse="true"
 		lazy="true" fetch="select">
 			<key column="idSolicitud" not-null="true"/>
 			<one-to-many class="modelo.Empleado"/>
