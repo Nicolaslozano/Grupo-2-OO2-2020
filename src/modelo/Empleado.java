@@ -10,7 +10,7 @@ public class Empleado extends Persona {
 	public Empleado() {
 	}
 
-	public Empleado(String nombre, String apellido, LocalDate fechaNacimiento, long dni,
+	public Empleado(String nombre, String apellido, LocalDate fechaNacimiento, int dni,
 			String franjaHoraria, boolean tipoEmpleado, Local local) {
 		super(nombre, apellido, fechaNacimiento, dni);
 		this.franjaHoraria = franjaHoraria;

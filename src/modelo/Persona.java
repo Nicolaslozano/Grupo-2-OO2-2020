@@ -4,16 +4,16 @@ import java.time.LocalDate;
 
 public abstract class Persona {
 
-	protected int idPersona;
+	protected  int idPersona;
 	protected String nombre;
 	protected String apellido;
 	protected LocalDate fechaNacimiento;
-	protected long dni;
+	protected int dni;
 
 	public Persona() {
 	}
 
-	public Persona(String nombre, String apellido, LocalDate fechaNacimiento, long dni) {
+	public Persona(String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
 
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -53,11 +53,11 @@ public abstract class Persona {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public long getDni() {
+	public int getDni() {
 		return dni;
 	}
 
-	public void setDni(long dni) {
+	public void setDni(int dni) {
 		this.dni = dni;
 	}
 

@@ -1,3 +1,4 @@
+
 package modelo;
 
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ public class Cliente extends Persona {
 		
 	}
 
-	public Cliente(String email,int idPersona,String nombre,String apellido,LocalDate fechaNacimiento,long dni) {
+	public Cliente(String email,String nombre,String apellido,LocalDate fechaNacimiento,int dni) {
 		super(nombre,apellido,fechaNacimiento,dni);
 		this.email = email;
 	}
