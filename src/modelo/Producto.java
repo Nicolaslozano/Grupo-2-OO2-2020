@@ -4,7 +4,7 @@ import java.time.LocalDate;;
 
 public class Producto {
 
-	private int idProducto;
+	private long idProducto;
 	private String nombre;
 	private String descripcion;
 	private float precio;
@@ -21,11 +21,11 @@ public class Producto {
 		this.fechaAlta = fechaAlta;
 	}
 
-	public int getIdProducto() {
+	public long getIdProducto() {
 		return idProducto;
 	}
 
-	protected void setIdProducto(int idProducto) {
+	protected void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
 

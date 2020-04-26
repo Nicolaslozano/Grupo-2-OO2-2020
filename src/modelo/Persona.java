@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public abstract class Persona {
 
-	protected  int idPersona;
+	protected long idPersona;
 	protected String nombre;
 	protected String apellido;
 	protected LocalDate fechaNacimiento;
@@ -21,11 +21,11 @@ public abstract class Persona {
 		this.dni = dni;
 	}
 
-	public int getIdPersona() {
+	public long getIdPersona() {
 		return idPersona;
 	}
 
-	protected void setIdPersona(int idPersona) {
+	protected void setIdPersona(long idPersona) {
 		this.idPersona = idPersona;
 	}
 

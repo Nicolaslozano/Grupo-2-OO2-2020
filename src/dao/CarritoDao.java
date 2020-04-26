@@ -1,13 +1,24 @@
 package dao;
+
 import modelo.Carrito;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 public class CarritoDao {
 
-
+		private static CarritoDao instance;
 		private static Session session;
 		private Transaction tx;
+
+		public static CarritoDao getInstance() {
+
+			if(instance == null) {
+
+				instance = new CarritoDao();
+			}
+
+			return instance;
+		}
 
 		private void iniciarOperacion() throws HibernateException {
 			session = HibernateUtil.getSessionFactory().openSession();
@@ -62,9 +73,8 @@ public class CarritoDao {
 				session.close();
 			}
 		}
-	
-	
-		public Carrito traer(int idCarrito) throws HibernateException {
+
+		public Carrito traer(long idCarrito) throws HibernateException {
 			Carrito objeto = null;
 
 			try {
@@ -76,11 +86,5 @@ public class CarritoDao {
 
 			return objeto;
 		}
-	
-	
-	
-	
-	
-	
-	
+
 }//end

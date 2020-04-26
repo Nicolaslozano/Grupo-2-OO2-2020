@@ -5,7 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class SolicitudStock {
-	private int idSolicitud;
+
+	private long idSolicitud;
 	private LocalDate fecha;
 	private Producto producto;
 	private int cantidad;
@@ -27,11 +28,11 @@ public class SolicitudStock {
 		this.aceptado = false;
 	}
 
-	public int getIdSolicitud() {
+	public long getIdSolicitud() {
 		return idSolicitud;
 	}
 
-	protected void setIdSolicitud(int idSolicitud) {
+	protected void setIdSolicitud(long idSolicitud) {
 		this.idSolicitud = idSolicitud;
 	}
 

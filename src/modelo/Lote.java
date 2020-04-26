@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class Lote {
 
-	private int idLote;
+	private long idLote;
 	private int cantidadInicial;
 	private int cantidadActual;
 	private LocalDate fechaIngreso;
@@ -25,11 +25,11 @@ public class Lote {
 		this.estado = true;
 	}
 
-	public int getIdLote() {
+	public long getIdLote() {
 		return idLote;
 	}
 
-	protected void setIdLote(int idLote) {
+	protected void setIdLote(long idLote) {
 		this.idLote = idLote;
 	}
 

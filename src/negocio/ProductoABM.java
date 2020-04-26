@@ -25,26 +25,28 @@ public class ProductoABM {
     public void agregar(String nombre, String descripcion, float precio, LocalDate fechaAlta) {
 
         Producto p = new Producto(nombre, descripcion, precio, fechaAlta);
-
         dao.agregar(p);
     }
 
-    public void eliminar(int idProducto) {
+    public void eliminar(long idProducto) {
+
     	Producto p=  traerProducto(idProducto);
     	dao.eliminar(p);
     }
 
-    public void modificar(int idProducto,String descripcion,LocalDate fechaAlta,String nombre,float precio) {
+    public void modificar(long idProducto,String descripcion,LocalDate fechaAlta,String nombre,float precio) {
+
     	Producto p= traerProducto(idProducto);
     	p.setDescripcion(descripcion);
     	p.setFechaAlta(fechaAlta);
     	p.setNombre(nombre);
     	p.setPrecio(precio);
-    	
+
     }
-    
-    public Producto traerProducto(int idProducto) {
-    return dao.traerProducto(1);
+
+    public Producto traerProducto(long idProducto) {
+
+        return dao.traerProducto(idProducto);
     }
 
 }

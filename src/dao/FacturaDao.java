@@ -1,13 +1,24 @@
 package dao;
-import modelo.Carrito;
+
 import modelo.Factura;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 public class FacturaDao {
-	
+
+	private static FacturaDao instance;
 	private static Session session;
 	private Transaction tx;
+
+	public static FacturaDao getInstance() {
+
+        if(instance == null) {
+
+            instance = new FacturaDao();
+        }
+
+        return instance;
+    }
 
 	private void iniciarOperacion() throws HibernateException {
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -18,7 +29,7 @@ public class FacturaDao {
 		tx.rollback();
 		throw new HibernateException("ERROR en la capa de acceso de datos", he);
 	}
-	
+
 	public int agregar(Factura objeto) {
 		int id = 0;
 
@@ -63,7 +74,7 @@ public class FacturaDao {
 	}
 
 
-	public Factura traer(int idFactura) throws HibernateException {
+	public Factura traer(long idFactura) throws HibernateException {
 		Factura objeto = null;
 
 		try {

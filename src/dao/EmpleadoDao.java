@@ -7,8 +7,19 @@ import modelo.Empleado;
 
 public class EmpleadoDao {
 
+	private static EmpleadoDao instance;
 	private static Session session;
 	private Transaction tx;
+
+	public static EmpleadoDao getInstance() {
+
+        if(instance == null) {
+
+            instance = new EmpleadoDao();
+        }
+
+        return instance;
+    }
 
 	private void iniciarOperacion() throws HibernateException {
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -50,7 +61,7 @@ public class EmpleadoDao {
 		}
 	}
 
-	public void Eliminar(Empleado objeto) throws HibernateException {
+	public void eliminar(Empleado objeto) throws HibernateException {
 		try {
 			iniciarOperacion();
 			session.delete(objeto);
@@ -63,12 +74,12 @@ public class EmpleadoDao {
 		}
 	}
 
-	public Empleado traer(long idEmpleado) throws HibernateException {
+	public Empleado traer(long idPersona) throws HibernateException {
 		Empleado objeto = null;
 
 		try {
 			iniciarOperacion();
-			objeto = (Empleado) session.get(Empleado.class, idEmpleado);
+			objeto = (Empleado) session.get(Empleado.class, idPersona);
 		} finally {
 			session.close();
 		}
@@ -81,7 +92,7 @@ public class EmpleadoDao {
 
 		try {
 			iniciarOperacion();
-			objeto = (Empleado) session.createQuery("from Empleado c order by c.apellido asc,c.nombre asc").list();
+			objeto = (Empleado) session.createQuery("from Empleado e where e.dni="+dni).uniqueResult();
 		} finally {
 			session.close();
 		}

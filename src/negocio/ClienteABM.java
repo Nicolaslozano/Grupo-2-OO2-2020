@@ -3,13 +3,10 @@ package negocio;
 import java.time.LocalDate;
 
 import dao.ClienteDao;
-import dao.ProductoDao;
 import modelo.Cliente;
-import modelo.Producto;
 
 public class ClienteABM {
-	
-	    
+
 		private static ClienteABM instance;
 	    private ClienteDao dao = ClienteDao.getInstance();
 
@@ -32,23 +29,31 @@ public class ClienteABM {
 	        dao.agregar(c);
 	    }
 
-	    public void eliminar(int idPersona) {
+	    public void eliminar(long idPersona) {
+
 	    	Cliente c=traerCliente(idPersona);
-	    	dao.Eliminar(c);
+	    	dao.eliminar(c);
 	    }
 
-	    public void modificar(int idPersona,String nombre,String apellido,String email,int dni,LocalDate fechaNacimiento) {
+	    public void modificar(long idPersona,String nombre,String apellido,String email,int dni,LocalDate fechaNacimiento) {
+
 	    	Cliente c= traerCliente(idPersona);
 	    	c.setNombre(nombre);
 	    	c.setApellido(apellido);
 	    	c.setEmail(email);
 	    	c.setDni(dni);
 	    	c.setFechaNacimiento(fechaNacimiento);
-	    	
+
 	    }
-	    
-	    public Cliente traerCliente(int idPersona) {
-	    return dao.traer(idPersona);
-	    }
+
+	    public Cliente traerCliente(long idPersona) {
+
+	    	return dao.traer(idPersona);
+		}
+
+		public Cliente traerCliente(int dni) {
+
+			return dao.traer(dni);
+		}
 
 }

@@ -1,22 +1,23 @@
 package modelo;
 
 public class Factura {
-	private int idFactura;
+
+	private long idFactura;
 	private String factura;
 
 	public Factura() {
 	}
 
-	public Factura(int idFactura, String factura) {
-		this.idFactura = idFactura;
+	public Factura(String factura) {
+
 		this.factura = factura;
 	}
 
-	public int getIdFactura() {
+	public long getIdFactura() {
 		return idFactura;
 	}
 
-	protected void setIdFactura(int idFactura) {
+	protected void setIdFactura(long idFactura) {
 		this.idFactura = idFactura;
 	}
 

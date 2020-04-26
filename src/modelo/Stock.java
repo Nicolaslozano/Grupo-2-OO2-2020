@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Stock {
-	private int idStock;
+
+	private long idStock;
 	private Set<Lote> lotes;
 	private int cantidad;
 	private Local local;
@@ -19,11 +20,11 @@ public class Stock {
 		this.local = local;
 	}
 
-	public int getIdStock() {
+	public long getIdStock() {
 		return idStock;
 	}
 
-	protected void setIdStock(int idStock) {
+	protected void setIdStock(long idStock) {
 		this.idStock = idStock;
 	}
 

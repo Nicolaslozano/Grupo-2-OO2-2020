@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Pedido {
 
-	private int idPedido;
+	private long idPedido;
 	private Producto producto;
 	private int cantidad;
 	private Local local;
@@ -28,6 +28,14 @@ public class Pedido {
 		this.empleados.add(vendedorOriginal);
 		if (vendedorAuxiliar != null) this.empleados.add(vendedorAuxiliar); //VALIDACIONES EN SET, CAMBIAR LUEGO
 		this.aceptado = aceptado;
+	}
+
+	public long getIdPedido() {
+		return idPedido;
+	}
+
+	protected void setIdPedido(long idPedido) {
+		this.idPedido = idPedido;
 	}
 
 	public Producto getProducto() {
@@ -91,14 +99,6 @@ public class Pedido {
 	}
 
 	//ADD EMPLEADO EN ABM
-
-	public int getIdPedido() {
-		return idPedido;
-	}
-
-	protected void setIdPedido(int idPedido) {
-		this.idPedido = idPedido;
-	}
 
 	@Override
 	public String toString() {

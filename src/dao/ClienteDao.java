@@ -7,8 +7,19 @@ import modelo.Cliente;
 
 public class ClienteDao {
 
+	private static ClienteDao instance;
 	private static Session session;
 	private Transaction tx;
+
+	public static ClienteDao getInstance() {
+
+        if(instance == null) {
+
+            instance = new ClienteDao();
+        }
+
+        return instance;
+    }
 
 	private void iniciarOperacion() throws HibernateException {
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -50,7 +61,7 @@ public class ClienteDao {
 		}
 	}
 
-	public void Eliminar(Cliente objeto) throws HibernateException {
+	public void eliminar(Cliente objeto) throws HibernateException {
 		try {
 			iniciarOperacion();
 			session.delete(objeto);
@@ -63,12 +74,13 @@ public class ClienteDao {
 		}
 	}
 
-	public Cliente traer(long idCliente) throws HibernateException {
+	public Cliente traer(long idPersona) throws HibernateException {
 		Cliente objeto = null;
 
 		try {
+
 			iniciarOperacion();
-			objeto = (Cliente) session.get(Cliente.class, idCliente);
+			objeto = (Cliente) session.get(Cliente.class, idPersona);
 		} finally {
 			session.close();
 		}
@@ -81,7 +93,7 @@ public class ClienteDao {
 
 		try {
 			iniciarOperacion();
-			objeto = (Cliente) session.createQuery("from Cliente c order by c.apellido asc,c.nombre asc").list();
+			objeto = (Cliente) session.createQuery("from Cliente c where c.dni="+dni).uniqueResult();
 		} finally {
 			session.close();
 		}

@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Local {
 
-	private int idLocal;
+	private long idLocal;
 	private String direccion;
 	private double latitud;
 	private double longitud;
@@ -18,8 +18,8 @@ public class Local {
 	public Local() {
 	}
 
-	public Local(int idLocal, String direccion, double latitud, double longitud, long telefono) {
-		this.idLocal = idLocal;
+	public Local(String direccion, double latitud, double longitud, long telefono) {
+
 		this.direccion = direccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
@@ -30,11 +30,11 @@ public class Local {
 		this.listaSolicitudesStock = new HashSet<SolicitudStock>();
 	}
 
-	public int getIdLocal() {
+	public long getIdLocal() {
 		return idLocal;
 	}
 
-	protected void setIdLocal(int idLocal) {
+	protected void setIdLocal(long idLocal) {
 		this.idLocal = idLocal;
 	}
 
