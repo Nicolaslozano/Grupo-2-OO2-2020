@@ -44,6 +44,7 @@ public class ClienteABM {
 	    	c.setDni(dni);
 	    	c.setFechaNacimiento(fechaNacimiento);
 
+			dao.actualizar(c);
 	    }
 
 	    public Cliente traerCliente(long idPersona) {

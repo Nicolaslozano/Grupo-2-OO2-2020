@@ -50,7 +50,8 @@ public class EmpleadoABM {
 		e.setDni(dni);
 		e.setTipoEmpleado(tipoEmpleado);
 		e.setLocal(local);
-		
+
+		dao.actualizar(e);
 	}
 	
 	
