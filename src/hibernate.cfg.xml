@@ -2,7 +2,7 @@
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
 		<!--MODIFICAR -->
-		<property name="connection.url">jdbc:mysql://localhost/bd_tpc</property>
+		<property name="connection.url">jdbc:mysql://localhost/Grupo-2-BDD-OO2-2020</property>
 		<!--MODIFICAR -->
 		<property name="connection.username">root</property>
 		<!--MODIFICAR -->

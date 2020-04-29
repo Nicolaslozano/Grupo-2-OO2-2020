@@ -61,7 +61,7 @@ public class CarritoDao {
 			}
 		}
 
-		public void Eliminar(Carrito objeto) throws HibernateException {
+		public void eliminar(Carrito objeto) throws HibernateException {
 			try {
 				iniciarOperacion();
 				session.delete(objeto);

@@ -3,8 +3,25 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 
-CREATE SCHEMA IF NOT EXISTS bd_tpc;
-USE bd_tpc;
+CREATE SCHEMA IF NOT EXISTS Grupo-2-BDD-OO2-2020;
+USE Grupo-2-BDD-OO2-2020;
+
+create table stock(
+	idStock int(11) primary key AUTO_INCREMENT,
+	cantidad int(11) not null
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+CREATE TABLE comercio(
+	idLocal int(11) primary key AUTO_INCREMENT,
+	direccion varchar(45) not null,
+	latitud double not null,
+	longitud double not null,
+	telefono int(11),
+	idStock int(11) not null,
+	CONSTRAINT fk_comercio_stock
+    FOREIGN KEY (idStock) 
+        REFERENCES stock (idStock)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE persona(
 	idPersona int(11) primary key AUTO_INCREMENT,
@@ -63,25 +80,6 @@ CREATE TABLE lote(
     FOREIGN KEY (idStock) 
         REFERENCES stock(idStock)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-create table stock(
-	idStock int(11) primary key AUTO_INCREMENT,
-	cantidad int(11) not null
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
-
-CREATE TABLE comercio(
-	idLocal int(11) primary key AUTO_INCREMENT,
-	direccion varchar(45) not null,
-	latitud double not null,
-	longitud double not null,
-	telefono int(11),
-	idStock int(11) not null,
-	CONSTRAINT fk_comercio_stock
-    FOREIGN KEY (idStock) 
-        REFERENCES stock (idStock)
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
 
 create table pedido(
 	idPedido int(11) primary key AUTO_INCREMENT,

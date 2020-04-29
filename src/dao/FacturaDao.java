@@ -60,7 +60,7 @@ public class FacturaDao {
 		}
 	}
 
-	public void Eliminar(Factura objeto) throws HibernateException {
+	public void eliminar(Factura objeto) throws HibernateException {
 		try {
 			iniciarOperacion();
 			session.delete(objeto);

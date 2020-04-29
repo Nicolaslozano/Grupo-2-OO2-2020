@@ -3,7 +3,7 @@ package dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import modelo.*;
+import modelo.Local;
 
 public class LocalDao {
 
@@ -81,19 +81,6 @@ public class LocalDao {
 
 			iniciarOperacion();
 			objeto = (Local) session.get(Local.class, idLocal);
-		} finally {
-			session.close();
-		}
-
-		return objeto;
-	}
-
-	public Local traer2(long idLocal) throws HibernateException {
-		Local objeto = null;
-
-		try {
-			iniciarOperacion();
-			objeto = (Local) session.createQuery("from Local l where l.idLocal="+idLocal).uniqueResult();
 		} finally {
 			session.close();
 		}

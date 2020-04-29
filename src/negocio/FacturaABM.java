@@ -1,7 +1,7 @@
 package negocio;
 
 import dao.FacturaDao;
-import modelo.*;
+import modelo.Factura;
 public class FacturaABM {
 	
 	private static FacturaABM instance;
@@ -32,18 +32,14 @@ public class FacturaABM {
 		}
 	public void eliminar(long idFactura) {
 		Factura f = traerFactura(idFactura);
-		dao.Eliminar(f);
+		dao.eliminar(f);
 	}
-	
+
 	public void modificar(long idFactura,String factura) {
 		Factura f = traerFactura(idFactura);
 		f.setFactura(factura);
+
+		dao.actualizar(f);
 	}
-		
-	
-	
-	
-	
-	
 
 }//end

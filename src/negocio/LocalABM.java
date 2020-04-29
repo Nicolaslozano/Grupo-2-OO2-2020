@@ -1,11 +1,11 @@
 package negocio;
-import modelo.*;
-import dao.*;
+import modelo.Local;
+import dao.LocalDao;
 public class LocalABM {
-	
+
 	private static LocalABM instance;
 	private LocalDao dao=LocalDao.getInstance();
-			
+
 	protected LocalABM() {}
 	
 	public static LocalABM getInstance() {
@@ -29,28 +29,23 @@ public class LocalABM {
 	public Local traerLocal(long idLocal) {
 		
 		return dao.traer(idLocal);
-		
 	}
 	
 	public void eliminar(long idLocal) {
+
 		Local l = traerLocal(idLocal);
 		dao.eliminar(l);
-		
 	}
-	
+
 	public void modificar(long idLocal,String direccion,double latitud,double longitud,long telefono) {
-		
+
 		Local l = traerLocal(idLocal);
 		l.setDireccion(direccion);
 		l.setLatitud(latitud);
 		l.setLongitud(longitud);
 		l.setTelefono(telefono);
-		
-		
-		
+
+		dao.actualizar(l);
 	}
-	
-	
-	
-	
+
 }//end

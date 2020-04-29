@@ -3,10 +3,10 @@ package negocio;
 import java.time.LocalDate;
 
 import dao.CarritoDao;
-import dao.ClienteDao;
+//import dao.ClienteDao;
 import modelo.Carrito;
-import modelo.Cliente;
-import modelo.Producto;
+//import modelo.Cliente;
+//import modelo.Producto;
 
 public class CarritoABM {
 	
@@ -24,38 +24,30 @@ public class CarritoABM {
 		return instance;
 		
 	}
-	
+
 	public void agregar(LocalDate fecha) {
-		
+
 		Carrito c = new Carrito(fecha);
-		
 		dao.agregar(c);
-		
-		
 	}
-	
-	
-	  public void modificar(long idCarrito,LocalDate fecha) {
 
-	    	Carrito p= traerCarrito(idCarrito);
-	    	p.setFecha(fecha);
+	public void modificar(long idCarrito,LocalDate fecha) {
 
-	    }
-	
-	
+		Carrito p= traerCarrito(idCarrito);
+		p.setFecha(fecha);
+
+		dao.actualizar(p);
+	}
 
     public void eliminar(long idCarrito) {
 
     	Carrito c = traerCarrito(idCarrito);
-    	dao.Eliminar(c);
+    	dao.eliminar(c);
     }
-	
-	
-	
+
     public Carrito traerCarrito(long idCarrito) {
 
         return dao.traer(idCarrito);
     }
-	
-	
+
 }//end

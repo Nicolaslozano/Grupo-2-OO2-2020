@@ -40,8 +40,9 @@ public class ProductoABM {
     	p.setDescripcion(descripcion);
     	p.setFechaAlta(fechaAlta);
     	p.setNombre(nombre);
-    	p.setPrecio(precio);
+        p.setPrecio(precio);
 
+        dao.actualizar(p);
     }
 
     public Producto traerProducto(long idProducto) {
