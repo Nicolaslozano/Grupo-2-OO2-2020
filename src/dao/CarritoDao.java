@@ -1,90 +1,112 @@
 package dao;
 
 import modelo.Carrito;
+
+import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 public class CarritoDao {
 
-		private static CarritoDao instance;
-		private static Session session;
-		private Transaction tx;
+	private static CarritoDao instance;
+	private static Session session;
+	private Transaction tx;
 
-		public static CarritoDao getInstance() {
+	public static CarritoDao getInstance() {
 
-			if(instance == null) {
+		if(instance == null) {
 
-				instance = new CarritoDao();
-			}
-
-			return instance;
+			instance = new CarritoDao();
 		}
 
-		private void iniciarOperacion() throws HibernateException {
-			session = HibernateUtil.getSessionFactory().openSession();
-			tx = session.beginTransaction();
+		return instance;
+	}
+
+	private void iniciarOperacion() throws HibernateException {
+		session = HibernateUtil.getSessionFactory().openSession();
+		tx = session.beginTransaction();
+	}
+
+	private void manejaExcepcion(HibernateException he) throws HibernateException {
+		tx.rollback();
+		throw new HibernateException("ERROR en la capa de acceso de datos", he);
+	}
+
+
+	public int agregar(Carrito objeto) {
+		int id = 0;
+
+		try {
+			iniciarOperacion();
+			id = Integer.parseInt(session.save(objeto).toString());
+			tx.commit();
+		} catch (HibernateException he) {
+			manejaExcepcion(he);
+			throw he;
+		} finally {
+			session.close();
+		}
+		return id;
+
+	}
+
+	public void actualizar(Carrito objeto) throws HibernateException {
+		try {
+			iniciarOperacion();
+			session.update(objeto);
+			tx.commit();
+		} catch (HibernateException he) {
+			manejaExcepcion(he);
+			throw he;
+		} finally {
+			session.close();
+		}
+	}
+
+	public void eliminar(Carrito objeto) throws HibernateException {
+		try {
+			iniciarOperacion();
+			session.delete(objeto);
+			tx.commit();
+		} catch (HibernateException he) {
+			manejaExcepcion(he);
+			throw he;
+		} finally {
+			session.close();
+		}
+	}
+
+	public Carrito traer(long idCarrito) throws HibernateException {
+		Carrito objeto = null;
+
+		try {
+			iniciarOperacion();
+			objeto = (Carrito) session.get(Carrito.class, idCarrito);
+		} finally {
+			session.close();
 		}
 
-		private void manejaExcepcion(HibernateException he) throws HibernateException {
-			tx.rollback();
-			throw new HibernateException("ERROR en la capa de acceso de datos", he);
+		return objeto;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Carrito> traer() throws HibernateException{ //traer pedidos x carrito
+
+		List<Carrito> list = null;
+
+		try {
+
+			iniciarOperacion();
+			String hql = "from Pedido";
+			list = session.createQuery(hql).list();
+
+		} finally {
+
+			session.close();
 		}
 
-
-		public int agregar(Carrito objeto) {
-			int id = 0;
-
-			try {
-				iniciarOperacion();
-				id = Integer.parseInt(session.save(objeto).toString());
-				tx.commit();
-			} catch (HibernateException he) {
-				manejaExcepcion(he);
-				throw he;
-			} finally {
-				session.close();
-			}
-			return id;
-
-		}
-
-		public void actualizar(Carrito objeto) throws HibernateException {
-			try {
-				iniciarOperacion();
-				session.update(objeto);
-				tx.commit();
-			} catch (HibernateException he) {
-				manejaExcepcion(he);
-				throw he;
-			} finally {
-				session.close();
-			}
-		}
-
-		public void eliminar(Carrito objeto) throws HibernateException {
-			try {
-				iniciarOperacion();
-				session.delete(objeto);
-				tx.commit();
-			} catch (HibernateException he) {
-				manejaExcepcion(he);
-				throw he;
-			} finally {
-				session.close();
-			}
-		}
-
-		public Carrito traer(long idCarrito) throws HibernateException {
-			Carrito objeto = null;
-
-			try {
-				iniciarOperacion();
-				objeto = (Carrito) session.get(Carrito.class, idCarrito);
-			} finally {
-				session.close();
-			}
-
-			return objeto;
-		}
+		return list;
+	}
 
 }//end

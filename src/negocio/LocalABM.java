@@ -1,5 +1,6 @@
 package negocio;
 import modelo.Local;
+import modelo.Stock;
 import dao.LocalDao;
 public class LocalABM {
 
@@ -7,22 +8,24 @@ public class LocalABM {
 	private LocalDao dao=LocalDao.getInstance();
 
 	protected LocalABM() {}
-	
+
 	public static LocalABM getInstance() {
-		
+
 		if(instance == null) {
-			
+
 			instance = new LocalABM();
-			
+
 		}
-		
+
 		return instance;
 	}
-	
-	public void agregar(String direccion,double latitud,double longitud,long telefono) {
-		
-		Local l = new Local(direccion,latitud,longitud,telefono);
+
+	public void agregar(String direccion,double latitud,double longitud,long telefono, Stock stock) {
+
+		Local l = new Local(direccion,latitud,longitud,telefono,stock);
+
 		dao.agregar(l);
+
 	}
 
 	

@@ -18,13 +18,13 @@ public class Local {
 	public Local() {
 	}
 
-	public Local(String direccion, double latitud, double longitud, long telefono) {
+	public Local(String direccion, double latitud, double longitud, long telefono, Stock stock) {
 
 		this.direccion = direccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
-		this.stock = new Stock();
+		this.stock = stock;
 		this.listaEmpleados = new HashSet<Empleado>();
 		this.listaFacturas = new HashSet<Factura>();
 		this.listaSolicitudesStock = new HashSet<SolicitudStock>();

@@ -25,6 +25,7 @@ public class StockABM {
 	public void agregar(int cantidad, Local local) {
 
 		Stock s = new Stock(cantidad, local);
+
 		dao.agregar(s);
 	}
 

@@ -6,24 +6,25 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE SCHEMA IF NOT EXISTS Grupo-2-BDD-OO2-2020;
 USE Grupo-2-BDD-OO2-2020;
 
-create table stock(
-	idStock int(11) primary key AUTO_INCREMENT,
-	cantidad int(11) not null
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
 CREATE TABLE comercio(
-	idLocal int(11) primary key AUTO_INCREMENT,
+	idLocal int(11) NOT NULL AUTO_INCREMENT,
 	direccion varchar(45) not null,
 	latitud double not null,
 	longitud double not null,
 	telefono int(11),
-	idStock int(11) not null,
-	CONSTRAINT fk_comercio_stock
-    FOREIGN KEY (idStock) 
-        REFERENCES stock (idStock)
+	primary key (idLocal)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-CREATE TABLE persona(
+create table stock(
+	idStock int(11) not null,
+	cantidad int(11) not null,
+	primary key(idStock),
+	CONSTRAINT fk_comercio
+    FOREIGN KEY (idStock) 
+        REFERENCES comercio (idLocal) ON DELETE NO ACTION ON UPDATE NO ACTION
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE if not exists persona(
 	idPersona int(11) primary key AUTO_INCREMENT,
 	dni int(11) not null,
 	nombre varchar(45) NOT NULL,

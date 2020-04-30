@@ -4,11 +4,13 @@ import java.time.LocalDate;
 
 import dao.EmpleadoDao;
 import modelo.*;
+import negocio.PedidoABM;
 
 public class EmpleadoABM {
 
 	private static EmpleadoABM instance;
 	private EmpleadoDao dao= EmpleadoDao.getInstance();
+	private PedidoABM pedidoABM = PedidoABM.getInstance();
 	
 	protected EmpleadoABM() {}
 
@@ -54,12 +56,12 @@ public class EmpleadoABM {
 		dao.actualizar(e);
 	}
 
-	public double calcularSueldo(List<Carrito> listaCarrito, Empleado empleado, int mes) {
+	public double calcularSueldo(Empleado empleado, int mes) {
 
 		double sueldo = 0;
 		double porcentajeSueldo = 0;
 
-		for (Carrito carrito : listaCarrito) {
+		for (Carrito carrito :) {
 
 			for (Pedido pedido : carrito.getListaPedidos()) {
 

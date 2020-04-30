@@ -5,7 +5,9 @@
 <hibernate-mapping>
 	<class name="modelo.Stock" table="stock">
 		<id column="idStock" name="idStock">
-		<generator class="identity"/>
+			<generator class="foreign">
+				<param name="property">local</param>
+			</generator>
 		</id>
 		<property name="cantidad" column="cantidad" type="int"/>
 
@@ -15,7 +17,7 @@
 					<one-to-many class="modelo.Lote"/>
 				</set>
 
-		<one-to-one name="local" class="modelo.Local"/>
+		<one-to-one name="local" class="modelo.Local" cascade="all"/>
 
 	</class>
 

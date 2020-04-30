@@ -12,7 +12,7 @@
 		<property column="longitud" name="longitud" type="double" />
 		<property column="telefono" name="telefono" type="long" />
 
-		<one-to-one name="stock" class="modelo.Stock"/>
+		<one-to-one name="stock" class="modelo.Stock" cascade="all"/>
 
 		<set name="listaSolicitudesStock" table="solicitudStock"
 			order-by="idSolicitud" inverse="true" lazy="true" fetch="select">

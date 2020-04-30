@@ -1,6 +1,7 @@
 package negocio;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import dao.CarritoDao;
 //import dao.ClienteDao;
@@ -9,20 +10,20 @@ import modelo.Carrito;
 //import modelo.Producto;
 
 public class CarritoABM {
-	
+
 	private static CarritoABM instance;
 	private CarritoDao dao = CarritoDao.getInstance();
-	
+
 	protected CarritoABM() {}
-	
+
 	public static CarritoABM getInstance() {
-		
+
 		if(instance == null) {
 			instance = new CarritoABM();
 		}
-		
+
 		return instance;
-		
+
 	}
 
 	public void agregar(LocalDate fecha) {
@@ -48,6 +49,11 @@ public class CarritoABM {
     public Carrito traerCarrito(long idCarrito) {
 
         return dao.traer(idCarrito);
-    }
+	}
+	
+	public List<Carrito> traerCarrito() {
+
+		return dao.traer();
+	}
 
 }//end
