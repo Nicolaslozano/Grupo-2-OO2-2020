@@ -87,7 +87,6 @@ create table pedido(
 	cantidad int(11) not null,
 	idLocal int(11) not null,
 	idCliente int(11) not null,
-	subtotal float,
 	aceptado bit(1) not null,
 	id_vendedor_original int(11) not null,
 	id_vendedor_auxiliar int(11),
@@ -115,9 +114,17 @@ create table solicitudStock(
 	idProducto int(11) not null,
 	cantidad int(11) not null,
 	aceptado bit(1) not null,
+	id_vendedor int(11) not null,
+	id_colaborador int(11),
 	CONSTRAINT fk_producto_solicitud
     FOREIGN KEY (idProducto) 
-        REFERENCES producto(idProducto)
+        REFERENCES producto(idProducto),
+	CONSTRAINT fk_vendedor_solicitud
+    FOREIGN KEY (id_vendedor) 
+        REFERENCES empleado(idPersona),
+	CONSTRAINT fk_colaborador_solicitud
+    FOREIGN KEY (id_colaborador) 
+        REFERENCES empleado(idPersona)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 

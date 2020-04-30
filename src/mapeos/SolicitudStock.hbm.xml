@@ -14,11 +14,9 @@
 
 		<one-to-one name="producto" class="modelo.Producto" ></one-to-one>
 
-		<set name="empleados" cascade="save-update" table="empleado" order-by="idPersona asc" inverse="true"
-		lazy="true" fetch="select">
-			<key column="idSolicitud" not-null="true"/>
-			<one-to-many class="modelo.Empleado"/>
-		</set>
+		<many-to-one name="vendedor" class="modelo.Empleado" column="id_vendedor"/>
+
+		<many-to-one name="colaborador" class="modelo.Empleado" column="id_colaborador"/>
 
 	</class>
 

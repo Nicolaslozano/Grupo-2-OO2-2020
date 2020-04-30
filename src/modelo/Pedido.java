@@ -9,7 +9,6 @@ public class Pedido {
 	private Cliente cliente;
 	private Empleado vendedorOriginal;
 	private Empleado vendedorAuxiliar;
-	private float subtotal;
 	private boolean aceptado;
 
 	public Pedido() {
@@ -99,12 +98,7 @@ public class Pedido {
 
 	public float getSubtotal() {
 
-		return this.subtotal;
-	}
-
-	public void setSubtotal(float subtotal) {
-
-		this.subtotal = subtotal;
+		return producto.getPrecio() * cantidad;
 	}
 
 	//ADD EMPLEADO EN ABM

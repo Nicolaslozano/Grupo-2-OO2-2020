@@ -32,6 +32,10 @@ public class Carrito {
 		return listaPedidos;
 	}
 
+	public void setListaPedidos(Set<Pedido> listaPedidos) {
+		this.listaPedidos = listaPedidos;
+	}
+
 	public LocalDate getFecha() {
 		return fecha;
 	}
