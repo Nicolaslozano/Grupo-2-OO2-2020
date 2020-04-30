@@ -1,8 +1,5 @@
 package modelo;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Pedido {
 
 	private long idPedido;
@@ -10,7 +7,8 @@ public class Pedido {
 	private int cantidad;
 	private Local local;
 	private Cliente cliente;
-	private Set<Empleado> empleados = new HashSet<>();
+	private Empleado vendedorOriginal;
+	private Empleado vendedorAuxiliar;
 	private float subtotal;
 	private boolean aceptado;
 
@@ -25,8 +23,8 @@ public class Pedido {
 		this.cantidad = cantidad;
 		this.local = local;
 		this.cliente = cliente;
-		this.empleados.add(vendedorOriginal);
-		if (vendedorAuxiliar != null) this.empleados.add(vendedorAuxiliar); //VALIDACIONES EN SET, CAMBIAR LUEGO
+		this.vendedorAuxiliar = vendedorAuxiliar;
+		this.vendedorOriginal = vendedorOriginal;
 		this.aceptado = aceptado;
 	}
 
@@ -70,22 +68,33 @@ public class Pedido {
 		this.local = local;
 	}
 
+	public void setCliente(Cliente cliente) {
+
+		this.cliente = cliente;
+	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public Empleado getvendedorOriginal() {
+
+		return this.vendedorOriginal;
 	}
 
-	public Set<Empleado> getEmpleados() {
+	public void setvendedorOriginal(Empleado vendedorOriginal) {
 
-		return this.empleados;
+		this.vendedorOriginal = vendedorOriginal;
 	}
 
-	public void setEmpleados(Set<Empleado> empleados) {
+	public Empleado getVendedorAuxiliar() {
 
-		this.empleados = empleados;
+		return this.vendedorAuxiliar;
+	}
+
+	public void setVendedorAuxiliar(Empleado vendedorAuxiliar) {
+
+		this.vendedorAuxiliar = vendedorAuxiliar;
 	}
 
 	public float getSubtotal() {
@@ -103,7 +112,7 @@ public class Pedido {
 	@Override
 	public String toString() {
 		return "Pedido [producto=" + producto + ", cantidad=" + cantidad + ", local=" + local + ", cliente=" + cliente
-				+ ", empleados: "+empleados+"]\n\n";
+				+ ", vendedorAuxiliar: "+vendedorAuxiliar + "VendedorOriginal:"+vendedorOriginal+"]\n\n";
 	}
 
 }

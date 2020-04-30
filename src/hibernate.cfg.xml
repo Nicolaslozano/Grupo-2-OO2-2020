@@ -18,9 +18,9 @@
 		<mapping resource="mapeos/Local.hbm.xml"/>
 		<mapping resource="mapeos/Stock.hbm.xml"/>
 		<mapping resource="mapeos/SolicitudStock.hbm.xml"/>
-		<mapping resource="mapeos/Pedido.hbm.xml"/>
 		<mapping resource="mapeos/Factura.hbm.xml"/>
 		<mapping resource="mapeos/Lote.hbm.xml"/>
+		<mapping resource="mapeos/Pedido.hbm.xml"/>
 
 	</session-factory>
 </hibernate-configuration>
