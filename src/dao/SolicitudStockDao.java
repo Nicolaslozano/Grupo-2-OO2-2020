@@ -3,19 +3,20 @@ package dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import modelo.Stock;
 
-public class StockDao {
+import modelo.SolicitudStock;
 
-	private static StockDao instance;
+public class SolicitudStockDao {
+
+	private static SolicitudStockDao instance;
 	private static Session session;
 	private Transaction tx;
 
-	public static StockDao getInstance() {
+	public static SolicitudStockDao getInstance() {
 
 		if (instance == null) {
 
-			instance = new StockDao();
+			instance = new SolicitudStockDao();
 		}
 
 		return instance;
@@ -31,7 +32,7 @@ public class StockDao {
 		throw new HibernateException("ERROR en la capa de acceso de datos", he);
 	}
 
-	public int agregar(Stock objeto) {
+	public int agregar(SolicitudStock objeto) {
 		int id = 0;
 
 		try {
@@ -48,7 +49,7 @@ public class StockDao {
 
 	}
 
-	public void actualizar(Stock objeto) throws HibernateException {
+	public void actualizar(SolicitudStock objeto) throws HibernateException {
 		try {
 			iniciarOperacion();
 			session.update(objeto);
@@ -61,7 +62,7 @@ public class StockDao {
 		}
 	}
 
-	public void eliminar(Stock objeto) throws HibernateException {
+	public void eliminar(SolicitudStock objeto) throws HibernateException {
 		try {
 			iniciarOperacion();
 			session.delete(objeto);
@@ -74,13 +75,13 @@ public class StockDao {
 		}
 	}
 
-	public Stock traer(long idStock) throws HibernateException {
-		Stock objeto = null;
+	public SolicitudStock traer(long idSolicitud) throws HibernateException {
+		SolicitudStock objeto = null;
 
 		try {
 
 			iniciarOperacion();
-			objeto = (Stock) session.get(Stock.class, idStock);
+			objeto = (SolicitudStock) session.get(SolicitudStock.class, idSolicitud);
 		} finally {
 			session.close();
 		}
