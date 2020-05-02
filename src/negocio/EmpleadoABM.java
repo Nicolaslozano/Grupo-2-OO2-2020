@@ -4,13 +4,12 @@ import java.time.LocalDate;
 
 import dao.EmpleadoDao;
 import modelo.*;
-import negocio.PedidoABM;
 
 public class EmpleadoABM {
 
 	private static EmpleadoABM instance;
 	private EmpleadoDao dao= EmpleadoDao.getInstance();
-	private PedidoABM pedidoABM = PedidoABM.getInstance();
+	private CarritoABM carritoABM = CarritoABM.getInstance();
 	
 	protected EmpleadoABM() {}
 
@@ -56,4 +55,40 @@ public class EmpleadoABM {
 		dao.actualizar(e);
 	}
 
+	public double calcularSueldo(Empleado empleado, int mes) {
+
+		double sueldo = 0;
+		double porcentajeSueldo = 0;
+
+		for (Carrito carrito : carritoABM.traerCarrito()) {
+
+			for (Pedido pedido : carrito.getListaPedidos()) {
+
+				porcentajeSueldo = 0;
+
+				if (carrito.getFecha().getMonthValue() == mes) {
+
+					if (pedido.getVendedorOriginal().getDni() == empleado.getDni()
+							&& pedido.getVendedorAuxiliar() == null) {
+						porcentajeSueldo = pedido.getSubtotal() * 0.05;
+						sueldo += porcentajeSueldo;
+					} else if (pedido.getVendedorAuxiliar() != null) {
+
+						if (pedido.getVendedorOriginal().getDni() == empleado.getDni()) {
+							porcentajeSueldo = pedido.getSubtotal() * 0.03;
+							sueldo += porcentajeSueldo;
+						}
+
+						if (pedido.getVendedorAuxiliar().getDni() == empleado.getDni()) {
+							porcentajeSueldo = pedido.getSubtotal() * 0.02;
+							sueldo += porcentajeSueldo;
+						}
+					}
+
+				}
+			}
+
+		}
+		return sueldo;
+	}
 }//end
