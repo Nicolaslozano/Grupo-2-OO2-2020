@@ -1,5 +1,6 @@
 package dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -80,6 +81,8 @@ public class EmpleadoDao {
 		try {
 			iniciarOperacion();
 			objeto = (Empleado) session.get(Empleado.class, idPersona);
+			Hibernate.initialize(objeto.getLocal());
+
 		} finally {
 			session.close();
 		}
@@ -93,6 +96,8 @@ public class EmpleadoDao {
 		try {
 			iniciarOperacion();
 			objeto = (Empleado) session.createQuery("from Empleado e where e.dni="+dni).uniqueResult();
+			Hibernate.initialize(objeto.getLocal());
+
 		} finally {
 			session.close();
 		}

@@ -4,9 +4,11 @@ import modelo.Carrito;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 public class CarritoDao {
 
 	private static CarritoDao instance;
@@ -15,7 +17,7 @@ public class CarritoDao {
 
 	public static CarritoDao getInstance() {
 
-		if(instance == null) {
+		if (instance == null) {
 
 			instance = new CarritoDao();
 		}
@@ -32,7 +34,6 @@ public class CarritoDao {
 		tx.rollback();
 		throw new HibernateException("ERROR en la capa de acceso de datos", he);
 	}
-
 
 	public int agregar(Carrito objeto) {
 		int id = 0;
@@ -82,8 +83,12 @@ public class CarritoDao {
 
 		try {
 			iniciarOperacion();
-			objeto = (Carrito) session.get(Carrito.class, idCarrito);
+			String hql = "from Carrito c where c.idCarrito="+idCarrito;
+			objeto = (Carrito) session.createQuery(hql).uniqueResult();
+			Hibernate.initialize(objeto.getListaPedidos());
+
 		} finally {
+
 			session.close();
 		}
 
@@ -91,15 +96,18 @@ public class CarritoDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Carrito> traer() throws HibernateException{ //traer pedidos x carrito
-
+	public List<Carrito> traer() throws HibernateException {
 		List<Carrito> list = null;
 
 		try {
-
 			iniciarOperacion();
-			String hql = "from Pedido";
+			String hql = "from Carrito";
 			list = session.createQuery(hql).list();
+
+			for(Carrito c : list) {
+
+				Hibernate.initialize(c.getListaPedidos());
+			}
 
 		} finally {
 
@@ -109,4 +117,4 @@ public class CarritoDao {
 		return list;
 	}
 
-}//end
+}// end

@@ -1,5 +1,6 @@
 package dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -81,6 +82,11 @@ public class LocalDao {
 
 			iniciarOperacion();
 			objeto = (Local) session.get(Local.class, idLocal);
+			Hibernate.initialize(objeto.getListaEmpleados());
+			Hibernate.initialize(objeto.getListaFacturas());
+			Hibernate.initialize(objeto.getListaSolicitudesStock());
+			Hibernate.initialize(objeto.getStock());
+
 		} finally {
 			session.close();
 		}

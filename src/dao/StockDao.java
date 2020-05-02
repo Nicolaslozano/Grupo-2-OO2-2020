@@ -1,5 +1,6 @@
 package dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -81,6 +82,8 @@ public class StockDao {
 
 			iniciarOperacion();
 			objeto = (Stock) session.get(Stock.class, idStock);
+			Hibernate.initialize(objeto.getLocal());
+			Hibernate.initialize(objeto.getLotes());
 		} finally {
 			session.close();
 		}

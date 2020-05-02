@@ -15,19 +15,19 @@
 		<one-to-one name="stock" class="modelo.Stock" cascade="all"/>
 
 		<set name="listaSolicitudesStock" table="solicitudStock"
-			order-by="idSolicitud" inverse="true" lazy="true" fetch="select">
+			order-by="idSolicitud asc" inverse="true" lazy="true" fetch="select">
 			<key column="idLocal" not-null="true" />
 			<one-to-many class="modelo.SolicitudStock" />
 
 		</set>
 
-		<set name="listaEmpleados" table="empleado" order-by="idPersona"
+		<set name="listaEmpleados" table="empleado" order-by="idPersona asc"
 			inverse="true" lazy="true" fetch="select">
 			<key column="idLocal" not-null="true" />
 			<one-to-many class="modelo.Empleado" />
 		</set>
 
-		<set name="listaFacturas" table="factura" order-by="idFactura"
+		<set name="listaFacturas" table="factura" order-by="idFactura asc"
 			inverse="true" lazy="true" fetch="select">
 			<key column="idLocal" not-null="true" />
 			<one-to-many class="modelo.Factura" />

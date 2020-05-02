@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -150,6 +151,8 @@ public class LoteDao {
 
             iniciarOperacion();
             obj = (Lote) session.get(Lote.class, idLote);
+            Hibernate.initialize(obj.getProducto());
+            Hibernate.initialize(obj.getStock());
         } finally {
 
             session.close();
