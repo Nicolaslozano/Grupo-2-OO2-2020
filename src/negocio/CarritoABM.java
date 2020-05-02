@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import dao.CarritoDao;
-import modelo.Empleado;
 import modelo.Carrito;
 import modelo.Pedido;
 
@@ -12,6 +11,7 @@ public class CarritoABM {
 
 	private static CarritoABM instance;
 	private CarritoDao dao = CarritoDao.getInstance();
+	private PedidoABM pedidoABM = PedidoABM.getInstance();
 
 	protected CarritoABM() {}
 
@@ -55,6 +55,17 @@ public class CarritoABM {
 		return dao.traer();
 	}
 
-	
+	public double calcularTotal(long idCarrito) {
+
+		Carrito c = traerCarrito(idCarrito);
+		double total = 0;
+
+		for(Pedido p : pedidoABM.traerPedido(c)) {
+
+			total = total + p.getSubtotal();
+		}
+
+		return total;
+	}
 
 }//end

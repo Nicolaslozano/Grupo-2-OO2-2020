@@ -2,39 +2,52 @@ package test;
 
 import java.time.LocalDate;
 
+import modelo.Carrito;
 import modelo.Local;
-import negocio.ProductoABM;
-import negocio.StockABM;
-import negocio.ClienteABM;
-import negocio.LocalABM;
-
+import modelo.Producto;
+import negocio.*;
 public class test {
 
 	public static void main(String[] args) {
 
-		//ProductoABM productoABM = ProductoABM.getInstance();
+		ProductoABM productoABM = ProductoABM.getInstance();
 
-		//productoABM.agregar("saba", "lero", 10, LocalDate.now());
+		//productoABM.agregar("SALSA", "SALSITA", 10, LocalDate.now());
+
+		//productoABM.agregar("SALSA", "211234123", 44, LocalDate.now());
 
 		//productoABM.eliminar(2);
 
-		//ClienteABM clienteABM = ClienteABM.getInstance();
+		ClienteABM clienteABM = ClienteABM.getInstance();
 
 		//clienteABM.agregar(123, "cuaren", "tena", LocalDate.now(), "email");
 
 		//System.out.println(clienteABM.traerCliente(123));
 
 		LocalABM localABM = LocalABM.getInstance();
-
 		StockABM stockABM = StockABM.getInstance();
+		CarritoABM carritoABM = CarritoABM.getInstance();
+		PedidoABM pedidoABM = PedidoABM.getInstance();
+		EmpleadoABM empleadoABM = EmpleadoABM.getInstance();
+
+		//carritoABM.agregar(LocalDate.now());
 
 		//localABM.agregar("direccion", 555, 555, 555, null);
 
-		Local local =localABM.traerLocal(1);
+		//empleadoABM.agregar("EMPLE", "ADO", LocalDate.now(), 45678, null, false, localABM.traerLocal(1));
 
-		System.out.println(local.getTelefono());
+		Producto p = productoABM.traerProducto(2);
 
-		stockABM.agregar(12, local);
+		//System.out.println(p.getIdProducto());
+		pedidoABM.agregar(p, 300, localABM.traerLocal(1), clienteABM.traerCliente(123),
+		 carritoABM.traerCarrito(1), empleadoABM.traerEmpleado(45678), null, false);
+
+		//Local local =localABM.traerLocal(1);
+
+		//System.out.println(local.getTelefono());
+
+		//stockABM.agregar(12, local);
+
 
 	}
 }

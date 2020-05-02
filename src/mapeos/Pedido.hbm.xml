@@ -12,10 +12,14 @@
 
 		<property column="cantidad" name="cantidad" type="int"/>
 		<property column="aceptado" name="aceptado" type="boolean"/>
-		<one-to-one name="producto" class="modelo.Producto" ></one-to-one>
+
+		<one-to-one name="producto" class="modelo.Producto" cascade="all"></one-to-one>
 		<one-to-one name="cliente" class="modelo.Cliente" ></one-to-one>
+
 		<many-to-one name="vendedorOriginal" class="modelo.Empleado" column="id_vendedor_original"/>
 		<many-to-one name="vendedorAuxiliar" class="modelo.Empleado" column="id_vendedor_auxiliar"/>
+
+		<many-to-one name="carrito" class="modelo.Carrito" column="idCarrito"></many-to-one>
 
 	</class>
 

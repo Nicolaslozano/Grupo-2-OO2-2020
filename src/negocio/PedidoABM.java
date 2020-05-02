@@ -1,11 +1,14 @@
 package negocio;
 
+import java.util.List;
+
 import dao.PedidoDao;
 import modelo.Pedido;
 import modelo.Producto;
 import modelo.Cliente;
 import modelo.Empleado;
 import modelo.Local;
+import modelo.Carrito;
 
 public class PedidoABM {
 
@@ -24,10 +27,10 @@ public class PedidoABM {
         return instance;
     }
 
-    public void agregar(Producto producto, int cantidad, Local local, Cliente cliente,
+    public void agregar(Producto producto, int cantidad, Local local, Cliente cliente, Carrito carrito,
     Empleado vendedorOriginal, Empleado vendedorAuxiliar, boolean aceptado) {
 
-		Pedido p = new Pedido(producto, cantidad, local, cliente, vendedorOriginal, vendedorAuxiliar, aceptado);
+		Pedido p = new Pedido(producto, cantidad, local, cliente, carrito, vendedorOriginal, vendedorAuxiliar, aceptado);
 		dao.agregar(p);
 	}
 
@@ -41,6 +44,11 @@ public class PedidoABM {
         Pedido p=traerPedido(idPedido);
 
 		dao.eliminar(p);
-	}
+    }
+
+    public List<Pedido> traerPedido(Carrito carrito) {
+
+        return dao.traer(carrito);
+    }
 
 }

@@ -9,7 +9,6 @@ public class Carrito {
 	private long idCarrito;
 	private Set<Pedido> listaPedidos;
 	private LocalDate fecha;
-	private float total; //eliminar, se calcula mediante metodo con los pedidos
 
 	public Carrito() {
 	}
@@ -44,18 +43,10 @@ public class Carrito {
 		this.fecha = fecha;
 	}
 
-	public float getTotal() {
-		return total;
-	}
-
-	public void setTotal(float total) {
-		this.total = total;
-	}
-
 	@Override
 	public String toString() {
 		return "\nCarrito [idCarrito=" + idCarrito + ", listaPedidos=" + listaPedidos + ", fecha=" + fecha + ", total="
-				+ total + "]";
+				 + "]";
 	}
 
 }

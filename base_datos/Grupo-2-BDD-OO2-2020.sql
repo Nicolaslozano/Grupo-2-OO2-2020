@@ -30,7 +30,7 @@ CREATE TABLE if not exists persona(
 	nombre varchar(45) NOT NULL,
 	apellido varchar(45) NOT NULL,
 	fechaNacimiento date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 CREATE TABLE cliente(
 	idPersona int(11) primary key,
@@ -82,12 +82,18 @@ CREATE TABLE lote(
         REFERENCES stock(idStock)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
+create table carrito (
+	idCarrito int(11) primary key AUTO_INCREMENT,
+	fecha date not null
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
 create table pedido(
 	idPedido int(11) primary key AUTO_INCREMENT,
 	idProducto int(11) not null,
 	cantidad int(11) not null,
 	idLocal int(11) not null,
 	idCliente int(11) not null,
+	idCarrito int(11) not null,
 	aceptado bit(1) not null,
 	id_vendedor_original int(11) not null,
 	id_vendedor_auxiliar int(11),
@@ -105,7 +111,10 @@ create table pedido(
         REFERENCES empleado(idPersona),
 	CONSTRAINT fk_vendedor_auxiliar
     FOREIGN KEY (id_vendedor_auxiliar) 
-        REFERENCES empleado(idPersona)
+        REFERENCES empleado(idPersona),
+    CONSTRAINT fk_carrito
+    FOREIGN KEY (idCarrito)
+    	REFERENCES carrito(idCarrito)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
@@ -128,12 +137,6 @@ create table solicitudStock(
         REFERENCES empleado(idPersona)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-
-create table carrito (
-	idCarrito int(11) primary key AUTO_INCREMENT,
-	fecha date not null,
-	total float	
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 
 

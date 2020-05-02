@@ -1,6 +1,6 @@
 package modelo;
 
-import java.time.LocalDate;;
+import java.time.LocalDate;
 
 public class Producto {
 
