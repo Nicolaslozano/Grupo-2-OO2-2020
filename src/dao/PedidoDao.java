@@ -99,8 +99,15 @@ public class PedidoDao {
         Pedido objeto = null;
 
 		try {
-			iniciarOperacion();
-			objeto = (Pedido) session.get(Pedido.class, idPedido);
+            iniciarOperacion();
+            String hql = "from Pedido p inner join fetch p.carrito c " +
+                                        "inner join fetch p.producto pr "+
+                                        "inner join fetch p.local l "+
+                                        "inner join fetch p.cliente cl "+
+                                        "inner join fetch p.vendedorOriginal vo "+
+                                        "inner join fetch p.vendedorAuxiliar va "+
+                                        "where p.idPedido="+idPedido;
+			objeto = (Pedido) session.createQuery(hql).uniqueResult();
 		} finally {
 			session.close();
 		}

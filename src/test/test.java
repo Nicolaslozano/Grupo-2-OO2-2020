@@ -2,9 +2,7 @@ package test;
 
 import java.time.LocalDate;
 
-import modelo.Carrito;
-import modelo.Local;
-import modelo.Producto;
+import modelo.*;
 import negocio.*;
 public class test {
 
@@ -37,11 +35,13 @@ public class test {
 		//empleadoABM.agregar("EMPLE", "ADO", LocalDate.now(), 45678, null, false, localABM.traerLocal(1));
 
 		Producto p = productoABM.traerProducto(2);
+		Pedido pp = pedidoABM.traerPedido(1);
 
 		//System.out.println(p.getIdProducto());
-		pedidoABM.agregar(p, 300, localABM.traerLocal(1), clienteABM.traerCliente(123),
-		 carritoABM.traerCarrito(1), empleadoABM.traerEmpleado(45678), null, false);
+		//pedidoABM.agregar(p, 300, localABM.traerLocal(1), clienteABM.traerCliente(123),
+		 //carritoABM.traerCarrito(1), empleadoABM.traerEmpleado(45678), null, false);
 
+		 System.out.println(pp.getVendedorOriginal().getApellido());
 		//Local local =localABM.traerLocal(1);
 
 		//System.out.println(local.getTelefono());
