@@ -48,4 +48,20 @@ public class SolicitudStockABM {
 		return dao.traer(idSolicitud);
 	}
 
+	public double calcularDistancia(Local local1, Local local2) throws Exception {
+		double rad = Math.PI / 180; // Para convertir a Radianes
+		double dlat = local1.getLatitud() - local2.getLatitud(); // Diferencia de latitudes
+		double dlong = local1.getLongitud() - local2.getLongitud(); // Diferencia de longitudes
+
+		if (local1.equals(local2))
+			throw new Exception("La distancia es nula debido a que se  esta comparando el mismo local");
+		double R = 6372.795477598;// Radio de la tierra
+		double a = Math.pow(Math.sin(rad * dlat / 2), 2) + Math.cos(rad * local1.getLatitud())
+				* Math.cos(rad * local2.getLatitud()) * Math.pow(rad * Math.sin(dlong / 2), 2);
+		double distancia = 2 * R * Math.asin(Math.sqrt(a));
+
+		return distancia;
+	}
+	
+	
 }
