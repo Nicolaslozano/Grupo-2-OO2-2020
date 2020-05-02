@@ -76,12 +76,12 @@ public class Pedido {
 		return cliente;
 	}
 
-	public Empleado getvendedorOriginal() {
+	public Empleado getVendedorOriginal() {
 
 		return this.vendedorOriginal;
 	}
 
-	public void setvendedorOriginal(Empleado vendedorOriginal) {
+	public void setVendedorOriginal(Empleado vendedorOriginal) {
 
 		this.vendedorOriginal = vendedorOriginal;
 	}
