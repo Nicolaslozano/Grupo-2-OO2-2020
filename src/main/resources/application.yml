@@ -1,6 +1,6 @@
 spring:
     datasource:
-        driverClassName: com.mysql.jdbc.Driver
+        driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost/Grupo-2-BDD-OO2-2020
         username: root
         password: root
