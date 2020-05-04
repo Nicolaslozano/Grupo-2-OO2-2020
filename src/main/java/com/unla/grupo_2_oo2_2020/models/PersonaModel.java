@@ -2,7 +2,7 @@ package com.unla.grupo_2_oo2_2020.models;
 
 import java.time.LocalDate;
 
-public abstract class Persona {
+public abstract class PersonaModel {
 
 	protected long idPersona;
 	protected String nombre;
@@ -10,10 +10,10 @@ public abstract class Persona {
 	protected LocalDate fechaNacimiento;
 	protected int dni;
 
-	public Persona() {
+	public PersonaModel() {
 	}
 
-	public Persona(String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
+	public PersonaModel(String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
 
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -63,7 +63,7 @@ public abstract class Persona {
 
 	@Override
 	public String toString() {
-		return "Persona [idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido
+		return "PersonaModel [idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido
 				+ ", fechaNacimiento=" + fechaNacimiento + ", dni=" + dni + "]";
 	}
 
