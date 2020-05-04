@@ -3,13 +3,23 @@ package com.unla.grupo_2_oo2_2020.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.*;
+
+@Entity
 public class Stock {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column private long idStock;
+    @Column private int cantidad;
 
-	private long idStock;
-	private Set<Lote> lotes;
-	private int cantidad;
-	private Local local;
-
+    @OneToOne
+    @JoinColumn(name="local")
+    private Local local;
+    
+    @OneToMany
+    @JoinColumn (name="cantidad")
+    private Set<Lote> lotes;
+    
 	public Stock() {
 	}
 
