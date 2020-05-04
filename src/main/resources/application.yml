@@ -1,0 +1,14 @@
+spring:
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost/Grupo-2-BDD-OO2-2020
+        username: root
+        password: root
+    jpa:
+        hibernate.ddl-auto: update
+        generate-ddl: true
+        show-sql: true
+        properties:
+            dialect: org.hibernate.dialect.MySQL5Dialect
+    thymeleaf:
+        cache: false

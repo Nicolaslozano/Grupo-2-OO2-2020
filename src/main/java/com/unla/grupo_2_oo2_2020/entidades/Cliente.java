@@ -1,8 +1,14 @@
 package com.unla.grupo_2_oo2_2020.entidades;
 
 import java.time.LocalDate;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "cliente")
+@PrimaryKeyJoinColumn(referencedColumnName="idPersona")
 public class Cliente extends Persona {
+
+	@Column(name = "email",nullable = false, length = 45)
 	private String email;
 
 	public Cliente() {

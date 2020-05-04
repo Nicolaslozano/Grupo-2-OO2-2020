@@ -1,13 +1,27 @@
 package com.unla.grupo_2_oo2_2020.entidades;
 
 import java.time.LocalDate;
+import javax.persistence.*;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="persona")
 public abstract class Persona {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected long idPersona;
+
+	@Column(name="nombre", unique=false, nullable=false, length=45)
 	protected String nombre;
+
+	@Column(name="apellido", unique=false, nullable=false, length=45)
 	protected String apellido;
+
+	@Column(name="fechaNacimiento")
 	protected LocalDate fechaNacimiento;
+
+	@Column(name="dni",unique = true,nullable = false)
 	protected int dni;
 
 	public Persona() {

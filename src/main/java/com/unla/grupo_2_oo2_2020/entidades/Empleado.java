@@ -1,10 +1,22 @@
 package com.unla.grupo_2_oo2_2020.entidades;
 
 import java.time.LocalDate;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "empleado")
+@PrimaryKeyJoinColumn(referencedColumnName="idPersona")
 public class Empleado extends Persona {
+
+	@Column(name = "franjaHoraria",length = 45)
 	private String franjaHoraria;
+
+	@Column(name = "tipoEmpleado")
 	private boolean tipoEmpleado; // true = Vendedor, false = Gerente.
+
+	//<many-to-one name="local" class="modelo.Local" column="idLocal"></many-to-one>
+	@ManyToOne
+	@JoinColumn(name = "idLocal")
 	private Local local;
 
 	public Empleado() {
