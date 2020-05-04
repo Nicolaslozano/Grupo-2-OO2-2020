@@ -29,7 +29,8 @@ public class SolicitudStock {
 	@ManyToOne
 	@JoinColumn(name = "id_colaborador")
 	private Empleado colaborador;
-	@Column private boolean aceptado;
+	@Column(name = "aceptado")
+	private boolean aceptado;
 
 	public SolicitudStock() {
 	}

@@ -15,19 +15,19 @@ public class Local {
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
 private long idLocal;
-@Column private String direccion;
-@Column	private double latitud;
-@Column	private double longitud;
-@Column	private long telefono;
-@Column	private Stock stock;
+@Column (name = "direccion")private String direccion;
+@Column	(name = "latitud")private double latitud;
+@Column	(name = "longitud")private double longitud;
+@Column	(name = "telefono")private long telefono;
+@Column	(name = "tipoEmpleado")private Stock stock;
 @OneToMany
-@JoinColumn(name="listaSolicitudesStock")
+@JoinColumn(name="idLocal")
 private Set<SolicitudStock> listaSolicitudesStock;
 @OneToMany
-@JoinColumn(name="listaEmpleados")
+@JoinColumn(name="idLocal")
 private Set<Empleado> listaEmpleados;
 @OneToMany
-@JoinColumn(name="listaFacturas")
+@JoinColumn(name="idLocal")
 private Set<Factura> listaFacturas;
 
 	

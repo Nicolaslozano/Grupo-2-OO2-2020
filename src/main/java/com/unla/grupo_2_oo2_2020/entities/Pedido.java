@@ -17,23 +17,32 @@ public class Pedido {
 	@ManyToOne 
 	@JoinColumn(name = "idProducto")
 	private Producto producto;
+	
 	@ManyToOne 
 	@JoinColumn(name = "idLocal")
 	private Local local;
+	
 	@ManyToOne 
 	@JoinColumn(name = "idCliente") 
 	private Cliente cliente;
+	
 	@ManyToOne 
 	@JoinColumn(name = "idCarrito") 
 	private Carrito carrito;
+	
 	@ManyToOne 
 	@JoinColumn(name = "id_vendedor_original") 
 	private Empleado vendedorOriginal;
+	
 	@ManyToOne 
 	@JoinColumn(name = "id_vendedor_auxiliar") 
 	 private Empleado vendedorAuxiliar;
-	@Column private boolean aceptado;
-	@Column private int cantidad;
+	
+	@Column(name = "aceptado") 
+	private boolean aceptado;
+	
+	@Column(name = "cantidad") 
+	private int cantidad;
 
 	public Pedido() {
 	}

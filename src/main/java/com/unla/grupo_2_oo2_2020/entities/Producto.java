@@ -7,15 +7,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Producto {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProducto;
-	@Column private String nombre;
-	@Column private String descripcion;
-	@Column private float precio;
-	@Column private LocalDate fechaAlta;
+	@Column (name="nombre") 
+	private String nombre;
+	@Column (name="descripcion")
+	private String descripcion;
+	@Column (name="precio") 
+	private float precio;
+	@Column (name="fechaAlta")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fechaAlta;
 
 	public Producto() {
 	}

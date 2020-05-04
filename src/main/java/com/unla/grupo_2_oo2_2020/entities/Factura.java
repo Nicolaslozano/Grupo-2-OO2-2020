@@ -10,7 +10,8 @@ public class Factura {
 	
 	@Id
 	private long idFactura;
-	@Column private String factura;
+	@Column (name = "factura")
+	private String factura;
 
 	public Factura() {
 	}

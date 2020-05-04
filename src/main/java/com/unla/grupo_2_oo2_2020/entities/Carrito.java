@@ -23,8 +23,8 @@ public class Carrito {
 	@OneToMany
 	@JoinColumn(name = "idPedido")
 	private Set<Pedido> listaPedidos;
+	@Column (name = "fecha")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column
 	private LocalDate fecha;
 
 	public Carrito() {

@@ -11,16 +11,29 @@ import javax.persistence.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Lote {
+
 @Id
 @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idLote;
-@Column private int cantidadInicial;
-@Column private int cantidadActual;
-@Column private LocalDate fechaIngreso;
+
+@Column (name = "cantidadInicial")
+private int cantidadInicial;
+
+@Column (name = "CantidadActual")
+private int cantidadActual;
+
+@Column (name = "fechaIngreso")
 @DateTimeFormat(pattern = "yyyy-MM-dd")
-@Column private Producto producto;
-@Column private boolean estado;
-@Column private Stock stock;
+private LocalDate fechaIngreso;
+
+@Column (name = "producto")
+private Producto producto;
+
+@Column (name = "estado") 
+private boolean estado;
+
+@Column (name = "stock")
+private Stock stock;
 
 	public Lote() {
 	}

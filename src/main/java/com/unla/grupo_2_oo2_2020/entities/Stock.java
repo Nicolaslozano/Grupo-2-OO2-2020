@@ -9,22 +9,22 @@ import javax.persistence.*;
 public class Stock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column private long idStock;
-    @Column private int cantidad;
+     private long idStock;
+    @Column (name = "cantidad") 
+    private int cantidad;
 
     @OneToOne
     @JoinColumn(name="local")
     private Local local;
     
     @OneToMany
-    @JoinColumn (name="cantidad")
+    @JoinColumn (name="idStock")
     private Set<Lote> lotes;
     
 	public Stock() {
 	}
 
 	public Stock(int cantidad, Local local) {
-		super();
 		this.lotes = new HashSet<Lote>();
 		this.cantidad = cantidad;
 		this.local = local;
