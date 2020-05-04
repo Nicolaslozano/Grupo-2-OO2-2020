@@ -2,22 +2,39 @@ package com.unla.grupo_2_oo2_2020.entities;
 
 import java.time.LocalDate;
 
-public class SolicitudStock {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+@Entity
+public class SolicitudStock {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idSolicitud;
-	private LocalDate fecha;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column private LocalDate fecha;
+	@OneToOne 
+	@JoinColumn(name = "producto") 
 	private Producto producto;
-	private int cantidad;
+	@Column private int cantidad;
+	@ManyToOne 
+	@JoinColumn(name = "id_vendedor")
 	private Empleado vendedor;
+	@ManyToOne
+	@JoinColumn(name = "id_colaborador")
 	private Empleado colaborador;
-	private boolean aceptado;
+	@Column private boolean aceptado;
 
 	public SolicitudStock() {
 	}
 
 	public SolicitudStock(LocalDate fecha, Producto producto, int cantidad, Empleado vendedor, Empleado colaborador) {
-
-		super();
 		this.fecha = fecha;
 		this.producto = producto;
 		this.cantidad = cantidad;

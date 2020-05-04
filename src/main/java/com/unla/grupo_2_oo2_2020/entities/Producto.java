@@ -2,13 +2,20 @@ package com.unla.grupo_2_oo2_2020.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+@Entity
 public class Producto {
-
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProducto;
-	private String nombre;
-	private String descripcion;
-	private float precio;
-	private LocalDate fechaAlta;
+	@Column private String nombre;
+	@Column private String descripcion;
+	@Column private float precio;
+	@Column private LocalDate fechaAlta;
 
 	public Producto() {
 	}

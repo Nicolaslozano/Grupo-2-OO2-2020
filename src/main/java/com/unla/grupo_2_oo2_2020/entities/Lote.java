@@ -2,15 +2,25 @@ package com.unla.grupo_2_oo2_2020.entities;
 
 import java.time.LocalDate;
 
-public class Lote {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+@Entity
+public class Lote {
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idLote;
-	private int cantidadInicial;
-	private int cantidadActual;
-	private LocalDate fechaIngreso;
-	private Producto producto;
-	private boolean estado;
-	private Stock stock;
+@Column private int cantidadInicial;
+@Column private int cantidadActual;
+@Column private LocalDate fechaIngreso;
+@DateTimeFormat(pattern = "yyyy-MM-dd")
+@Column private Producto producto;
+@Column private boolean estado;
+@Column private Stock stock;
 
 	public Lote() {
 	}

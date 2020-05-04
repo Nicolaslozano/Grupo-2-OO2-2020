@@ -3,17 +3,34 @@ package com.unla.grupo_2_oo2_2020.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+	@Entity
 public class Local {
+@Id
+@GeneratedValue(strategy=GenerationType.IDENTITY)
+private long idLocal;
+@Column private String direccion;
+@Column	private double latitud;
+@Column	private double longitud;
+@Column	private long telefono;
+@Column	private Stock stock;
+@OneToMany
+@JoinColumn(name="listaSolicitudesStock")
+private Set<SolicitudStock> listaSolicitudesStock;
+@OneToMany
+@JoinColumn(name="listaEmpleados")
+private Set<Empleado> listaEmpleados;
+@OneToMany
+@JoinColumn(name="listaFacturas")
+private Set<Factura> listaFacturas;
 
-	private long idLocal;
-	private String direccion;
-	private double latitud;
-	private double longitud;
-	private long telefono;
-	private Stock stock;
-	private Set<Empleado> listaEmpleados;
-	private Set<Factura> listaFacturas;
-	private Set<SolicitudStock> listaSolicitudesStock;
+	
 
 	public Local() {
 	}

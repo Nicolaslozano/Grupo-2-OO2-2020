@@ -1,9 +1,16 @@
 package com.unla.grupo_2_oo2_2020.entities;
 
-public class Factura {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+ @Entity
+public class Factura {
+	
+	
+	@Id
 	private long idFactura;
-	private String factura;
+	@Column private String factura;
 
 	public Factura() {
 	}

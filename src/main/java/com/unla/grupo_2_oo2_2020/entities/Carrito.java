@@ -4,10 +4,27 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Carrito {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+
+public class Carrito {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCarrito;
+	@OneToMany
+	@JoinColumn(name = "idPedido")
 	private Set<Pedido> listaPedidos;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column
 	private LocalDate fecha;
 
 	public Carrito() {
@@ -46,7 +63,7 @@ public class Carrito {
 	@Override
 	public String toString() {
 		return "\nCarrito [idCarrito=" + idCarrito + ", listaPedidos=" + listaPedidos + ", fecha=" + fecha + ", total="
-				 + "]";
+				+ "]";
 	}
 
 }

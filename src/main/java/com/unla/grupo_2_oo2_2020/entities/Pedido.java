@@ -1,16 +1,39 @@
 package com.unla.grupo_2_oo2_2020.entities;
 
-public class Pedido {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
+public class Pedido {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long idPedido;
+
+	@ManyToOne 
+	@JoinColumn(name = "idProducto")
 	private Producto producto;
-	private int cantidad;
+	@ManyToOne 
+	@JoinColumn(name = "idLocal")
 	private Local local;
+	@ManyToOne 
+	@JoinColumn(name = "idCliente") 
 	private Cliente cliente;
+	@ManyToOne 
+	@JoinColumn(name = "idCarrito") 
 	private Carrito carrito;
+	@ManyToOne 
+	@JoinColumn(name = "id_vendedor_original") 
 	private Empleado vendedorOriginal;
-	private Empleado vendedorAuxiliar;
-	private boolean aceptado;
+	@ManyToOne 
+	@JoinColumn(name = "id_vendedor_auxiliar") 
+	 private Empleado vendedorAuxiliar;
+	@Column private boolean aceptado;
+	@Column private int cantidad;
 
 	public Pedido() {
 	}
