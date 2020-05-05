@@ -9,10 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
+@Table(name = "solicitudStock")
 public class SolicitudStock {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +21,11 @@ public class SolicitudStock {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column
 	private LocalDate fecha;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "idProducto")
 	private Producto producto;
-	@Column private int cantidad;
+	@Column 
+	private int cantidad;
 	@ManyToOne
 	@JoinColumn(name = "id_vendedor")
 	private Empleado vendedor;

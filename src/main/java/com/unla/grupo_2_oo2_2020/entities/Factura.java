@@ -1,14 +1,13 @@
 package com.unla.grupo_2_oo2_2020.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
  @Entity
+ @Table(name = "factura")
 public class Factura {
-	
-	
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idFactura;
 	@Column (name = "factura")
 	private String factura;

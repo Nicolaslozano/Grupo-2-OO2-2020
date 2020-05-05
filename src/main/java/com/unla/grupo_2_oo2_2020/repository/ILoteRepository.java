@@ -16,8 +16,8 @@ public interface ILoteRepository extends JpaRepository<Lote, Serializable>{
 
     public abstract Lote findByIdLote(long idLote);
 
-    @Query("SELECT l FROM Lote l JOIN FETCH l.producto p"+
-                                "JOIN FETCH l.stock s"+
+    @Query("SELECT l FROM Lote l JOIN FETCH l.producto p "+
+                                "JOIN FETCH l.stock s "+
                                 "WHERE l.idLote=(:idLote)")
     public abstract Lote findByIdLote_wDependencies(@Param("idLote") long idLote);
 

@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "stock")
 public class Stock {
     @Id
 	 private long idStock;

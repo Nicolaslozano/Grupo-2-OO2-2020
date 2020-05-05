@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-	@Entity
+import javax.persistence.Table;
+@Entity
+@Table(name = "comercio")
 public class Local {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -29,7 +31,7 @@ public class Local {
 	@Column	(name = "telefono")
 	private long telefono;
 
-	@OneToOne(mappedBy = "stock")
+	@OneToOne(mappedBy = "local")
 	private Stock stock;
 
 	@OneToMany

@@ -14,8 +14,8 @@ public interface IStockRepository extends JpaRepository<Stock, Serializable>{
 
     public abstract Stock findByIdStock(long idStock);
 
-    @Query("SELECT s FROM Stock s JOIN FETCH s.local l"+
-                                "JOIN FETCH s.lotes"+
+    @Query("SELECT s FROM Stock s JOIN FETCH s.local l "+
+                                "JOIN FETCH s.lotes "+
                                 "WHERE s.idStock=(:idStock)")
     public abstract Stock findByIdStock_wDependencies(@Param("idStock") long idStock);
 
