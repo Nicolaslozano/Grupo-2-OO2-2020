@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,8 +19,7 @@ public class Carrito {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idCarrito;
-	@OneToMany
-	@JoinColumn(name = "idPedido")
+	@OneToMany(mappedBy = "pedido")
 	private Set<Pedido> listaPedidos;
 	@Column (name = "fecha")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")

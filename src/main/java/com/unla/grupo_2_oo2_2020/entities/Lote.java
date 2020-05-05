@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 @Entity
@@ -26,13 +28,15 @@ private int cantidadActual;
 @DateTimeFormat(pattern = "yyyy-MM-dd")
 private LocalDate fechaIngreso;
 
-@Column (name = "producto")
+@ManyToOne
+@JoinColumn(name = "idProducto")
 private Producto producto;
 
 @Column (name = "estado") 
 private boolean estado;
 
-@Column (name = "stock")
+@ManyToOne
+@JoinColumn(name = "idStock")
 private Stock stock;
 
 	public Lote() {

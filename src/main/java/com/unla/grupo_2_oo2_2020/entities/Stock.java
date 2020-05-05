@@ -8,19 +8,19 @@ import javax.persistence.*;
 @Entity
 public class Stock {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private long idStock;
-    @Column (name = "cantidad") 
+	 private long idStock;
+
+    @Column (name = "cantidad")
     private int cantidad;
 
-    @OneToOne
-    @JoinColumn(name="local")
+	@OneToOne
+	@JoinColumn(name = "idStock")
+	@MapsId
     private Local local;
-    
-    @OneToMany
-    @JoinColumn (name="idStock")
+
+    @OneToMany(mappedBy = "stock")
     private Set<Lote> lotes;
-    
+
 	public Stock() {
 	}
 

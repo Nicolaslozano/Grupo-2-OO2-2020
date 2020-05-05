@@ -10,25 +10,38 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 	@Entity
 public class Local {
-@Id
-@GeneratedValue(strategy=GenerationType.IDENTITY)
-private long idLocal;
-@Column (name = "direccion")private String direccion;
-@Column	(name = "latitud")private double latitud;
-@Column	(name = "longitud")private double longitud;
-@Column	(name = "telefono")private long telefono;
-@Column	(name = "tipoEmpleado")private Stock stock;
-@OneToMany
-@JoinColumn(name="idLocal")
-private Set<SolicitudStock> listaSolicitudesStock;
-@OneToMany
-@JoinColumn(name="idLocal")
-private Set<Empleado> listaEmpleados;
-@OneToMany
-@JoinColumn(name="idLocal")
-private Set<Factura> listaFacturas;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long idLocal;
+
+	@Column (name = "direccion")
+	private String direccion;
+
+	@Column	(name = "latitud")
+	private double latitud;
+
+	@Column	(name = "longitud")
+	private double longitud;
+
+	@Column	(name = "telefono")
+	private long telefono;
+
+	@OneToOne(mappedBy = "stock")
+	private Stock stock;
+
+	@OneToMany
+	@JoinColumn(name="idLocal")
+	private Set<SolicitudStock> listaSolicitudesStock;
+
+	@OneToMany(mappedBy = "local")
+	private Set<Empleado> listaEmpleados;
+
+	@OneToMany
+	@JoinColumn(name="idLocal")
+	private Set<Factura> listaFacturas;
 
 	
 

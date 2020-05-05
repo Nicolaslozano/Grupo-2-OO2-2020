@@ -18,12 +18,12 @@ public class SolicitudStock {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idSolicitud;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column private LocalDate fecha;
-	@OneToOne 
-	@JoinColumn(name = "producto") 
+	@Column
+	private LocalDate fecha;
+	@OneToOne
 	private Producto producto;
 	@Column private int cantidad;
-	@ManyToOne 
+	@ManyToOne
 	@JoinColumn(name = "id_vendedor")
 	private Empleado vendedor;
 	@ManyToOne
