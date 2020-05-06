@@ -11,7 +11,7 @@
 	<groupId>com.unla</groupId>
 	<artifactId>grupo_2_oo2_2020</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<name>grupo_2_oo2_2020</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

@@ -3,6 +3,7 @@ package com.unla.grupo_2_oo2_2020.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,17 +32,17 @@ public class Local {
 	@Column	(name = "telefono")
 	private long telefono;
 
-	@OneToOne(mappedBy = "local")
+	@OneToOne(mappedBy = "local", cascade = CascadeType.ALL)
 	private Stock stock;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="idLocal")
 	private Set<SolicitudStock> listaSolicitudesStock;
 
-	@OneToMany(mappedBy = "local")
+	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
 	private Set<Empleado> listaEmpleados;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="idLocal")
 	private Set<Factura> listaFacturas;
 

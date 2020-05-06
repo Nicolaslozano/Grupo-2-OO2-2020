@@ -1,4 +1,6 @@
 spring:
+    application:
+        name: grupo_2_oo2_2020
     datasource:
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost/Grupo-2-BDD-OO2-2020

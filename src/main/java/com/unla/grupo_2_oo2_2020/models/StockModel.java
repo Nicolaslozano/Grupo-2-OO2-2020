@@ -8,8 +8,9 @@ public class StockModel {
 	public StockModel() {
 	}
 
-	public StockModel(int cantidad) {
+	public StockModel(long idStock,int cantidad) {
 		super();
+		this.idStock = idStock;
 		this.cantidad = cantidad;
 	}
 

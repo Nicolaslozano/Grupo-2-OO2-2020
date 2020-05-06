@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.unla.grupo_2_oo2_2020.entities.Pedido;
+
 public class CarritoModel {
 
 	private long idCarrito;

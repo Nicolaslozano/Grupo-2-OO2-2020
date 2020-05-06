@@ -1,7 +1,8 @@
 package com.unla.grupo_2_oo2_2020.models;
 
-
 import java.time.LocalDate;
+
+import com.unla.grupo_2_oo2_2020.entities.Persona;
 
 public class ClienteModel extends Persona {
 	private String email;
