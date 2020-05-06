@@ -45,18 +45,17 @@ public class Local {
 	@JoinColumn(name="idLocal")
 	private Set<Factura> listaFacturas;
 
-	
 
 	public Local() {
 	}
 
-	public Local(String direccion, double latitud, double longitud, long telefono, Stock stock) {
+	public Local(long idLocal, String direccion, double latitud, double longitud, long telefono) {
 
+		this.idLocal = idLocal;
 		this.direccion = direccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
-		this.stock = stock;
 		this.listaEmpleados = new HashSet<Empleado>();
 		this.listaFacturas = new HashSet<Factura>();
 		this.listaSolicitudesStock = new HashSet<SolicitudStock>();
