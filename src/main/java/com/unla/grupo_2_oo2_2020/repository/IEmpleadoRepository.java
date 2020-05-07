@@ -9,8 +9,10 @@ import com.unla.grupo_2_oo2_2020.entities.Local;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 @Transactional
+@Repository("empleadoRepository")
 public interface IEmpleadoRepository extends IPersonaBaseRepository<Empleado>{
 
     public abstract List<Empleado> findByLocal(Local local);
