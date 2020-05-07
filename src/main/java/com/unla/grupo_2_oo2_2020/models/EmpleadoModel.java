@@ -5,17 +5,16 @@ import java.time.LocalDate;
 public class EmpleadoModel extends PersonaModel {
 	private String franjaHoraria;
 	private boolean tipoEmpleado; // true = Vendedor, false = Gerente.
-	private LocalModel local;
 
 	public EmpleadoModel() {
 	}
 
-	public EmpleadoModel(String nombre, String apellido, LocalDate fechaNacimiento, int dni,
-			String franjaHoraria, boolean tipoEmpleado, LocalModel local) {
-		super(nombre, apellido, fechaNacimiento, dni);
+	public EmpleadoModel(long idPersona,String nombre, String apellido, LocalDate fechaNacimiento, int dni,
+			String franjaHoraria, boolean tipoEmpleado) {
+		super(idPersona,nombre, apellido, fechaNacimiento, dni);
 		this.franjaHoraria = franjaHoraria;
 		this.tipoEmpleado = tipoEmpleado;
-		this.local = local;
+
 	}
 
 	public String getFranjaHoraria() {
@@ -29,25 +28,14 @@ public class EmpleadoModel extends PersonaModel {
 	public boolean isTipoEmpleado() {
 		return tipoEmpleado;
 	}
-	
-	
-	
 
 	public void setTipoEmpleado(boolean tipoEmpleado) {
 		this.tipoEmpleado = tipoEmpleado;
 	}
 
-	public LocalModel getLocal() {
-		return local;
-	}
-
-	public void setLocal(LocalModel local) {
-		this.local = local;
-	}
-
 	@Override
 	public String toString() {
-		return "Empleado [franjaHoraria=" + franjaHoraria + ", tipoEmpleado=" + tipoEmpleado + ", local=" + local
+		return "Empleado [franjaHoraria=" + franjaHoraria + ", tipoEmpleado=" + tipoEmpleado
 				+ ", idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento="
 				+ fechaNacimiento + ", dni=" + dni + "]";
 	}

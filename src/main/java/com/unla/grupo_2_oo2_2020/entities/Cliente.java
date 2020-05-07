@@ -15,8 +15,8 @@ public class Cliente extends Persona {
 
 	}
 
-	public Cliente(String email,String nombre,String apellido,LocalDate fechaNacimiento,int dni) {
-		super(nombre,apellido,fechaNacimiento,dni);
+	public Cliente(long idPersona,String email,String nombre,String apellido,LocalDate fechaNacimiento,int dni) {
+		super(idPersona,nombre,apellido,fechaNacimiento,dni);
 		this.email = email;
 	}
 

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface IPersonaBaseRepository<T extends Persona>
+public interface IPersonaBaseRepository<T>
 extends JpaRepository<T, Serializable>{
 
     public abstract T findByIdPersona(long idPersona);

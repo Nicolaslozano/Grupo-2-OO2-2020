@@ -13,8 +13,9 @@ public abstract class PersonaModel {
 	public PersonaModel() {
 	}
 
-	public PersonaModel(String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
+	public PersonaModel(long idPersona,String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
 
+		this.idPersona = idPersona;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;

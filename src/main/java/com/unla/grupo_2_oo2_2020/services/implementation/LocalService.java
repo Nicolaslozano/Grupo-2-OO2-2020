@@ -7,7 +7,6 @@ import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Stock;
 import com.unla.grupo_2_oo2_2020.models.LocalModel;
 import com.unla.grupo_2_oo2_2020.repository.ILocalRepository;
-import com.unla.grupo_2_oo2_2020.repository.IStockRepository;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,17 +2,17 @@ package com.unla.grupo_2_oo2_2020.models;
 
 import java.time.LocalDate;
 
-import com.unla.grupo_2_oo2_2020.entities.Persona;
+import com.unla.grupo_2_oo2_2020.models.PersonaModel;
 
-public class ClienteModel extends Persona {
+public class ClienteModel extends PersonaModel {
 	private String email;
 
 	public ClienteModel() {
 
 	}
 
-	public ClienteModel(String email,String nombre,String apellido,LocalDate fechaNacimiento,int dni) {
-		super(nombre,apellido,fechaNacimiento,dni);
+	public ClienteModel(long idPersona, String email,String nombre,String apellido,LocalDate fechaNacimiento,int dni) {
+		super(idPersona,nombre,apellido,fechaNacimiento,dni);
 		this.email = email;
 	}
 
