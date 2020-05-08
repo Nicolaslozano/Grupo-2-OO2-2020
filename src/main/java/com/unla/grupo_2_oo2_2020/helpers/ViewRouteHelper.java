@@ -16,11 +16,15 @@ public class ViewRouteHelper {
     public final static String LOCAL_INDEX = "local/index";
     public final static String LOCAL_NEW = "local/new";
 
-    //EMPLEADO ...
-
+    //EMPLEADO
+    public final static String EMPLEADO_INDEX = "empleado/index";
+    public final static String EMPLEADO_NEW = "empleado/new";
+    
+    
 	/**** Redirects ****/
     public final static String ROUTE = "/index";
     public final static String LOCAL_ROOT = "/local";
     public final static String CLIENTE_ROOT = "/cliente";
+    public final static String EMPLEADO_ROOT = "/empleado";
 
 }
