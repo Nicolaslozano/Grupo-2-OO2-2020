@@ -21,5 +21,6 @@ public class ViewRouteHelper {
 	/**** Redirects ****/
     public final static String ROUTE = "/index";
     public final static String LOCAL_ROOT = "/local";
+    public final static String CLIENTE_ROOT = "/cliente";
 
 }
