@@ -27,9 +27,18 @@ public abstract class Persona {
 	public Persona() {
 	}
 
-	public Persona(long idPersona,String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
+	public Persona(long idPersona, String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
 
 		this.idPersona = idPersona;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
+		this.dni = dni;
+	}
+	
+	
+	public Persona(String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
+
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;

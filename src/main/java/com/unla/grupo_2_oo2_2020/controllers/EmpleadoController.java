@@ -35,7 +35,7 @@ public class EmpleadoController {
     @GetMapping("/new")
 	public ModelAndView create() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_NEW);
-		mAV.addObject("cliente", new EmpleadoModel());
+		mAV.addObject("empleado", new EmpleadoModel());
 		return mAV;
 	}
 

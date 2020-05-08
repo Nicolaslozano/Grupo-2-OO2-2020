@@ -19,6 +19,12 @@ public class Cliente extends Persona {
 		super(idPersona,nombre,apellido,fechaNacimiento,dni);
 		this.email = email;
 	}
+	
+	
+	public Cliente(String email,String nombre,String apellido,LocalDate fechaNacimiento,int dni) {
+		super(nombre,apellido,fechaNacimiento,dni);
+		this.email = email;
+	}
 
 	public String getEmail() {
 		return email;

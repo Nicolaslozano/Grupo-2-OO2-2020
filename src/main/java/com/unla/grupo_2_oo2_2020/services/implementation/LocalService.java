@@ -29,6 +29,12 @@ public class LocalService implements ILocalService {
         // TODO Auto-generated method stub
         return localRepository.findAll();
     }
+    
+    @Override
+    public Local findById(long idLocal) {
+        
+        return localRepository.findByIdLocal(idLocal);
+    }
 
     @Override
     public LocalModel insertOrUpdate(LocalModel localModel) {

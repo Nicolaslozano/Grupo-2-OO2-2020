@@ -61,6 +61,17 @@ public class Local {
 		this.listaFacturas = new HashSet<Factura>();
 		this.listaSolicitudesStock = new HashSet<SolicitudStock>();
 	}
+	
+	public Local(String direccion, double latitud, double longitud, long telefono) {
+
+		this.direccion = direccion;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.telefono = telefono;
+		this.listaEmpleados = new HashSet<Empleado>();
+		this.listaFacturas = new HashSet<Factura>();
+		this.listaSolicitudesStock = new HashSet<SolicitudStock>();
+	}
 
 	public long getIdLocal() {
 		return idLocal;

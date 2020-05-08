@@ -23,11 +23,19 @@ public class Empleado extends Persona {
 	}
 
 	public Empleado(long idPersona,String nombre, String apellido, LocalDate fechaNacimiento, int dni,
-			String franjaHoraria, boolean tipoEmpleado, Local local) {
+			String franjaHoraria, boolean tipoEmpleado) {
 		super(idPersona,nombre, apellido, fechaNacimiento, dni);
 		this.franjaHoraria = franjaHoraria;
 		this.tipoEmpleado = tipoEmpleado;
-		this.local = local;
+
+	}
+	
+	public Empleado(String nombre, String apellido, LocalDate fechaNacimiento, int dni,
+			String franjaHoraria, boolean tipoEmpleado) {
+		super(nombre, apellido, fechaNacimiento, dni);
+		this.franjaHoraria = franjaHoraria;
+		this.tipoEmpleado = tipoEmpleado;
+
 	}
 
 	public String getFranjaHoraria() {

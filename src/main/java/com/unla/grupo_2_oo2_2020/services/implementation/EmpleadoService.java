@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.unla.grupo_2_oo2_2020.converters.EmpleadoConverter;
 import com.unla.grupo_2_oo2_2020.entities.Empleado;
+import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 import com.unla.grupo_2_oo2_2020.repository.IEmpleadoRepository;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
+import com.unla.grupo_2_oo2_2020.services.ILocalService;
 
 @Service("empleadoService")
 public class EmpleadoService implements IEmpleadoService {
@@ -22,6 +24,10 @@ public class EmpleadoService implements IEmpleadoService {
 	@Autowired
 	@Qualifier("empleadoConverter")
 	private EmpleadoConverter empleadoConverter;
+	
+	@Autowired
+	@Qualifier("localService")
+	private ILocalService localService;
 
 	@Override
 	public List<Empleado> getAll() {
@@ -33,6 +39,8 @@ public class EmpleadoService implements IEmpleadoService {
 	public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel) {
 		// TODO Auto-generated method stub
 		Empleado empleado = empleadoConverter.modelToEntity(empleadoModel);
+		
+		empleado.setLocal(localService.findById(empleadoModel.getIdLocal()));
 
 		empleadoRepository.save(empleado);
 		return empleadoConverter.entityToModel(empleado);

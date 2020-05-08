@@ -8,6 +8,8 @@ import com.unla.grupo_2_oo2_2020.models.LocalModel;
 public interface ILocalService {
     
     public List<Local> getAll();
+    
+    public Local findById(long idLocal);
 
     public LocalModel insertOrUpdate(LocalModel localModel);
 
