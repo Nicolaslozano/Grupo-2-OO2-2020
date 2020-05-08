@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-# Oo2TP GRUPO 2 RAMA TESTING
-=======
 # Oo2TP GRUPO 2
->>>>>>> 98f5a8eaa625ef40709a9c189f1c8402a53b3f49
