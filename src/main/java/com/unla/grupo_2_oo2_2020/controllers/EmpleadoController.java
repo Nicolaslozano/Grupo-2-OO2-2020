@@ -11,11 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
-import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
-import com.unla.grupo_2_oo2_2020.services.IClienteService;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
-import com.unla.grupo_2_oo2_2020.services.implementation.EmpleadoService;
 
 @Controller
 @RequestMapping("/empleado")

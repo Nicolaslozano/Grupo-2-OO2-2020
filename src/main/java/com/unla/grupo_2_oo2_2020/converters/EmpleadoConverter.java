@@ -16,7 +16,7 @@ public class EmpleadoConverter {
 
 	public Empleado modelToEntity(EmpleadoModel empleadoModel) {
 		return new Empleado(empleadoModel.getIdPersona(), empleadoModel.getNombre(), empleadoModel.getApellido(),
-				empleadoModel.getDni(), empleadoModel.getFechaNacimiento(), empleadoModel.getFranjaHoraria(),
+				empleadoModel.getFechaNacimiento(), empleadoModel.getDni(), empleadoModel.getFranjaHoraria(),
 				empleadoModel.isTipoEmpleado());
 	}
 }

@@ -3,6 +3,8 @@ package com.unla.grupo_2_oo2_2020.entities;
 import java.time.LocalDate;
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="persona")
@@ -18,6 +20,7 @@ public abstract class Persona {
 	@Column(name="apellido", unique=false, nullable=false, length=45)
 	protected String apellido;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="fechaNacimiento")
 	protected LocalDate fechaNacimiento;
 
