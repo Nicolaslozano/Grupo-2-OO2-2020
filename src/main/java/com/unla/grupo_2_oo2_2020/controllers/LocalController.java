@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,7 +26,7 @@ public class LocalController {
     @GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_INDEX);
-
+		mAV.addObject("locales", localService.getAll());
 		return mAV;
 	}
 
@@ -40,6 +41,19 @@ public class LocalController {
 	public RedirectView createLocal(@ModelAttribute("local") LocalModel localModel) {
 		localService.insertOrUpdate(localModel);
 		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
-    }
-    
+	}
+
+	@GetMapping("/{idLocal}")
+	public ModelAndView get(@PathVariable("idLocal") long id) {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_UPDATE);
+		mAV.addObject("local", localService.findById(id));
+		return mAV;
+	}
+
+	@PostMapping("/update")
+	public RedirectView updateLocal(@ModelAttribute("local") LocalModel localModel) {
+		localService.insertOrUpdate(localModel);
+		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
+	}
+
 }

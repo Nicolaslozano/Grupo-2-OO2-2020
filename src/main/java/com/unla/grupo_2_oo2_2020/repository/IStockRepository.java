@@ -9,7 +9,9 @@ import com.unla.grupo_2_oo2_2020.entities.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository("stockRepository")
 public interface IStockRepository extends JpaRepository<Stock, Serializable>{
 
     public abstract Stock findByIdStock(long idStock);

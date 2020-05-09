@@ -15,6 +15,8 @@ public class ViewRouteHelper {
     //LOCAL
     public final static String LOCAL_INDEX = "local/index";
     public final static String LOCAL_NEW = "local/new";
+    public final static String LOCAL_REMOVE = "local/remove";
+    public final static String LOCAL_UPDATE = "local/update";
 
     //EMPLEADO
     public final static String EMPLEADO_INDEX = "empleado/index";

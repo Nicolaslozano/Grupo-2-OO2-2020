@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <th:block th:include="fragments/head :: head"></th:block>
-</head>
 
+<th:block th:include="fragments/head :: head"></th:block>
 
 <body>
     <div class="d-flex" id="wrapper">
@@ -21,12 +19,21 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div>
-                <form action="#" th:action="@{/local/create}" th:object="${local}" method="post">
-                    <p>Direccion: <input type="text" th:field="*{direccion}" /></p>
-                    <p>Latitud: <input type="number" th:field="*{latitud}" /></p>
-                    <p>Longitud: <input type="number" th:field="*{longitud}" /></p>
-                    <p>telefono: <input type="number" th:field="*{telefono}" /></p>
-                    <input type="submit" value="crear" />
+                <form action="#" th:action="@{/local/update}" th:object="${local}" method="post">
+                    <input type="hidden" th:field="*{idLocal}" />
+                    <p>
+                        Direccion: <input type="text" th:field="*{direccion}" />
+                    </p>
+                    <p>
+                        Latitud: <input type="number" th:field="*{latitud}" />
+                    </p>
+                    <p>
+                        Longitud: <input type="number" th:field="*{longitud}" />
+                    </p>
+                    <p>
+                        Telefono: <input type="number" th:field="*{telefono}" />
+                    </p>
+                    <input type="submit" value="Editar" />
                 </form>
             </div>
         </div>

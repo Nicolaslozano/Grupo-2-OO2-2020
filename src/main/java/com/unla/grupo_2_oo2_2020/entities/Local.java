@@ -77,7 +77,7 @@ public class Local {
 		return idLocal;
 	}
 
-	protected void setIdLocal(long idLocal) {
+	public void setIdLocal(long idLocal) {
 		this.idLocal = idLocal;
 	}
 

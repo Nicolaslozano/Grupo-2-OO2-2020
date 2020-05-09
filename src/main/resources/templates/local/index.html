@@ -11,8 +11,8 @@
 		<div class="bg-light border-right" id="sidebar-wrapper">
 			<div class="sidebar-heading">Start Bootstrap </div>
 			<div class="list-group list-group-flush">
+				<a href="/local" class="list-group-item list-group-item-action bg-light">Lista</a>
 				<a href="/local/new" class="list-group-item list-group-item-action bg-light">Crear</a>
-
 			</div>
 		</div>
 		<!-- /#sidebar-wrapper -->
@@ -53,6 +53,22 @@
 				</div>
 			</nav>
 
+			<table border="1px">
+				<thead>
+					<tr>
+						<th>Direccion</th>
+						<th>Ver</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="local : ${locales}">
+						<td><span th:text="${local.direccion}" /></td>
+						<td>
+							<a th:href="@{/local/{id}(id=${local.idLocal})}">Ver</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
 		</div>
 		<!-- /#page-content-wrapper -->
