@@ -31,11 +31,6 @@ public class Stock {
 		this.local = local;
 	}
 
-	public Stock(long idStock,int cantidad) {
-		this.lotes = new HashSet<Lote>();
-		this.cantidad = cantidad;
-	}
-
 	public long getIdStock() {
 		return idStock;
 	}

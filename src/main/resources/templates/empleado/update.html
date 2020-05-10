@@ -7,12 +7,12 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="bg-light border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Locales</div>
-			<div class="list-group list-group-flush">
-				<a href="/" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-				<a href="/local" class="list-group-item list-group-item-action bg-light">Lista</a>
-				<a href="/local/new" class="list-group-item list-group-item-action bg-light">Crear</a>
-			</div>
+            <div class="sidebar-heading">Empleados</div>
+            <div class="list-group list-group-flush">
+                <a href="/" class="list-group-item list-group-item-action bg-light">Dashboard</a>
+                <a href="/empleado" class="list-group-item list-group-item-action bg-light">Lista</a>
+                <a href="/empleado/new" class="list-group-item list-group-item-action bg-light">Crear</a>
+            </div>
         </div>
 
         <!-- /#sidebar-wrapper -->
@@ -54,19 +54,20 @@
 
             <div class="container">
 
-                <form class="well form-horizontal" action="#" th:action="@{/local/update}" th:object="${local}"
+                <form class="well form-horizontal" action="#" th:action="@{/empleado/update}" th:object="${empleado}"
                     method="post" id="contact_form">
                     <fieldset>
                         <div class="form_group">
-                            <input type="hidden" th:field="*{idLocal}" />
+                            <input type="hidden" th:field="*{idPersona}"/>
                         </div>
                         <!-- Text input-->
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Direccion</label>
+                            <label class="col-md-4 control-label">Nombre</label>
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
-                                    <input name="direccion" class="form-control" type="text" th:field="*{direccion}">
+                                    <input name="nombre" class="form-control" type="text"
+                                        th:field="*{nombre}">
                                 </div>
                             </div>
                         </div>
@@ -74,10 +75,11 @@
                         <!-- Text input-->
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Latitud</label>
+                            <label class="col-md-4 control-label">Apellido</label>
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
-                                    <input name="latitud" class="form-control" type="number" th:field="*{latitud}">
+                                    <input name="apellido" value="0" class="form-control" type="text"
+                                        th:field="*{apellido}">
                                 </div>
                             </div>
                         </div>
@@ -87,10 +89,11 @@
                         <!-- Text input-->
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Longitud</label>
+                            <label class="col-md-4 control-label">DNI</label>
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
-                                    <input name="longitud" class="form-control" type="number" th:field="*{longitud}">
+                                    <input name="dni" value="0" class="form-control" type="number"
+                                        th:field="*{dni}">
                                 </div>
                             </div>
                         </div>
@@ -98,14 +101,44 @@
                         <!-- Text input-->
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Telefono</label>
+                            <label class="col-md-4 control-label">Fecha de Nacimiento</label>
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
-                                    <input name="telefono" class="form-control" type="number" th:field="*{telefono}">
+                                    <input name="fecha_nacimiento" value="" class="form-control" type="date"
+                                        th:field="*{fechaNacimiento}">
                                 </div>
                             </div>
                         </div>
 
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Franja Horaria</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="franja_horaria" value="" class="form-control" type="text"
+                                        th:field="*{franjaHoraria}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">0 Gerente / 1 Vendedor</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="tipo_empleado" value="" class="form-control" type="text"
+                                        th:field="*{tipoEmpleado}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Local id</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="local" value="" class="form-control" type="text"
+                                        th:field="*{local.idLocal}" disabled>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- Button -->
                         <div class="form-group">

@@ -31,14 +31,14 @@ public class LocalController {
 	}
 
     @GetMapping("/new")
-	public ModelAndView newLocal() {
+	public ModelAndView create() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_NEW);
 		mAV.addObject("local", new LocalModel());
 		return mAV;
 	}
 
 	@PostMapping("/create")
-	public RedirectView createLocal(@ModelAttribute("local") LocalModel localModel) {
+	public RedirectView create(@ModelAttribute("local") LocalModel localModel) {
 		localService.insertOrUpdate(localModel);
 		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
 	}
@@ -51,7 +51,7 @@ public class LocalController {
 	}
 
 	@PostMapping("/update")
-	public RedirectView updateLocal(@ModelAttribute("local") LocalModel localModel) {
+	public RedirectView update(@ModelAttribute("local") LocalModel localModel) {
 		localService.insertOrUpdate(localModel);
 		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
 	}

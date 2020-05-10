@@ -29,7 +29,7 @@ public abstract class PersonaModel {
 		return idPersona;
 	}
 
-	protected void setIdPersona(long idPersona) {
+	public void setIdPersona(long idPersona) {
 		this.idPersona = idPersona;
 	}
 

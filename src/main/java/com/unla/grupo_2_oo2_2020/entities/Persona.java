@@ -24,7 +24,7 @@ public abstract class Persona {
 	@Column(name="fechaNacimiento")
 	protected LocalDate fechaNacimiento;
 
-	@Column(name="dni",unique = true,nullable = false)
+	@Column(name="dni",nullable = false)
 	protected int dni;
 
 	public Persona() {
@@ -52,7 +52,7 @@ public abstract class Persona {
 		return idPersona;
 	}
 
-	protected void setIdPersona(long idPersona) {
+	public void setIdPersona(long idPersona) {
 		this.idPersona = idPersona;
 	}
 

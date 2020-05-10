@@ -30,6 +30,12 @@ public class EmpleadoService implements IEmpleadoService {
 	private ILocalService localService;
 
 	@Override
+	public Empleado findById(long idPersona) {
+
+		return empleadoRepository.findByIdPersona(idPersona);
+	}
+
+	@Override
 	public List<Empleado> getAll() {
 		// TODO Auto-generated method stub
 		return empleadoRepository.findAll();
@@ -38,9 +44,22 @@ public class EmpleadoService implements IEmpleadoService {
 	@Override
 	public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel) {
 		// TODO Auto-generated method stub
-		Empleado empleado = empleadoConverter.modelToEntity(empleadoModel);
-		
-		empleado.setLocal(localService.findById(empleadoModel.getIdLocal()));
+		Empleado empleado;
+
+		if(empleadoModel.getIdPersona() > 0) {
+
+			empleado = findById(empleadoModel.getIdPersona());
+			empleado.setNombre(empleadoModel.getNombre());
+			empleado.setApellido(empleadoModel.getApellido());
+			empleado.setDni(empleadoModel.getDni());
+			empleado.setFechaNacimiento(empleadoModel.getFechaNacimiento());
+			empleado.setTipoEmpleado(empleadoModel.isTipoEmpleado());
+
+		}else {
+
+			empleado = empleadoConverter.modelToEntity(empleadoModel);
+			empleado.setLocal(localService.findById(empleadoModel.getIdLocal()));
+		}
 
 		empleadoRepository.save(empleado);
 		return empleadoConverter.entityToModel(empleado);
@@ -51,4 +70,5 @@ public class EmpleadoService implements IEmpleadoService {
 		// TODO Auto-generated method stub
 
 	}
+
 }

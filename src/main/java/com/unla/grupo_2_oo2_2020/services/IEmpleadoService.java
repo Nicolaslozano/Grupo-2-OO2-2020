@@ -8,6 +8,8 @@ import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 
 public interface IEmpleadoService {
 
+    public Empleado findById(long idPersona);
+
     public List<Empleado> getAll();
 
     public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel);

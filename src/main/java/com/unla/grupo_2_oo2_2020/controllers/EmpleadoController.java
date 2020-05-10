@@ -5,11 +5,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
+import com.unla.grupo_2_oo2_2020.converters.EmpleadoConverter;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
@@ -22,10 +24,14 @@ public class EmpleadoController {
 	@Qualifier("empleadoService")
 	private IEmpleadoService empleadoService;
 
+	@Autowired
+	@Qualifier("empleadoConverter")
+	private EmpleadoConverter empleadoConverter;
+
     @GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_INDEX);
-
+		mAV.addObject("empleados", empleadoService.getAll());
 		return mAV;
 	}
 
@@ -40,5 +46,18 @@ public class EmpleadoController {
 	public RedirectView create(@ModelAttribute("empleado") EmpleadoModel empleadoModel) {
 		empleadoService.insertOrUpdate(empleadoModel);
 		return new RedirectView(ViewRouteHelper.EMPLEADO_ROOT);
-    }
+	}
+
+	@GetMapping("/{idPersona}")
+	public ModelAndView get(@PathVariable("idPersona") long id) {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_UPDATE);
+		mAV.addObject("empleado", empleadoService.findById(id));
+		return mAV;
+	}
+
+	@PostMapping("/update")
+	public RedirectView update(@ModelAttribute("empleado") EmpleadoModel empleadoModel) {
+		empleadoService.insertOrUpdate(empleadoModel);
+		return new RedirectView(ViewRouteHelper.EMPLEADO_ROOT);
+	}
 }
