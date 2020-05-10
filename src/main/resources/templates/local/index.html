@@ -67,6 +67,7 @@
 												<th>Direccion</th>
 												<th>Telefono</th>
 												<th>-</th>
+												<th>-</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -76,6 +77,12 @@
 												<td>
 													<a th:href="@{/local/{id}(id=${local.idLocal})}">Ver</a>
 												</td>
+												  <td>         
+                     								</form>
+														<form action="#" th:action="@{/local/remove/{id}(id=${local.idLocal})}" method="post">
+														<input type="submit" value="Eliminar"/>
+													</form>
+                  								 </td>
 											</tr>
 										</tbody>
 									</table>

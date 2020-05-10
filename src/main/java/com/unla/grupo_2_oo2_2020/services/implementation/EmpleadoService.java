@@ -68,9 +68,8 @@ public class EmpleadoService implements IEmpleadoService {
 	}
 
 	@Override
-	public void remove(long idPersona) {
-		// TODO Auto-generated method stub
-
+	public void removeById(long idPersona) {
+	empleadoRepository.deleteById(idPersona);
 	}
 
 }

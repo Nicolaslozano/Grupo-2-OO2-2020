@@ -13,5 +13,5 @@ public interface ILocalService {
 
     public LocalModel insertOrUpdate(LocalModel localModel);
 
-    public void remove(long idLocal);
+    public void removeById(long idLocal);
 }
