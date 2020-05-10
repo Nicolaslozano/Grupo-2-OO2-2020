@@ -18,26 +18,115 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div>
-                <form action="#" th:action="@{/local/update}" th:object="${local}" method="post">
-                    <input type="hidden" th:field="*{idLocal}" />
-                    <p>
-                        Direccion: <input type="text" th:field="*{direccion}" />
-                    </p>
-                    <p>
-                        Latitud: <input type="number" th:field="*{latitud}" />
-                    </p>
-                    <p>
-                        Longitud: <input type="number" th:field="*{longitud}" />
-                    </p>
-                    <p>
-                        Telefono: <input type="number" th:field="*{telefono}" />
-                    </p>
-                    <input type="submit" value="Editar" />
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container">
+
+                <form class="well form-horizontal" action="#" th:action="@{/local/update}" th:object="${local}"
+                    method="post" id="contact_form">
+                    <fieldset>
+                        <div class="form_group">
+                            <input type="hidden" th:field="*{idLocal}" />
+                        </div>
+                        <!-- Text input-->
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Direccion</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="direccion" placeholder="Direccion" class="form-control" type="text"
+                                        th:field="*{direccion}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Latitud</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="latitud" value="0" class="form-control" type="number"
+                                        th:field="*{latitud}">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Longitud</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="longitud" value="0" class="form-control" type="number"
+                                        th:field="*{longitud}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Telefono</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="telefono" value="" class="form-control" type="number"
+                                        th:field="*{telefono}">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"></label>
+                            <div class="col-md-4"><br>
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                    type="submit"
+                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACTUALIZAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
                 </form>
             </div>
-        </div>
-        <!-- /#page-content-wrapper -->
+        </div><!-- /.container -->
+    </div>
+    </div>
+    <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->
 
