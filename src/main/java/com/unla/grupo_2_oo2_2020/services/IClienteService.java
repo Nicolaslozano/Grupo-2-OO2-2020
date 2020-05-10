@@ -14,4 +14,6 @@ public interface IClienteService {
 
     public void remove(long idPersona);
 
+	public Cliente findById(long idPersona);
+
 }

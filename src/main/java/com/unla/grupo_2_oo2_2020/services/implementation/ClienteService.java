@@ -30,15 +30,33 @@ public class ClienteService implements IClienteService {
         // TODO Auto-generated method stub
         return clienteRepository.findAll();
     }
+	@Override
+	public Cliente findById(long idPersona) {
 
+		return clienteRepository.findByIdPersona(idPersona);
+	}
     @Override
     public ClienteModel insertOrUpdate(ClienteModel clienteModel) {
-        // TODO Auto-generated method stub
-        Cliente cliente = clienteConverter.modelToEntity(clienteModel);
+		// TODO Auto-generated method stub
+		Cliente cliente;
 
-        clienteRepository.save(cliente);
-        return clienteConverter.entityToModel(cliente);
-    }
+		if(clienteModel.getIdPersona() > 0) {
+
+			cliente = findById(clienteModel.getIdPersona());
+			cliente.setNombre(clienteModel.getNombre());
+			cliente.setApellido(clienteModel.getApellido());
+			cliente.setDni(clienteModel.getDni());
+			cliente.setFechaNacimiento(clienteModel.getFechaNacimiento());
+			cliente.setEmail(clienteModel.getEmail());
+
+		}else {
+
+			cliente = clienteConverter.modelToEntity(clienteModel);
+		}
+
+		clienteRepository.save(cliente);
+		return clienteConverter.entityToModel(cliente);
+	}
 
     @Override
     public void remove(long idPersona) {
