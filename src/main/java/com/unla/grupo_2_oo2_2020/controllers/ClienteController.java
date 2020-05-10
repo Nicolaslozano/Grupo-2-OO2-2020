@@ -31,7 +31,7 @@ public class ClienteController {
     @GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_INDEX);
-		mAV.addObject("cliente", clienteService.getAll());
+		mAV.addObject("clientes", clienteService.getAll());
 		return mAV;
 	}
 
