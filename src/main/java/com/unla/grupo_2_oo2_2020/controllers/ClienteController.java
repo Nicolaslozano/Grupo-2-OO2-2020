@@ -60,4 +60,12 @@ public class ClienteController {
 		clienteService.insertOrUpdate(clienteModel);
 		return new RedirectView(ViewRouteHelper.CLIENTE_ROOT);
 	}
+	
+	@PostMapping("/remove/{id}")
+	public RedirectView delete(@PathVariable("idPersona") long idPersona) {
+		clienteService.removeById(idPersona);
+		return new RedirectView(ViewRouteHelper.CLIENTE_REMOVE);
+	}
+	
+	
 }
