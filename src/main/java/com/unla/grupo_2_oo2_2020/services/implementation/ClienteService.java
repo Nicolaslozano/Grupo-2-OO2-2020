@@ -59,8 +59,9 @@ public class ClienteService implements IClienteService {
 	}
 
     @Override
-    public void remove(long idPersona) {
-        // TODO Auto-generated method stub
+    public void removeById (long idPersona) {
+     clienteRepository.deleteById(idPersona);
+     
 
 
 }
