@@ -61,10 +61,10 @@ public class ClienteController {
 		return new RedirectView(ViewRouteHelper.CLIENTE_ROOT);
 	}
 	
-	@PostMapping("/remove/{id}")
-	public RedirectView delete(@PathVariable("idPersona") long idPersona) {
-		clienteService.removeById(idPersona);
-		return new RedirectView(ViewRouteHelper.CLIENTE_REMOVE);
+	@PostMapping("/remove/{idPersona}")
+	public RedirectView remove(@PathVariable("idPersona") long id) {
+		clienteService.removeById(id);
+		return new RedirectView(ViewRouteHelper.CLIENTE_ROOT);
 	}
 	
 	

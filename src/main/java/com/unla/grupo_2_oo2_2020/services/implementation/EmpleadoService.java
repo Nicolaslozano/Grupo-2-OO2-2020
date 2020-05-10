@@ -54,12 +54,14 @@ public class EmpleadoService implements IEmpleadoService {
 			empleado.setDni(empleadoModel.getDni());
 			empleado.setFechaNacimiento(empleadoModel.getFechaNacimiento());
 			empleado.setTipoEmpleado(empleadoModel.isTipoEmpleado());
+			empleado.setFranjaHoraria(empleadoModel.getFranjaHoraria());
 
 		}else {
 
 			empleado = empleadoConverter.modelToEntity(empleadoModel);
-			empleado.setLocal(localService.findById(empleadoModel.getIdLocal()));
 		}
+
+		empleado.setLocal(localService.findById(empleadoModel.getIdLocal()));
 
 		empleadoRepository.save(empleado);
 		return empleadoConverter.entityToModel(empleado);
