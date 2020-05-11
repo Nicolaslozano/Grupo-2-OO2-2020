@@ -21,18 +21,18 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/local")
 public class LocalController {
 
-    @Autowired
+	@Autowired
 	@Qualifier("localService")
 	private ILocalService localService;
 
-    @GetMapping("")
+	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_INDEX);
 		mAV.addObject("locales", localService.getAll());
 		return mAV;
 	}
 
-    @GetMapping("/new")
+	@GetMapping("/new")
 	public ModelAndView create() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_NEW);
 		mAV.addObject("local", new LocalModel());
@@ -57,6 +57,7 @@ public class LocalController {
 		localService.insertOrUpdate(localModel);
 		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
 	}
+
 	@PostMapping("/remove/{idLocal}")
 	public RedirectView remove(@PathVariable("idLocal") long id) {
 		localService.removeById(id);
@@ -74,14 +75,14 @@ public class LocalController {
 
 	@PostMapping("/calculate")
 	public ModelAndView calculate(@ModelAttribute("local_models") LocalFormModel local_models) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_CALCULAR_DISTANCIA_RESULT);
-
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_CALCULAR_DISTANCIA);
 		Local local_1 = localService.findById(local_models.getidLocal_1());
 		Local local_2 = localService.findById(local_models.getidLocal_2());
-
+		mAV.addObject("locales", localService.getAll());
 		mAV.addObject("local_1", local_1);
 		mAV.addObject("local_2", local_2);
 		mAV.addObject("distance", localService.calculateDistance(local_1.getIdLocal(), local_2.getIdLocal()));
+
 		return mAV;
 	}
 

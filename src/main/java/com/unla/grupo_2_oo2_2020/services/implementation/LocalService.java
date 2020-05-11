@@ -85,7 +85,7 @@ public class LocalService implements ILocalService {
                 * Math.cos(rad * local_2.getLatitud()) * Math.pow(rad * Math.sin(dlong / 2), 2);
         double distancia = 2 * R * Math.asin(Math.sqrt(a));
 
-        return distancia;
+        return Math.round(distancia);
     }
     
 }
