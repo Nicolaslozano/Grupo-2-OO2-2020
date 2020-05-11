@@ -14,4 +14,6 @@ public interface ILocalService {
     public LocalModel insertOrUpdate(LocalModel localModel);
 
     public void remove(long idLocal);
+
+    public double calculateDistance(long idLocal_1, long idLocal_2);
 }

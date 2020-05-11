@@ -70,5 +70,22 @@ public class LocalService implements ILocalService {
         // TODO Auto-generated method stub
 
     }
+
+    public double calculateDistance(long idLocal_1, long idLocal_2) {
+
+        Local local_1 = findById(idLocal_1);
+        Local local_2 = findById(idLocal_2);
+
+        double rad = Math.PI / 180; // Para convertir a Radianes
+        double dlat = local_1.getLatitud() - local_2.getLatitud(); // Diferencia de latitudes
+        double dlong = local_1.getLongitud() - local_2.getLongitud(); // Diferencia de longitudes
+
+        double R = 6372.795477598;// Radio de la tierra
+        double a = Math.pow(Math.sin(rad * dlat / 2), 2) + Math.cos(rad * local_1.getLatitud())
+                * Math.cos(rad * local_2.getLatitud()) * Math.pow(rad * Math.sin(dlong / 2), 2);
+        double distancia = 2 * R * Math.asin(Math.sqrt(a));
+
+        return distancia;
+    }
     
 }
