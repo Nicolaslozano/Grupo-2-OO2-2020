@@ -57,6 +57,11 @@ public class LocalController {
 		localService.insertOrUpdate(localModel);
 		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
 	}
+	@PostMapping("/remove/{idLocal}")
+	public RedirectView remove(@PathVariable("idLocal") long id) {
+		localService.removeById(id);
+		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
+	}
 
 	@GetMapping("/distance")
 	public ModelAndView distance() {

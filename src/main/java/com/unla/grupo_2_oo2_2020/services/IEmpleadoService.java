@@ -14,6 +14,6 @@ public interface IEmpleadoService {
 
     public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel);
 
-    public void remove(long idPersona);
+	public void removeById(long idPersona);
 
 }

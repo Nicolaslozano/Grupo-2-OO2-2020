@@ -60,9 +60,6 @@ public class ClienteService implements IClienteService {
 
     @Override
     public void removeById (long idPersona) {
-     clienteRepository.deleteById(idPersona);
-     
-
-
-}
+     clienteRepository.deleteById(idPersona);     
+    }
 }

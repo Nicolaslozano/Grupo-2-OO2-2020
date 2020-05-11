@@ -66,4 +66,10 @@ public class EmpleadoController {
 		empleadoService.insertOrUpdate(empleadoModel);
 		return new RedirectView(ViewRouteHelper.EMPLEADO_ROOT);
 	}
+	
+	@PostMapping("/remove/{idPersona}")
+	public RedirectView remove(@PathVariable("idPersona") long id) {
+		empleadoService.removeById(id);
+		return new RedirectView(ViewRouteHelper.EMPLEADO_ROOT);
+	}
 }

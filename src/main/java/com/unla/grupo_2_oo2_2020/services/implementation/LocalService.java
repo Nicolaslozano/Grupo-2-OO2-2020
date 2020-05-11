@@ -66,8 +66,8 @@ public class LocalService implements ILocalService {
     }
 
     @Override
-    public void remove(long idLocal) {
-        // TODO Auto-generated method stub
+    public void removeById(long idLocal) {
+      localRepository.deleteById(idLocal);
 
     }
 

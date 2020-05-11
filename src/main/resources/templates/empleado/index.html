@@ -68,6 +68,8 @@
                         <th>DNI</th>
                         <th>Trabajo</th>
                         <th>-</th>
+                        <th>-</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
@@ -79,6 +81,12 @@
                         <td>
                           <a th:href="@{/empleado/{id}(id=${empleado.idPersona})}">Ver</a>
                         </td>
+                        <td>         
+                     </form>
+						<form action="#" th:action="@{/empleado/remove/{id}(id=${empleado.idPersona})}" method="post">
+						<input type="submit" value="Eliminar"/>
+					</form>
+                   </td>
                       </tr>
                     </tbody>
                   </table>
