@@ -66,11 +66,12 @@
                         <h2 class="card-title">Distancia</h2>
                         <div style="float: left; margin-right: 20px">
                             <p style="display:inline-block">La distancia entre</p>
-                            <p style="display:inline-block"><b th:text="${local_1.direccion}"></b></p>
+                            <p style="display:inline-block"><b th:text="${localSelected1.direccion}"></b></p>
                             <p style="display:inline-block"> y</p>
-                            <p style="display:inline-block"><b th:text="${local_2.direccion}"></b></p>
+                            <p style="display:inline-block"><b th:text="${localSelected2.direccion}"></b></p>
                             <p style="display:inline-block"> es de </p>
                             <p style="display:inline-block"><b th:text="${distance}"></b>Km.</p>
+                            <p th:if="${localSelected1 == localSelected2}">(Mismo local)</p>
                         </div>
                     </div>
                     <div class="card-footer">

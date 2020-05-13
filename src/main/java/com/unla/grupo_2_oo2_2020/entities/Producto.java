@@ -37,6 +37,15 @@ public class Producto {
 		this.fechaAlta = fechaAlta;
 	}
 
+	public Producto(long idProducto, String nombre, String descripcion, float precio, LocalDate fechaAlta) {
+
+		this.idProducto = idProducto;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.fechaAlta = fechaAlta;
+	}
+
 	public long getIdProducto() {
 		return idProducto;
 	}

@@ -1,6 +1,8 @@
 package com.unla.grupo_2_oo2_2020.models;
 
-import java.time.LocalDate;;
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;;
 
 public class ProductoModel {
 
@@ -8,6 +10,7 @@ public class ProductoModel {
 	private String nombre;
 	private String descripcion;
 	private float precio;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaAlta;
 
 	public ProductoModel() {
