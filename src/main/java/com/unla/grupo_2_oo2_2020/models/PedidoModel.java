@@ -1,8 +1,5 @@
 package com.unla.grupo_2_oo2_2020.models;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class PedidoModel {
 
 	private long idPedido;

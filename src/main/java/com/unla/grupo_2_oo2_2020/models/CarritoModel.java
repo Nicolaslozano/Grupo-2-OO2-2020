@@ -1,10 +1,6 @@
 package com.unla.grupo_2_oo2_2020.models;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.unla.grupo_2_oo2_2020.entities.Pedido;
 
 public class CarritoModel {
 
@@ -23,7 +19,7 @@ public class CarritoModel {
 
 	public long getIdCarrito() {
 		return idCarrito;
-	
+	}
 	
 	public void setIdCarrito(long idCarrito) {
 		this.idCarrito = idCarrito;

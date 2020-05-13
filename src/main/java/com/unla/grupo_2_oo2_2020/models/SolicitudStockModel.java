@@ -1,8 +1,6 @@
 package com.unla.grupo_2_oo2_2020.models;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 public class SolicitudStockModel {
 
@@ -17,16 +15,17 @@ public class SolicitudStockModel {
 	public SolicitudStockModel() {
 	}
 
-	public SolicitudStockModel(long idSolicitud, LocalDate fecha, ProductoModel producto, int cantidad, EmpleadoModel vendedor) {
+	public SolicitudStockModel(long idSolicitud, LocalDate fecha, ProductoModel producto, int cantidad,
+			EmpleadoModel vendedor, EmpleadoModel colaborador) {
 
 		super();
-		
+
 		this.idSolicitud = idSolicitud;
 		this.fecha = fecha;
 		this.producto = producto;
 		this.cantidad = cantidad;
-		this.empleados.add(vendedor);
-
+		this.vendedor = vendedor;
+		this.colaborador = colaborador;
 		this.aceptado = false;
 	}
 
@@ -92,7 +91,7 @@ public class SolicitudStockModel {
 
 	@Override
 	public String toString() {
-		return "SolicitudStock [fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad +
-		 "empleados: "+ vendedor + colaborador + ", aceptado=" + aceptado + "]";
+		return "SolicitudStock [fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad + "empleados: "
+				+ vendedor + colaborador + ", aceptado=" + aceptado + "]";
 	}
 }
