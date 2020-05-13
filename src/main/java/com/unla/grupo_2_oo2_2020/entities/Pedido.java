@@ -45,16 +45,18 @@ public class Pedido {
 	public Pedido() {
 	}
 
-	public Pedido(Producto producto, int cantidad, Local local, Cliente cliente,
-			Empleado vendedorOriginal, Empleado vendedorAuxiliar, boolean aceptado) {
+	public Pedido(int cantidad, boolean aceptado) {
 		super();
 
-		this.producto = producto;
 		this.cantidad = cantidad;
-		this.local = local;
-		this.cliente = cliente;
-		this.vendedorAuxiliar = vendedorAuxiliar;
-		this.vendedorOriginal = vendedorOriginal;
+		this.aceptado = aceptado;
+	}
+
+	public Pedido(long idPedido, int cantidad, boolean aceptado) {
+		super();
+
+		this.idPedido = idPedido;
+		this.cantidad = cantidad;
 		this.aceptado = aceptado;
 	}
 

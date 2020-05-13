@@ -3,28 +3,29 @@ package com.unla.grupo_2_oo2_2020.models;
 public class PedidoModel {
 
 	private long idPedido;
-	private ProductoModel producto;
+	private long idProducto;
 	private int cantidad;
-	private LocalModel local;
-	private ClienteModel cliente;
-	private EmpleadoModel vendedorOriginal; 
-	private EmpleadoModel vendedorAuxiliar;
+	private long idLocal;
+	private long idCliente;
+	private long idVendedorOriginal; 
+	private long idVendedorAuxiliar;
 	private float subtotal;
 	private boolean aceptado;
 
 	public PedidoModel() {
 	}
 
-	public PedidoModel(ProductoModel producto, int cantidad, LocalModel local, ClienteModel cliente,
-			EmpleadoModel vendedorOriginal, EmpleadoModel vendedorAuxiliar, boolean aceptado) {
+	public PedidoModel(long idPedido, long idProducto, int cantidad, long idLocal, long idCliente,
+			long idVendedorOriginal, long idVendedorAuxiliar, boolean aceptado) {
 		super();
-
-		this.producto = producto;
+		
+		this.idPedido = idPedido;
+		this.idProducto = idProducto;
 		this.cantidad = cantidad;
-		this.local = local;
-		this.cliente = cliente;
-		this.vendedorAuxiliar = vendedorAuxiliar;
-		this.vendedorOriginal = vendedorOriginal;
+		this.idLocal = idLocal;
+		this.idCliente = idCliente;
+		this.idVendedorAuxiliar = idVendedorAuxiliar;
+		this.idVendedorOriginal = idVendedorOriginal;
 		this.aceptado = aceptado;
 	}
 
@@ -32,16 +33,16 @@ public class PedidoModel {
 		return idPedido;
 	}
 
-	protected void setIdPedido(long idPedido) {
+	public void setIdPedido(long idPedido) {
 		this.idPedido = idPedido;
 	}
 
-	public ProductoModel getProducto() {
+	public long getidProducto() {
 
-		return this.producto;
+		return this.idProducto;
 	}
-	protected void setProducto(ProductoModel producto) {
-		this.producto = producto;
+	protected void setidProducto(long idProducto) {
+		this.idProducto = idProducto;
 	}
 
 	public int getCantidad() {
@@ -60,40 +61,40 @@ public class PedidoModel {
 		this.aceptado = aceptado;
 	}
 
-	public LocalModel getLocal() {
-		return local;
+	public long getidLocal() {
+		return idLocal;
 	}
 
-	public void setLocal(LocalModel local) {
-		this.local = local;
+	public void setidLocal(long idLocal) {
+		this.idLocal = idLocal;
 	}
 
-	public ClienteModel getCliente() {
-		return cliente;
+	public long getidCliente() {
+		return idCliente;
 	}
 	
-	public EmpleadoModel getVendedorOriginal() {
+	public long getidVendedorOriginal() {
 
-		return this.vendedorOriginal;
+		return this.idVendedorOriginal;
 	}
 
-	public void setVendedorOriginal(EmpleadoModel vendedorOriginal) {
+	public void setidVendedorOriginal(long idVendedorOriginal) {
 
-		this.vendedorOriginal = vendedorOriginal;
+		this.idVendedorOriginal = idVendedorOriginal;
 	}
 
-	public EmpleadoModel getVendedorAuxiliar() {
+	public long getidVendedorAuxiliar() {
 
-		return this.vendedorAuxiliar;
+		return this.idVendedorAuxiliar;
 	}
 
-	public void setVendedorAuxiliar(EmpleadoModel vendedorAuxiliar) {
+	public void setidVendedorAuxiliar(long idVendedorAuxiliar) {
 
-		this.vendedorAuxiliar = vendedorAuxiliar;
+		this.idVendedorAuxiliar = idVendedorAuxiliar;
 	}
 
-	public void setCliente(ClienteModel cliente) {
-		this.cliente = cliente;
+	public void setidCliente(long idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public float getSubtotal() {
@@ -110,8 +111,8 @@ public class PedidoModel {
 
 	@Override
 	public String toString() {
-		return "Pedido [producto=" + producto + ", cantidad=" + cantidad + ", local=" + local + ", cliente=" + cliente
-				+ ", empleados: "+vendedorOriginal+vendedorAuxiliar+"]\n\n";
+		return "Pedido [idProducto=" + idProducto + ", cantidad=" + cantidad + ", idLocal=" + idLocal + ", idCliente=" + idCliente
+				+ ", empleados: "+idVendedorOriginal+idVendedorAuxiliar+"]\n\n";
 	}
 
 }

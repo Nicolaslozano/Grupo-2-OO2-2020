@@ -36,6 +36,12 @@ public class EmpleadoService implements IEmpleadoService {
 	}
 
 	@Override
+	public Empleado findByIdFetchEagerly(long idPersona) {
+
+		return empleadoRepository.findByIdPersona_wDependencies(idPersona);
+	}
+
+	@Override
 	public List<Empleado> getAll() {
 		// TODO Auto-generated method stub
 		return empleadoRepository.findAll();
@@ -44,22 +50,7 @@ public class EmpleadoService implements IEmpleadoService {
 	@Override
 	public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel) {
 		// TODO Auto-generated method stub
-		Empleado empleado;
-
-		if(empleadoModel.getIdPersona() > 0) {
-
-			empleado = findById(empleadoModel.getIdPersona());
-			empleado.setNombre(empleadoModel.getNombre());
-			empleado.setApellido(empleadoModel.getApellido());
-			empleado.setDni(empleadoModel.getDni());
-			empleado.setFechaNacimiento(empleadoModel.getFechaNacimiento());
-			empleado.setTipoEmpleado(empleadoModel.isTipoEmpleado());
-			empleado.setFranjaHoraria(empleadoModel.getFranjaHoraria());
-
-		}else {
-
-			empleado = empleadoConverter.modelToEntity(empleadoModel);
-		}
+		Empleado empleado = empleadoConverter.modelToEntity(empleadoModel);
 
 		empleado.setLocal(localService.findById(empleadoModel.getIdLocal()));
 
@@ -69,7 +60,7 @@ public class EmpleadoService implements IEmpleadoService {
 
 	@Override
 	public void removeById(long idPersona) {
-	empleadoRepository.deleteById(idPersona);
+		empleadoRepository.deleteById(idPersona);
 	}
 
 }

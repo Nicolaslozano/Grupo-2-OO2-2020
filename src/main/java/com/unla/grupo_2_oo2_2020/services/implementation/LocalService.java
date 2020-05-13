@@ -44,19 +44,14 @@ public class LocalService implements ILocalService {
     @Override
     public LocalModel insertOrUpdate(LocalModel localModel) {
 
-        Local local;
+        Local local = localConverter.modelToEntity(localModel);
 
-        if(localModel.getIdLocal() > 0) {
+        if(findById(localModel.getIdLocal()) != null) {
 
-            local = localRepository.getOne(localModel.getIdLocal());
-            local.setDireccion(localModel.getDireccion());
-            local.setLatitud(localModel.getLatitud());
-            local.setLongitud(localModel.getLongitud());
-            local.setTelefono(localModel.getTelefono());
+            local.setStock(stockRepository.findByIdStock(localModel.getIdLocal()));
 
         }else {
 
-            local = localConverter.modelToEntity(localModel);
             Stock stock = new Stock(0, local);
             local.setStock(stock);
         }

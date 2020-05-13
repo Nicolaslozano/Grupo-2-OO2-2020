@@ -10,6 +10,8 @@ public interface IEmpleadoService {
 
     public Empleado findById(long idPersona);
 
+    public Empleado findByIdFetchEagerly(long idPersona);
+
     public List<Empleado> getAll();
 
     public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel);
