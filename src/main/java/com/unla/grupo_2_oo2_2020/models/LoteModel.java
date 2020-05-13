@@ -15,9 +15,10 @@ public class LoteModel {
 	public LoteModel() {
 	}
 
-	public LoteModel(int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, ProductoModel producto,boolean estaado) {
+	public LoteModel(long idLote, int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, ProductoModel producto,boolean estaado) {
 		super();
-
+		
+		this.idLote = idLote;
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = fechaIngreso;

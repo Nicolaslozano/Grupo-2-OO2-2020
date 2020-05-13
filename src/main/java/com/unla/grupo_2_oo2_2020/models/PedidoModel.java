@@ -10,7 +10,8 @@ public class PedidoModel {
 	private int cantidad;
 	private LocalModel local;
 	private ClienteModel cliente;
-	private Set<EmpleadoModel> empleados = new HashSet<>();
+	private EmpleadoModel vendedorOriginal; 
+	private EmpleadoModel vendedorAuxiliar;
 	private float subtotal;
 	private boolean aceptado;
 
@@ -25,8 +26,8 @@ public class PedidoModel {
 		this.cantidad = cantidad;
 		this.local = local;
 		this.cliente = cliente;
-		this.empleados.add(vendedorOriginal);
-		if (vendedorAuxiliar != null) this.empleados.add(vendedorAuxiliar); //VALIDACIONES EN SET, CAMBIAR LUEGO
+		this.vendedorAuxiliar = vendedorAuxiliar;
+		this.vendedorOriginal = vendedorOriginal;
 		this.aceptado = aceptado;
 	}
 
@@ -73,19 +74,29 @@ public class PedidoModel {
 	public ClienteModel getCliente() {
 		return cliente;
 	}
+	
+	public EmpleadoModel getVendedorOriginal() {
+
+		return this.vendedorOriginal;
+	}
+
+	public void setVendedorOriginal(EmpleadoModel vendedorOriginal) {
+
+		this.vendedorOriginal = vendedorOriginal;
+	}
+
+	public EmpleadoModel getVendedorAuxiliar() {
+
+		return this.vendedorAuxiliar;
+	}
+
+	public void setVendedorAuxiliar(EmpleadoModel vendedorAuxiliar) {
+
+		this.vendedorAuxiliar = vendedorAuxiliar;
+	}
 
 	public void setCliente(ClienteModel cliente) {
 		this.cliente = cliente;
-	}
-
-	public Set<EmpleadoModel> getEmpleados() {
-
-		return this.empleados;
-	}
-
-	public void setEmpleados(Set<EmpleadoModel> empleados) {
-
-		this.empleados = empleados;
 	}
 
 	public float getSubtotal() {
@@ -103,7 +114,7 @@ public class PedidoModel {
 	@Override
 	public String toString() {
 		return "Pedido [producto=" + producto + ", cantidad=" + cantidad + ", local=" + local + ", cliente=" + cliente
-				+ ", empleados: "+empleados+"]\n\n";
+				+ ", empleados: "+vendedorOriginal+vendedorAuxiliar+"]\n\n";
 	}
 
 }

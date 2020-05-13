@@ -10,16 +10,18 @@ public class SolicitudStockModel {
 	private LocalDate fecha;
 	private ProductoModel producto;
 	private int cantidad;
-	private Set<EmpleadoModel> empleados = new HashSet<>();
-	//colaborador tmb
+	private EmpleadoModel vendedor;
+	private EmpleadoModel colaborador;
 	private boolean aceptado;
 
 	public SolicitudStockModel() {
 	}
 
-	public SolicitudStockModel(LocalDate fecha, ProductoModel producto, int cantidad, EmpleadoModel vendedor) {
+	public SolicitudStockModel(long idSolicitud, LocalDate fecha, ProductoModel producto, int cantidad, EmpleadoModel vendedor) {
 
 		super();
+		
+		this.idSolicitud = idSolicitud;
 		this.fecha = fecha;
 		this.producto = producto;
 		this.cantidad = cantidad;
@@ -60,17 +62,25 @@ public class SolicitudStockModel {
 		this.cantidad = cantidad;
 	}
 
-	public Set<EmpleadoModel> getEmpleados() {
+	public EmpleadoModel getVendedor() {
 
-		return this.empleados;
+		return this.vendedor;
 	}
 
-	public void setEmpleados(Set<EmpleadoModel> empleados) {
+	public void setVendedor(EmpleadoModel vendedor) {
 
-		this.empleados = empleados;
+		this.vendedor = vendedor;
 	}
 
-	//ADD EMPLEADO EN ABM
+	public EmpleadoModel getColaborador() {
+
+		return this.colaborador;
+	}
+
+	public void setColaborador(EmpleadoModel colaborador) {
+
+		this.colaborador = colaborador;
+	}
 
 	public boolean isAceptado() {
 		return aceptado;
@@ -83,6 +93,6 @@ public class SolicitudStockModel {
 	@Override
 	public String toString() {
 		return "SolicitudStock [fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad +
-		 "empleados: "+ empleados + ", aceptado=" + aceptado + "]";
+		 "empleados: "+ vendedor + colaborador + ", aceptado=" + aceptado + "]";
 	}
 }
