@@ -23,6 +23,10 @@ public class CarritoModel {
 
 	public long getIdCarrito() {
 		return idCarrito;
+	
+	
+	public void setIdCarrito(long idCarrito) {
+		this.idCarrito = idCarrito;
 	}
 
 	public LocalDate getFecha() {
