@@ -70,9 +70,9 @@
                         <td>
                           <a th:href="@{/producto/{id}(id=${producto.idProducto})}">Ver</a>
                         </td>
-                         <td>         
+                         <td>
                      </form>
-						<form action="#" th:action="@{/producto/remove/{id}(id=${cliente.idProducto})}" method="post">
+						<form action="#" th:action="@{/producto/remove/{id}(id=${producto.idProducto})}" method="post">
 						<input type="submit" value="Eliminar"/>
 					</form>
                    </td>
