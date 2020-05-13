@@ -27,11 +27,7 @@ public class Pedido {
 	@ManyToOne 
 	@JoinColumn(name = "idCliente") 
 	private Cliente cliente;
-	
-	@ManyToOne 
-	@JoinColumn(name = "idCarrito") 
-	private Carrito carrito;
-	
+
 	@ManyToOne 
 	@JoinColumn(name = "id_vendedor_original") 
 	private Empleado vendedorOriginal;
@@ -49,7 +45,7 @@ public class Pedido {
 	public Pedido() {
 	}
 
-	public Pedido(Producto producto, int cantidad, Local local, Cliente cliente, Carrito carrito,
+	public Pedido(Producto producto, int cantidad, Local local, Cliente cliente,
 			Empleado vendedorOriginal, Empleado vendedorAuxiliar, boolean aceptado) {
 		super();
 
@@ -57,7 +53,6 @@ public class Pedido {
 		this.cantidad = cantidad;
 		this.local = local;
 		this.cliente = cliente;
-		this.carrito = carrito;
 		this.vendedorAuxiliar = vendedorAuxiliar;
 		this.vendedorOriginal = vendedorOriginal;
 		this.aceptado = aceptado;
@@ -132,16 +127,6 @@ public class Pedido {
 		this.vendedorAuxiliar = vendedorAuxiliar;
 	}
 
-	public Carrito getCarrito() {
-
-		return this.carrito;
-	}
-
-	public void setCarrito(Carrito carrito) {
-
-		this.carrito = carrito;
-	}
-
 	public float getSubtotal() {
 
 		return producto.getPrecio() * cantidad;
@@ -152,7 +137,7 @@ public class Pedido {
 	@Override
 	public String toString() {
 		return "Pedido [producto=" + producto + ", cantidad=" + cantidad + ", local=" + local + ", cliente=" + cliente
-				+ ", vendedorAuxiliar: "+vendedorAuxiliar + "VendedorOriginal:"+vendedorOriginal+ "carrito" + carrito + "]\n\n";
+				+ ", vendedorAuxiliar: "+vendedorAuxiliar + "VendedorOriginal:"+vendedorOriginal + "]\n\n";
 	}
 
 }

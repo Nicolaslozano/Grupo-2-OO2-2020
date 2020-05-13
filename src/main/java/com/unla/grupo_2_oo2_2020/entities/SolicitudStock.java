@@ -24,7 +24,10 @@ public class SolicitudStock {
 	@ManyToOne
 	@JoinColumn(name = "idProducto")
 	private Producto producto;
-	@Column 
+	@ManyToOne
+	@JoinColumn(name = "idLocal")
+	private Local local;
+	@Column
 	private int cantidad;
 	@ManyToOne
 	@JoinColumn(name = "id_vendedor")
@@ -38,7 +41,9 @@ public class SolicitudStock {
 	public SolicitudStock() {
 	}
 
-	public SolicitudStock(LocalDate fecha, Producto producto, int cantidad, Empleado vendedor, Empleado colaborador) {
+	public SolicitudStock(Local local,LocalDate fecha, Producto producto, int cantidad, Empleado vendedor, Empleado colaborador) {
+
+		this.local = local;
 		this.fecha = fecha;
 		this.producto = producto;
 		this.cantidad = cantidad;
@@ -54,6 +59,16 @@ public class SolicitudStock {
 
 	protected void setIdSolicitud(long idSolicitud) {
 		this.idSolicitud = idSolicitud;
+	}
+
+	public Local getLocal() {
+
+		return this.local;
+	}
+
+	public void setLocal(Local local) {
+
+		this.local = local;
 	}
 
 	public LocalDate getFecha() {
@@ -111,6 +126,6 @@ public class SolicitudStock {
 	@Override
 	public String toString() {
 		return "SolicitudStock [fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad +
-		 "empleados: "+ vendedor + colaborador + ", aceptado=" + aceptado + "]";
+		 "empleados: "+ vendedor + colaborador + ", aceptado=" + aceptado + local + "]";
 	}
 }

@@ -13,39 +13,41 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 @Entity
-@Table(name = "comercio")
+@Table(name = "comercio") // 'local' esta reservado en mysql
 public class Local {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idLocal;
 
-	@Column (name = "direccion")
+	@Column(name = "direccion")
 	private String direccion;
 
-	@Column	(name = "latitud")
+	@Column(name = "latitud")
 	private double latitud;
 
-	@Column	(name = "longitud")
+	@Column(name = "longitud")
 	private double longitud;
 
-	@Column	(name = "telefono")
+	@Column(name = "telefono")
 	private long telefono;
 
 	@OneToOne(mappedBy = "local", cascade = CascadeType.ALL)
 	private Stock stock;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idLocal")
-	private Set<SolicitudStock> listaSolicitudesStock;
+	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
+	private Set<SolicitudStock> solicitudesStock;
 
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
-	private Set<Empleado> listaEmpleados;
+	private Set<Pedido> pedidos;
+
+	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
+	private Set<Empleado> empleados;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idLocal")
-	private Set<Factura> listaFacturas;
-
+	@JoinColumn(name = "idLocal")
+	private Set<Factura> facturas;
 
 	public Local() {
 	}
@@ -57,20 +59,22 @@ public class Local {
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
-		this.listaEmpleados = new HashSet<Empleado>();
-		this.listaFacturas = new HashSet<Factura>();
-		this.listaSolicitudesStock = new HashSet<SolicitudStock>();
+		this.empleados = new HashSet<Empleado>();
+		this.facturas = new HashSet<Factura>();
+		this.solicitudesStock = new HashSet<SolicitudStock>();
+		this.pedidos = new HashSet<Pedido>();
 	}
-	
+
 	public Local(String direccion, double latitud, double longitud, long telefono) {
 
 		this.direccion = direccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
-		this.listaEmpleados = new HashSet<Empleado>();
-		this.listaFacturas = new HashSet<Factura>();
-		this.listaSolicitudesStock = new HashSet<SolicitudStock>();
+		this.empleados = new HashSet<Empleado>();
+		this.facturas = new HashSet<Factura>();
+		this.solicitudesStock = new HashSet<SolicitudStock>();
+		this.pedidos = new HashSet<Pedido>();
 	}
 
 	public long getIdLocal() {
@@ -121,34 +125,43 @@ public class Local {
 		this.telefono = telefono;
 	}
 
-	public Set<Factura> getListaFacturas() {
-		return listaFacturas;
+	public Set<Factura> getFacturas() {
+		return facturas;
 	}
 
-	public void setListaFacturas(Set<Factura> listaFacturas) {
-		this.listaFacturas = listaFacturas;
+	public void setFacturas(Set<Factura> facturas) {
+		this.facturas = facturas;
 	}
 
-	public Set<SolicitudStock> getListaSolicitudesStock() {
-		return listaSolicitudesStock;
+	public Set<SolicitudStock> getSolicitudesStock() {
+		return solicitudesStock;
 	}
 
-	public void setListaSolicitudesStock(Set<SolicitudStock> listaSolicitudesStock) {
-		this.listaSolicitudesStock = listaSolicitudesStock;
+	public void setSolicitudesStock(Set<SolicitudStock> solicitudesStock) {
+		this.solicitudesStock = solicitudesStock;
 	}
 
-	public Set<Empleado> getListaEmpleados() {
-		return listaEmpleados;
+	public Set<Empleado> getEmpleados() {
+		return empleados;
 	}
 
-	public void setListaEmpleados(Set<Empleado> listaEmpleados) {
-		this.listaEmpleados = listaEmpleados;
+	public void setEmpleados(Set<Empleado> empleados) {
+		this.empleados = empleados;
+	}
+
+	public Set<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(Set<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override
 	public String toString() {
 		return "Local [idLocal=" + idLocal + ", direccion=" + direccion + ", latitud=" + latitud + ", longitud="
-				+ longitud + ", telefono=" + telefono + ", stock=" + stock + ", empleados=" + listaEmpleados + "]\n";
+				+ longitud + ", telefono=" + telefono + ", stock=" + stock + ", empleados=" + empleados + "solicitudes"
+				+ solicitudesStock + "pedidos"+ pedidos + "]\n";
 	}
 
 }

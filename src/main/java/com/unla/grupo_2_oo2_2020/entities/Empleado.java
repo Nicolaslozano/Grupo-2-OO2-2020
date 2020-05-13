@@ -14,7 +14,6 @@ public class Empleado extends Persona {
 	@Column(name = "tipoEmpleado")
 	private boolean tipoEmpleado; // true = Vendedor, false = Gerente.
 
-	//<many-to-one name="local" class="modelo.Local" column="idLocal"></many-to-one>
 	@ManyToOne
 	@JoinColumn(name = "idLocal")
 	private Local local;
