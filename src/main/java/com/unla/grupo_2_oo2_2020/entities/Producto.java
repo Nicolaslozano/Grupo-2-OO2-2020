@@ -29,9 +29,15 @@ public class Producto {
 	public Producto() {
 	}
 
+	public Producto(String nombre, String descripcion, float precio, LocalDate fechaAlta) {
 
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.fechaAlta = LocalDate.now();
+	}
+	
 	public Producto(long idProducto, String nombre, String descripcion, float precio, LocalDate fechaAlta) {
-
 		this.idProducto = idProducto;
 		this.nombre = nombre;
 		this.descripcion = descripcion;

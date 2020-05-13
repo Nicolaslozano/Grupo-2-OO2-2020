@@ -43,7 +43,6 @@ public class ProductoService implements IProductoService {
 			producto.setNombre(productoModel.getNombre());
 			producto.setDescripcion(productoModel.getDescripcion());
 			producto.setPrecio(productoModel.getPrecio());
-			producto.setFechaAlta(productoModel.getFechaAlta());
 		} else {
 
 			producto = productoConverter.modelToEntity(productoModel);

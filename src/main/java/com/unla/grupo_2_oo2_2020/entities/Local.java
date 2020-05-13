@@ -45,10 +45,7 @@ public class Local {
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
 	private Set<Empleado> empleados;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idLocal")
-	private Set<Factura> facturas;
-
+	
 	public Local() {
 	}
 
@@ -60,7 +57,6 @@ public class Local {
 		this.longitud = longitud;
 		this.telefono = telefono;
 		this.empleados = new HashSet<Empleado>();
-		this.facturas = new HashSet<Factura>();
 		this.solicitudesStock = new HashSet<SolicitudStock>();
 		this.pedidos = new HashSet<Pedido>();
 	}
@@ -72,7 +68,6 @@ public class Local {
 		this.longitud = longitud;
 		this.telefono = telefono;
 		this.empleados = new HashSet<Empleado>();
-		this.facturas = new HashSet<Factura>();
 		this.solicitudesStock = new HashSet<SolicitudStock>();
 		this.pedidos = new HashSet<Pedido>();
 	}
@@ -124,15 +119,7 @@ public class Local {
 	public void setTelefono(long telefono) {
 		this.telefono = telefono;
 	}
-
-	public Set<Factura> getFacturas() {
-		return facturas;
-	}
-
-	public void setFacturas(Set<Factura> facturas) {
-		this.facturas = facturas;
-	}
-
+	
 	public Set<SolicitudStock> getSolicitudesStock() {
 		return solicitudesStock;
 	}
