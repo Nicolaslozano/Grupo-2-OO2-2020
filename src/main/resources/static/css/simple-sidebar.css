@@ -33,6 +33,10 @@ body {
   margin-left: 0;
 }
 
+#footer_box p{
+  display:inline-block;
+}
+
 @media (min-width: 768px) {
   #sidebar-wrapper {
     margin-left: 0;

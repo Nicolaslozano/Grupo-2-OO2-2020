@@ -8,8 +8,9 @@ public class FacturaModel {
 	public FacturaModel() {
 	}
 
-	public FacturaModel(String factura) {
-
+	public FacturaModel(long idFactura, String factura) {
+		
+		this.idFactura = idFactura;
 		this.factura = factura;
 	}
 

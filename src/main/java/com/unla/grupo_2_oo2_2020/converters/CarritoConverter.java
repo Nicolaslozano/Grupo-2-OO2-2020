@@ -9,7 +9,7 @@ import com.unla.grupo_2_oo2_2020.models.CarritoModel;
 public class CarritoConverter {
 
 	public CarritoModel entityToModel(Carrito carrito) {
-		return new CarritoModel(carrito.getFecha());
+		return new CarritoModel(carrito.getIdCarrito(),carrito.getFecha());
 	}
 
 	public Carrito modelToEntity(CarritoModel CarritoModel) {

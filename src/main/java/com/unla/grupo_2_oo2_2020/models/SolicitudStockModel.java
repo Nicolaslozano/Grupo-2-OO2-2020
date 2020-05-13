@@ -1,8 +1,6 @@
 package com.unla.grupo_2_oo2_2020.models;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 public class SolicitudStockModel {
 
@@ -10,21 +8,24 @@ public class SolicitudStockModel {
 	private LocalDate fecha;
 	private ProductoModel producto;
 	private int cantidad;
-	private Set<EmpleadoModel> empleados = new HashSet<>();
-	//colaborador tmb
+	private EmpleadoModel vendedor;
+	private EmpleadoModel colaborador;
 	private boolean aceptado;
 
 	public SolicitudStockModel() {
 	}
 
-	public SolicitudStockModel(LocalDate fecha, ProductoModel producto, int cantidad, EmpleadoModel vendedor) {
+	public SolicitudStockModel(long idSolicitud, LocalDate fecha, ProductoModel producto, int cantidad,
+			EmpleadoModel vendedor, EmpleadoModel colaborador) {
 
 		super();
+
+		this.idSolicitud = idSolicitud;
 		this.fecha = fecha;
 		this.producto = producto;
 		this.cantidad = cantidad;
-		this.empleados.add(vendedor);
-
+		this.vendedor = vendedor;
+		this.colaborador = colaborador;
 		this.aceptado = false;
 	}
 
@@ -60,17 +61,25 @@ public class SolicitudStockModel {
 		this.cantidad = cantidad;
 	}
 
-	public Set<EmpleadoModel> getEmpleados() {
+	public EmpleadoModel getVendedor() {
 
-		return this.empleados;
+		return this.vendedor;
 	}
 
-	public void setEmpleados(Set<EmpleadoModel> empleados) {
+	public void setVendedor(EmpleadoModel vendedor) {
 
-		this.empleados = empleados;
+		this.vendedor = vendedor;
 	}
 
-	//ADD EMPLEADO EN ABM
+	public EmpleadoModel getColaborador() {
+
+		return this.colaborador;
+	}
+
+	public void setColaborador(EmpleadoModel colaborador) {
+
+		this.colaborador = colaborador;
+	}
 
 	public boolean isAceptado() {
 		return aceptado;
@@ -82,7 +91,7 @@ public class SolicitudStockModel {
 
 	@Override
 	public String toString() {
-		return "SolicitudStock [fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad +
-		 "empleados: "+ empleados + ", aceptado=" + aceptado + "]";
+		return "SolicitudStock [fecha=" + fecha + ", producto=" + producto + ", cantidad=" + cantidad + "empleados: "
+				+ vendedor + colaborador + ", aceptado=" + aceptado + "]";
 	}
 }
