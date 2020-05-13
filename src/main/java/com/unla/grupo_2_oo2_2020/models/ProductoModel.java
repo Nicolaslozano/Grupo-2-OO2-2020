@@ -22,14 +22,14 @@ public class ProductoModel {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
-		this.fechaAlta = fechaAlta;
+		this.fechaAlta = LocalDate.now();
 	}
 
 	public long getIdProducto() {
 		return idProducto;
 	}
 
-	protected void setIdProducto(long idProducto) {
+	public void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
 
