@@ -23,11 +23,17 @@ public class ViewRouteHelper {
     public final static String EMPLEADO_NEW = "empleado/new";
     public final static String EMPLEADO_UPDATE = "empleado/update";
     
+    //PRODUCTOS
+    public final static String PRODUCTO_INDEX = "producto/index";
+    public final static String PRODUCTO_NEW = "producto/new";
+    public final static String PRODUCTO_UPDATE = "producto/update";
+    
     
 	/**** Redirects ****/
     public final static String ROUTE = "/index";
     public final static String LOCAL_ROOT = "/local";
     public final static String CLIENTE_ROOT = "/cliente";
     public final static String EMPLEADO_ROOT = "/empleado";
+    public final static String PRODUCTO_ROOT = "/producto";
 
 }
