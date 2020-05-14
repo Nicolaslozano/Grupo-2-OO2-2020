@@ -40,12 +40,18 @@
                         <td>
                           <a th:href="@{/cliente/{id}(id=${cliente.idPersona})}">Ver</a>
                         </td>
-                         <td>         
-                     </form>
-						<form action="#" th:action="@{/cliente/remove/{id}(id=${cliente.idPersona})}" method="post">
-						<input type="submit" value="Eliminar"/>
-					</form>
-                   </td>
+                        <td>         
+                          </form>
+                            <form action="#" th:action="@{/cliente/remove/{id}(id=${cliente.idPersona})}" method="post">
+                            <input type="submit" value="Eliminar"/>
+                          </form>
+                        </td>
+                        <td>         
+                          </form>
+                            <form action="#" th:action="@{/pedido/new/{id}(id=${cliente.idPersona})}" method="post">
+                            <input type="submit" value="Hacer Pedido"/>
+                          </form>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
