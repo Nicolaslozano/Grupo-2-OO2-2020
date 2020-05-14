@@ -15,7 +15,10 @@ import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
+import com.unla.grupo_2_oo2_2020.services.IProductoService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
+import com.unla.grupo_2_oo2_2020.services.ILocalService;
+
 
 @Controller
 @RequestMapping("/pedido")
@@ -28,19 +31,33 @@ public class PedidoController {
     @Autowired
 	@Qualifier("pedidoService")
 	private IPedidoService pedidoService;
+	
+	@Autowired
+	@Qualifier("localService")
+	private ILocalService localService;
+	
+	@Autowired
+	@Qualifier("productoService")
+	private IProductoService productoService;
+
 
     @GetMapping("/new/{idPersona}")
 	public ModelAndView create(@PathVariable("idPersona") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_NEW);
-        mAV.addObject("cliente", clienteService.findById(id));
-        mAV.addObject("pedido", new PedidoModel());
+		
+		PedidoModel pedido = new PedidoModel();
+		pedido.setIdCliente(id);
+        mAV.addObject("pedido", pedido);
+		mAV.addObject("locales", localService.getAll());
+		mAV.addObject("productos", productoService.getAll());
+
 		return mAV;
 	}
 
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("pedido") PedidoModel pedidoModel) {
 		pedidoService.insertOrUpdate(pedidoModel);
-		return new RedirectView(ViewRouteHelper.CLIENTE_INDEX);
+		return new RedirectView(ViewRouteHelper.CLIENTE_ROOT);
 	}
 
 }
