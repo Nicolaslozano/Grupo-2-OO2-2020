@@ -7,9 +7,8 @@ public class PedidoModel {
 	private int cantidad;
 	private long idLocal;
 	private long idCliente;
-	private long idVendedorOriginal; 
+	private long idVendedorOriginal;
 	private long idVendedorAuxiliar;
-	private float subtotal;
 	private boolean aceptado;
 
 	public PedidoModel() {
@@ -37,11 +36,11 @@ public class PedidoModel {
 		this.idPedido = idPedido;
 	}
 
-	public long getidProducto() {
+	public long getIdProducto() {
 
 		return this.idProducto;
 	}
-	protected void setidProducto(long idProducto) {
+	protected void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
 
@@ -61,50 +60,40 @@ public class PedidoModel {
 		this.aceptado = aceptado;
 	}
 
-	public long getidLocal() {
+	public long getIdLocal() {
 		return idLocal;
 	}
 
-	public void setidLocal(long idLocal) {
+	public void setIdLocal(long idLocal) {
 		this.idLocal = idLocal;
 	}
 
-	public long getidCliente() {
+	public long getIdCliente() {
 		return idCliente;
 	}
 	
-	public long getidVendedorOriginal() {
+	public long getIdVendedorOriginal() {
 
 		return this.idVendedorOriginal;
 	}
 
-	public void setidVendedorOriginal(long idVendedorOriginal) {
+	public void setIdVendedorOriginal(long idVendedorOriginal) {
 
 		this.idVendedorOriginal = idVendedorOriginal;
 	}
 
-	public long getidVendedorAuxiliar() {
+	public long getIdVendedorAuxiliar() {
 
 		return this.idVendedorAuxiliar;
 	}
 
-	public void setidVendedorAuxiliar(long idVendedorAuxiliar) {
+	public void setIdVendedorAuxiliar(long idVendedorAuxiliar) {
 
 		this.idVendedorAuxiliar = idVendedorAuxiliar;
 	}
 
-	public void setidCliente(long idCliente) {
+	public void setIdCliente(long idCliente) {
 		this.idCliente = idCliente;
-	}
-
-	public float getSubtotal() {
-
-		return this.subtotal;
-	}
-
-	public void setSubtotal(float subtotal) {
-
-		this.subtotal = subtotal;
 	}
 
 	//ADD EMPLEADO EN ABM

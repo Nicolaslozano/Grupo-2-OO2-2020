@@ -4,11 +4,8 @@ import java.util.List;
 
 import com.unla.grupo_2_oo2_2020.entities.Cliente;
 import com.unla.grupo_2_oo2_2020.entities.Local;
-import com.unla.grupo_2_oo2_2020.entities.Pedido;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
-import com.unla.grupo_2_oo2_2020.repository.IPedidoRepository;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
-import com.unla.grupo_2_oo2_2020.converters.PedidoConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,14 +13,6 @@ import org.springframework.stereotype.Service;
 
 @Service("pedidoService")
 public class PedidoService implements IPedidoService{
-
-    @Autowired
-    @Qualifier("pedidoRepository")
-    private IPedidoRepository pedidoRepository;
-
-    @Autowired
-    @Qualifier("pedidoConverter")
-    private PedidoConverter pedidoConverter;
 
     @Autowired
     @Qualifier("localService")
@@ -42,44 +31,23 @@ public class PedidoService implements IPedidoService{
     private EmpleadoService empleadoService;
 
     @Override
-    public List<Pedido> getAll() {
-        return pedidoRepository.findAll();
+    public PedidoModel validatePedido(PedidoModel pedidoModel) {
+        // TODO
+
+        //stock service validate stock (pedidomodel)
+
+        //if true, then lote.cantidad - pedido.cantidad and save it
+        //if local has a bit, then send solicitud of only needed stock to closest local
+        //else if false, then send solicitud to closest local that has enough
+        //if no one has, then IMSORRYBUDDY
+        return null;
     }
 
     @Override
-    public List<Pedido> findByCliente(Cliente cliente) {
-        return pedidoRepository.findByCliente(cliente);
+    public double getTotal(PedidoModel pedidoModel) {
+
+        return ((productoService.findById(pedidoModel.getIdProducto())).getPrecio() *pedidoModel.getCantidad());
     }
 
-    @Override
-    public List<Pedido> findByLocal(Local local) {
-        return pedidoRepository.findByLocal(local);
-    }
-
-    @Override
-    public Pedido findById(long idPedido) {
-        return pedidoRepository.findByIdPedido(idPedido);
-    }
-
-    @Override
-	public PedidoModel insertOrUpdate(PedidoModel pedidoModel) {
-        //TODO verificar si hay stock y solicitud de stock a otros locales y todo eso
-        
-        Pedido pedido = pedidoConverter.modelToEntity(pedidoModel);
-
-		pedido.setCliente(clienteService.findById(pedidoModel.getidCliente()));
-        pedido.setLocal(localService.findById(pedidoModel.getidLocal()));
-        pedido.setVendedorOriginal(empleadoService.findById(pedidoModel.getidVendedorOriginal()));
-        pedido.setVendedorAuxiliar(empleadoService.findById(pedidoModel.getidVendedorAuxiliar()));
-
-		pedidoRepository.save(pedido);
-		return pedidoConverter.entityToModel(pedido);
-
-    }
-
-    @Override
-	public void removeById(long idPedido) {
-
-    }
 
 }

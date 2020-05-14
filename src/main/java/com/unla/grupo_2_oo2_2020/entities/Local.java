@@ -40,9 +40,6 @@ public class Local {
 	private Set<SolicitudStock> solicitudesStock;
 
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
-	private Set<Pedido> pedidos;
-
-	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
 	private Set<Empleado> empleados;
 
 	
@@ -58,7 +55,6 @@ public class Local {
 		this.telefono = telefono;
 		this.empleados = new HashSet<Empleado>();
 		this.solicitudesStock = new HashSet<SolicitudStock>();
-		this.pedidos = new HashSet<Pedido>();
 	}
 
 	public Local(String direccion, double latitud, double longitud, long telefono) {
@@ -69,7 +65,6 @@ public class Local {
 		this.telefono = telefono;
 		this.empleados = new HashSet<Empleado>();
 		this.solicitudesStock = new HashSet<SolicitudStock>();
-		this.pedidos = new HashSet<Pedido>();
 	}
 
 	public long getIdLocal() {
@@ -136,19 +131,27 @@ public class Local {
 		this.empleados = empleados;
 	}
 
-	public Set<Pedido> getPedidos() {
-		return pedidos;
-	}
+	public double calculateDistance(Local local_2) {
 
-	public void setPedidos(Set<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
+        Local local_1 = this;
+
+        double rad = Math.PI / 180; // Para convertir a Radianes
+        double dlat = local_1.getLatitud() - local_2.getLatitud(); // Diferencia de latitudes
+        double dlong = local_1.getLongitud() - local_2.getLongitud(); // Diferencia de longitudes
+
+        double R = 6372.795477598;// Radio de la tierra
+        double a = Math.pow(Math.sin(rad * dlat / 2), 2) + Math.cos(rad * local_1.getLatitud())
+                * Math.cos(rad * local_2.getLatitud()) * Math.pow(rad * Math.sin(dlong / 2), 2);
+        double distancia = 2 * R * Math.asin(Math.sqrt(a));
+
+        return Math.round(distancia);
+    }
 
 	@Override
 	public String toString() {
 		return "Local [idLocal=" + idLocal + ", direccion=" + direccion + ", latitud=" + latitud + ", longitud="
 				+ longitud + ", telefono=" + telefono + ", stock=" + stock + ", empleados=" + empleados + "solicitudes"
-				+ solicitudesStock + "pedidos"+ pedidos + "]\n";
+				+ solicitudesStock + "]\n";
 	}
 
 }

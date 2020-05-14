@@ -44,7 +44,7 @@ public class PedidoController {
     @GetMapping("/new/{idPersona}")
 	public ModelAndView create(@PathVariable("idPersona") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_NEW);
-		
+
 		PedidoModel pedido = new PedidoModel();
 		pedido.setIdCliente(id);
         mAV.addObject("pedido", pedido);
@@ -54,9 +54,9 @@ public class PedidoController {
 		return mAV;
 	}
 
-	@PostMapping("/create")
+	@PostMapping("/create") //TODO
 	public RedirectView create(@ModelAttribute("pedido") PedidoModel pedidoModel) {
-		pedidoService.insertOrUpdate(pedidoModel);
+		// pedidoService.insertOrUpdate(pedidoModel);
 		return new RedirectView(ViewRouteHelper.CLIENTE_ROOT);
 	}
 

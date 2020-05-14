@@ -25,6 +25,7 @@
                             <div class="col-md-4 selectContainer">
                                 <div class="input-group">
                                     <select name="local" class="form-control selectpicker" th:field="*{idLocal_1}">
+                                        <option value="0"> -- </option>
                                         <option th:each="local : ${locales}" th:value="${local.idLocal}"
                                             th:text="${local.direccion}">
                                         </option>
@@ -38,6 +39,7 @@
                             <div class="col-md-4 selectContainer">
                                 <div class="input-group">
                                     <select name="local" class="form-control selectpicker" th:field="*{idLocal_2}">
+                                        <option value="0"> -- </option>
                                         <option th:each="local : ${locales}" th:value="${local.idLocal}"
                                             th:text="${local.direccion}">
                                         </option>

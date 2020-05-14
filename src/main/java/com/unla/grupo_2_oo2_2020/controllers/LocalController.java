@@ -81,8 +81,7 @@ public class LocalController {
 		mAV.addObject("locales", localService.getAll());
 		mAV.addObject("localSelected1", localSelected1);
 		mAV.addObject("localSelected2", localSelected2);
-		mAV.addObject("distance",
-				localService.calculateDistance(localSelected1.getIdLocal(), localSelected2.getIdLocal()));
+		mAV.addObject("distance",localSelected1.calculateDistance(localSelected2));
 
 		return mAV;
 	}
