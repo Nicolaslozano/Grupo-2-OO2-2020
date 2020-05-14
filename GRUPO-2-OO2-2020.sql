@@ -51,14 +51,6 @@ INSERT INTO `empleado` VALUES ('Mañana',_binary '\0',3,1),('Tarde',_binary '\0'
 /*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
 UNLOCK TABLES;
 
-LOCK TABLES `producto` WRITE;
-/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,'Zapatilla','2020-05-13','NiqueShoe2020',2600),(2,'Remera','2020-05-13','Chombadidas',500),(3,'Pantalones','2020-05-13','JeanVanDamme',700);
-/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
