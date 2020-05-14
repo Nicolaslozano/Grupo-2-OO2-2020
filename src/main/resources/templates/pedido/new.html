@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:include="fragments/head :: head"></th:block>
+</head>
+
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+        
+        <th:block th:include="fragments/sidebar_locales :: sidebar_locales"></th:block>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <th:block th:include="fragments/navbar :: navbar"></th:block>
+
+            <div class="container">
+
+                <form class="well form-horizontal" action="#" th:action="/pedido/create" th:object="${pedido}"
+                    method="post" id="contact_form">
+                    <fieldset>
+					
+						<div class="form_group">
+                            <input type="hidden" th:field="*{idCliente}"/>
+                        </div>
+
+                        <!-- Text input-->
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Producto</label>
+                            <div class="col-md-4 selectContainer">
+                                <div class="input-group">
+                                    <select name="producto" class="form-control selectpicker" th:field="*{idProducto}">
+                                        <option th:each="producto : ${productos}" th:value="${producto.idProducto}"
+                                            th:text="${producto.nombre} + {producto.precio}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Latitud</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="cantidad" value="0" class="form-control" type="number"
+                                        th:field="*{cantidad}">
+                                </div>
+                            </div>
+                        </div>
+
+						<div class="form-group">
+                            <label class="col-md-4 control-label">Local</label>
+                            <div class="col-md-4 selectContainer">
+                                <div class="input-group">
+                                    <select name="local" class="form-control selectpicker" th:field="*{idLocal}">
+                                        <option th:each="local : ${locales}" th:value="${local.idLocal}"
+                                            th:text="${local.direccion}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"></label>
+                            <div class="col-md-4"><br>
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                    type="submit"
+                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspENVIAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div><!-- /.container -->
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <th:block th:include="fragments/bottom :: bottom"></th:block>
+</body>
+
+</html>
