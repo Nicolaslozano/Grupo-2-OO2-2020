@@ -44,14 +44,19 @@ public class Lote {
 	public Lote() {
 	}
 
-	public Lote(int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto, Stock stock){
-		super();
-
+	public Lote(int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto){
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = fechaIngreso;
 		this.producto = producto;
-		this.stock = stock;
+		this.estado = true;
+	}
+	public Lote(long idLote,int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto){
+		this.idLote=idLote;
+		this.cantidadInicial = cantidadInicial;
+		this.cantidadActual = cantidadActual;
+		this.fechaIngreso = fechaIngreso;
+		this.producto = producto;
 		this.estado = true;
 	}
 
@@ -59,7 +64,7 @@ public class Lote {
 		return idLote;
 	}
 
-	protected void setIdLote(long idLote) {
+	public void setIdLote(long idLote) {
 		this.idLote = idLote;
 	}
 

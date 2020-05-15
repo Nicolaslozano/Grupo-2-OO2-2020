@@ -2,23 +2,34 @@ package com.unla.grupo_2_oo2_2020.models;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.unla.grupo_2_oo2_2020.entities.Producto;
+import com.unla.grupo_2_oo2_2020.entities.Stock;
+
 public class LoteModel {
 
 	private long idLote;
 	private int cantidadInicial;
 	private int cantidadActual;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaIngreso;
-	private ProductoModel producto;
+	private Producto producto;
 	private boolean estado;
 	private StockModel stock;
 
 	public LoteModel() {
 	}
-
-	public LoteModel(long idLote, int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, ProductoModel producto,boolean estaado) {
-		super();
-		
+	
+	public LoteModel(long idLote, int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto ) {	
 		this.idLote = idLote;
+		this.cantidadInicial = cantidadInicial;
+		this.cantidadActual = cantidadActual;
+		this.fechaIngreso = fechaIngreso;
+		this.producto = producto;
+		this.estado = true;
+	}
+	public LoteModel(int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto) {	
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = fechaIngreso;
@@ -30,7 +41,7 @@ public class LoteModel {
 		return idLote;
 	}
 
-	protected void setIdLote(long idLote) {
+	public void setIdLote(long idLote) {
 		this.idLote = idLote;
 	}
 
@@ -58,11 +69,11 @@ public class LoteModel {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public ProductoModel getProducto() {
+	public Producto getProducto() {
 		return producto;
 	}
 
-	public void setProducto(ProductoModel producto) {
+	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
 
