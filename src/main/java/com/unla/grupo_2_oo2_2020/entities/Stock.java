@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "stock")
 public class Stock {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	 private long idStock;
 
     @Column (name = "cantidad")
@@ -30,12 +31,18 @@ public class Stock {
 		this.cantidad = cantidad;
 		this.local = local;
 	}
+	public Stock(long idStock,int cantidad, Local local) {
+		this.idStock=idStock;
+		this.lotes = new HashSet<Lote>();
+		this.cantidad = cantidad;
+		this.local = local;
+	}
 
 	public long getIdStock() {
 		return idStock;
 	}
 
-	protected void setIdStock(long idStock) {
+	public void setIdStock(long idStock) {
 		this.idStock = idStock;
 	}
 
