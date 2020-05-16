@@ -13,5 +13,5 @@ public interface IStockService {
     
     public boolean comprobarStock(long idProducto, int cantidad);
 
-	StockModel insertOrUpdate(StockModel stockModel);
+
 }

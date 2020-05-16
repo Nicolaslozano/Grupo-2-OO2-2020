@@ -43,23 +43,7 @@ public class StockService implements IStockService {
 
 
 
-	@Override
-	public StockModel insertOrUpdate(StockModel stockModel) {
-		
-		Stock stock;
-
-		if (stockModel.getIdStock() > 0) {
-
-			stock = findById(stockModel.getIdStock());
-		
-		} else {
-
-			stock = stockConverter.modelToEntity(stockModel);
-		}
-
-		stockRepository.save(stock);
-		return stockConverter.entityToModel(stock);
-	}
+	
 	@Override
 	public boolean comprobarStock(long idProducto, int cantidad) {
 		boolean Disponibilidad = true;
