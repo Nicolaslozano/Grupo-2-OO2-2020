@@ -21,7 +21,7 @@ import com.unla.grupo_2_oo2_2020.services.IStockService;
 public class StockController {
 
 	@Autowired
-	@Qualifier("productoService")
+	@Qualifier("stockService")
 	private IStockService stockService;
 
 	@Autowired
