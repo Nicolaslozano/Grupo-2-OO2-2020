@@ -44,19 +44,17 @@ public class Lote {
 	public Lote() {
 	}
 
-	public Lote(int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto){
+	public Lote(int cantidadInicial, int cantidadActual, LocalDate fechaIngreso){
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = fechaIngreso;
-		this.producto = producto;
 		this.estado = true;
 	}
-	public Lote(long idLote,int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto){
+	public Lote(long idLote,int cantidadInicial, int cantidadActual, LocalDate fechaIngreso){
 		this.idLote=idLote;
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = fechaIngreso;
-		this.producto = producto;
 		this.estado = true;
 	}
 

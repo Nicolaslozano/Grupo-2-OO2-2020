@@ -3,7 +3,7 @@ package com.unla.grupo_2_oo2_2020.services;
 import java.util.List;
 
 import com.unla.grupo_2_oo2_2020.entities.Stock;
-import com.unla.grupo_2_oo2_2020.models.StockModel;
+import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 
 public interface IStockService {
     
@@ -11,7 +11,6 @@ public interface IStockService {
  
     public Stock findById(long idLocal);
     
-    public boolean comprobarStock(long idProducto, int cantidad);
-
+    public boolean comprobarStock(PedidoModel pedido);
 
 }

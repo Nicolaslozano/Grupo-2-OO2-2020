@@ -54,10 +54,21 @@ public class PedidoController {
 		return mAV;
 	}
 
-	@PostMapping("/create") //TODO
-	public RedirectView create(@ModelAttribute("pedido") PedidoModel pedidoModel) {
-		// pedidoService.insertOrUpdate(pedidoModel);
-		return new RedirectView(ViewRouteHelper.CLIENTE_ROOT);
+	@PostMapping("/send") //TODO
+	public ModelAndView send(@ModelAttribute("pedido") PedidoModel pedidoModel) {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_NEW);
+
+		if(pedidoService.validatePedido(pedidoModel)) {
+
+			mAV.addObject("result", "Pedido aceptado");
+			mAV.addObject("total", pedidoService.getTotal(pedidoModel));
+		}
+		else {
+
+			mAV.addObject("result", "Pedido rechazado");
+		}
+
+		return mAV;
 	}
 
 }

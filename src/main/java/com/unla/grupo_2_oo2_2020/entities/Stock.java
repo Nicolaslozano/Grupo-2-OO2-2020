@@ -31,11 +31,10 @@ public class Stock {
 		this.cantidad = cantidad;
 		this.local = local;
 	}
-	public Stock(long idStock,int cantidad, Local local) {
+	public Stock(long idStock,int cantidad) {
 		this.idStock=idStock;
 		this.lotes = new HashSet<Lote>();
 		this.cantidad = cantidad;
-		this.local = local;
 	}
 
 	public long getIdStock() {

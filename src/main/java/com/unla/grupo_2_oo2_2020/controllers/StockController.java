@@ -35,8 +35,6 @@ public class StockController {
 		return mAV;
 	}
 
-	
-
 	@GetMapping("/{idStock}")
 	public ModelAndView get(@PathVariable("idStock") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_UPDATE);
@@ -44,17 +42,4 @@ public class StockController {
 		return mAV;
 	}
 
-	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("stock") StockModel stockModel) {
-		stockService.insertOrUpdate(stockModel);
-		return new RedirectView(ViewRouteHelper.STOCK_ROOT);
-	}
-
-	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("stock") StockModel stockModel) {
-		stockService.insertOrUpdate(stockModel);
-		return new RedirectView(ViewRouteHelper.STOCK_ROOT);
-	}
-
-
-	}
+}

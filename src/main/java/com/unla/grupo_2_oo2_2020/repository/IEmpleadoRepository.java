@@ -19,5 +19,5 @@ public interface IEmpleadoRepository extends IPersonaBaseRepository<Empleado>{
 
     @Query("SELECT e FROM Empleado e JOIN FETCH e.local l where e.idPersona=(:idPersona)")
     public abstract Empleado findByIdPersona_wDependencies(@Param("idPersona") long idPersona);
-    
+
 }

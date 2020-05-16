@@ -4,9 +4,6 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.unla.grupo_2_oo2_2020.entities.Producto;
-import com.unla.grupo_2_oo2_2020.entities.Stock;
-
 public class LoteModel {
 
 	private long idLote;
@@ -14,27 +11,21 @@ public class LoteModel {
 	private int cantidadActual;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaIngreso;
-	private Producto producto;
+	private long idProducto;
 	private boolean estado;
-	private StockModel stock;
+	private long idStock;
 
 	public LoteModel() {
 	}
 	
-	public LoteModel(long idLote, int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto ) {	
+	public LoteModel(long idLote, int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, long idProducto, long idStock) {
 		this.idLote = idLote;
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = fechaIngreso;
-		this.producto = producto;
 		this.estado = true;
-	}
-	public LoteModel(int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto) {	
-		this.cantidadInicial = cantidadInicial;
-		this.cantidadActual = cantidadActual;
-		this.fechaIngreso = fechaIngreso;
-		this.producto = producto;
-		this.estado = true;
+		this.idProducto = idProducto;
+		this.idStock = idStock;
 	}
 
 	public long getIdLote() {
@@ -69,12 +60,12 @@ public class LoteModel {
 		this.fechaIngreso = fechaIngreso;
 	}
 
-	public Producto getProducto() {
-		return producto;
+	public long getIdProducto() {
+		return idProducto;
 	}
 
-	public void setProducto(Producto producto) {
-		this.producto = producto;
+	public void setIdProducto(long idProducto) {
+		this.idProducto = idProducto;
 	}
 
 	public boolean isEstado() {
@@ -85,20 +76,20 @@ public class LoteModel {
 		this.estado = estado;
 	}
 
-	public StockModel getStock() {
+	public long getIdStock() {
 
-		return this.stock;
+		return idStock;
 	}
 
-	public void setStock(StockModel stock) {
+	public void setIdStock(long idStock) {
 
-		this.stock = stock;
+		this.idStock = idStock;
 	}
 
 	@Override
 	public String toString() {
 		return "Lote [idLote=" + idLote + ", cantidadInicial=" + cantidadInicial + ", cantidadActual=" + cantidadActual
-				+ ", fechaIngreso=" + fechaIngreso + ", producto=" + producto + ", estado=" + estado + "Stock: "+stock+"]\n";
+				+ ", fechaIngreso=" + fechaIngreso + ", producto=" + idProducto + ", estado=" + estado + "Stock: "+idStock + "]\n";
 	}
 
 }

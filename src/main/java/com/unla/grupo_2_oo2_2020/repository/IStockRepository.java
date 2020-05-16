@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository("stockRepository")
 public interface IStockRepository extends JpaRepository<Stock, Serializable>{
 
-    public abstract Stock findByIdStock(long idStock);
+    public abstract Stock findByIdStock(long idLocal);
 
     @Query("SELECT s FROM Stock s JOIN FETCH s.local l "+
                                 "JOIN FETCH s.lotes "+

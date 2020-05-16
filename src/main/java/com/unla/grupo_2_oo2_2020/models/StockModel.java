@@ -1,24 +1,16 @@
 package com.unla.grupo_2_oo2_2020.models;
 
-import com.unla.grupo_2_oo2_2020.entities.Local;
-
 public class StockModel {
 
 	private long idStock;
 	private int cantidad;
-	private Local local;
-		
+
 	public StockModel() {
 	}
 
-	public StockModel(long idStock,int cantidad,Local local) {
+	public StockModel(long idStock,int cantidad) {
 		this.idStock = idStock;
 		this.cantidad = cantidad;
-		this.local= local;
-	}
-	public StockModel(int cantidad,Local local) {
-		this.cantidad = cantidad;
-		this.local = local;
 	}
 
 	public long getIdStock() {
@@ -35,14 +27,6 @@ public class StockModel {
 
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
-	}
-
-	public Local getLocal() {
-		return local;
-	}
-
-	public void setLocal(Local local) {
-		this.local = local;
 	}
 
 	@Override

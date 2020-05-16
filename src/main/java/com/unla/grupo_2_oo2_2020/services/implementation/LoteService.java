@@ -8,53 +8,85 @@ import org.springframework.stereotype.Service;
 
 import com.unla.grupo_2_oo2_2020.converters.LoteConverter;
 import com.unla.grupo_2_oo2_2020.entities.Lote;
+import com.unla.grupo_2_oo2_2020.entities.Producto;
+import com.unla.grupo_2_oo2_2020.entities.Stock;
 import com.unla.grupo_2_oo2_2020.models.LoteModel;
 import com.unla.grupo_2_oo2_2020.repository.ILoteRepository;
 import com.unla.grupo_2_oo2_2020.services.ILoteService;
+import com.unla.grupo_2_oo2_2020.services.IProductoService;
+import com.unla.grupo_2_oo2_2020.services.IStockService;
 
-	
-	@Service("loteService")
-	public class LoteService implements ILoteService {
+@Service("loteService")
+public class LoteService implements ILoteService {
 
-		@Autowired
-		@Qualifier("loteRepository")
-		private ILoteRepository loteRepository;
+	@Autowired
+	@Qualifier("loteRepository")
+	private ILoteRepository loteRepository;
 
-		@Autowired
-		@Qualifier("loteConverter")
-		private LoteConverter loteConverter;
-		
-		@Autowired
-		@Qualifier("loteService")
-		private ILoteService loteService;
+	@Autowired
+	@Qualifier("loteConverter")
+	private LoteConverter loteConverter;
 
-		@Override
-		public Lote findById(long idLote) {
+	@Autowired
+	@Qualifier("productoService")
+	private IProductoService productoService;
 
-			return loteRepository.findByIdLote(idLote);
-		}
+	@Autowired
+	@Qualifier("stockService")
+	private IStockService stockService;
 
+	@Override
+	public Lote findById(long idLote) {
 
-		@Override
-		public List<Lote> getAll() {
-			// TODO Auto-generated method stub
-			return loteRepository.findAll();
-		}
+		return loteRepository.findByIdLote(idLote);
+	}
 
-		@Override
-		public LoteModel insertOrUpdate(LoteModel loteModel) {
-			// TODO Auto-generated method stub
-			Lote lote = loteConverter.modelToEntity(loteModel);
-			lote.setCantidadActual(loteModel.getCantidadActual());
-			lote.setCantidadInicial(loteModel.getCantidadInicial());
-			lote.setFechaIngreso(loteModel.getFechaIngreso());
-			
-			return loteConverter.entityToModel(lote);
-		}
+	@Override
+	public List<Lote> getAll() {
+		// TODO Auto-generated method stub
+		return loteRepository.findAll();
+	}
 
-		@Override
-		public void removeById(long idLote) {
-			loteRepository.deleteById(idLote);
-		}
+	@Override
+	public List<Lote> findByStock(Stock stock) {
+		return loteRepository.findByStock(stock);
+	}
+
+	@Override
+	public List<Lote> findByProducto(Producto producto) {
+		return loteRepository.findByProducto(producto);
+	}
+
+	@Override
+	public List<Lote> findByProductoAndStock(Producto producto, Stock stock) {
+		return loteRepository.findByProductoAndStock(producto, stock);
+	}
+
+	@Override
+	public LoteModel insertOrUpdate(LoteModel loteModel) {
+		// TODO Auto-generated method stub
+		Lote lote = loteConverter.modelToEntity(loteModel);
+		lote.setProducto(productoService.findById(loteModel.getIdProducto()));
+		lote.setStock(stockService.findById(loteModel.getIdStock()));
+
+		loteRepository.save(lote);
+		return loteConverter.entityToModel(lote);
+	}
+
+	@Override
+	public void removeById(long idLote) {
+		loteRepository.deleteById(idLote);
+	}
+
+	@Override
+	public void consumirProductos(long idLote, int cantidad) {
+
+		Lote loteObjetivo = findById(idLote);
+
+		loteObjetivo.setCantidadActual(loteObjetivo.getCantidadActual() - cantidad);
+		if(loteObjetivo.getCantidadActual() == 0) loteObjetivo.setEstado(false);
+
+		insertOrUpdate(loteConverter.entityToModel(loteObjetivo));
+	}
 
 }

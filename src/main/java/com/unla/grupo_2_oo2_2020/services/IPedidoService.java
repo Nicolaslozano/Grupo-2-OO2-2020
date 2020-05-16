@@ -9,7 +9,7 @@ import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 
 public interface IPedidoService {
 
-    public PedidoModel validatePedido(PedidoModel pedidoModel);
+    public boolean validatePedido(PedidoModel pedidoModel);
 
     public double getTotal(PedidoModel pedidoModel);
 

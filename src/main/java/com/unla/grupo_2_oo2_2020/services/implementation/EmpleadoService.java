@@ -42,6 +42,11 @@ public class EmpleadoService implements IEmpleadoService {
 	}
 
 	@Override
+	public List<Empleado> findByLocal(Local local) {
+		return empleadoRepository.findByLocal(local);
+	}
+
+	@Override
 	public List<Empleado> getAll() {
 		// TODO Auto-generated method stub
 		return empleadoRepository.findAll();

@@ -18,7 +18,7 @@
 
             <div class="container">
 
-                <form class="well form-horizontal" action="#" th:action="@{/pedido/create}" th:object="${pedido}"
+                <form class="well form-horizontal" action="#" th:action="@{/pedido/send}" th:object="${pedido}"
                     method="post" id="contact_form">
                     <fieldset>
 
@@ -80,7 +80,24 @@
                     </fieldset>
                 </form>
             </div>
+
+            <div th:if="${result != null}" class="col-md-4 mb-5">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title">Pedido</h2>
+                        <div style="float: left; margin-right: 20px">
+                            <p style="display:inline-block"><b th:text="${result}"></b></p>
+                            <p style="display:inline-block" th:if="${total != null}"><b th:text="${total}"></b>$ARS.</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                    </div>
+                </div>
+            </div>
+
         </div><!-- /.container -->
+
+
     </div>
     <!-- /#page-content-wrapper -->
     </div>

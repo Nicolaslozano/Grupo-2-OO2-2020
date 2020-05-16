@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component;
 public class StockConverter {
 
     public StockModel entityToModel(Stock stock) {
-		return new StockModel(stock.getIdStock(),stock.getCantidad(),stock.getLocal());
+		return new StockModel(stock.getIdStock(),stock.getCantidad());
 	}
 
 	public Stock modelToEntity(StockModel stockModel) {
-		return new Stock(stockModel.getIdStock(),stockModel.getCantidad(),stockModel.getLocal());
+		return new Stock(stockModel.getIdStock(),stockModel.getCantidad());
 	}
     
 }
