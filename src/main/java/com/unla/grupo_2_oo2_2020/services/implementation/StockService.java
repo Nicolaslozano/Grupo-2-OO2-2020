@@ -54,7 +54,7 @@ public class StockService implements IStockService {
         for (Lote lote : loteService.findByProductoAndStock(productoService.findById(pedido.getIdProducto()),
                 findById(pedido.getIdLocal()))) {
 
-            if(lote.getCantidadActual() == pedido.getCantidad()) {
+            if(lote.getCantidadActual() >= pedido.getCantidad()) {
 
                 disponibleLocalmente = true;
                 loteService.consumirProductos(lote.getIdLote(), pedido.getCantidad());

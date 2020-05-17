@@ -18,12 +18,12 @@ public class LoteModel {
 	public LoteModel() {
 	}
 	
-	public LoteModel(long idLote, int cantidadInicial, int cantidadActual, long idProducto, long idStock) {
+	public LoteModel(long idLote, int cantidadInicial, int cantidadActual, long idProducto, long idStock, boolean estado) {
 		this.idLote = idLote;
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = LocalDate.now();
-		this.estado = true;
+		this.estado = estado;
 		this.idProducto = idProducto;
 		this.idStock = idStock;
 	}

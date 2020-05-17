@@ -2,7 +2,6 @@ package com.unla.grupo_2_oo2_2020.models;
 
 public class PedidoModel {
 
-	private long idPedido;
 	private long idProducto;
 	private int cantidad;
 	private long idLocal;
@@ -14,11 +13,10 @@ public class PedidoModel {
 	public PedidoModel() {
 	}
 
-	public PedidoModel(long idPedido, long idProducto, int cantidad, long idLocal, long idCliente,
+	public PedidoModel(long idProducto, int cantidad, long idLocal, long idCliente,
 			long idVendedorOriginal, long idVendedorAuxiliar, boolean aceptado) {
 		super();
-		
-		this.idPedido = idPedido;
+
 		this.idProducto = idProducto;
 		this.cantidad = cantidad;
 		this.idLocal = idLocal;
@@ -28,19 +26,11 @@ public class PedidoModel {
 		this.aceptado = aceptado;
 	}
 
-	public long getIdPedido() {
-		return idPedido;
-	}
-
-	public void setIdPedido(long idPedido) {
-		this.idPedido = idPedido;
-	}
-
 	public long getIdProducto() {
 
 		return this.idProducto;
 	}
-	protected void setIdProducto(long idProducto) {
+	public void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
 

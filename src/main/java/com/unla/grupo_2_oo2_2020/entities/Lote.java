@@ -50,12 +50,12 @@ public class Lote {
 		this.fechaIngreso = LocalDate.now();
 		this.estado = true;
 	}
-	public Lote(long idLote,int cantidadInicial, int cantidadActual){
+	public Lote(long idLote,int cantidadInicial, int cantidadActual, boolean estado){
 		this.idLote=idLote;
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = LocalDate.now();
-		this.estado = true;
+		this.estado = estado;
 	}
 
 	public long getIdLote() {

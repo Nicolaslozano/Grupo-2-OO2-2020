@@ -14,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.grupo_2_oo2_2020.converters.StockConverter;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.StockModel;
+import com.unla.grupo_2_oo2_2020.services.ILoteService;
 import com.unla.grupo_2_oo2_2020.services.IStockService;
 
 @Controller
@@ -25,9 +26,13 @@ public class StockController {
 	private IStockService stockService;
 
 	@Autowired
+	@Qualifier("loteService")
+	private ILoteService loteService;
+
+	@Autowired
 	@Qualifier("stockConverter")
 	private StockConverter stockConverter;
-	
+
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_INDEX);
@@ -38,7 +43,7 @@ public class StockController {
 	@GetMapping("/{idStock}")
 	public ModelAndView get(@PathVariable("idStock") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_INDEX);
-		mAV.addObject("stock",stockService.findById(id));
+		mAV.addObject("lotes",loteService.findByStock(stockService.findById(id)));
 		return mAV;
 	}
 

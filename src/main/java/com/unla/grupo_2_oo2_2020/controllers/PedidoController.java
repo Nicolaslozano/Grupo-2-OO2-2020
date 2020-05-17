@@ -68,6 +68,9 @@ public class PedidoController {
 			mAV.addObject("result", "Pedido rechazado");
 		}
 
+		mAV.addObject("locales", localService.getAll());
+		mAV.addObject("productos", productoService.getAll());
+
 		return mAV;
 	}
 

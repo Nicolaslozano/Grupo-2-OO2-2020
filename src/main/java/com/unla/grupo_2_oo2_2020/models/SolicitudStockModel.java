@@ -33,7 +33,7 @@ public class SolicitudStockModel {
 		return idSolicitud;
 	}
 
-	protected void setIdSolicitud(long idSolicitud) {
+	public void setIdSolicitud(long idSolicitud) {
 		this.idSolicitud = idSolicitud;
 	}
 
