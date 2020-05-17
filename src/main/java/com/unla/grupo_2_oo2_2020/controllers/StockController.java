@@ -27,17 +27,17 @@ public class StockController {
 	@Autowired
 	@Qualifier("stockConverter")
 	private StockConverter stockConverter;
-
+	
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_INDEX);
-		mAV.addObject("stock", stockService.getAll());
+		mAV.addObject("stocks", stockService.getAll());
 		return mAV;
 	}
 
 	@GetMapping("/{idStock}")
 	public ModelAndView get(@PathVariable("idStock") long id) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_UPDATE);
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_INDEX);
 		mAV.addObject("stock",stockService.findById(id));
 		return mAV;
 	}

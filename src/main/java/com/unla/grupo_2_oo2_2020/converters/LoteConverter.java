@@ -8,12 +8,10 @@ import com.unla.grupo_2_oo2_2020.models.LoteModel;
 public class LoteConverter {
 
 	public LoteModel entityToModel(Lote lote) {
-		return new LoteModel(lote.getIdLote(), lote.getCantidadInicial(), lote.getCantidadActual(),
-				lote.getFechaIngreso(), lote.getProducto().getIdProducto(), lote.getStock().getIdStock());
+		return new LoteModel(lote.getIdLote(), lote.getCantidadInicial(), lote.getCantidadActual(),lote.getProducto().getIdProducto(), lote.getStock().getIdStock());
 	}
 
 	public Lote modelToEntity(LoteModel loteModel) {
-		return new Lote(loteModel.getIdLote(), loteModel.getCantidadActual(), loteModel.getCantidadInicial(),
-				loteModel.getFechaIngreso());
+		return new Lote(loteModel.getIdLote(), loteModel.getCantidadActual(), loteModel.getCantidadInicial());
 	}
 }

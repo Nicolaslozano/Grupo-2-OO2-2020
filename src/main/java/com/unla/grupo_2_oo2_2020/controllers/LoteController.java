@@ -13,8 +13,11 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo_2_oo2_2020.converters.LoteConverter;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
+import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 import com.unla.grupo_2_oo2_2020.models.LoteModel;
+import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.ILoteService;
+import com.unla.grupo_2_oo2_2020.services.IProductoService;
 
 @Controller
 @RequestMapping("/lote")
@@ -24,23 +27,33 @@ public class LoteController {
     @Autowired
 	@Qualifier("loteService")
 	private ILoteService loteService;
+    
+    @Autowired
+	@Qualifier("localService")
+	private ILocalService localService;
 
 	@Autowired
 	@Qualifier("loteConverter")
 	private LoteConverter loteConverter;
-
+	
+	@Autowired
+	@Qualifier("productoService")
+	private IProductoService productoService;
 
     @GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOTE_INDEX);
-		mAV.addObject("lote", loteService.getAll());
+		mAV.addObject("lotes", loteService.getAll());
 		return mAV;
 	}
+
 
     @GetMapping("/new")
 	public ModelAndView create() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOTE_NEW);
 		mAV.addObject("lote", new LoteModel());
+		mAV.addObject("productos", productoService.getAll());
+		mAV.addObject("locales", localService.getAll());
 		return mAV;
 	}
 

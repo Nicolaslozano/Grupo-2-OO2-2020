@@ -28,6 +28,7 @@
 												<th>Telefono</th>
 												<th>-</th>
 												<th>-</th>
+												<th>-</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -43,6 +44,9 @@
 														<input type="submit" value="Eliminar"/>
 													</form>
                   								 </td>
+                  								 <td>
+													<a th:href="@{/stock/{id}(id=${local.idLocal})}">Ver Stock</a>
+												</td>
 											</tr>
 										</tbody>
 									</table>
