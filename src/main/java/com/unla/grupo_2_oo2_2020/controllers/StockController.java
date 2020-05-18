@@ -40,8 +40,8 @@ public class StockController {
 		return mAV;
 	}
 
-	@GetMapping("/{idStock}")
-	public ModelAndView get(@PathVariable("idStock") long id) {
+	@GetMapping("/{idLocal}")
+	public ModelAndView get(@PathVariable("idLocal") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_INDEX);
 		mAV.addObject("lotes",loteService.findByStock(stockService.findById(id)));
 		return mAV;

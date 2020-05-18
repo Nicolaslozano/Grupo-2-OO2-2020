@@ -60,7 +60,7 @@ public class LoteController {
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("lote") LoteModel loteModel) {
 		loteService.insertOrUpdate(loteModel);
-		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
+		return new RedirectView(ViewRouteHelper.LOTE_ROOT);
 	}
 
 	@GetMapping("/{idLote}")
@@ -73,13 +73,13 @@ public class LoteController {
 	@PostMapping("/update")
 	public RedirectView update(@ModelAttribute("lote") LoteModel loteModel) {
 		loteService.insertOrUpdate(loteModel);
-		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
+		return new RedirectView(ViewRouteHelper.LOTE_ROOT);
 	}
 	
 	@PostMapping("/remove/{idLote}")
 	public RedirectView remove(@PathVariable("idLote") long id) {
 		loteService.removeById(id);
-		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
+		return new RedirectView(ViewRouteHelper.LOTE_ROOT);
 	}
 }
 
