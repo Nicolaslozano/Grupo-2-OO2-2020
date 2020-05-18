@@ -5,8 +5,12 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "stock")
+@Data @NoArgsConstructor
 public class Stock {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,9 +27,6 @@ public class Stock {
     @OneToMany(mappedBy = "stock")
     private Set<Lote> lotes;
 
-	public Stock() {
-	}
-
 	public Stock(int cantidad, Local local) {
 		this.lotes = new HashSet<Lote>();
 		this.cantidad = cantidad;
@@ -35,43 +36,6 @@ public class Stock {
 		this.idStock=idStock;
 		this.lotes = new HashSet<Lote>();
 		this.cantidad = cantidad;
-	}
-
-	public long getIdStock() {
-		return idStock;
-	}
-
-	public void setIdStock(long idStock) {
-		this.idStock = idStock;
-	}
-
-	public Set<Lote> getLotes() {
-		return lotes;
-	}
-
-	public void setLotes(Set<Lote> lotes) {
-		this.lotes = lotes;
-	}
-
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public Local getLocal() {
-		return local;
-	}
-
-	public void setLocal(Local local) {
-		this.local = local;
-	}
-
-	@Override
-	public String toString() {
-		return "Stock [idStock=" + idStock + ", lotes=" + lotes + ", cantidad=" + cantidad + "]";
 	}
 
 }
