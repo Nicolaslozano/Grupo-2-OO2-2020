@@ -1,5 +1,6 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,6 @@ import com.unla.grupo_2_oo2_2020.converters.StockConverter;
 import com.unla.grupo_2_oo2_2020.entities.Lote;
 import com.unla.grupo_2_oo2_2020.entities.Stock;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
-import com.unla.grupo_2_oo2_2020.models.StockModel;
-import com.unla.grupo_2_oo2_2020.repository.ILoteRepository;
 import com.unla.grupo_2_oo2_2020.repository.IStockRepository;
 import com.unla.grupo_2_oo2_2020.services.ILoteService;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
@@ -50,20 +49,39 @@ public class StockService implements IStockService {
     public boolean comprobarStock(PedidoModel pedido) {
 
         boolean disponibleLocalmente = false;
+        int cantidadAlcanzada = 0;
+        List<Lote> lotesVaciados = new ArrayList<Lote>();
 
         for (Lote lote : loteService.findByProductoAndStock(productoService.findById(pedido.getIdProducto()),
                 findById(pedido.getIdLocal()))) {
 
-            if(lote.getCantidadActual() >= pedido.getCantidad()) {
+            cantidadAlcanzada += lote.getCantidadActual();
+
+            if (cantidadAlcanzada >= pedido.getCantidad()) {
 
                 disponibleLocalmente = true;
-                loteService.consumirProductos(lote.getIdLote(), pedido.getCantidad());
+
+                for (Lote loteVaciado : lotesVaciados) {
+
+                    loteService.consumirProductos(loteVaciado.getIdLote(), loteVaciado.getCantidadActual());
+                }
+
+                if (cantidadAlcanzada == pedido.getCantidad()) {
+
+                    loteService.consumirProductos(lote.getIdLote(), lote.getCantidadActual());
+                } else {
+
+                    loteService.consumirProductos(lote.getIdLote(),
+                            lote.getCantidadActual() - (cantidadAlcanzada - pedido.getCantidad()));
+                }
+
+            } else {
+
+                lotesVaciados.add(lote);
             }
         }
 
         return disponibleLocalmente;
     }
-
-
 
 }

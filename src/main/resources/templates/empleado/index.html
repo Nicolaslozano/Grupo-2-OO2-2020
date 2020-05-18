@@ -7,7 +7,7 @@
 
   <div class="d-flex" id="wrapper">
 
-   <th:block th:include="fragments/sidebar_empleados :: sidebar_empleados"></th:block>
+    <th:block th:include="fragments/sidebar_empleados :: sidebar_empleados"></th:block>
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
@@ -15,13 +15,19 @@
       <th:block th:include="fragments/navbar :: navbar"></th:block>
 
       <section id="tabs" class="list-tab">
+
         <div class="container">
+
           <div class="row">
+
             <div class="col-md-12">
+
               <div class="tab-content" id="nav-tabContent">
+
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                   <table class="table" cellspacing="0">
                     <thead>
+
                       <tr>
                         <th>Nombre</th>
                         <th>Apellido</th>
@@ -29,24 +35,25 @@
                         <th>Trabajo</th>
                         <th>-</th>
                         <th>-</th>
-                        
                       </tr>
+
                     </thead>
+
                     <tbody>
+
                       <tr th:each="empleado : ${empleados}">
                         <td><span th:text="${empleado.nombre}" /></td>
                         <td><span th:text="${empleado.apellido}" /></td>
                         <td><span th:text="${empleado.dni}" /></td>
                         <td><span th:text="${empleado.local.direccion}" /></td>
                         <td>
-                          <a th:href="@{/empleado/{id}(id=${empleado.idPersona})}">Ver</a>
+                          <a class="btn btn-info" th:href="@{/empleado/{id}(id=${empleado.idPersona})}">Ver</a>
                         </td>
-                        <td>         
-                     </form>
-						<form action="#" th:action="@{/empleado/remove/{id}(id=${empleado.idPersona})}" method="post">
-						<input type="submit" value="Eliminar"/>
-					</form>
-                   </td>
+                        <td>
+                          <form action="#" th:action="@{/empleado/remove/{id}(id=${empleado.idPersona})}" method="post">
+                            <input class="btn btn-danger" type="submit" value="Eliminar" />
+                          </form>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

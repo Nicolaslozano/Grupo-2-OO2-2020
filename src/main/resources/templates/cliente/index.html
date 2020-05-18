@@ -39,15 +39,15 @@
                         <td><span th:text="${cliente.dni}" /></td>
                         <td><span th:text="${cliente.email}" /></td>
                         <td>
-                          <a th:href="@{/cliente/{id}(id=${cliente.idPersona})}">Ver</a>
+                          <a class="btn btn-info" th:href="@{/cliente/{id}(id=${cliente.idPersona})}">Ver</a>
                         </td>
                         <td>
-                          <a action="#" th:href="@{/pedido/new/{id}(id=${cliente.idPersona})}">Hacer Pedido</a>
+                          <a class="btn btn-info" th:href="@{/pedido/new/{id}(id=${cliente.idPersona})}">Hacer Pedido</a>
                         </td>
                         <td>
                           </form>
                             <form action="#" th:action="@{/cliente/remove/{id}(id=${cliente.idPersona})}" method="post">
-                            <input type="submit" value="Eliminar"/>
+                            <input class="btn btn-danger" type="submit" value="Eliminar"/>
                           </form>
                         </td>
                       </tr>

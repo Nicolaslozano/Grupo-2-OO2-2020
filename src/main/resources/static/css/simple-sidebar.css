@@ -50,4 +50,37 @@ body {
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+
+  .form {
+
+    float: left;
+  background: rgba(30, 94, 143, 0.9);
+  padding: 40px;
+  max-width: 400px;
+  margin: 40px auto;
+  border-radius: 4px;
+  width: 200%;
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+    margin-left: -150px; /*what ever you want*/
+  }
+
+  .field-wrap {
+    position: relative;
+    margin-bottom: 40px;
+  }
+
+  #input-field {
+    font-size: 22px;
+    display: block;
+    width: 300%;
+    height: 100%;
+    padding: 5px 10px;
+    background:  #ffffff;
+    background-image: none;
+    border: 1px solid #a0b3b0;
+    color: rgba(14, 26, 36, 0.3);
+    border-radius: 0;
+    -webkit-transition: border-color .25s ease, box-shadow .25s ease;
+    transition: border-color .25s ease, box-shadow .25s ease;
+  }
 }

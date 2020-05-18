@@ -15,7 +15,9 @@
 
             <div class="container">
 
-                <form class="well form-horizontal" action="#" th:action="@{/cliente/update}" th:object="${cliente}"
+                <div class="form">
+
+                    <form class="well form-horizontal" action="#" th:action="@{/cliente/update}" th:object="${cliente}"
                     method="post" id="contact_form">
                     <fieldset>
                         <div class="form_group">
@@ -27,7 +29,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Nombre</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%" class="input-group">
                                     <input name="nombre" class="form-control" type="text"
                                         th:field="*{nombre}">
                                 </div>
@@ -39,21 +41,18 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Apellido</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%" class="input-group">
                                     <input name="apellido" value="0" class="form-control" type="text"
                                         th:field="*{apellido}">
                                 </div>
                             </div>
                         </div>
-
-
-
                         <!-- Text input-->
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">DNI</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%" class="input-group">
                                     <input name="dni" value="0" class="form-control" type="text"
                                         th:field="*{dni}">
                                 </div>
@@ -65,7 +64,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Fecha de Nacimiento</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%" class="input-group">
                                     <input name="fecha_nacimiento" value="" class="form-control" type="date"
                                         th:field="*{fechaNacimiento}">
                                 </div>
@@ -75,7 +74,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Email</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%" class="input-group">
                                     <input name="email" value="" class="form-control" type="text"
                                         th:field="*{email}">
                                 </div>
@@ -94,6 +93,8 @@
 
                     </fieldset>
                 </form>
+                </div>
+
             </div>
         </div><!-- /.container -->
     </div>
