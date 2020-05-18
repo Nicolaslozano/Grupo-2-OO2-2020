@@ -27,8 +27,9 @@
 												<th>Cantidad Inicial</th>
 												<th>Cantidad Actual</th>
 												<th>Producto</th>
+												<th>Fecha Ingreso</th>
+												<th>Local</th>
 												<th>-</th>
-												
 											</tr>
 										</thead>
 										<tbody>
@@ -36,7 +37,9 @@
 												<td><span th:text="${lote.cantidadInicial}" /></td>
 												<td><span th:text="${lote.cantidadActual}" /></td>
 												<td><span th:text="${lote.producto.nombre}" /></td>
-												  <td>         
+												<td><span th:text="${lote.fechaIngreso}" /></td>
+												<td><span th:text="${lote.stock.local.direccion}" /></td>
+												  <td>
                      								</form>
 														<form action="#" th:action="@{/lote/remove/{id}(id=${lote.idLote})}" method="post">
 														<input type="submit" value="Eliminar"/>

@@ -20,7 +20,6 @@ import com.unla.grupo_2_oo2_2020.services.IStockService;
 @Controller
 @RequestMapping("/stock")
 public class StockController {
-
 	@Autowired
 	@Qualifier("stockService")
 	private IStockService stockService;
@@ -36,7 +35,7 @@ public class StockController {
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_INDEX);
-		mAV.addObject("stocks", stockService.getAll());
+		mAV.addObject("lotes", stockService.getAll());
 		return mAV;
 	}
 
@@ -45,6 +44,6 @@ public class StockController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_INDEX);
 		mAV.addObject("lotes",loteService.findByStock(stockService.findById(id)));
 		return mAV;
-	}
+	}	
 
 }

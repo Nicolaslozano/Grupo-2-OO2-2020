@@ -69,17 +69,11 @@ public class LoteController {
 		mAV.addObject("lote", loteConverter.entityToModel(loteService.findById(id)));
 		return mAV;
 	}
-
-	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("lote") LoteModel loteModel) {
-		loteService.insertOrUpdate(loteModel);
-		return new RedirectView(ViewRouteHelper.LOTE_ROOT);
-	}
 	
 	@PostMapping("/remove/{idLote}")
 	public RedirectView remove(@PathVariable("idLote") long id) {
 		loteService.removeById(id);
-		return new RedirectView(ViewRouteHelper.LOTE_ROOT);
+		return new RedirectView(ViewRouteHelper.STOCK_ROOT);
 	}
 }
 

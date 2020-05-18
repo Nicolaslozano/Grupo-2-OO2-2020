@@ -26,4 +26,5 @@ public interface ILoteRepository extends JpaRepository<Lote, Serializable> {
             @Param("stock") Stock stock);
 
     public abstract List<Lote> findAll();
+    
 }
