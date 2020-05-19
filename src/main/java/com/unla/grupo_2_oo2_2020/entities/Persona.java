@@ -5,9 +5,13 @@ import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="persona")
+@Data @NoArgsConstructor
 public abstract class Persona {
 
 	@Id
@@ -27,9 +31,6 @@ public abstract class Persona {
 	@Column(name="dni",nullable = false)
 	protected int dni;
 
-	public Persona() {
-	}
-
 	public Persona(long idPersona, String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
 
 		this.idPersona = idPersona;
@@ -38,8 +39,7 @@ public abstract class Persona {
 		this.fechaNacimiento = fechaNacimiento;
 		this.dni = dni;
 	}
-	
-	
+
 	public Persona(String nombre, String apellido, LocalDate fechaNacimiento, int dni) {
 
 		this.nombre = nombre;
@@ -47,54 +47,5 @@ public abstract class Persona {
 		this.fechaNacimiento = fechaNacimiento;
 		this.dni = dni;
 	}
-
-	public long getIdPersona() {
-		return idPersona;
-	}
-
-	public void setIdPersona(long idPersona) {
-		this.idPersona = idPersona;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public LocalDate getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	public int getDni() {
-		return dni;
-	}
-
-	public void setDni(int dni) {
-		this.dni = dni;
-	}
-
-	@Override
-	public String toString() {
-		return "Persona [idPersona=" + idPersona + ", nombre=" + nombre + ", apellido=" + apellido
-				+ ", fechaNacimiento=" + fechaNacimiento + ", dni=" + dni + "]";
-	}
-
-	
-	
 
 }

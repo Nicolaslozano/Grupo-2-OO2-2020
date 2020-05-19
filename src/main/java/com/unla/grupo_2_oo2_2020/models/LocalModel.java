@@ -1,6 +1,10 @@
 package com.unla.grupo_2_oo2_2020.models;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class LocalModel {
 
 	private long idLocal;
@@ -8,9 +12,6 @@ public class LocalModel {
 	private double latitud;
 	private double longitud;
 	private long telefono;
-
-	public LocalModel() {
-	}
 
 	public LocalModel(long idLocal, String direccion, double latitud, double longitud, long telefono) {
 
@@ -22,49 +23,4 @@ public class LocalModel {
 
 	}
 
-	public long getIdLocal() {
-		return idLocal;
-	}
-
-	public void setIdLocal(long idLocal) {
-		this.idLocal = idLocal;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public double getLatitud() {
-		return latitud;
-	}
-
-	public void setLatitud(double latitud) {
-		this.latitud = latitud;
-	}
-
-	public double getLongitud() {
-		return longitud;
-	}
-
-	public void setLongitud(double longitud) {
-		this.longitud = longitud;
-	}
-
-	public long getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(long telefono) {
-		this.telefono = telefono;
-	}
-
-	@Override
-	public String toString() {
-		return "Local [idLocal=" + idLocal + ", direccion=" + direccion + ", latitud=" + latitud + ", longitud="
-				+ longitud + ", telefono=" + telefono + "]\n";
-	}
 }

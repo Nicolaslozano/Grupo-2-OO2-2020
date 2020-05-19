@@ -9,13 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "comercio") // 'local' esta reservado en mysql
+@Data @NoArgsConstructor
 public class Local {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,10 +45,6 @@ public class Local {
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
 	private Set<Empleado> empleados;
 
-	
-	public Local() {
-	}
-
 	public Local(long idLocal, String direccion, double latitud, double longitud, long telefono) {
 
 		this.idLocal = idLocal;
@@ -67,70 +66,6 @@ public class Local {
 		this.solicitudesStock = new HashSet<SolicitudStock>();
 	}
 
-	public long getIdLocal() {
-		return idLocal;
-	}
-
-	public void setIdLocal(long idLocal) {
-		this.idLocal = idLocal;
-	}
-
-	public Stock getStock() {
-		return stock;
-	}
-
-	public void setStock(Stock stock) {
-		this.stock = stock;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public double getLatitud() {
-		return latitud;
-	}
-
-	public void setLatitud(double latitud) {
-		this.latitud = latitud;
-	}
-
-	public double getLongitud() {
-		return longitud;
-	}
-
-	public void setLongitud(double longitud) {
-		this.longitud = longitud;
-	}
-
-	public long getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(long telefono) {
-		this.telefono = telefono;
-	}
-	
-	public Set<SolicitudStock> getSolicitudesStock() {
-		return solicitudesStock;
-	}
-
-	public void setSolicitudesStock(Set<SolicitudStock> solicitudesStock) {
-		this.solicitudesStock = solicitudesStock;
-	}
-
-	public Set<Empleado> getEmpleados() {
-		return empleados;
-	}
-
-	public void setEmpleados(Set<Empleado> empleados) {
-		this.empleados = empleados;
-	}
-
 	public double calculateDistance(Local local_2) {
 
         Local local_1 = this;
@@ -146,12 +81,5 @@ public class Local {
 
         return Math.round(distancia);
     }
-
-	@Override
-	public String toString() {
-		return "Local [idLocal=" + idLocal + ", direccion=" + direccion + ", latitud=" + latitud + ", longitud="
-				+ longitud + ", telefono=" + telefono + ", stock=" + stock + ", empleados=" + empleados + "solicitudes"
-				+ solicitudesStock + "]\n";
-	}
 
 }
