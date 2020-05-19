@@ -71,8 +71,7 @@ public class StockService implements IStockService {
                     loteService.consumirProductos(lote.getIdLote(), lote.getCantidadActual());
                 } else {
 
-                    loteService.consumirProductos(lote.getIdLote(),
-                            lote.getCantidadActual() - (cantidadAlcanzada - pedido.getCantidad()));
+                    loteService.consumirProductos(lote.getIdLote(),(lote.getCantidadActual() - (cantidadAlcanzada - pedido.getCantidad())));
                 }
 
             } else {
