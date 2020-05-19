@@ -73,7 +73,7 @@ public class LoteController {
 	@PostMapping("/remove/{idLote}")
 	public RedirectView remove(@PathVariable("idLote") long id) {
 		loteService.removeById(id);
-		return new RedirectView(ViewRouteHelper.STOCK_ROOT);
+		return new RedirectView(ViewRouteHelper.LOTE_ROOT);
 	}
 }
 
