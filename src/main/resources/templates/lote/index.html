@@ -14,57 +14,72 @@
 
 			<th:block th:include="fragments/navbar :: navbar"></th:block>
 
-			<section id="tabs" class="list-tab">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="tab-content" id="nav-tabContent">
-								<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-									aria-labelledby="nav-home-tab">
-									<table class="table" cellspacing="0">
-										<thead>
-											<tr>
-												<th>Cantidad Inicial</th>
-												<th>Cantidad Actual</th>
-												<th>Producto</th>
-												<th>Fecha Ingreso</th>
-												<th>Local</th>
-												<th>-</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="lote : ${lotes}">
-												<td><span th:text="${lote.cantidadInicial}" /></td>
-												<td><span th:text="${lote.cantidadActual}" /></td>
-												<td><span th:text="${lote.producto.nombre}" /></td>
-												<td><span th:text="${lote.fechaIngreso}" /></td>
-												<td><span th:text="${lote.stock.local.direccion}" /></td>
-												  <td>
-                     								</form>
-														<form action="#" th:action="@{/lote/remove/{id}(id=${lote.idLote})}" method="post">
-														<input type="submit" value="Eliminar"/>
-													</form>
-                  								 </td>
-                  								
-											</tr>
-										</tbody>
-									</table>
-								</div>
-
-							</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle"
+								data-toggle="dropdown">
+								Filtrar por Local: <span class="lote"></span>
+							</button>
+							<ul class="dropdown-menu scrollable-menu" role="menu">
+								<tr th:each="lote : ${lotes}">
+									<td><span th:text="${lote.stock.local.direccion}" /></td>
+								</tr>
+							</ul>
 						</div>
+						<section id="tabs" class="list-tab">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="tab-content" id="nav-tabContent">
+											<div class="tab-pane fade show active" id="nav-home"
+												role="tabpanel" aria-labelledby="nav-home-tab">
+												<table class="table" cellspacing="0">
+													<thead>
+														<tr>
+															<th>Cantidad Inicial</th>
+															<th>Cantidad Actual</th>
+															<th>Producto</th>
+															<th>Fecha Ingreso</th>
+															<th>Local</th>
+															<th>-</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="lote : ${lotes}">
+															<td><span th:text="${lote.cantidadInicial}" /></td>
+															<td><span th:text="${lote.cantidadActual}" /></td>
+															<td><span th:text="${lote.producto.nombre}" /></td>
+															<td><span th:text="${lote.fechaIngreso}" /></td>
+															<td><span th:text="${lote.stock.local.direccion}" /></td>
+															<td>
+																</form>
+																<form action="#"
+																	th:action="@{/lote/remove/{id}(id=${lote.idLote})}"
+																	method="post">
+																	<input type="submit" value="Eliminar" />
+																</form>
+															</td>
+
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+
 					</div>
+					<!-- /#page-content-wrapper -->
+
 				</div>
-			</section>
+				<!-- /#wrapper -->
 
-		</div>
-		<!-- /#page-content-wrapper -->
-
-	</div>
-	<!-- /#wrapper -->
-
-	<th:block th:include="fragments/bottom :: bottom"></th:block>
-
+				<th:block th:include="fragments/bottom :: bottom"></th:block>
 </body>
 
 </html>
