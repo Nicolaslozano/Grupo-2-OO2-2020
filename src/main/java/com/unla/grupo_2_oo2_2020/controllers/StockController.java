@@ -34,16 +34,16 @@ public class StockController {
 
 	@GetMapping("")
 	public ModelAndView index() {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_INDEX);
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOTE_INDEX);
 		mAV.addObject("lotes", stockService.getAll());
 		return mAV;
 	}
 
 	@GetMapping("/{idLocal}")
 	public ModelAndView get(@PathVariable("idLocal") long id) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.STOCK_INDEX);
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOTE_INDEX);
 		mAV.addObject("lotes",loteService.findByStock(stockService.findById(id)));
 		return mAV;
-	}	
+	}
 
 }
