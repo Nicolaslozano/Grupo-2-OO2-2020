@@ -15,25 +15,35 @@
 			<th:block th:include="fragments/navbar :: navbar"></th:block>
 
 			<div class="container">
+			
 				<div th:if="${singleLocal == null}" class="col-lg-12">
+				
 					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						<button type="button" class="btn btn-default dropdown-toggle"
+						
+							data-toggle="dropdown">
 							Filtrar por Local: <span class="lote"></span>
 						</button>
+						
 						<ul class="dropdown-menu scrollable-menu" role="menu">
-							<li th:each=" local : ${locales}">
-								<span th:text="${local.direccion}" />
-							</li>
+
+							<li th:each=" local : ${locales}"><a
+								th:text="${local.direccion}"
+								th:href="@{/stock/{id}(id=${local.idLocal})}"> </a></li>
+
 						</ul>
+						
 					</div>
+					
 				</div>
+
 				<section id="tabs" class="list-tab">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12">
 								<div class="tab-content" id="nav-tabContent">
-									<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-										aria-labelledby="nav-home-tab">
+									<div class="tab-pane fade show active" id="nav-home"
+										role="tabpanel" aria-labelledby="nav-home-tab">
 										<table class="table" cellspacing="0">
 											<thead>
 												<tr>
@@ -52,7 +62,7 @@
 													<td><span th:text="${lote.producto.nombre}" /></td>
 													<td><span th:text="${lote.fechaIngreso}" /></td>
 													<td><span th:text="${lote.stock.local.direccion}" /></td>
-													<td>
+													  <td>
 														</form>
 														<form action="#"
 															th:action="@{/lote/remove/{id}(id=${lote.idLote})}"
@@ -72,13 +82,13 @@
 					</div>
 				</section>
 
+			</div>
+			<!-- /#page-content-wrapper -->
+
 		</div>
-		<!-- /#page-content-wrapper -->
+		<!-- /#wrapper -->
 
-	</div>
-	<!-- /#wrapper -->
-
-				<th:block th:include="fragments/bottom :: bottom"></th:block>
+		<th:block th:include="fragments/bottom :: bottom"></th:block>
 </body>
 
 </html>
