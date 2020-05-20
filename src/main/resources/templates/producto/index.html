@@ -38,13 +38,13 @@
                         <td><span th:text="${producto.precio}" /></td>
                         <td><span th:text="${producto.fechaAlta}" /></td>
                         <td>
-                          <a th:href="@{/producto/{id}(id=${producto.idProducto})}">Ver</a>
+                          <a class="btn btn-info" th:href="@{/producto/{id}(id=${producto.idProducto})}">Ver</a>
                         </td>
                         <td>
                           </form>
                           <form action="#" th:action="@{/producto/remove/{id}(id=${producto.idProducto})}"
                             method="post">
-                            <input type="submit" value="Eliminar" />
+                            <input class="btn btn-danger" type="submit" value="Eliminar" />
                           </form>
                         </td>
                       </tr>
