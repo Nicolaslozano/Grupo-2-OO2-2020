@@ -43,6 +43,7 @@ public class StockController {
 	public ModelAndView get(@PathVariable("idLocal") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOTE_INDEX);
 		mAV.addObject("lotes",loteService.findByStock(stockService.findById(id)));
+		mAV.addObject("singleLocal",id);
 		return mAV;
 	}
 

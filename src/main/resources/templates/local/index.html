@@ -39,9 +39,9 @@
 													<a th:href="@{/local/{id}(id=${local.idLocal})}">Ver</a>
 												</td>
 												 <td>
-													<a th:href="@{/lote}">Ver Stock</a>
+													<a th:href="@{/stock/{id}(id=${local.idLocal})}">Ver Stock</a>
 												</td>
-												  <td>         
+												  <td>
                      								</form>
 														<form action="#" th:action="@{/local/remove/{id}(id=${local.idLocal})}" method="post">
 														<input type="submit" value="Eliminar"/>
