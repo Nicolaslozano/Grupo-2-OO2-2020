@@ -23,8 +23,9 @@
 								Filtrar por Local: <span class="lote"></span>
 							</button>
 							<ul class="dropdown-menu scrollable-menu" role="menu">
-								<tr th:each="lote : ${lotes}">
-									<td><span th:text="${lote.stock.local.direccion}" /></td>
+								<tr th:each=" local : ${locales}">
+									<td><span th:text="${local.direccion}" /></td>
+									<td>
 								</tr>
 							</ul>
 						</div>

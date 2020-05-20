@@ -44,6 +44,7 @@ public class LoteController {
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOTE_INDEX);
 		mAV.addObject("lotes", loteService.getAll());
+		mAV.addObject("locales",localService.getAll());
 		return mAV;
 	}
 
