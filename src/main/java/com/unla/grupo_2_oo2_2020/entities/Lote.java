@@ -45,9 +45,9 @@ public class Lote {
 	@JoinColumn(name = "idStock")
 	private Stock stock;
 
-	public Lote(int cantidadInicial, int cantidadActual){
+	public Lote(int cantidadInicial){
 		this.cantidadInicial = cantidadInicial;
-		this.cantidadActual = cantidadActual;
+		this.cantidadActual = cantidadInicial;
 		this.fechaIngreso = LocalDate.now();
 		this.estado = true;
 	}

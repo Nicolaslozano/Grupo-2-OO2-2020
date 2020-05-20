@@ -68,6 +68,8 @@ public class LoteService implements ILoteService {
 		Lote lote = loteConverter.modelToEntity(loteModel);
 		lote.setProducto(productoService.findById(loteModel.getIdProducto()));
 		lote.setStock(stockService.findById(loteModel.getIdStock()));
+		if (lote.getIdLote() == 0)
+			lote.setCantidadActual(lote.getCantidadInicial());
 
 		loteRepository.save(lote);
 		return loteConverter.entityToModel(lote);
@@ -84,7 +86,8 @@ public class LoteService implements ILoteService {
 		Lote loteObjetivo = findById(idLote);
 
 		loteObjetivo.setCantidadActual(loteObjetivo.getCantidadActual() - cantidad);
-		if(loteObjetivo.getCantidadActual() == 0) loteObjetivo.setEstado(true);
+		if (loteObjetivo.getCantidadActual() == 0)
+			loteObjetivo.setEstado(true);
 
 		insertOrUpdate(loteConverter.entityToModel(loteObjetivo));
 	}
