@@ -7,7 +7,7 @@
 
     <div class="d-flex" id="wrapper">
 
-        <th:block th:include="fragments/sidebar_locales :: sidebar_locales"></th:block>
+        <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -25,6 +25,7 @@
                             <div class="col-md-4 selectContainer">
                                 <div class="input-group">
                                     <select name="local" class="form-control selectpicker" th:field="*{idLocal_1}">
+                                        <option value="0"> -- </option>
                                         <option th:each="local : ${locales}" th:value="${local.idLocal}"
                                             th:text="${local.direccion}">
                                         </option>
@@ -38,6 +39,7 @@
                             <div class="col-md-4 selectContainer">
                                 <div class="input-group">
                                     <select name="local" class="form-control selectpicker" th:field="*{idLocal_2}">
+                                        <option value="0"> -- </option>
                                         <option th:each="local : ${locales}" th:value="${local.idLocal}"
                                             th:text="${local.direccion}">
                                         </option>
@@ -66,11 +68,12 @@
                         <h2 class="card-title">Distancia</h2>
                         <div style="float: left; margin-right: 20px">
                             <p style="display:inline-block">La distancia entre</p>
-                            <p style="display:inline-block"><b th:text="${local_1.direccion}"></b></p>
+                            <p style="display:inline-block"><b th:text="${localSelected1.direccion}"></b></p>
                             <p style="display:inline-block"> y</p>
-                            <p style="display:inline-block"><b th:text="${local_2.direccion}"></b></p>
+                            <p style="display:inline-block"><b th:text="${localSelected2.direccion}"></b></p>
                             <p style="display:inline-block"> es de </p>
                             <p style="display:inline-block"><b th:text="${distance}"></b>Km.</p>
+                            <p th:if="${localSelected1 == localSelected2}">(Mismo local)</p>
                         </div>
                     </div>
                     <div class="card-footer">

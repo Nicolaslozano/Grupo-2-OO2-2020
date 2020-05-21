@@ -1,15 +1,16 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.unla.grupo_2_oo2_2020.converters.LocalConverter;
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Stock;
 import com.unla.grupo_2_oo2_2020.models.LocalModel;
+import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.repository.ILocalRepository;
 import com.unla.grupo_2_oo2_2020.repository.IStockRepository;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -44,19 +45,14 @@ public class LocalService implements ILocalService {
     @Override
     public LocalModel insertOrUpdate(LocalModel localModel) {
 
-        Local local;
+        Local local = localConverter.modelToEntity(localModel);
 
-        if(localModel.getIdLocal() > 0) {
+        if (findById(localModel.getIdLocal()) != null) {
 
-            local = localRepository.getOne(localModel.getIdLocal());
-            local.setDireccion(localModel.getDireccion());
-            local.setLatitud(localModel.getLatitud());
-            local.setLongitud(localModel.getLongitud());
-            local.setTelefono(localModel.getTelefono());
+            local.setStock(stockRepository.findByIdStock(localModel.getIdLocal()));
 
-        }else {
+        } else {
 
-            local = localConverter.modelToEntity(localModel);
             Stock stock = new Stock(0, local);
             local.setStock(stock);
         }
@@ -67,25 +63,35 @@ public class LocalService implements ILocalService {
 
     @Override
     public void removeById(long idLocal) {
-      localRepository.deleteById(idLocal);
+        localRepository.deleteById(idLocal);
 
     }
 
-    public double calculateDistance(long idLocal_1, long idLocal_2) {
+    @Override
+    public Local getNearestValidLocal(PedidoModel pedidoModel) {
 
-        Local local_1 = findById(idLocal_1);
-        Local local_2 = findById(idLocal_2);
+        Local nearestLocal = new Local();
+        Local pedidoLocal = findById(pedidoModel.getIdLocal());
+        boolean firstIteration = true;
 
-        double rad = Math.PI / 180; // Para convertir a Radianes
-        double dlat = local_1.getLatitud() - local_2.getLatitud(); // Diferencia de latitudes
-        double dlong = local_1.getLongitud() - local_2.getLongitud(); // Diferencia de longitudes
+        for (Local local : getAll()) {
 
-        double R = 6372.795477598;// Radio de la tierra
-        double a = Math.pow(Math.sin(rad * dlat / 2), 2) + Math.cos(rad * local_1.getLatitud())
-                * Math.cos(rad * local_2.getLatitud()) * Math.pow(rad * Math.sin(dlong / 2), 2);
-        double distancia = 2 * R * Math.asin(Math.sqrt(a));
+            if (local.getIdLocal() == pedidoModel.getIdLocal())
+                continue;
 
-        return Math.round(distancia);
+            else if (firstIteration) {
+
+                nearestLocal = local;
+                firstIteration = false;
+            } else {
+
+                if (pedidoLocal.calculateDistance(local) < pedidoLocal.calculateDistance(nearestLocal)) {
+                    //JUST IF THAT LOCAL HAS ENOUGH STOCK TO SATISFY PEDIDO implement
+                    nearestLocal = local;
+                }
+            }
+        }
+
+        return nearestLocal;
     }
-    
 }

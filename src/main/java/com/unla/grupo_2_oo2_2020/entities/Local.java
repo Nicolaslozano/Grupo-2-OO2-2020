@@ -9,46 +9,41 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
-@Table(name = "comercio")
+@Table(name = "comercio") // 'local' esta reservado en mysql
+@Data @NoArgsConstructor
 public class Local {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idLocal;
 
-	@Column (name = "direccion")
+	@Column(name = "direccion")
 	private String direccion;
 
-	@Column	(name = "latitud")
+	@Column(name = "latitud")
 	private double latitud;
 
-	@Column	(name = "longitud")
+	@Column(name = "longitud")
 	private double longitud;
 
-	@Column	(name = "telefono")
+	@Column(name = "telefono")
 	private long telefono;
 
 	@OneToOne(mappedBy = "local", cascade = CascadeType.ALL)
 	private Stock stock;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idLocal")
-	private Set<SolicitudStock> listaSolicitudesStock;
+	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
+	private Set<SolicitudStock> solicitudesStock;
 
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
-	private Set<Empleado> listaEmpleados;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="idLocal")
-	private Set<Factura> listaFacturas;
-
-
-	public Local() {
-	}
+	private Set<Empleado> empleados;
 
 	public Local(long idLocal, String direccion, double latitud, double longitud, long telefono) {
 
@@ -57,98 +52,34 @@ public class Local {
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
-		this.listaEmpleados = new HashSet<Empleado>();
-		this.listaFacturas = new HashSet<Factura>();
-		this.listaSolicitudesStock = new HashSet<SolicitudStock>();
+		this.empleados = new HashSet<Empleado>();
+		this.solicitudesStock = new HashSet<SolicitudStock>();
 	}
-	
+
 	public Local(String direccion, double latitud, double longitud, long telefono) {
 
 		this.direccion = direccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
-		this.listaEmpleados = new HashSet<Empleado>();
-		this.listaFacturas = new HashSet<Factura>();
-		this.listaSolicitudesStock = new HashSet<SolicitudStock>();
+		this.empleados = new HashSet<Empleado>();
+		this.solicitudesStock = new HashSet<SolicitudStock>();
 	}
 
-	public long getIdLocal() {
-		return idLocal;
-	}
+	public double calculateDistance(Local local_2) {
 
-	public void setIdLocal(long idLocal) {
-		this.idLocal = idLocal;
-	}
+        Local local_1 = this;
 
-	public Stock getStock() {
-		return stock;
-	}
+        double rad = Math.PI / 180; // Para convertir a Radianes
+        double dlat = local_1.getLatitud() - local_2.getLatitud(); // Diferencia de latitudes
+        double dlong = local_1.getLongitud() - local_2.getLongitud(); // Diferencia de longitudes
 
-	public void setStock(Stock stock) {
-		this.stock = stock;
-	}
+        double R = 6372.795477598;// Radio de la tierra
+        double a = Math.pow(Math.sin(rad * dlat / 2), 2) + Math.cos(rad * local_1.getLatitud())
+                * Math.cos(rad * local_2.getLatitud()) * Math.pow(rad * Math.sin(dlong / 2), 2);
+        double distancia = 2 * R * Math.asin(Math.sqrt(a));
 
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public double getLatitud() {
-		return latitud;
-	}
-
-	public void setLatitud(double latitud) {
-		this.latitud = latitud;
-	}
-
-	public double getLongitud() {
-		return longitud;
-	}
-
-	public void setLongitud(double longitud) {
-		this.longitud = longitud;
-	}
-
-	public long getTelefono() {
-		return telefono;
-	}
-
-	public void setTelefono(long telefono) {
-		this.telefono = telefono;
-	}
-
-	public Set<Factura> getListaFacturas() {
-		return listaFacturas;
-	}
-
-	public void setListaFacturas(Set<Factura> listaFacturas) {
-		this.listaFacturas = listaFacturas;
-	}
-
-	public Set<SolicitudStock> getListaSolicitudesStock() {
-		return listaSolicitudesStock;
-	}
-
-	public void setListaSolicitudesStock(Set<SolicitudStock> listaSolicitudesStock) {
-		this.listaSolicitudesStock = listaSolicitudesStock;
-	}
-
-	public Set<Empleado> getListaEmpleados() {
-		return listaEmpleados;
-	}
-
-	public void setListaEmpleados(Set<Empleado> listaEmpleados) {
-		this.listaEmpleados = listaEmpleados;
-	}
-
-	@Override
-	public String toString() {
-		return "Local [idLocal=" + idLocal + ", direccion=" + direccion + ", latitud=" + latitud + ", longitud="
-				+ longitud + ", telefono=" + telefono + ", stock=" + stock + ", empleados=" + listaEmpleados + "]\n";
-	}
+        return Math.round(distancia);
+    }
 
 }

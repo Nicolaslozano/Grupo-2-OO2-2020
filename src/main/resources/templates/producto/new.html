@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:include="fragments/head :: head"></th:block>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <th:block th:include="fragments/navbar :: navbar"></th:block>
+
+            <div class="container">
+
+                <form class="well form-horizontal" action="#" th:action="@{/producto/create}" th:object="${producto}"
+                    method="post" id="contact_form">
+                    <fieldset>
+
+                        <!-- Text input-->
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Nombre</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="nombre" placeholder="Nombre" class="form-control" type="text"
+                                        th:field="*{nombre}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Descripcion</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="descripcion" placeholder="Descripcion" class="form-control" type="text"
+                                        th:field="*{descripcion}">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Precio</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <input name="precio" placeholder="Precio" class="form-control" type="number"
+                                        th:field="*{precio}">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Text input-->                       
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"></label>
+                            <div class="col-md-4"><br>
+                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                    type="submit"
+                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div><!-- /.container -->
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <th:block th:include="fragments/bottom :: bottom"></th:block>
+
+</body>
+
+</html>

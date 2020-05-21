@@ -7,7 +7,7 @@
 
   <div class="d-flex" id="wrapper">
 
-    <th:block th:include="fragments/sidebar_clientes :: sidebar_clientes"></th:block>
+    <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
     <!-- Page Content -->
     <div id="page-content-wrapper">
@@ -29,6 +29,7 @@
                         <th>Email</th>
                         <th>-</th>
                         <th>-</th>
+                        <th>-</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -38,14 +39,17 @@
                         <td><span th:text="${cliente.dni}" /></td>
                         <td><span th:text="${cliente.email}" /></td>
                         <td>
-                          <a th:href="@{/cliente/{id}(id=${cliente.idPersona})}">Ver</a>
+                          <a class="btn btn-info" th:href="@{/cliente/{id}(id=${cliente.idPersona})}">Ver</a>
                         </td>
-                         <td>         
-                     </form>
-						<form action="#" th:action="@{/cliente/remove/{id}(id=${cliente.idPersona})}" method="post">
-						<input type="submit" value="Eliminar"/>
-					</form>
-                   </td>
+                        <td>
+                          <a class="btn btn-info" th:href="@{/pedido/new/{id}(id=${cliente.idPersona})}">Hacer Pedido</a>
+                        </td>
+                        <td>
+                          </form>
+                            <form action="#" th:action="@{/cliente/remove/{id}(id=${cliente.idPersona})}" method="post">
+                            <input class="btn btn-danger" type="submit" value="Eliminar"/>
+                          </form>
+                        </td>
                       </tr>
                     </tbody>
                   </table>

@@ -10,8 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "producto")
+@Data @NoArgsConstructor
 public class Producto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,61 +30,20 @@ public class Producto {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaAlta;
 
-	public Producto() {
-	}
-
 	public Producto(String nombre, String descripcion, float precio, LocalDate fechaAlta) {
 
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
-		this.fechaAlta = fechaAlta;
+		this.fechaAlta = LocalDate.now();
 	}
 
-	public long getIdProducto() {
-		return idProducto;
-	}
-
-	protected void setIdProducto(long idProducto) {
+	public Producto(long idProducto, String nombre, String descripcion, float precio, LocalDate fechaAlta) {
 		this.idProducto = idProducto;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public float getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(float precio) {
 		this.precio = precio;
-	}
-
-	public LocalDate getFechaAlta() {
-		return fechaAlta;
-	}
-
-	public void setFechaAlta(LocalDate fechaAlta) {
-		this.fechaAlta = fechaAlta;
-	}
-
-	@Override
-	public String toString() {
-		return "Producto [idProducto=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion
-				+ ", precio=" + precio + ", fechaAlta=" + fechaAlta + "\n";
+		this.fechaAlta = LocalDate.now();
 	}
 
 }

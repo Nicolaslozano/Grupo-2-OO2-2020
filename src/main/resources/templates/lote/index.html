@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:include="fragments/head :: head"></th:block>
+
+<body>
+
+	<div class="d-flex" id="wrapper">
+
+		<th:block th:include="fragments/sidebar :: sidebar"></th:block>
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+
+			<th:block th:include="fragments/navbar :: navbar"></th:block>
+
+			<section id="tabs" class="list-tab">
+
+				<div class="container">
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+									aria-labelledby="nav-home-tab">
+									<table class="table" cellspacing="0">
+										<thead>
+											<tr>
+												<th>Cantidad Inicial</th>
+												<th>Cantidad Actual</th>
+												<th>Producto</th>
+												<th>Fecha Ingreso</th>
+												<th>Local</th>
+												<th>-</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="lote : ${lotes}">
+												<td><span th:text="${lote.cantidadInicial}" /></td>
+												<td><span th:text="${lote.cantidadActual}" /></td>
+												<td><span th:text="${lote.producto.nombre}" /></td>
+												<td><span th:text="${lote.fechaIngreso}" /></td>
+												<td><span th:text="${lote.stock.local.direccion}" /></td>
+												<td>
+													</form>
+													<form action="#" th:action="@{/lote/remove/{id}(id=${lote.idLote})}"
+														method="post">
+														<input class="btn btn-danger" type="submit" value="Eliminar" />
+													</form>
+												</td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div th:if="${singleLocal == null}" class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Filtrar por Local
+						</button>
+						<div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+							<li th:each=" local : ${locales}">
+								<a class="dropdown-item" th:text="${local.direccion}"
+									th:href="@{/stock/{id}(id=${local.idLocal})}">
+								</a>
+							</li>
+						</div>
+					</div>
+				</div> <!--container-->
+			</section>
+
+		</div>
+		<!-- /#page-content-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<th:block th:include="fragments/bottom :: bottom"></th:block>
+</body>
+
+</html>

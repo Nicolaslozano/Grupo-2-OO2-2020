@@ -6,7 +6,7 @@
 <body>
     <div class="d-flex" id="wrapper">
 
-        <th:block th:include="fragments/sidebar_empleados :: sidebar_empleados"></th:block>
+        <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -15,10 +15,12 @@
 
             <div class="container">
 
-                <form class="well form-horizontal" action="#" th:action="@{/empleado/update}" th:object="${empleado}"
+                <div class="form">
+
+                    <form class="well form-horizontal" action="#" th:action="@{/empleado/update}" th:object="${empleado}"
                     method="post" id="contact_form">
                     <fieldset>
-                        <div class="form_group">
+                        <div style="width: 300%;" class="form_group">
                             <input type="hidden" th:field="*{idPersona}" />
                         </div>
                         <!-- Text input-->
@@ -26,7 +28,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Nombre</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%;" class="input-group">
                                     <input name="nombre" class="form-control" type="text" th:field="*{nombre}">
                                 </div>
                             </div>
@@ -37,7 +39,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Apellido</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%;" class="input-group">
                                     <input name="apellido" value="0" class="form-control" type="text"
                                         th:field="*{apellido}">
                                 </div>
@@ -51,8 +53,8 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">DNI</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <input name="dni" value="0" class="form-control" type="number" th:field="*{dni}">
+                                <div style="width: 300%;" class="input-group">
+                                    <input name="dni" value="0" class="form-control" type="text" th:field="*{dni}">
                                 </div>
                             </div>
                         </div>
@@ -62,7 +64,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Fecha de Nacimiento</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%;" class="input-group">
                                     <input name="fecha_nacimiento" value="" class="form-control" type="date"
                                         th:field="*{fechaNacimiento}">
                                 </div>
@@ -72,7 +74,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Franja Horaria</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%;" class="input-group">
                                     <input name="franja_horaria" value="" class="form-control" type="text"
                                         th:field="*{franjaHoraria}">
                                 </div>
@@ -80,9 +82,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">0 Gerente / 1 Vendedor</label>
+                            <label class="col-md-4 control-label">Gerente?</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
+                                <div style="width: 300%;" class="input-group">
                                     <input name="tipo_empleado" value="" class="form-control" type="text"
                                         th:field="*{tipoEmpleado}">
                                 </div>
@@ -92,7 +94,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Local</label>
                             <div class="col-md-4 selectContainer">
-                                <div class="input-group">
+                                <div style="width: 300%;" class="input-group">
                                     <select name="local" class="form-control selectpicker" th:field="*{idLocal}">
                                         <option th:each="local : ${locales}" th:value="${local.idLocal}"
                                             th:text="${local.direccion}">
@@ -114,6 +116,7 @@
 
                     </fieldset>
                 </form>
+                </div>
             </div>
         </div><!-- /.container -->
     </div>
