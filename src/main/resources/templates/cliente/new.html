@@ -17,8 +17,7 @@
             <div class="container">
 
                 <div class="form">
-                    <form class="well form-horizontal" action="#" th:action="@{/cliente/create}" th:object="${cliente}"
-                    method="post" id="contact_form">
+                    <form class="well form-horizontal" id="contact_form">
                     <fieldset>
                         <!-- Text input-->
                         <div class="form-group">
@@ -26,7 +25,7 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div style="width: 300%" class="input-group">
                                     <input name="nombre" placeholder="Nombre" class="form-control" type="text"
-                                        th:field="*{nombre}">
+                                    id="nombre">
                                 </div>
                             </div>
                         </div>
@@ -36,7 +35,7 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div style="width: 300%" class="input-group">
                                     <input name="apellido" placeholder="Apellido" class="form-control" type="text"
-                                        th:field="*{apellido}">
+                                    id="apellido"  >
                                 </div>
                             </div>
                         </div>
@@ -46,18 +45,18 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div style="width: 300%" class="input-group">
                                     <input name="dni" placeholder="Dni" class="form-control" type="text"
-                                        th:field="*{dni}">
+                                    id="dni" >
                                 </div>
                             </div>
                         </div>
                         <!-- Text input-->
 
-                        <div class="form-group">
+                        <div class="form-group" >
                             <label class="col-md-4 control-label">Fecha de Nacimiento</label>
                             <div class="col-md-4 inputGroupContainer">
                                 <div style="width: 300%" class="input-group">
                                     <input name="fecha_nacimiento" class="form-control" type="date"
-                                        th:field="*{fechaNacimiento}">
+                                      id="fechaNacimiento"  >
                                 </div>
                             </div>
                         </div>
@@ -66,10 +65,12 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div style="width: 300%" class="input-group">
                                     <input placeholder="Email" name="Email" class="form-control" type="text"
-                                        th:field="*{email}">
+                                    id="email" >
                                 </div>
                             </div>
                         </div>
+
+                        <div id="feedback"></div>
 
                         <!-- Button -->
                         <div class="form-group">
@@ -94,6 +95,7 @@
     <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript" src="/js/auth/createCliente.js"></script>
 
 </body>
 

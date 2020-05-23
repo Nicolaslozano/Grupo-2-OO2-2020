@@ -14,6 +14,10 @@ public interface IClienteService {
 
     public void removeById(long idPersona);
 
-	public Cliente findById(long idPersona);
+    public Cliente findById(long idPersona);
+    
+    public Cliente findByDni(int dni);
+
+    public Cliente findByEmail(String email);
 
 }
