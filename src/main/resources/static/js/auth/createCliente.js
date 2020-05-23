@@ -13,24 +13,24 @@ $(document).ready(function () {
 
 function ajaxSubmit() {
 
-    var create = {};
+    var clienteModel = {};
 
-    create["nombre"] = $("#nombre").val();
-    create["apellido"] = $("#apellido").val();
-    create["dni"] = $("#dni").val();
-    create["email"] = $("#email").val();
-    create["fechaNacimiento"] = $("#fechaNacimiento").val();
+    clienteModel["nombre"] = $("#nombre").val();
+    clienteModel["apellido"] = $("#apellido").val();
+    clienteModel["dni"] = $("#dni").val();
+    clienteModel["email"] = $("#email").val();
+    clienteModel["fechaNacimiento"] = $("#fechaNacimiento").val();
 
     $.ajax({
         type: "POST",
         contentType: "application/json",
         url: "/api/cliente/createCliente",
-        data: JSON.stringify(create),
+        data: JSON.stringify(clienteModel),
         dataType: 'json',
         cache: false,
         timeout: 600000,
         success: function(data) {
-            var json = "<h4>Ajax Response</h4>&lt;pre&gt;"
+            var json = "<h4>Ajax Response succ</h4>&lt;pre&gt;"
             + JSON.stringify(data, null, 4) + "&lt;/pre&gt;";
             $('#feedback').html(json);
 

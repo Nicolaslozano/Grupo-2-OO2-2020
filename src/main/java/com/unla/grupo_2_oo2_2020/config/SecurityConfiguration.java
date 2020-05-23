@@ -22,6 +22,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
      @Override
      public void configure(HttpSecurity security) throws Exception {
-         security.httpBasic().disable();
+         security.httpBasic().disable().csrf().disable().cors();
      }
 }
