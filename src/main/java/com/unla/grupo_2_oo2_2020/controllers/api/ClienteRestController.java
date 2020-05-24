@@ -1,15 +1,16 @@
 package com.unla.grupo_2_oo2_2020.controllers.api;
 
-import java.util.stream.Collectors;
+import java.util.HashMap;
 
 import javax.validation.Valid;
 
 import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
-
+import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,22 +28,31 @@ public class ClienteRestController {
     @PostMapping("/createCliente")
     public ResponseEntity<?> createCliente(@Valid @RequestBody ClienteModel clienteModel, Errors errors) {
 
-        String result = "Cliente Creado";
+        HashMap<String, String> result = new HashMap<String, String>();
 
         if (errors.hasErrors()) {
 
-            result = errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(","));
+            for (ObjectError error : errors.getAllErrors()) {
+
+                result.put(error.getDefaultMessage(), error.getDefaultMessage());
+            }
 
             return ResponseEntity.badRequest().body(result);
         }
+        else if (clienteService.findByDni(clienteModel.getDni()) != null) {
 
-        if (clienteService.findByDni(clienteModel.getDni()) != null)
-            result = "Ya existe un cliente con ese DNI";
+            result.put(StaticValuesHelper.PERSON_ALREADY_EXISTS, "Persona ya existe");
+            return ResponseEntity.badRequest().body(result);
+        }
+        else if (clienteService.findByEmail(clienteModel.getEmail()) != null) {
 
-        else if (clienteService.findByEmail(clienteModel.getEmail()) != null)
-            result = "Ya existe un cliente con ese Email";
-
-        else clienteService.insertOrUpdate(clienteModel);
+            result.put(StaticValuesHelper.EMAIL_ALREADY_EXISTS,"Email ya esta en uso");
+            return ResponseEntity.badRequest().body(result);
+        }
+        else {
+            clienteService.insertOrUpdate(clienteModel);
+            result.put("success", "Cliente creado");
+        }
 
         return ResponseEntity.ok(result);
     }
