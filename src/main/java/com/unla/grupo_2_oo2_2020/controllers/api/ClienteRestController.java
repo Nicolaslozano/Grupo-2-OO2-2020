@@ -38,22 +38,48 @@ public class ClienteRestController {
             }
 
             return ResponseEntity.badRequest().body(result);
-        }
-        else if (clienteService.findByDni(clienteModel.getDni()) != null) {
+        } else if (clienteService.findByDni(clienteModel.getDni()) != null) {
 
             result.put(StaticValuesHelper.PERSON_ALREADY_EXISTS, "Persona ya existe");
             return ResponseEntity.badRequest().body(result);
-        }
-        else if (clienteService.findByEmail(clienteModel.getEmail()) != null) {
+        } else if (clienteService.findByEmail(clienteModel.getEmail()) != null) {
 
-            result.put(StaticValuesHelper.EMAIL_ALREADY_EXISTS,"Email ya esta en uso");
+            result.put(StaticValuesHelper.EMAIL_ALREADY_EXISTS, "Email ya esta en uso");
             return ResponseEntity.badRequest().body(result);
-        }
-        else {
+        } else {
+
             clienteService.insertOrUpdate(clienteModel);
             result.put("success", "Cliente creado");
         }
 
         return ResponseEntity.ok(result);
     }
+
+    @PostMapping("/updateCliente")
+    public ResponseEntity<?> updateCliente(@Valid @RequestBody ClienteModel clienteModel, Errors errors) {
+
+        HashMap<String, String> result = new HashMap<String, String>();
+
+        if (errors.hasErrors()) {
+
+            for (ObjectError error : errors.getAllErrors()) {
+
+                result.put(error.getDefaultMessage(), error.getDefaultMessage());
+            }
+
+            return ResponseEntity.badRequest().body(result);
+        } else if ((clienteService.findByEmail(clienteModel.getEmail()) != null) && (clienteService
+                .findByEmail(clienteModel.getEmail()).getIdPersona() != clienteModel.getIdPersona())) {
+
+            result.put(StaticValuesHelper.EMAIL_ALREADY_EXISTS, "Email ya esta en uso");
+            return ResponseEntity.badRequest().body(result);
+        } else {
+
+            clienteService.insertOrUpdate(clienteModel);
+            result.put("success", "Cliente actualizado");
+        }
+
+        return ResponseEntity.ok(result);
+    }
+
 }
