@@ -17,83 +17,87 @@
             <div class="container">
 
                 <div class="form">
-                    <form class="well form-horizontal" action="#" th:action="@{/cliente/create}" th:object="${cliente}"
-                    method="post" id="contact_form">
-                    <fieldset>
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Nombre</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="nombre" placeholder="Nombre" class="form-control" type="text"
-                                        th:field="*{nombre}">
+                    <form class="well form-horizontal" id="form-cliente-create">
+                        <fieldset>
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Nombre</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="nombre" placeholder="Nombre" class="form-control" type="text"
+                                            id="nombre">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Apellido</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="apellido" placeholder="Apellido" class="form-control" type="text"
-                                        th:field="*{apellido}">
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Apellido</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="apellido" placeholder="Apellido" class="form-control" type="text"
+                                            id="apellido">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">DNI</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="dni" placeholder="Dni" class="form-control" type="text"
-                                        th:field="*{dni}">
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">DNI</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="dni" placeholder="DNI" class="form-control" type="text"
+                                            id="dni">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Fecha de Nacimiento</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="fecha_nacimiento" class="form-control" type="date"
-                                        th:field="*{fechaNacimiento}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Fecha de Nacimiento</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="fecha_nacimiento" class="form-control" type="date"
+                                            id="fechaNacimiento">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Email</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input placeholder="Email" name="Email" class="form-control" type="text"
-                                        th:field="*{email}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Email</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input placeholder="Email" name="Email" class="form-control" type="text"
+                                            id="email">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4"><br>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                    type="submit"
-                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="col-md-4"><br>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                        type="submit"
+                                        class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
                             </div>
-                        </div>
 
-                    </fieldset>
-                </form>
+                            <div id="feedback">
+                                <br>
+                                <div class="" role="alert">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
-            </div>
-        </div><!-- /.container -->
+            </div><!-- /.container -->
 
-    </div>
-    <!-- /#page-content-wrapper -->
+        </div>
+        <!-- /#page-content-wrapper -->
 
     </div>
     <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript" src="/js/auth/Cliente.js"></script>
 
 </body>
 
