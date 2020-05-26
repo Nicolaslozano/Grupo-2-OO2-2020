@@ -17,7 +17,7 @@ function createEmpleado() {
     empleadoModel["dni"] = $("#dni").val();
     empleadoModel["fechaNacimiento"] = $("#fechaNacimiento").val();
     empleadoModel["franjaHoraria"] = $("#franjaHoraria").val();
-    empleadoModel["local"]= $("#local").val();
+    empleadoModel["idLocal"]= $("#idLocal").val();
 
 
     $.ajax({
@@ -92,7 +92,7 @@ function controlError(errors) {
         $("#feedback > div").html(errors.person_already_exists);
 	}
     if (errors.local_required) {
-		$("#local").addClass("is-invalid");
+		$("#idLocal").addClass("is-invalid");
 	}
 	if (errors.surname_required) {
 		$("#apellido").addClass("is-invalid");
