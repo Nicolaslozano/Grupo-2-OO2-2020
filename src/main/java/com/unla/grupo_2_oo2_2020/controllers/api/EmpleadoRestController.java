@@ -46,7 +46,7 @@ public class EmpleadoRestController {
 		} else {
 
 			empleadoService.insertOrUpdate(empleadoModel);
-			result.put("success", "Empleado creado");
+			result.put("success_created", "Empleado creado");
 		}
 
 		return ResponseEntity.ok(result);
@@ -69,7 +69,7 @@ public class EmpleadoRestController {
 		} else {
 
 			empleadoService.insertOrUpdate(empleadoModel);
-			result.put("success", "Empleado actualizado");
+			result.put("success_updated", "Empleado actualizado");
 		}
 
 		return ResponseEntity.ok(result);

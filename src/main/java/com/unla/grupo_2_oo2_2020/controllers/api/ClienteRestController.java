@@ -49,7 +49,7 @@ public class ClienteRestController {
         } else {
 
             clienteService.insertOrUpdate(clienteModel);
-            result.put("success", "Cliente creado");
+            result.put("success_created", "Cliente creado");
         }
 
         return ResponseEntity.ok(result);
@@ -76,7 +76,7 @@ public class ClienteRestController {
         } else {
 
             clienteService.insertOrUpdate(clienteModel);
-            result.put("success", "Cliente actualizado");
+            result.put("success_updated", "Cliente actualizado");
         }
 
         return ResponseEntity.ok(result);

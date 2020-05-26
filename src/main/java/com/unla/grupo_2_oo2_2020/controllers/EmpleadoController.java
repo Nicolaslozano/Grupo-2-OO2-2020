@@ -47,24 +47,12 @@ public class EmpleadoController {
 		return mAV;
 	}
 
-	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("empleado") EmpleadoModel empleadoModel) {
-		empleadoService.insertOrUpdate(empleadoModel);
-		return new RedirectView(ViewRouteHelper.EMPLEADO_ROOT);
-	}
-
 	@GetMapping("/{idPersona}")
 	public ModelAndView get(@PathVariable("idPersona") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_UPDATE);
 		mAV.addObject("empleado", empleadoConverter.entityToModel(empleadoService.findById(id)));
 		mAV.addObject("locales", localService.getAll());
 		return mAV;
-	}
-
-	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("empleado") EmpleadoModel empleadoModel) {
-		empleadoService.insertOrUpdate(empleadoModel);
-		return new RedirectView(ViewRouteHelper.EMPLEADO_ROOT);
 	}
 	
 	@PostMapping("/remove/{idPersona}")

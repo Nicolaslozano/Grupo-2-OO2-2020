@@ -15,106 +15,112 @@
 
             <div class="container">
 
-            <div class="form">
+                <div class="form">
 
-                <form class="well form-horizontal" th:object="${empleado}" id="form-empleado-update">
-                    <fieldset>
-                        <div style="width: 300%;" class="form_group">
-                            <input id="idPersona" type="hidden" th:field="*{idPersona}" />
-                        </div>
-                        <!-- Text input-->
+                    <form class="well form-horizontal" th:object="${empleado}" id="form-empleado-update">
+                        <fieldset>
+                            <div style="width: 300%;" class="form_group">
+                                <input id="idPersona" type="hidden" th:field="*{idPersona}" />
+                            </div>
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Nombre</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%;" class="input-group">
-                                    <input id="nombre" name="nombre" class="form-control" type="text" th:field="*{nombre}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Nombre</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%;" class="input-group">
+                                        <input id="nombre" name="nombre" class="form-control" type="text"
+                                            th:field="*{nombre}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Apellido</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%;" class="input-group">
-                                    <input name="apellido" id="apellido" class="form-control" type="text"
-                                        th:field="*{apellido}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Apellido</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%;" class="input-group">
+                                        <input name="apellido" id="apellido" class="form-control" type="text"
+                                            th:field="*{apellido}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
 
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">DNI</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%;" class="input-group">
-                                    <input name="dni" id="dni" class="form-control" type="text" th:field="*{dni}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">DNI</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%;" class="input-group">
+                                        <input name="dni" id="dni" class="form-control" type="text" th:field="*{dni}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Fecha de Nacimiento</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%;" class="input-group">
-                                    <input name="fecha_nacimiento" id="fechaNacimiento" class="form-control" type="date"
-                                        th:field="*{fechaNacimiento}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Fecha de Nacimiento</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%;" class="input-group">
+                                        <input name="fecha_nacimiento" id="fechaNacimiento" class="form-control"
+                                            type="date" th:field="*{fechaNacimiento}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Franja Horaria</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%;" class="input-group">
-                                    <input name="franja_horaria" id="franjaHoraria" class="form-control" type="text"
-                                        th:field="*{franjaHoraria}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Franja Horaria</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%;" class="input-group">
+                                        <input name="franja_horaria" id="franjaHoraria" class="form-control" type="text"
+                                            th:field="*{franjaHoraria}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Gerente?</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%;" class="input-group">
-                                    <input name="tipo_empleado" value="" class="form-control" type="text"
-                                        th:field="*{tipoEmpleado}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Gerente?</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%;" class="input-group">
+                                        <input id="tipoEmpleado" name="tipo_empleado" value="" class="form-control"
+                                            type="text" th:field="*{tipoEmpleado}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Local</label>
-                            <div class="col-md-4 selectContainer">
-                                <div style="width: 300%;" class="input-group">
-                                    <select id="idLocal" name="local" class="form-control selectpicker">
-                                        <option th:each="local : ${locales}" th:value="${local.idLocal}"
-                                            th:text="${local.direccion}">
-                                        </option>
-                                    </select>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Local</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div style="width: 300%;" class="input-group">
+                                        <select id="idLocal" name="idLocal" class="form-control selectpicker">
+                                            <option th:each="local : ${locales}" th:value="${local.idLocal}"
+                                                th:text="${local.direccion}">
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4"><br>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                    type="submit"
-                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACTUALIZAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="col-md-4"><br>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                        type="submit"
+                                        class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACTUALIZAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
                             </div>
-                        </div>
 
-                    </fieldset>
-                </form>
+                            <div id="feedback">
+                                <br>
+                                <div class="" role="alert">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </div><!-- /.container -->
@@ -125,6 +131,7 @@
     <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript" src="/js/auth/Empleado.js"></script>
 </body>
 
 </html>
