@@ -18,67 +18,72 @@
 
             <div class="container">
 
-                <form class="well form-horizontal" action="#" th:action="@{/pedido/send}" th:object="${pedido}"
-                    method="post" id="contact_form">
-                    <fieldset>
+                <div class="form">
 
-                        <div class="form_group">
-                            <input type="hidden" th:field="*{idCliente}" />
-                        </div>
+                    <form class="well form-horizontal" action="#" th:action="@{/pedido/send}" th:object="${pedido}"
+                        method="post" id="contact_form">
+                        <fieldset>
 
-                        <!-- Text input-->
+                            <div class="form_group">
+                                <input type="hidden" th:field="*{idCliente}" />
+                            </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Producto</label>
-                            <div class="col-md-4 selectContainer">
-                                <div class="input-group">
-                                    <select name="producto" class="form-control selectpicker" th:field="*{idProducto}">
-                                        <option value="0"> -- </option>
-                                        <option th:each="producto : ${productos}" th:value="${producto.idProducto}"
-                                            th:text="${producto.nombre + '  $' + producto.precio}">
-                                        </option>
-                                    </select>
+                            <!-- Text input-->
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Producto</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <select name="producto" class="form-control selectpicker"
+                                            th:field="*{idProducto}">
+                                            <option value="0"> -- </option>
+                                            <option th:each="producto : ${productos}" th:value="${producto.idProducto}"
+                                                th:text="${producto.nombre + '  $' + producto.precio}">
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Cantidad</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <input name="cantidad" value="0" class="form-control" type="number"
-                                        th:field="*{cantidad}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Cantidad</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="cantidad" value="0" class="form-control" type="number"
+                                            th:field="*{cantidad}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Local</label>
-                            <div class="col-md-4 selectContainer">
-                                <div class="input-group">
-                                    <select name="local" class="form-control selectpicker" th:field="*{idLocal}">
-                                        <option th:each="local : ${locales}" th:value="${local.idLocal}"
-                                            th:text="${local.direccion}">
-                                        </option>
-                                    </select>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Local</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <select name="local" class="form-control selectpicker" th:field="*{idLocal}">
+                                            <option th:each="local : ${locales}" th:value="${local.idLocal}"
+                                                th:text="${local.direccion}">
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4"><br>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                    type="submit"
-                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspENVIAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="col-md-4"><br>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                        type="submit"
+                                        class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspENVIAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
                             </div>
-                        </div>
 
-                    </fieldset>
-                </form>
+                        </fieldset>
+                    </form>
+                </div>
+
             </div>
 
             <div th:if="${result != null}" class="col-md-4 mb-5">
