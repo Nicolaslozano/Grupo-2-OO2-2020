@@ -17,18 +17,18 @@
             <th:block th:include="fragments/navbar :: navbar"></th:block>
 
             <div class="container">
-
-                <form class="well form-horizontal" action="#" th:action="@{/lote/create}" th:object="${lote}"
-                    method="post" id="contact_form">
-                    <fieldset>
+            	<div class="form">
+                	<form class="well form-horizontal" action="#" th:action="@{/lote/create}" th:object="${lote}"
+                    	method="post" id="contact_form">
+                     <fieldset>
 
                         <!-- Text input-->
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Cantidad inicial</label>
+                          <label class="col-md-4 control-label">Cantidad inicial</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <input name="cantidadInicial" placeholder="CantidadInicial" class="form-control" type="text"
+                               <div class="input-group">
+                                 <input name="cantidadInicial" placeholder="CantidadInicial" class="form-control" type="text"
                                         th:field="*{cantidadInicial}">
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                         <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4"><br>
+                            	<div class="col-md-4"><br>
                                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
                                     type="submit"
                                     class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
@@ -77,11 +77,13 @@
                     </fieldset>
                 </form>
             </div>
-        </div><!-- /.container -->
+            <!-- /ClassForm -->
+        </div>
+        <!-- /.container -->
     </div>
     <!-- /#page-content-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+  </div> 
+  <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
 </body>

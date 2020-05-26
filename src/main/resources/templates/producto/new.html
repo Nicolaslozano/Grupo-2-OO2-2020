@@ -15,6 +15,7 @@
             <th:block th:include="fragments/navbar :: navbar"></th:block>
 
             <div class="container">
+            	<div class="form">
 
                 <form class="well form-horizontal" action="#" th:action="@{/producto/create}" th:object="${producto}"
                     method="post" id="contact_form">
@@ -71,13 +72,13 @@
                     </fieldset>
                 </form>
             </div>
-        </div><!-- /.container -->
-
+       	    <!-- /ClassForm -->
+        </div>
+  	    <!-- /.container -->
     </div>
-    <!-- /#page-content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
+  	<!-- /#page-content-wrapper -->
+ </div>
+ <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
 
