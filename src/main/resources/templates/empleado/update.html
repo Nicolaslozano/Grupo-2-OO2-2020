@@ -94,7 +94,7 @@
                             <label class="col-md-4 control-label">Local</label>
                             <div class="col-md-4 selectContainer">
                                 <div style="width: 300%;" class="input-group">
-                                    <select id="idLocal" name="local" class="form-control selectpicker" th:field="*{idLocal}">
+                                    <select id="idLocal" name="local" class="form-control selectpicker">
                                         <option th:each="local : ${locales}" th:value="${local.idLocal}"
                                             th:text="${local.direccion}">
                                         </option>
