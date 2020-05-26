@@ -68,4 +68,9 @@ public class EmpleadoService implements IEmpleadoService {
 		empleadoRepository.deleteById(idPersona);
 	}
 
+	@Override
+	public Empleado findByDni(int dni) {
+		return empleadoRepository.findByDni(dni);
+	}
+
 }
