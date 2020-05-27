@@ -15,7 +15,7 @@
             <th:block th:include="fragments/navbar :: navbar"></th:block>
 
             <div class="container">
-
+            	<div class="form">
                 <form class="well form-horizontal" action="#" th:action="@{/local/calculate}"
                     th:object="${local_models}" method="post" id="contact_form">
                     <fieldset>
@@ -60,8 +60,8 @@
 
                     </fieldset>
                 </form>
-            </div>
-
+            </div><!-- Div Classform -->
+		
             <div th:if="${distance != null}" class="col-md-4 mb-5">
                 <div class="card h-100">
                     <div class="card-body">
