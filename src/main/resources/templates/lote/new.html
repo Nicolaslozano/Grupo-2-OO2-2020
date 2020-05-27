@@ -17,18 +17,18 @@
             <th:block th:include="fragments/navbar :: navbar"></th:block>
 
             <div class="container">
-
-                <form class="well form-horizontal" action="#" th:action="@{/lote/create}" th:object="${lote}"
-                    method="post" id="contact_form">
-                    <fieldset>
+            	<div class="form">
+                	<form class="well form-horizontal" action="#" th:action="@{/lote/create}" th:object="${lote}"
+                    	method="post" id="contact_form">
+                     <fieldset>
 
                         <!-- Text input-->
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Cantidad inicial</label>
+                          <label class="col-md-4 control-label">Cantidad inicial</label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <input name="cantidadInicial" placeholder="CantidadInicial" class="form-control" type="text"
+                               <div style="width: 300%" class="input-group">
+                                 <input name="cantidadInicial" placeholder="CantidadInicial" class="form-control" type="number"
                                         th:field="*{cantidadInicial}">
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                           <div class="form-group">
                             <label class="col-md-4 control-label">Productos</label>
                             <div class="col-md-4 selectContainer">
-                                <div class="input-group">
+                                <div style="width: 300%" class="input-group">
                                     <select name="producto" class="form-control selectpicker" th:field="*{idProducto}">
                                         <option value="0"> -- </option>
                                         <option th:each="producto : ${productos}" th:value="${producto.idProducto}"
@@ -53,7 +53,7 @@
                          <div class="form-group">
                             <label class="col-md-4 control-label">Local</label>
                             <div class="col-md-4 selectContainer">
-                                <div class="input-group">
+                                <div style="width: 300%" class="input-group">
                                     <select name="local" class="form-control selectpicker" th:field="*{idStock}">
                                         <option value="0"> -- </option>
                                         <option th:each="local : ${locales}" th:value="${local.idLocal}"
@@ -67,7 +67,7 @@
                         <!-- Button -->
                         <div class="form-group">
                             <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4"><br>
+                            	<div class="col-md-4"><br>
                                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
                                     type="submit"
                                     class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
@@ -77,11 +77,13 @@
                     </fieldset>
                 </form>
             </div>
-        </div><!-- /.container -->
+            <!-- /ClassForm -->
+        </div>
+        <!-- /.container -->
     </div>
     <!-- /#page-content-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+  </div> 
+  <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
 </body>

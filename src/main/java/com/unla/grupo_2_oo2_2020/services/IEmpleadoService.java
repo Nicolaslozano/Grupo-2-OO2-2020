@@ -10,6 +10,8 @@ import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 public interface IEmpleadoService {
 
     public Empleado findById(long idPersona);
+	
+    public Empleado findByDni(int dni);
 
     public Empleado findByIdFetchEagerly(long idPersona);
 
@@ -20,5 +22,7 @@ public interface IEmpleadoService {
     public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel);
 
 	public void removeById(long idPersona);
+	
+
 
 }

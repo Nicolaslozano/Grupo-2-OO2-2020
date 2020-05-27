@@ -5,7 +5,7 @@
 
 <body>
     <div class="d-flex" id="wrapper">
-    
+
         <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
         <!-- Page Content -->
@@ -17,82 +17,87 @@
 
                 <div class="form">
 
-                    <form class="well form-horizontal" action="#" th:action="@{/cliente/update}" th:object="${cliente}"
-                    method="post" id="contact_form">
-                    <fieldset>
-                        <div class="form_group">
-                            <input type="hidden" th:field="*{idPersona}"/>
-                        </div>
-                        
-                        <!-- Text input-->
+                    <form class="well form-horizontal" th:object="${cliente}" id="form-cliente-update">
+                        <fieldset>
+                            <div class="form_group">
+                                <input type="hidden" id="idPersona" th:field="*{idPersona}" />
+                            </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Nombre</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="nombre" class="form-control" type="text"
-                                        th:field="*{nombre}">
+                            <!-- Text input-->
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Nombre</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="nombre" class="form-control" type="text" id="nombre"
+                                            th:field="*{nombre}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Apellido</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="apellido" value="0" class="form-control" type="text"
-                                        th:field="*{apellido}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Apellido</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="apellido" class="form-control" type="text" id="apellido"
+                                            th:field="*{apellido}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">DNI</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="dni" value="0" class="form-control" type="text"
-                                        th:field="*{dni}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">DNI</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input disabled name="dni" class="form-control" type="text" id="dni"
+                                            th:field="*{dni}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Fecha de Nacimiento</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="fecha_nacimiento" value="" class="form-control" type="date"
-                                        th:field="*{fechaNacimiento}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Fecha de Nacimiento</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="fecha_nacimiento" value="" class="form-control" type="date"
+                                            id="fechaNacimiento" th:field="*{fechaNacimiento}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Email</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="email" value="" class="form-control" type="text"
-                                        th:field="*{email}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Email</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="email" value="" class="form-control" type="text" id="email"
+                                            th:field="*{email}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4"><br>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                    type="submit"
-                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACTUALIZAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="col-md-4"><br>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                        type="submit"
+                                        class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACTUALIZAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
                             </div>
-                        </div>
 
-                    </fieldset>
-                </form>
+                            <div id="feedback">
+                                <br>
+                                <div class="" role="alert">
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
                 </div>
 
             </div>
@@ -104,5 +109,7 @@
     <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript" src="/js/auth/Cliente.js"></script>
 </body>
+
 </html>

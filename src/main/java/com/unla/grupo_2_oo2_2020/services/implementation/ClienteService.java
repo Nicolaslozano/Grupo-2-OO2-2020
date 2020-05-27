@@ -30,11 +30,23 @@ public class ClienteService implements IClienteService {
         // TODO Auto-generated method stub
         return clienteRepository.findAll();
     }
+
 	@Override
 	public Cliente findById(long idPersona) {
 
 		return clienteRepository.findByIdPersona(idPersona);
-	}
+    }
+
+    @Override
+    public Cliente findByDni(int dni) {
+        return clienteRepository.findByDni(dni);
+    }
+
+    @Override
+    public Cliente findByEmail(String email) {
+        return clienteRepository.findByEmail(email);
+    }
+
     @Override
     public ClienteModel insertOrUpdate(ClienteModel clienteModel) {
 		// TODO Auto-generated method stub
