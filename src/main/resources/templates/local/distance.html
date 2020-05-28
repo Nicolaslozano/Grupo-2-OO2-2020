@@ -16,7 +16,7 @@
 
             <div class="container">
             	<div class="form">
-                <form class="well form-horizontal" action="#" th:action="@{/local/calculate}"
+                	<form class="well form-horizontal" action="#" th:action="@{/local/calculate}"
                     th:object="${local_models}" method="post" id="contact_form">
                     <fieldset>
 
@@ -64,7 +64,8 @@
 		
             <div th:if="${distance != null}" class="col-md-4 mb-5">
                 <div class="card h-100">
-                    <div class="card-body">
+                	<div class="form">
+                    	<div class="card-body">
                         <h2 class="card-title">Distancia</h2>
                         <div style="float: left; margin-right: 20px">
                             <p style="display:inline-block">La distancia entre</p>
@@ -79,9 +80,10 @@
                     <div class="card-footer">
                     </div>
                 </div>
+              </div> 
             </div>
         </div><!-- /.container -->
-
+		
     </div>
     <!-- /#page-content-wrapper -->
 
