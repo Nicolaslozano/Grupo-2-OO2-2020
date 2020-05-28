@@ -1,4 +1,28 @@
 $(document).ready(function () {
+    $(".form-cliente-remove").submit(function (event) {
+        event.preventDefault();
+
+        var dataArray = $(this).serializeArray(),
+        empleadoModel = {};
+
+        $(dataArray).each(function(i, field){
+        empleadoModel[field.name] = field.value;
+        });
+
+        removeCliente(empleadoModel);
+    });
+    $("#form-empleado-create").submit(function (event) {
+        event.preventDefault();
+        var empleadoModel = {};
+
+        empleadoModel["nombre"] = $("#nombre").val();
+        empleadoModel["apellido"] = $("#apellido").val();
+        empleadoModel["dni"] = $("#dni").val();
+        empleadoModel["email"] = $("#email").val();
+        empleadoModel["fechaNacimiento"] = $("#fechaNacimiento").val();
+
+        submitEmpleado(empleadoModel);
+    });
     $("#form-empleado-create").submit(function (event) {
         event.preventDefault();
         var empleadoModel = {};
@@ -28,6 +52,25 @@ $(document).ready(function () {
         submitEmpleado(empleadoModel);
     });
 });
+
+function removeEmpleado(empleadoModel) {
+
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify(empleadoModel),
+        url: "/api/empleado/remove/" + empleadoModel.idPersona,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            if(data.success_removed) {
+
+                window.location.replace(data.redirect);
+            }
+        },
+    });
+}
 
 function submitEmpleado(empleadoModel) {
 

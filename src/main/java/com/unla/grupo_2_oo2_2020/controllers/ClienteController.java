@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
@@ -41,12 +39,6 @@ public class ClienteController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_UPDATE);
 		mAV.addObject("cliente", clienteService.findById(id));
 		return mAV;
-	}
-
-	@PostMapping("/remove/{idPersona}")
-	public RedirectView remove(@PathVariable("idPersona") long id) {
-		clienteService.removeById(id);
-		return new RedirectView(ViewRouteHelper.CLIENTE_ROOT);
 	}
 
 }

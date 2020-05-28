@@ -4,14 +4,19 @@ import java.util.HashMap;
 
 import javax.validation.Valid;
 
+import java.util.HashMap;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
+import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,5 +79,16 @@ public class EmpleadoRestController {
 
 		return ResponseEntity.ok(result);
 	}
+
+	@DeleteMapping("/remove/{idPersona}")
+    public ResponseEntity<?> removeEmpleado(@PathVariable("idPersona") long id) {
+
+        HashMap<String, String> result = new HashMap<String, String>();
+        empleadoService.removeById(id);
+        result.put(StaticValuesHelper.SUCCESS_REMOVED, "Empleado eliminado");
+        result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
+
+        return ResponseEntity.ok(result);
+    }
 
 }
