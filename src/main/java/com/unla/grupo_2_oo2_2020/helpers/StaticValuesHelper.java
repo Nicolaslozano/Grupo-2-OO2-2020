@@ -12,4 +12,8 @@ public class StaticValuesHelper {
     public final static String EMAIL_ALREADY_EXISTS = "email_already_exists";
     public final static String PERSON_ALREADY_EXISTS = "person_already_exists";
 
+    public final static String SUCCESS_UPDATED = "success_updated";
+    public final static String SUCCESS_REMOVED = "success_removed";
+    public final static String SUCCESS_CREATED = "success_created";
+
 }

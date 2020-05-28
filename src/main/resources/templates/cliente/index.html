@@ -45,10 +45,13 @@
                           <a class="btn btn-info" th:href="@{/pedido/new/{id}(id=${cliente.idPersona})}">Hacer Pedido</a>
                         </td>
                         <td>
-                          </form>
-                            <form action="#" th:action="@{/cliente/remove/{id}(id=${cliente.idPersona})}" method="post">
+                          <form class="form-cliente-remove">
+                            <div class="form_group">
+                              <input type="hidden" name="idPersona" th:value="${cliente.idPersona}"/>
+                            </div>
                             <input class="btn btn-danger" type="submit" value="Eliminar"/>
                           </form>
+
                         </td>
                       </tr>
                     </tbody>
@@ -69,7 +72,7 @@
   <!-- /#wrapper -->
 
   <th:block th:include="fragments/bottom :: bottom"></th:block>
-
+  <script type="text/javascript" src="/js/auth/Cliente.js"></script>
 </body>
 
 </html>

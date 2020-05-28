@@ -1,4 +1,16 @@
 $(document).ready(function () {
+    $(".form-cliente-remove").submit(function (event) {
+        event.preventDefault();
+
+        var dataArray = $(this).serializeArray(),
+        clienteModel = {};
+
+        $(dataArray).each(function(i, field){
+        clienteModel[field.name] = field.value;
+        });
+
+        removeCliente(clienteModel);
+    });
     $("#form-cliente-create").submit(function (event) {
         event.preventDefault();
         var clienteModel = {};
@@ -25,6 +37,25 @@ $(document).ready(function () {
         submitCliente(clienteModel);
     });
 });
+
+function removeCliente(clienteModel) {
+
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify(clienteModel),
+        url: "/api/cliente/remove/" + clienteModel.idPersona,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            if(data.success_removed) {
+
+                window.location.replace(data.redirect);
+            }
+        },
+    });
+}
 
 function submitCliente(clienteModel) {
     var url;
