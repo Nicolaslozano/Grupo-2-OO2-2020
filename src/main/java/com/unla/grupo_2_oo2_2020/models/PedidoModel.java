@@ -18,6 +18,7 @@ public class PedidoModel {
 	
 	public PedidoModel(long idPedido, long idProducto, int cantidad, long idLocal, long idCliente,
 			long idVendedorOriginal, long idVendedorAuxiliar, boolean aceptado) {
+	
 		this.idPedido = idPedido;
 		this.idProducto = idProducto;
 		this.cantidad = cantidad;
@@ -27,6 +28,8 @@ public class PedidoModel {
 		this.idVendedorAuxiliar = idVendedorAuxiliar;
 		this.aceptado = aceptado;
 	}
+	
+
 
 	
 

@@ -11,12 +11,11 @@ import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 public class PedidoConverter {
 	
 	public PedidoModel entityToModel(Pedido pedido) {
-		return new PedidoModel(pedido.getIdPedido(),pedido.getIdCliente(),pedido.getCantidad(),pedido.getIdVendedorAuxiliar(),pedido.getIdVendedorOriginal(),pedido.getLocal(),pedido.getProducto(),pedido.isAceptado());
+		return new PedidoModel(pedido.getIdPedido(),pedido.getCliente().getIdPersona(),pedido.getCantidad(),pedido.getLocal().getIdLocal(),pedido.getProducto().getIdProducto(),pedido.getVendedorAuxiliar().getIdPersona(),pedido.getVendedorOriginal().getIdPersona(),pedido.isAceptado());
 	}
 
 	public Pedido modelToEntity(PedidoModel pedidoModel) {
-		return new Pedido(pedidoModel.getIdPedido(),pedidoModel.isAceptado(),pedidoModel.getCantidad(),pedidoModel.getIdLocal(),pedidoModel.getIdProducto(),pedidoModel.getIdVendedorOriginal(),pedidoModel.getIdVendedorAuxiliar(),pedidoModel.getIdCliente());
+		return new Pedido(pedidoModel.getIdCliente(),pedidoModel.isAceptado(),pedidoModel.getCantidad());
+		
 	}
-	
-	
 }
