@@ -15,6 +15,7 @@ import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
+import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
@@ -26,7 +27,11 @@ public class PedidoController {
 
     @Autowired
 	@Qualifier("clienteService")
-    private IClienteService clienteService;
+	private IClienteService clienteService;
+	
+	@Autowired
+	@Qualifier("empleadoService")
+    private IEmpleadoService empleadoService;
     
     @Autowired
 	@Qualifier("pedidoService")
@@ -50,6 +55,7 @@ public class PedidoController {
         mAV.addObject("pedido", pedido);
 		mAV.addObject("locales", localService.getAll());
 		mAV.addObject("productos", productoService.getAll());
+		mAV.addObject("empleados", empleadoService.getAll());
 
 		return mAV;
 	}
@@ -60,11 +66,15 @@ public class PedidoController {
 
 		if(pedidoService.validatePedido(pedidoModel)) {
 
+			pedidoModel.setAceptado(true);
+			pedidoService.insertOrUpdate(pedidoModel);
 			mAV.addObject("result", "Pedido aceptado");
 			mAV.addObject("total", pedidoService.getTotal(pedidoModel));
 		}
 		else {
 
+			pedidoModel.setAceptado(false);
+			pedidoService.insertOrUpdate(pedidoModel);
 			mAV.addObject("result", "Pedido rechazado");
 		}
 

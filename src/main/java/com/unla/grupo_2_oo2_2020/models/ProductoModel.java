@@ -22,7 +22,7 @@ public class ProductoModel {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
-		this.fechaAlta = LocalDate.now();
+		this.fechaAlta = fechaAlta;
 	}
 
 }
