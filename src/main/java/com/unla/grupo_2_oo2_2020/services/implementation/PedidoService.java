@@ -35,22 +35,21 @@ public class PedidoService implements IPedidoService {
 	public boolean validatePedido(PedidoModel pedidoModel) {
 
 		boolean DemandFullFill = stockService.comprobarStock(pedidoModel);
-		long i = 0;
+		int i = 0;
 
 		while (DemandFullFill == false && i < localService.getAll().size()) {
-		 Local local = localService.findById(i); 
-			if (local != null) {
-				if (cederStock() = true) {
-					stockService.comprobarStock(pedidoModel);
-					DemandFullFill = true;
-				} else {
-					i++;
-				}
-				// implement exception that says "No more locals to ask for lotes"
+		 
+		 PedidoModel pedido = pedidoModel;
+		 Local local=localService.findById(i);
+		 pedido.setIdLocal(i);
+			
+		 if (local != null) {
+			stockService.comprobarStock(pedido);
+			DemandFullFill = true;
+						
 			}
-
+			i++;
 		}
-
 		return DemandFullFill;
 	}
 
