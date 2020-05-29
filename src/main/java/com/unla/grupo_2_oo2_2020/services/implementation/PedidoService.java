@@ -35,23 +35,19 @@ public class PedidoService implements IPedidoService {
 	public boolean validatePedido(PedidoModel pedidoModel) {
 
 		boolean DemandFullFill = stockService.comprobarStock(pedidoModel);
-		int i = 0;
+		PedidoModel pedido = pedidoModel;
 
-		while (DemandFullFill == false && i < localService.getAll().size()) {
-		 
-		 PedidoModel pedido = pedidoModel;
-		 Local local=localService.findById(i);
-		 pedido.setIdLocal(i);
+		while (DemandFullFill == false) {
 			
-		 if (local != null) {
-			stockService.comprobarStock(pedido);
-			DemandFullFill = true;
-						
+			for(Local l : localService.getAll() ) {
+			pedido.setIdLocal(l.getIdLocal());
+			if(stockService.comprobarStock(pedido)==true) {
+				DemandFullFill=true;
 			}
-			i++;
-		}
+		 }
+	}	
 		return DemandFullFill;
-	}
+}
 
 	@Override
 	public double getTotal(PedidoModel pedidoModel) {
