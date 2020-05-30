@@ -37,7 +37,7 @@ public class PedidoService implements IPedidoService {
 		boolean DemandFullFill = stockService.comprobarStock(pedidoModel);
 		PedidoModel pedido = pedidoModel;
 
-		while (DemandFullFill == false) {
+		if (DemandFullFill == false) {
 			
 			for(Local l : localService.getAll() ) {
 			pedido.setIdLocal(l.getIdLocal());
