@@ -92,7 +92,7 @@ public class EmpleadoRestController {
 		} else {
 
 			empleadoService.insertOrUpdate(empleadoModel);
-			result.put("success_created", "Empleado creado");
+			result.put(StaticValuesHelper.SUCCESS_CREATED, "Empleado creado");
 		}
 
 		return ResponseEntity.ok(result);
@@ -115,7 +115,7 @@ public class EmpleadoRestController {
 		} else {
 
 			empleadoService.insertOrUpdate(empleadoModel);
-			result.put("success_updated", "Empleado actualizado");
+			result.put(StaticValuesHelper.SUCCESS_UPDATED, "Empleado actualizado");
 		}
 
 		return ResponseEntity.ok(result);

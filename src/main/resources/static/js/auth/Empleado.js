@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $(".form-cliente-remove").submit(function (event) {
+    $(".form-empleado-remove").submit(function (event) {
         event.preventDefault();
 
         var dataArray = $(this).serializeArray(),
