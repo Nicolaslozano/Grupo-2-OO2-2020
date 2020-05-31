@@ -60,7 +60,7 @@ public class PedidoController {
 		return mAV;
 	}
 
-	@PostMapping("/send") //TODO
+	@PostMapping("/send")
 	public ModelAndView send(@ModelAttribute("pedido") PedidoModel pedidoModel) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_NEW);
 

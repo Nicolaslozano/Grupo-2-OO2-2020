@@ -46,7 +46,7 @@ public class PedidoService implements IPedidoService {
     @Autowired
     @Qualifier("pedidoConverter")
     private PedidoConverter pedidoConverter;
-  
+
     @Override
     public void insertOrUpdate(PedidoModel pedidoModel) {
 
@@ -68,33 +68,29 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
+    public boolean validatePedido(PedidoModel pedidoModel) {
+        // Faltaria que se validen las solicitudes de stock a otros locales empezando
+        // por los mas cercanos
+
+        boolean DemandFullFill = stockService.comprobarStock(pedidoModel);
+        PedidoModel pedido = pedidoModel;
+
+        if (DemandFullFill == false) {
+
+            for (Local l : localService.getAll()) {
+                pedido.setIdLocal(l.getIdLocal());
+                if (stockService.comprobarStock(pedido) == true) {
+                    DemandFullFill = true;
+                }
+            }
+        }
+        return DemandFullFill;
+    }
+
+    @Override
     public double getTotal(PedidoModel pedidoModel) {
 
         return ((productoService.findById(pedidoModel.getIdProducto())).getPrecio() * pedidoModel.getCantidad());
     }
-
-	@Override
-	public boolean validatePedido(PedidoModel pedidoModel) {
-
-		boolean DemandFullFill = stockService.comprobarStock(pedidoModel);
-		PedidoModel pedido = pedidoModel;
-
-		if (DemandFullFill == false) {
-			
-			for(Local l : localService.getAll() ) {
-			pedido.setIdLocal(l.getIdLocal());
-			if(stockService.comprobarStock(pedido)==true) {
-				DemandFullFill=true;
-			}
-		 }
-	}	
-		return DemandFullFill;
-}
-
-	@Override
-	public double getTotal(PedidoModel pedidoModel) {
-
-		return ((productoService.findById(pedidoModel.getIdProducto())).getPrecio() * pedidoModel.getCantidad());
-	}
 
 }
