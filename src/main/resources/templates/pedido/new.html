@@ -61,10 +61,23 @@
                                 <label class="col-md-4 control-label">Local</label>
                                 <div class="col-md-4 selectContainer">
                                     <div style="width: 300%" class="input-group">
-                                        <select name="local" class="form-control selectpicker" th:field="*{idLocal}">
-                                            <option th:each="local : ${locales}" th:value="${local.idLocal}"
-                                                th:text="${local.direccion}">
-                                            </option>
+                                        <select id="local" name="local" class="form-control selectpicker"
+                                            th:field="*{idLocal}">
+                                            <option value="0"> -- </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Vendedor</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <select id="vendedorOriginal" name="vendedorOriginal"
+                                            class="form-control selectpicker" th:field="*{idVendedorOriginal}">
+                                            <option value="0"> -- </option>
+
                                         </select>
                                     </div>
                                 </div>
@@ -107,8 +120,52 @@
     <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->
-
     <th:block th:include="fragments/bottom :: bottom"></th:block>
+
+    <script type="text/javascript">
+        //https://stackoverflow.com/questions/14661508/jquery-select-changes-another-select
+        //TO-DO
+        $(document).ready(function () {
+            // Pedir todos los locales cuando carga la vista
+            $.ajax({
+                url: "/api/local/getLocales",
+                type: "GET",
+                success: function (data) {
+                    var locales = data;
+                    if (typeof (data) == "string") {
+                        locales = JSON.parse(data);
+                    }
+                    $.each(locales, function (index, local) {
+                        $("#local").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
+                    });
+                },
+                error: function (result) {
+                    console.log(["error getting locales", result]);
+                }
+            });
+
+            // cuando cambio de local, pide los empleados de aquel local
+            $("#local").change(function () {
+
+                $.ajax({
+                    url: "/api/empleado/getEmpleados/" + $("#local").val(),
+                    type: 'GET',
+                    success: function (data) {
+                        var empleados = data;
+                        if (typeof (data) == "string") {
+                            empleados = JSON.parse(data);
+                        }
+                        $("#vendedorOriginal").empty();
+                        $.each(empleados, function (index, empleado) {
+                            $("#vendedorOriginal").append($("<option></option>",
+                            { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
+                        })
+                    },
+                    error: function (result) { console.log(["error", result]); },
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
