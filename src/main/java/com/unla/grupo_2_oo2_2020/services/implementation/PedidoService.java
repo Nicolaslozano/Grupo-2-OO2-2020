@@ -2,6 +2,7 @@ package com.unla.grupo_2_oo2_2020.services.implementation;
 
 import com.unla.grupo_2_oo2_2020.converters.PedidoConverter;
 import com.unla.grupo_2_oo2_2020.entities.Pedido;
+import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.repository.IPedidoRepository;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
@@ -45,7 +46,7 @@ public class PedidoService implements IPedidoService {
     @Autowired
     @Qualifier("pedidoConverter")
     private PedidoConverter pedidoConverter;
-
+  
     @Override
     public void insertOrUpdate(PedidoModel pedidoModel) {
 
@@ -67,15 +68,33 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
-    public boolean validatePedido(PedidoModel pedidoModel) {
-
-        return stockService.comprobarStock(pedidoModel);
-    }
-
-    @Override
     public double getTotal(PedidoModel pedidoModel) {
 
         return ((productoService.findById(pedidoModel.getIdProducto())).getPrecio() * pedidoModel.getCantidad());
     }
+
+	@Override
+	public boolean validatePedido(PedidoModel pedidoModel) {
+
+		boolean DemandFullFill = stockService.comprobarStock(pedidoModel);
+		PedidoModel pedido = pedidoModel;
+
+		if (DemandFullFill == false) {
+			
+			for(Local l : localService.getAll() ) {
+			pedido.setIdLocal(l.getIdLocal());
+			if(stockService.comprobarStock(pedido)==true) {
+				DemandFullFill=true;
+			}
+		 }
+	}	
+		return DemandFullFill;
+}
+
+	@Override
+	public double getTotal(PedidoModel pedidoModel) {
+
+		return ((productoService.findById(pedidoModel.getIdProducto())).getPrecio() * pedidoModel.getCantidad());
+	}
 
 }
