@@ -54,10 +54,5 @@ public class EmpleadoController {
 		mAV.addObject("locales", localService.getAll());
 		return mAV;
 	}
-	
-	@PostMapping("/remove/{idPersona}")
-	public RedirectView remove(@PathVariable("idPersona") long id) {
-		empleadoService.removeById(id);
-		return new RedirectView(ViewRouteHelper.EMPLEADO_ROOT);
-	}
+
 }

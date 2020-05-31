@@ -40,7 +40,7 @@ public class Local {
 	private Stock stock;
 
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
-	private Set<SolicitudStock> solicitudesStock;
+	private Set<Pedido> pedidos;
 
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
 	private Set<Empleado> empleados;
@@ -53,7 +53,7 @@ public class Local {
 		this.longitud = longitud;
 		this.telefono = telefono;
 		this.empleados = new HashSet<Empleado>();
-		this.solicitudesStock = new HashSet<SolicitudStock>();
+		this.pedidos = new HashSet<Pedido>();
 	}
 
 	public Local(String direccion, double latitud, double longitud, long telefono) {
@@ -63,7 +63,7 @@ public class Local {
 		this.longitud = longitud;
 		this.telefono = telefono;
 		this.empleados = new HashSet<Empleado>();
-		this.solicitudesStock = new HashSet<SolicitudStock>();
+		this.pedidos = new HashSet<Pedido>();
 	}
 
 	public double calculateDistance(Local local_2) {

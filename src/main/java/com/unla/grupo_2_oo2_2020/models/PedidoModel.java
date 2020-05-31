@@ -1,5 +1,9 @@
 package com.unla.grupo_2_oo2_2020.models;
 
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PedidoModel {
 
+	private long idPedido;
 	private long idProducto;
 	private int cantidad;
 	private long idLocal;
@@ -14,18 +19,21 @@ public class PedidoModel {
 	private long idVendedorOriginal;
 	private long idVendedorAuxiliar;
 	private boolean aceptado;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate fecha;
 
-	public PedidoModel(long idProducto, int cantidad, long idLocal, long idCliente,
-			long idVendedorOriginal, long idVendedorAuxiliar, boolean aceptado) {
-		super();
+	public PedidoModel(long idPedido, long idProducto, int cantidad, long idLocal, long idCliente,
+			long idVendedorOriginal, long idVendedorAuxiliar, boolean aceptado, LocalDate fecha) {
 
+		this.idPedido = idPedido;
 		this.idProducto = idProducto;
 		this.cantidad = cantidad;
 		this.idLocal = idLocal;
 		this.idCliente = idCliente;
-		this.idVendedorAuxiliar = idVendedorAuxiliar;
 		this.idVendedorOriginal = idVendedorOriginal;
+		this.idVendedorAuxiliar = idVendedorAuxiliar;
 		this.aceptado = aceptado;
+		this.fecha = fecha;
 	}
 
 }

@@ -1,8 +1,13 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import com.unla.grupo_2_oo2_2020.converters.PedidoConverter;
+import com.unla.grupo_2_oo2_2020.entities.Pedido;
+import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
+import com.unla.grupo_2_oo2_2020.repository.IPedidoRepository;
+import com.unla.grupo_2_oo2_2020.services.IClienteService;
+import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
-import com.unla.grupo_2_oo2_2020.services.ILoteService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
 import com.unla.grupo_2_oo2_2020.services.IStockService;
@@ -15,8 +20,20 @@ import org.springframework.stereotype.Service;
 public class PedidoService implements IPedidoService {
 
     @Autowired
+    @Qualifier("pedidoRepository")
+    private IPedidoRepository pedidoRepository;
+
+    @Autowired
     @Qualifier("localService")
     private ILocalService localService;
+
+    @Autowired
+    @Qualifier("clienteService")
+    private IClienteService clienteService;
+
+    @Autowired
+    @Qualifier("empleadoService")
+    private IEmpleadoService empleadoService;
 
     @Autowired
     @Qualifier("productoService")
@@ -27,20 +44,47 @@ public class PedidoService implements IPedidoService {
     private IStockService stockService;
 
     @Autowired
-    @Qualifier("loteService")
-    private ILoteService loteService;
+    @Qualifier("pedidoConverter")
+    private PedidoConverter pedidoConverter;
+
+    @Override
+    public void insertOrUpdate(PedidoModel pedidoModel) {
+
+        Pedido pedido = pedidoConverter.modelToEntity(pedidoModel);
+
+        pedido.setCliente(clienteService.findById(pedidoModel.getIdCliente()));
+        pedido.setLocal(localService.findById(pedidoModel.getIdLocal()));
+        pedido.setProducto(productoService.findById(pedidoModel.getIdProducto()));
+        pedido.setVendedorOriginal(empleadoService.findById(pedidoModel.getIdVendedorOriginal()));
+        if (pedidoModel.getIdVendedorAuxiliar() > 0)
+            pedido.setVendedorAuxiliar(empleadoService.findById(pedidoModel.getIdVendedorAuxiliar()));
+
+        pedidoRepository.save(pedido);
+    }
+
+    @Override
+    public void removeById(long idPedido) {
+
+    }
 
     @Override
     public boolean validatePedido(PedidoModel pedidoModel) {
-        // TODO
+        // Faltaria que se validen las solicitudes de stock a otros locales empezando
+        // por los mas cercanos
 
-        // stock service validate stock (pedidomodel)
+        boolean DemandFullFill = stockService.comprobarStock(pedidoModel);
+        PedidoModel pedido = pedidoModel;
 
-        // if true, then lote.cantidad - pedido.cantidad and save it
-        // if local has a bit, then send solicitud of only needed stock to closest local
-        // else if false, then send solicitud to closest local that has enough
-        // if no one has, then IMSORRYBUDDY
-        return stockService.comprobarStock(pedidoModel);
+        if (DemandFullFill == false) {
+
+            for (Local l : localService.getAll()) {
+                pedido.setIdLocal(l.getIdLocal());
+                if (stockService.comprobarStock(pedido) == true) {
+                    DemandFullFill = true;
+                }
+            }
+        }
+        return DemandFullFill;
     }
 
     @Override
