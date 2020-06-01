@@ -72,19 +72,24 @@ public class PedidoService implements IPedidoService {
         // Faltaria que se validen las solicitudes de stock a otros locales empezando
         // por los mas cercanos
 
-        boolean DemandFullFill = stockService.comprobarStock(pedidoModel);
-        PedidoModel pedido = pedidoModel;
+        boolean isValid = stockService.comprobarStock(pedidoModel);
+        PedidoModel pedidoExterno = new PedidoModel(0, pedidoModel.getIdProducto(),
+                pedidoModel.getCantidad(), pedidoModel.getIdLocal(), pedidoModel.getIdCliente(),
+                pedidoModel.getIdVendedorOriginal(), pedidoModel.getIdVendedorAuxiliar(), pedidoModel.isAceptado(),
+                pedidoModel.getFecha());
 
-        if (DemandFullFill == false) {
+        if (!isValid) {
 
             for (Local l : localService.getAll()) {
-                pedido.setIdLocal(l.getIdLocal());
-                if (stockService.comprobarStock(pedido) == true) {
-                    DemandFullFill = true;
+                pedidoExterno.setIdLocal(l.getIdLocal());
+                if (stockService.comprobarStock(pedidoExterno)) {
+                    isValid = true;
+                    break;
                 }
             }
         }
-        return DemandFullFill;
+
+        return isValid;
     }
 
     @Override
