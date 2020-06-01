@@ -44,8 +44,14 @@ public class PedidoController {
 	@Autowired
 	@Qualifier("productoService")
 	private IProductoService productoService;
-
-
+	
+	 @GetMapping("")
+		public ModelAndView index() {
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_INDEX);
+			mAV.addObject("pedidos", pedidoService.getAll());
+			return mAV;
+		}
+	
     @GetMapping("/new/{idPersona}")
 	public ModelAndView create(@PathVariable("idPersona") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_NEW);

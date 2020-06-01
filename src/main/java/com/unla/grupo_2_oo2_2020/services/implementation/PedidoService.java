@@ -3,6 +3,7 @@ package com.unla.grupo_2_oo2_2020.services.implementation;
 import com.unla.grupo_2_oo2_2020.converters.PedidoConverter;
 import com.unla.grupo_2_oo2_2020.entities.Pedido;
 import com.unla.grupo_2_oo2_2020.entities.Local;
+import com.unla.grupo_2_oo2_2020.entities.Lote;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.repository.IPedidoRepository;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
@@ -11,6 +12,8 @@ import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
 import com.unla.grupo_2_oo2_2020.services.IStockService;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,6 +50,11 @@ public class PedidoService implements IPedidoService {
     @Qualifier("pedidoConverter")
     private PedidoConverter pedidoConverter;
 
+    @Override
+	public List<Pedido> getAll() {
+		return pedidoRepository.findAll();
+	}
+    
     @Override
     public void insertOrUpdate(PedidoModel pedidoModel) {
 
