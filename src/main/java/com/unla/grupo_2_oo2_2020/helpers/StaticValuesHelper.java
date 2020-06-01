@@ -11,6 +11,11 @@ public class StaticValuesHelper {
     public final static String FRANJAHORARIA_REQUIRED = "franjahoraria_required";
     public final static String EMAIL_ALREADY_EXISTS = "email_already_exists";
     public final static String PERSON_ALREADY_EXISTS = "person_already_exists";
+    public final static String ADDRESS_REQUIRED = "address_required";
+    public final static String TELEPHONE_REQUIRED = "telephone_required";
+    public final static String LATITUDE_ERROR = "latitude_error";
+    public final static String LONGITUDE_ERROR = "longitude_error";
+
 
     public final static String SUCCESS_UPDATED = "success_updated";
     public final static String SUCCESS_REMOVED = "success_removed";
