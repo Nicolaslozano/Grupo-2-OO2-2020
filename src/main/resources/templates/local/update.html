@@ -5,7 +5,7 @@
 
 <body>
     <div class="d-flex" id="wrapper">
-    
+
         <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
         <!-- Page Content -->
@@ -15,73 +15,76 @@
 
             <div class="container">
 
-                <form class="well form-horizontal" action="#" th:action="@{/local/update}" th:object="${local}"
-                    method="post" id="contact_form">
-                    <fieldset>
-                        <div style="width: 300%" class="form_group">
-                            <input type="hidden" th:field="*{idLocal}" />
-                        </div>
-                        <!-- Text input-->
+                <div class="form">
+                    <form class="well form-horizontal" action="#" th:action="@{/local/update}" th:object="${local}"
+                        method="post" id="contact_form">
+                        <fieldset>
+                            <div style="width: 300%" class="form_group">
+                                <input type="hidden" th:field="*{idLocal}" />
+                            </div>
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Direccion</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="direccion" class="form-control" type="text" th:field="*{direccion}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Direccion</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="direccion" class="form-control" type="text"
+                                            th:field="*{direccion}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Latitud</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="latitud" class="form-control" type="text" th:field="*{latitud}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Latitud</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="latitud" class="form-control" type="text" th:field="*{latitud}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Longitud</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="longitud" class="form-control" type="text" th:field="*{longitud}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Longitud</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="longitud" class="form-control" type="text" th:field="*{longitud}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Text input-->
+                            <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Telefono</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="telefono" class="form-control" type="text" th:field="*{telefono}">
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Telefono</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="telefono" class="form-control" type="text" th:field="*{telefono}">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4"><br>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                    type="submit"
-                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACTUALIZAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="col-md-4"><br>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                        type="submit"
+                                        class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACTUALIZAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
                             </div>
-                        </div>
-                        <div id="feedback">
-                            <br>
-                            <div class="" role="alert">
+                            <div id="feedback">
+                                <br>
+                                <div class="" role="alert">
+                                </div>
                             </div>
-                        </div>
-                    </fieldset>
-                </form>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
         </div><!-- /.container -->
     </div>

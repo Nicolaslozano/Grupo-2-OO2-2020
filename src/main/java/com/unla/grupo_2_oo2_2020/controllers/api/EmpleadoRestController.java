@@ -127,7 +127,7 @@ public class EmpleadoRestController {
 		HashMap<String, String> result = new HashMap<String, String>();
 		empleadoService.removeById(id);
 		result.put(StaticValuesHelper.SUCCESS_REMOVED, "Empleado eliminado");
-		result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
+		result.put("redirect", ViewRouteHelper.EMPLEADO_ROOT);
 
 		return ResponseEntity.ok(result);
 	}

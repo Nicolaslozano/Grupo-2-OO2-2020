@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/local")
@@ -39,29 +38,11 @@ public class LocalController {
 		return mAV;
 	}
 
-	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("local") LocalModel localModel) {
-		localService.insertOrUpdate(localModel);
-		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
-	}
-
 	@GetMapping("/{idLocal}")
 	public ModelAndView get(@PathVariable("idLocal") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_UPDATE);
 		mAV.addObject("local", localService.findById(id));
 		return mAV;
-	}
-
-	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("local") LocalModel localModel) {
-		localService.insertOrUpdate(localModel);
-		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
-	}
-
-	@PostMapping("/remove/{idLocal}")
-	public RedirectView remove(@PathVariable("idLocal") long id) {
-		localService.removeById(id);
-		return new RedirectView(ViewRouteHelper.LOCAL_ROOT);
 	}
 
 	@GetMapping("/distance")

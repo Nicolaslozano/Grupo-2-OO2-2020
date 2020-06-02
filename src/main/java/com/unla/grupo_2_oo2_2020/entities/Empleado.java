@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "empleado")
 @PrimaryKeyJoinColumn(referencedColumnName="idPersona")
-@Data @EqualsAndHashCode(callSuper = false) @NoArgsConstructor
+@Data @EqualsAndHashCode(callSuper = false, exclude="local") @NoArgsConstructor
 public class Empleado extends Persona {
 
 	@Column(name = "franjaHoraria",length = 45)

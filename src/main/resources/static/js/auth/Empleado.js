@@ -9,7 +9,7 @@ $(document).ready(function () {
         empleadoModel[field.name] = field.value;
         });
 
-        removeCliente(empleadoModel);
+        removeEmpleado(empleadoModel);
     });
     $("#form-empleado-create").submit(function (event) {
         event.preventDefault();
