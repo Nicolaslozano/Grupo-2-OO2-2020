@@ -11,12 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 @Entity
+@Where(clause="estado=1")
 @Table(name = "lote")
 @Data @NoArgsConstructor @EqualsAndHashCode(exclude="stock")
 public class Lote {
@@ -39,18 +41,18 @@ public class Lote {
 	@JoinColumn(name = "idProducto")
 	private Producto producto;
 
-	@Column (name = "estado") 
-	private boolean estado;
+	@Column (name = "estado")
+	private boolean estado=true;
 
 	@ManyToOne
 	@JoinColumn(name = "idStock")
 	private Stock stock;
 
-	public Lote(int cantidadInicial){
+	public Lote(int cantidadInicial,boolean estado){
 		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadInicial;
 		this.fechaIngreso = LocalDate.now();
-		this.estado = true;
+		this.estado = estado;
 	}
 	public Lote(long idLote,int cantidadInicial, int cantidadActual, boolean estado){
 		this.idLote=idLote;

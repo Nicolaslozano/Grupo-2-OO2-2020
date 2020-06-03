@@ -15,7 +15,7 @@ public class LoteModel {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaIngreso;
 	private long idProducto;
-	private boolean estado;
+	private boolean estado=true;
 	private long idStock;
 
 	public LoteModel(long idLote, int cantidadInicial, int cantidadActual, long idProducto, long idStock, boolean estado) {

@@ -55,6 +55,7 @@ public class StockService implements IStockService {
 
         boolean disponibleLocalmente = false;
         int cantidadAlcanzada = 0;
+        int cantidadPorConseguir = pedido.getCantidad();
         List<Lote> lotesVaciados = new ArrayList<Lote>();
 
         for (Lote lote : loteService.findByProductoAndStock(productoService.findById(pedido.getIdProducto()),
@@ -62,22 +63,25 @@ public class StockService implements IStockService {
 
             cantidadAlcanzada += lote.getCantidadActual();
 
-            if (cantidadAlcanzada >= pedido.getCantidad()) {
+            if (cantidadAlcanzada >= cantidadPorConseguir) {
 
                 disponibleLocalmente = true;
 
-                loteService.consumirProductos(lote.getIdLote(),pedido.getCantidad());
+                loteService.consumirProductos(lote.getIdLote(),cantidadPorConseguir);
                 break;
 
             } else {
-
+                cantidadPorConseguir -= cantidadAlcanzada;
                 lotesVaciados.add(lote);
             }
         }
 
-        for (Lote loteVaciado : lotesVaciados) {
+        if(disponibleLocalmente) {
 
-            loteService.consumirProductos(loteVaciado.getIdLote(), loteVaciado.getCantidadActual());
+            for (Lote loteVaciado : lotesVaciados) {
+
+                loteService.consumirProductos(loteVaciado.getIdLote(), loteVaciado.getCantidadActual());
+            }
         }
 
         return disponibleLocalmente;

@@ -87,7 +87,7 @@ public class LoteService implements ILoteService {
 
 		loteObjetivo.setCantidadActual(loteObjetivo.getCantidadActual() - cantidad);
 		if (loteObjetivo.getCantidadActual() == 0)
-			loteObjetivo.setEstado(true);
+			loteObjetivo.setEstado(false);
 
 		insertOrUpdate(loteConverter.entityToModel(loteObjetivo));
 	}
