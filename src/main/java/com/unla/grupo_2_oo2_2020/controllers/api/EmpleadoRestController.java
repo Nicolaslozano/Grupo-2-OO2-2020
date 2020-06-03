@@ -50,12 +50,12 @@ public class EmpleadoRestController {
 
 		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
 
-        for(Empleado empleado : empleadoService.getAll()) {
-            //why? porque sino no anda el JSON.parse cuando lo manda a la vista
-            empleados.add(empleadoConverter.entityToModel(empleado));
-        }
+		for (Empleado empleado : empleadoService.getAll()) {
+			// why? porque sino no anda el JSON.parse cuando lo manda a la vista
+			empleados.add(empleadoConverter.entityToModel(empleado));
+		}
 
-        return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
+		return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
 	}
 
 	@GetMapping("getEmpleados/{idLocal}")
@@ -63,12 +63,12 @@ public class EmpleadoRestController {
 
 		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
 
-        for(Empleado empleado : empleadoService.findByLocal(localService.findById(id))) {
-            //why? porque sino no anda el JSON.parse cuando lo manda a la vista
-            empleados.add(empleadoConverter.entityToModel(empleado));
-        }
+		for (Empleado empleado : empleadoService.findByLocal(localService.findById(id))) {
+			// why? porque sino no anda el JSON.parse cuando lo manda a la vista
+			empleados.add(empleadoConverter.entityToModel(empleado));
+		}
 
-        return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
+		return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
 	}
 
 	@PostMapping("/createEmpleado")
@@ -127,7 +127,7 @@ public class EmpleadoRestController {
 		HashMap<String, String> result = new HashMap<String, String>();
 		empleadoService.removeById(id);
 		result.put(StaticValuesHelper.SUCCESS_REMOVED, "Empleado eliminado");
-		result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
+		result.put("redirect", ViewRouteHelper.EMPLEADO_ROOT);
 
 		return ResponseEntity.ok(result);
 	}

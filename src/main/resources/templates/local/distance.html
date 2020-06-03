@@ -15,57 +15,59 @@
             <th:block th:include="fragments/navbar :: navbar"></th:block>
 
             <div class="container">
-            	<div class="form">
-                	<form class="well form-horizontal" action="#" th:action="@{/local/calculate}"
-                    th:object="${local_models}" method="post" id="contact_form">
-                    <fieldset>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Local 1</label>
-                            <div class="col-md-4 selectContainer">
-                                <div class="input-group">
-                                    <select name="local" class="form-control selectpicker" th:field="*{idLocal_1}">
-                                        <option value="0"> -- </option>
-                                        <option th:each="local : ${locales}" th:value="${local.idLocal}"
-                                            th:text="${local.direccion}">
-                                        </option>
-                                    </select>
+                <div class="form">
+                    <form class="well form-horizontal" action="#" th:action="@{/local/calculate}"
+                        th:object="${local_models}" method="post" id="contact_form">
+                        <fieldset>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Local 1</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <select name="local" class="form-control selectpicker" th:field="*{idLocal_1}">
+                                            <option value="0"> -- </option>
+                                            <option th:each="local : ${locales}" th:value="${local.idLocal}"
+                                                th:text="${local.direccion}">
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Local 2</label>
-                            <div class="col-md-4 selectContainer">
-                                <div class="input-group">
-                                    <select name="local" class="form-control selectpicker" th:field="*{idLocal_2}">
-                                        <option value="0"> -- </option>
-                                        <option th:each="local : ${locales}" th:value="${local.idLocal}"
-                                            th:text="${local.direccion}">
-                                        </option>
-                                    </select>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Local 2</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <select name="local" class="form-control selectpicker" th:field="*{idLocal_2}">
+                                            <option value="0"> -- </option>
+                                            <option th:each="local : ${locales}" th:value="${local.idLocal}"
+                                                th:text="${local.direccion}">
+                                            </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4"><br>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                    type="submit"
-                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCALCULAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="col-md-4"><br>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                        type="submit"
+                                        class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCALCULAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
                             </div>
-                        </div>
 
-                    </fieldset>
-                </form>
-            </div><!-- Div Classform -->
-		
+                        </fieldset>
+                    </form>
+                </div><!-- Div Classform -->
+
+            </div><!-- /.container -->
+
             <div th:if="${distance != null}" class="col-md-4 mb-5">
                 <div class="card h-100">
-                	<div class="form">
-                    	<div class="card-body">
+                    <div class="card-body">
                         <h2 class="card-title">Distancia</h2>
                         <div style="float: left; margin-right: 20px">
                             <p style="display:inline-block">La distancia entre</p>
@@ -76,16 +78,14 @@
                             <p style="display:inline-block"><b th:text="${distance}"></b>Km.</p>
                             <p th:if="${localSelected1 == localSelected2}">(Mismo local)</p>
                         </div>
-                    </div>
-                    <div class="card-footer">
+                        <div class="card-footer">
+                        </div>
                     </div>
                 </div>
-              </div> 
             </div>
-        </div><!-- /.container -->
-		
-    </div>
-    <!-- /#page-content-wrapper -->
+
+        </div>
+        <!-- /#page-content-wrapper -->
 
     </div>
     <!-- /#wrapper -->

@@ -15,11 +15,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "pedido")
-@Data @NoArgsConstructor
+@Data @NoArgsConstructor @EqualsAndHashCode(exclude="local")
 public class Pedido {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -27,18 +28,22 @@ public class Pedido {
 
 	@ManyToOne
 	@JoinColumn(name = "idProducto")
+	@Nullable
 	private Producto producto;
 
 	@ManyToOne
 	@JoinColumn(name = "idLocal")
+	@Nullable
 	private Local local;
 
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
+	@Nullable
 	private Cliente cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "id_vendedor_original")
+	@Nullable
 	private Empleado vendedorOriginal;
 
 	@ManyToOne

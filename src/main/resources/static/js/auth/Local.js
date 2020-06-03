@@ -1,5 +1,16 @@
 $(document).ready(function () {
+    $(".form-local-remove").submit(function (event) {
+        event.preventDefault();
 
+        var dataArray = $(this).serializeArray(),
+        localModel = {};
+
+        $(dataArray).each(function(i, field){
+        localModel[field.name] = field.value;
+        });
+
+        removeLocal(localModel);
+    });
     $("#form-local-create").submit(function (event) {
         event.preventDefault();
         var localModel = {};
@@ -63,6 +74,25 @@ function submitLocal(localModel) {
         error: function (e) {
             var json = JSON.parse(e.responseText);
             controlError(json);
+        },
+    });
+}
+
+function removeLocal(localModel) {
+
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        data: JSON.stringify(localModel),
+        url: "/api/local/remove/" + localModel.idLocal,
+        cache: false,
+        timeout: 600000,
+        success: function (data) {
+
+            if(data.success_removed) {
+
+                window.location.replace(data.redirect);
+            }
         },
     });
 }

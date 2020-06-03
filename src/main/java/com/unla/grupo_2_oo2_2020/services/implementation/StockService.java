@@ -40,9 +40,14 @@ public class StockService implements IStockService {
     }
 
     @Override
-    public Stock findById(long idLocal) {
+    public Stock findById(long id) {
 
-        return stockRepository.findByIdStock(idLocal);
+        return stockRepository.findByIdStock(id);
+    }
+
+    @Override
+    public void removeById(long id) {
+        stockRepository.deleteById(id);
     }
 
     @Override

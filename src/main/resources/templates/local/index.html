@@ -26,9 +26,12 @@
 											<tr>
 												<th>Direccion</th>
 												<th>Telefono</th>
-												<th><img src="/assets/bootstrap-icons/pencil-square.svg" alt="" width="50" height="20" title="Modificar"></th>
-												<th><img src="/assets/bootstrap-icons/box-seam.svg" alt="" width="90" height="20" title="Stock"></th>
-												<th><img src="/assets/bootstrap-icons/trash.svg" alt="" width="80" height="20" title="Eliminar"></th>
+												<th><img src="/assets/bootstrap-icons/pencil-square.svg" alt=""
+														width="50" height="20" title="Modificar"></th>
+												<th><img src="/assets/bootstrap-icons/box-seam.svg" alt="" width="90"
+														height="20" title="Stock"></th>
+												<th><img src="/assets/bootstrap-icons/trash.svg" alt="" width="80"
+														height="20" title="Eliminar"></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -36,17 +39,22 @@
 												<td><span th:text="${local.direccion}" /></td>
 												<td><span th:text="${local.telefono}" /></td>
 												<td>
-													<a class="btn btn-info" th:href="@{/local/{id}(id=${local.idLocal})}">Ver</a>
+													<a class="btn btn-info"
+														th:href="@{/local/{id}(id=${local.idLocal})}">Ver</a>
 												</td>
-												 <td>
-													<a class="btn btn-info" th:href="@{/stock/{id}(id=${local.idLocal})}">Ver Stock</a>
+												<td>
+													<a class="btn btn-info"
+														th:href="@{/stock/{id}(id=${local.idLocal})}">Ver Stock</a>
 												</td>
-												  <td>
-                     								</form>
-														<form action="#" th:action="@{/local/remove/{id}(id=${local.idLocal})}" method="post">
-														<input 	class="btn btn-danger" type="submit" value="Eliminar"/>
+												<td>
+													<form class="form-local-remove">
+														<div class="form_group">
+															<input type="hidden" name="idLocal"
+																th:value="${local.idLocal}" />
+														</div>
+														<input class="btn btn-danger" type="submit" value="Eliminar" />
 													</form>
-                  								 </td>
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -64,7 +72,7 @@
 	<!-- /#wrapper -->
 
 	<th:block th:include="fragments/bottom :: bottom"></th:block>
-
+	<script type="text/javascript" src="/js/auth/Local.js"></script>
 </body>
 
 </html>

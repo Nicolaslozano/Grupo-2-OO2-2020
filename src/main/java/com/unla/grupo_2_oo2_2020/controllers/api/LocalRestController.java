@@ -10,8 +10,11 @@ import java.util.HashMap;
 import com.unla.grupo_2_oo2_2020.converters.LocalConverter;
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
+import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.LocalModel;
+import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
+import com.unla.grupo_2_oo2_2020.services.IStockService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +22,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +36,15 @@ public class LocalRestController {
 
     @Autowired
     @Qualifier("localService")
-    private ILocalService localService;
+	private ILocalService localService;
+	
+	@Autowired
+    @Qualifier("stockService")
+	private IStockService stockService;
+	
+	@Autowired
+    @Qualifier("empleadoService")
+    private IEmpleadoService empleadoService;
 
     @Autowired
 	@Qualifier("localConverter")
@@ -39,7 +52,7 @@ public class LocalRestController {
 
     @GetMapping("/getLocales")
 	public ResponseEntity<List<LocalModel>> getLocales() {
-        //return ResponseEntity.ok(localService.getAll());
+
         List<LocalModel> locales = new ArrayList<LocalModel>();
 
         for(Local local : localService.getAll()) {
@@ -93,5 +106,18 @@ public class LocalRestController {
 
 		return ResponseEntity.ok(result);
 	}
+
+	@DeleteMapping("/remove/{idLocal}")
+    public ResponseEntity<?> removeLocal(@PathVariable("idLocal") long id) {
+
+		HashMap<String, String> result = new HashMap<String, String>();
+
+		localService.removeById(id);
+
+        result.put(StaticValuesHelper.SUCCESS_REMOVED, "Local eliminado");
+        result.put("redirect", ViewRouteHelper.LOCAL_ROOT);
+
+        return ResponseEntity.ok(result);
+    }
 
 }

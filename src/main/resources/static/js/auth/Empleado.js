@@ -9,19 +9,7 @@ $(document).ready(function () {
         empleadoModel[field.name] = field.value;
         });
 
-        removeCliente(empleadoModel);
-    });
-    $("#form-empleado-create").submit(function (event) {
-        event.preventDefault();
-        var empleadoModel = {};
-
-        empleadoModel["nombre"] = $("#nombre").val();
-        empleadoModel["apellido"] = $("#apellido").val();
-        empleadoModel["dni"] = $("#dni").val();
-        empleadoModel["email"] = $("#email").val();
-        empleadoModel["fechaNacimiento"] = $("#fechaNacimiento").val();
-
-        submitEmpleado(empleadoModel);
+        removeEmpleado(empleadoModel);
     });
     $("#form-empleado-create").submit(function (event) {
         event.preventDefault();
