@@ -18,18 +18,6 @@ $(document).ready(function () {
         empleadoModel["nombre"] = $("#nombre").val();
         empleadoModel["apellido"] = $("#apellido").val();
         empleadoModel["dni"] = $("#dni").val();
-        empleadoModel["email"] = $("#email").val();
-        empleadoModel["fechaNacimiento"] = $("#fechaNacimiento").val();
-
-        submitEmpleado(empleadoModel);
-    });
-    $("#form-empleado-create").submit(function (event) {
-        event.preventDefault();
-        var empleadoModel = {};
-
-        empleadoModel["nombre"] = $("#nombre").val();
-        empleadoModel["apellido"] = $("#apellido").val();
-        empleadoModel["dni"] = $("#dni").val();
         empleadoModel["fechaNacimiento"] = $("#fechaNacimiento").val();
         empleadoModel["franjaHoraria"] = $("#franjaHoraria").val();
         empleadoModel["idLocal"] = $("#idLocal").val();

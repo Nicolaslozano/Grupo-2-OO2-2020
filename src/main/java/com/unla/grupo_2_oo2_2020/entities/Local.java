@@ -37,7 +37,7 @@ public class Local {
 	@Column(name = "telefono")
 	private long telefono;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "local", cascade = CascadeType.ALL)
 	private Stock stock;
 
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
