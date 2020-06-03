@@ -33,12 +33,10 @@
 												<th>VendedorOriginal</th>
 												<th>VendedorAuxiliar</th>
 												<th>Fecha</th>
-												<th>Estado</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="pedido : ${pedidos}">
-
+											<tr th:each="pedido : ${pedidos}" th:class="${pedido.aceptado}? 'greenbg' : 'redbg'">  <!-- https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#simple-conditionals-if-and-unless -->
 												<td><span th:text="${pedido.producto.nombre}" /></td>
 												<td><span th:text="${pedido.cantidad}" /></td>
 												<td><span th:text="${pedido.local.direccion}" /></td>
@@ -46,7 +44,7 @@
 												<td><span th:text="${pedido.vendedorOriginal.dni}" /></td>
 												<td><span th:if="${pedido.vendedorAuxiliar !=null}" th:text="${pedido.vendedorAuxiliar.dni}" /></td>
 												<td><span th:text="${pedido.fecha}" /></td>
-												<td><span th:text="${pedido.aceptado}" /></td>
+												
 											</tr>
 										</tbody>
 									</table>
