@@ -40,9 +40,14 @@ public class StockService implements IStockService {
     }
 
     @Override
-    public Stock findById(long idLocal) {
+    public Stock findById(long id) {
 
-        return stockRepository.findByIdStock(idLocal);
+        return stockRepository.findByIdStock(id);
+    }
+
+    @Override
+    public void removeById(long id) {
+        stockRepository.deleteById(id);
     }
 
     @Override
@@ -61,23 +66,18 @@ public class StockService implements IStockService {
 
                 disponibleLocalmente = true;
 
-                for (Lote loteVaciado : lotesVaciados) {
-
-                    loteService.consumirProductos(loteVaciado.getIdLote(), loteVaciado.getCantidadActual());
-                }
-
-                if (cantidadAlcanzada == pedido.getCantidad()) {
-
-                    loteService.consumirProductos(lote.getIdLote(), lote.getCantidadActual());
-                } else {
-
-                    loteService.consumirProductos(lote.getIdLote(),(lote.getCantidadActual() - (cantidadAlcanzada - pedido.getCantidad())));
-                }
+                loteService.consumirProductos(lote.getIdLote(),pedido.getCantidad());
+                break;
 
             } else {
 
                 lotesVaciados.add(lote);
             }
+        }
+
+        for (Lote loteVaciado : lotesVaciados) {
+
+            loteService.consumirProductos(loteVaciado.getIdLote(), loteVaciado.getCantidadActual());
         }
 
         return disponibleLocalmente;

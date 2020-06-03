@@ -12,6 +12,8 @@ import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
 import com.unla.grupo_2_oo2_2020.services.IStockService;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -48,6 +50,11 @@ public class PedidoService implements IPedidoService {
     private PedidoConverter pedidoConverter;
 
     @Override
+	public List<Pedido> getAll() {
+		return pedidoRepository.findAll();
+	}
+    
+    @Override
     public void insertOrUpdate(PedidoModel pedidoModel) {
 
         Pedido pedido = pedidoConverter.modelToEntity(pedidoModel);
@@ -63,8 +70,13 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
-    public void removeById(long idPedido) {
+    public List<Pedido> findByLocal(Local local) {
+        return pedidoRepository.findByLocal(local);
+    }
 
+    @Override
+    public void removeById(long idPedido) {
+        pedidoRepository.deleteById(idPedido);
     }
 
     @Override
@@ -72,19 +84,24 @@ public class PedidoService implements IPedidoService {
         // Faltaria que se validen las solicitudes de stock a otros locales empezando
         // por los mas cercanos
 
-        boolean DemandFullFill = stockService.comprobarStock(pedidoModel);
-        PedidoModel pedido = pedidoModel;
+        boolean isValid = stockService.comprobarStock(pedidoModel);
+        PedidoModel pedidoExterno = new PedidoModel(0, pedidoModel.getIdProducto(),
+                pedidoModel.getCantidad(), pedidoModel.getIdLocal(), pedidoModel.getIdCliente(),
+                pedidoModel.getIdVendedorOriginal(), pedidoModel.getIdVendedorAuxiliar(), pedidoModel.isAceptado(),
+                pedidoModel.getFecha());
 
-        if (DemandFullFill == false) {
+        if (!isValid) {
 
             for (Local l : localService.getAll()) {
-                pedido.setIdLocal(l.getIdLocal());
-                if (stockService.comprobarStock(pedido) == true) {
-                    DemandFullFill = true;
+                pedidoExterno.setIdLocal(l.getIdLocal());
+                if (stockService.comprobarStock(pedidoExterno)) {
+                    isValid = true;
+                    break;
                 }
             }
         }
-        return DemandFullFill;
+
+        return isValid;
     }
 
     @Override

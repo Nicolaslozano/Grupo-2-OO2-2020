@@ -14,10 +14,11 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "lote")
-@Data @NoArgsConstructor
+@Data @NoArgsConstructor @EqualsAndHashCode(exclude="stock")
 public class Lote {
 
 	@Id

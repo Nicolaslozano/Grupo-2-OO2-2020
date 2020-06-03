@@ -45,6 +45,12 @@ public class PedidoController {
 	@Qualifier("productoService")
 	private IProductoService productoService;
 
+	 @GetMapping("")
+		public ModelAndView index() {
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_INDEX);
+			mAV.addObject("pedidos", pedidoService.getAll());
+			return mAV;
+		}
 
     @GetMapping("/new/{idPersona}")
 	public ModelAndView create(@PathVariable("idPersona") long id) {
@@ -53,14 +59,12 @@ public class PedidoController {
 		PedidoModel pedido = new PedidoModel();
 		pedido.setIdCliente(id);
         mAV.addObject("pedido", pedido);
-		mAV.addObject("locales", localService.getAll());
 		mAV.addObject("productos", productoService.getAll());
-		mAV.addObject("empleados", empleadoService.getAll());
 
 		return mAV;
 	}
 
-	@PostMapping("/send")
+	@PostMapping("/send")//RE-DO with ajax
 	public ModelAndView send(@ModelAttribute("pedido") PedidoModel pedidoModel) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_NEW);
 
@@ -78,7 +82,6 @@ public class PedidoController {
 			mAV.addObject("result", "Pedido rechazado");
 		}
 
-		mAV.addObject("locales", localService.getAll());
 		mAV.addObject("productos", productoService.getAll());
 
 		return mAV;

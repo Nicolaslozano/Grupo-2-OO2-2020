@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:include="fragments/head :: head"></th:block>
+
+<body>
+
+	<div class="d-flex" id="wrapper">
+
+		<th:block th:include="fragments/sidebar :: sidebar"></th:block>
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+
+			<th:block th:include="fragments/navbar :: navbar"></th:block>
+
+			<section id="tabs" class="list-tab">
+
+				<div class="container">
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+									aria-labelledby="nav-home-tab">
+									<table class="table" cellspacing="0">
+										<thead>
+											<tr>
+												<th>Producto</th>
+												<th>Cantidad</th>
+												<th>Local</th>
+												<th>Cliente</th>
+												<th>VendedorOriginal</th>
+												<th>VendedorAuxiliar</th>
+												<th>Fecha</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="pedido : ${pedidos}" th:class="${pedido.aceptado}? 'greenbg' : 'redbg'">  <!-- https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#simple-conditionals-if-and-unless -->
+												<td><span th:text="${pedido.producto.nombre}" /></td>
+												<td><span th:text="${pedido.cantidad}" /></td>
+												<td><span th:text="${pedido.local.direccion}" /></td>
+												<td><span th:text="${pedido.cliente.dni}" /></td>
+												<td><span th:text="${pedido.vendedorOriginal.dni}" /></td>
+												<td><span th:if="${pedido.vendedorAuxiliar !=null}" th:text="${pedido.vendedorAuxiliar.dni}" /></td>
+												<td><span th:text="${pedido.fecha}" /></td>
+												
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div> <!--container-->
+			</section>
+
+		</div>
+		<!-- /#page-content-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<th:block th:include="fragments/bottom :: bottom"></th:block>
+</body>
+
+</html>
