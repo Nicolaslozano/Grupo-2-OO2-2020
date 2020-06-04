@@ -14,7 +14,9 @@ public interface ILocalService {
 
     public LocalModel insertOrUpdate(LocalModel localModel);
 
-    public List<Local> getNearestValidLocal(PedidoModel pedidoModel);
-
     public void removeById(long idLocal);
+
+	public Local getNearestValidLocal(PedidoModel pedidoModel);
+	
+	public List<Local> getNearestValidLocals(PedidoModel pedidoModel);
 }

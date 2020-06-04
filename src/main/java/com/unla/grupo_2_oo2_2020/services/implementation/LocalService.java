@@ -68,7 +68,7 @@ public class LocalService implements ILocalService {
     }
     //FALTA LA VISTA PARA PODER TESTEAR Y TENGO QUE HACER MAS VERIFICACIONES
     @Override
-    public List<Local> getNearestValidLocal(PedidoModel pedidoModel) {
+    public List<Local> getNearestValidLocals(PedidoModel pedidoModel) {
 
         List<Local> nearestLocal = new ArrayList<Local>();
         Local pedidoLocal = findById(pedidoModel.getIdLocal());
@@ -85,5 +85,34 @@ public class LocalService implements ILocalService {
 
     }
 		return nearestLocal;
-  }     
+  }
+    
+    //FUNCION VIEJA CUANDO LA DE ARRIBA FUNCIONE,ELIMINAR
+    @Override
+    public Local getNearestValidLocal(PedidoModel pedidoModel) {
+
+        Local nearestLocal = new Local();
+        Local pedidoLocal = findById(pedidoModel.getIdLocal());
+        boolean firstIteration = true;
+
+        for (Local local : getAll()) {
+
+            if (local.getIdLocal() == pedidoModel.getIdLocal())
+                continue;
+
+            else if (firstIteration) {
+
+                nearestLocal = local;
+                firstIteration = false;
+            } else {
+
+                if (pedidoLocal.calculateDistance(local) < pedidoLocal.calculateDistance(nearestLocal)) {
+                    nearestLocal = local;
+                }
+            }
+        }
+
+        return nearestLocal;
+    }  
+    
 }
