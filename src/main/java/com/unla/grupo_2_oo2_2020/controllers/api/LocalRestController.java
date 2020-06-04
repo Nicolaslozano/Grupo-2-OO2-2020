@@ -61,6 +61,19 @@ public class LocalRestController {
         }
 
         return new ResponseEntity<List<LocalModel>>(locales, HttpStatus.OK);
+	}
+
+	@GetMapping("/getLocalesValidosPedido") //TODO
+	public ResponseEntity<List<LocalModel>> getLocalesValidosPedido() {
+
+        List<LocalModel> locales = new ArrayList<LocalModel>();
+
+        for(Local local : localService.getAll()) {
+            //why? porque sino no anda el JSON.parse cuando lo manda a la vista
+            locales.add(localConverter.entityToModel(local));
+        }
+
+        return new ResponseEntity<List<LocalModel>>(locales, HttpStatus.OK);
     }
 
     @PostMapping("/createLocal")

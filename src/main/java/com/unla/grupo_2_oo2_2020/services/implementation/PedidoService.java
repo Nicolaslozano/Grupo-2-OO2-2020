@@ -50,10 +50,10 @@ public class PedidoService implements IPedidoService {
     private PedidoConverter pedidoConverter;
 
     @Override
-	public List<Pedido> getAll() {
-		return pedidoRepository.findAll();
-	}
-    
+    public List<Pedido> getAll() {
+        return pedidoRepository.findAll();
+    }
+
     @Override
     public void insertOrUpdate(PedidoModel pedidoModel) {
 
@@ -80,21 +80,21 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
+    @Deprecated
     public boolean validatePedido(PedidoModel pedidoModel) {
         // Faltaria que se validen las solicitudes de stock a otros locales empezando
         // por los mas cercanos
 
-        boolean isValid = stockService.comprobarStock(pedidoModel);
-        PedidoModel pedidoExterno = new PedidoModel(0, pedidoModel.getIdProducto(),
-                pedidoModel.getCantidad(), pedidoModel.getIdLocal(), pedidoModel.getIdCliente(),
-                pedidoModel.getIdVendedorOriginal(), pedidoModel.getIdVendedorAuxiliar(), pedidoModel.isAceptado(),
-                pedidoModel.getFecha());
+        boolean isValid = stockService.comprobarStock(pedidoModel, true);
+        PedidoModel pedidoExterno = new PedidoModel(0, pedidoModel.getIdProducto(), pedidoModel.getCantidad(),
+                pedidoModel.getIdLocal(), pedidoModel.getIdCliente(), pedidoModel.getIdVendedorOriginal(),
+                pedidoModel.getIdVendedorAuxiliar(), pedidoModel.isAceptado(), pedidoModel.getFecha());
 
         if (!isValid) {
 
             for (Local l : localService.getAll()) {
                 pedidoExterno.setIdLocal(l.getIdLocal());
-                if (stockService.comprobarStock(pedidoExterno)) {
+                if (stockService.comprobarStock(pedidoExterno, true)) {
                     isValid = true;
                     break;
                 }
