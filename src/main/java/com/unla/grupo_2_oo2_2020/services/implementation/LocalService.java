@@ -66,32 +66,24 @@ public class LocalService implements ILocalService {
         localRepository.deleteById(idLocal);
 
     }
-
+    //FALTA LA VISTA PARA PODER TESTEAR Y TENGO QUE HACER MAS VERIFICACIONES
     @Override
-    public Local getNearestValidLocal(PedidoModel pedidoModel) {
+    public List<Local> getNearestValidLocal(PedidoModel pedidoModel) {
 
-        Local nearestLocal = new Local();
+        List<Local> nearestLocal = new ArrayList<Local>();
         Local pedidoLocal = findById(pedidoModel.getIdLocal());
-        boolean firstIteration = true;
-
+        
         for (Local local : getAll()) {
 
             if (local.getIdLocal() == pedidoModel.getIdLocal())
                 continue;
 
-            else if (firstIteration) {
-
-                nearestLocal = local;
-                firstIteration = false;
-            } else {
-
-                if (pedidoLocal.calculateDistance(local) < pedidoLocal.calculateDistance(nearestLocal)) {
-                    //JUST IF THAT LOCAL HAS ENOUGH STOCK TO SATISFY PEDIDO implement
-                    nearestLocal = local;
-                }
+             else if(pedidoLocal.calculateDistance(pedidoLocal) < pedidoLocal.calculateDistance(local)) {
+            	 nearestLocal.add(local);
+               
             }
-        }
 
-        return nearestLocal;
     }
+		return nearestLocal;
+  }     
 }
