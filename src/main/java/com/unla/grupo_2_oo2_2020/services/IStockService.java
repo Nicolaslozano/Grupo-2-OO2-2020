@@ -13,4 +13,6 @@ public interface IStockService {
     
     public boolean comprobarStock(PedidoModel pedido);
 
+	public void removeById(long id);
+
 }

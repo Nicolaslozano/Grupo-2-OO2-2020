@@ -3,7 +3,6 @@ package com.unla.grupo_2_oo2_2020.services.implementation;
 import com.unla.grupo_2_oo2_2020.converters.PedidoConverter;
 import com.unla.grupo_2_oo2_2020.entities.Pedido;
 import com.unla.grupo_2_oo2_2020.entities.Local;
-import com.unla.grupo_2_oo2_2020.entities.Lote;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.repository.IPedidoRepository;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
@@ -71,8 +70,13 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
-    public void removeById(long idPedido) {
+    public List<Pedido> findByLocal(Local local) {
+        return pedidoRepository.findByLocal(local);
+    }
 
+    @Override
+    public void removeById(long idPedido) {
+        pedidoRepository.deleteById(idPedido);
     }
 
     @Override

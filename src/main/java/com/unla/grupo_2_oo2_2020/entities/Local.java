@@ -15,10 +15,11 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "comercio") // 'local' esta reservado en mysql
-@Data @NoArgsConstructor
+@Data @NoArgsConstructor @ToString(exclude = {"pedidos","empleados"})
 public class Local {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,10 +41,10 @@ public class Local {
 	private Stock stock;
 
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
-	private Set<Pedido> pedidos;
+	private Set<Empleado> empleados;
 
 	@OneToMany(mappedBy = "local", cascade = CascadeType.ALL)
-	private Set<Empleado> empleados;
+	private Set<Pedido> pedidos;
 
 	public Local(long idLocal, String direccion, double latitud, double longitud, long telefono) {
 

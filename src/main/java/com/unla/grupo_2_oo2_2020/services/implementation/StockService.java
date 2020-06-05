@@ -40,9 +40,14 @@ public class StockService implements IStockService {
     }
 
     @Override
-    public Stock findById(long idLocal) {
+    public Stock findById(long id) {
 
-        return stockRepository.findByIdStock(idLocal);
+        return stockRepository.findByIdStock(id);
+    }
+
+    @Override
+    public void removeById(long id) {
+        stockRepository.deleteById(id);
     }
 
     @Override
@@ -50,6 +55,7 @@ public class StockService implements IStockService {
 
         boolean disponibleLocalmente = false;
         int cantidadAlcanzada = 0;
+        int cantidadPorConseguir = pedido.getCantidad();
         List<Lote> lotesVaciados = new ArrayList<Lote>();
 
         for (Lote lote : loteService.findByProductoAndStock(productoService.findById(pedido.getIdProducto()),
@@ -57,26 +63,24 @@ public class StockService implements IStockService {
 
             cantidadAlcanzada += lote.getCantidadActual();
 
-            if (cantidadAlcanzada >= pedido.getCantidad()) {
+            if (cantidadAlcanzada >= cantidadPorConseguir) {
 
                 disponibleLocalmente = true;
 
-                for (Lote loteVaciado : lotesVaciados) {
-
-                    loteService.consumirProductos(loteVaciado.getIdLote(), loteVaciado.getCantidadActual());
-                }
-
-                if (cantidadAlcanzada == pedido.getCantidad()) {
-
-                    loteService.consumirProductos(lote.getIdLote(), lote.getCantidadActual());
-                } else {
-
-                    loteService.consumirProductos(lote.getIdLote(),(lote.getCantidadActual() - (cantidadAlcanzada - pedido.getCantidad())));
-                }
+                loteService.consumirProductos(lote.getIdLote(),cantidadPorConseguir);
+                break;
 
             } else {
-
+                cantidadPorConseguir -= cantidadAlcanzada;
                 lotesVaciados.add(lote);
+            }
+        }
+
+        if(disponibleLocalmente) {
+
+            for (Lote loteVaciado : lotesVaciados) {
+
+                loteService.consumirProductos(loteVaciado.getIdLote(), loteVaciado.getCantidadActual());
             }
         }
 
