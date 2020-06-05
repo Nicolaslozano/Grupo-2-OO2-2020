@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `GRUPO-2-BDD-OO2-2020` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `GRUPO-2-BDD-OO2-2020`;
 -- MySQL dump 10.13  Distrib 8.0.20, for Linux (x86_64)
 --
 -- Host: 127.0.0.1    Database: GRUPO-2-BDD-OO2-2020
@@ -17,39 +15,135 @@ USE `GRUPO-2-BDD-OO2-2020`;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-LOCK TABLES `persona` WRITE;
-/*!40000 ALTER TABLE `persona` DISABLE KEYS */;
-INSERT INTO `persona` VALUES (1,'Lopez',40201070,'1998-08-05','Juan Carlos'),
-(2,'Perez',39893410,'1992-03-30','Julian'),(3,'Arevalo',39934098,'1997-04-20','Cristian'),
-(4,'Ramirez',85403020,'2000-12-04','Pablo'),(5,'Millan',30109420,'1989-07-22','Geronimo'),
-(6,'Centarti',41394326,'1998-05-04','Milagros'),(7,'Monaco',42050320,'1999-10-09','Lucia');
-/*!40000 ALTER TABLE `persona` ENABLE KEYS */;
-UNLOCK TABLES;
+--
+-- Dumping data for table `cliente`
+--
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES ('Juanlopez@gmail.com',1),('julip@hotmail.com',2);
+INSERT INTO `cliente` VALUES ('Juanlopez@gmail.com',13),
+('julip@hotmail.com',14),
+('fedem@ħotmail.com',78),
+('julianomar@gmail.com',79),
+('fgarc@yahoo.com',80),
+('Patriciom1887@gmail.com',81);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Dumping data for table `comercio`
+--
+
 LOCK TABLES `comercio` WRITE;
 /*!40000 ALTER TABLE `comercio` DISABLE KEYS */;
-INSERT INTO `comercio` VALUES (1,'Marraspin 1032',-34,-58,42023020),(2,'San Martin 304',-40,-30,42421060);
+INSERT INTO `comercio` VALUES (7,'Marraspin 1032',-34,-58,42023020),
+(9,'Luis Peña 1922',49,31,15392914),
+(10,'Lope de vega 3530',-34.74563772,-58.4644709,42048743),
+(11,'Miranda 5200',-34.62494,-58.5099208,42429030);
 /*!40000 ALTER TABLE `comercio` ENABLE KEYS */;
 UNLOCK TABLES;
 
-LOCK TABLES `stock` WRITE;
-/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,0),(2,0);
-/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+--
+-- Dumping data for table `empleado`
+--
 
 LOCK TABLES `empleado` WRITE;
 /*!40000 ALTER TABLE `empleado` DISABLE KEYS */;
-INSERT INTO `empleado` VALUES ('Mañana',_binary '\0',3,1),('Tarde',_binary '\0',4,1),('Mañana',_binary '\0',5,2),('Mañana',_binary '\0',6,2),('Tarde',_binary '\0',7,1);
+INSERT INTO `empleado` VALUES ('Mañana',_binary '\0',15,7),
+('Tarde',_binary '\0',16,7),
+('Mañana',_binary '\0',77,9),
+('Tarde',_binary '\0',82,9),
+('Mañana',_binary '\0',83,10),
+('Tarde',_binary '\0',84,10),
+('Mañana',_binary '\0',85,11),
+('Tarde',_binary '\0',86,11);
 /*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping data for table `lote`
+--
+
+LOCK TABLES `lote` WRITE;
+/*!40000 ALTER TABLE `lote` DISABLE KEYS */;
+INSERT INTO `lote` VALUES (53,10,70,_binary '\0','2020-05-29',22,9),
+(55,15,15,_binary '\0','2020-06-04',26,10),
+(56,25,25,_binary '\0','2020-06-04',29,10),
+(57,20,20,_binary '\0','2020-06-04',22,7),
+(58,3,3,_binary '\0','2020-06-04',27,7),
+(59,40,40,_binary '\0','2020-06-04',27,7),
+(61,10,10,_binary '\0','2020-06-04',26,9);
+/*!40000 ALTER TABLE `lote` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `pedido`
+--
+
+LOCK TABLES `pedido` WRITE;
+/*!40000 ALTER TABLE `pedido` DISABLE KEYS */;
+INSERT INTO `pedido` VALUES (1,_binary '\0',50,NULL,13,9,22,NULL,77,'2020-05-31'),
+(2,_binary '',50,NULL,13,9,22,NULL,77,'2020-05-31');
+/*!40000 ALTER TABLE `pedido` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `persona`
+--
+
+LOCK TABLES `persona` WRITE;
+/*!40000 ALTER TABLE `persona` DISABLE KEYS */;
+INSERT INTO `persona` VALUES (13,'Lopez',40201070,'1998-08-05','Juan Carlos'),
+(14,'Perez',39893410,'1992-03-30','Julian'),
+(15,'Arevalo',39934098,'1997-04-20','Cristian'),
+(16,'Ramirez',85403020,'2000-12-04','Pablo'),
+(77,'Pellerino',3934322,'1990-11-10','Luis'),
+(78,'Lamartine',42012321,'1996-10-04','Federico'),
+(79,'Maruca',41932123,'1980-06-10','Julian'),
+(80,'Garcia',44932155,'1998-10-07','Francisco'),
+(81,'Maciel',37623421,'1990-12-05','Patricio'),
+(82,'Darthes',343451872,'1985-06-28','Nestor'),
+(83,'VIllafañe',330201030,'1970-04-28','Alberto'),
+(84,'Guzman',36962125,'1988-02-19','Roberto'),
+(85,'Burlando',31205631,'1973-01-24','Oscar'),
+(86,'Rodriguez',35293496,'1979-07-22','Pedro');
+/*!40000 ALTER TABLE `persona` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `producto`
+--
+
+LOCK TABLES `producto` WRITE;
+/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES (22,'Zapatilla','2020-05-13','NiqueShoe2020',2600),
+(23,'Remera','2020-05-13','Chombadidas',500),
+(26,'Zapatilla','2020-06-04','Yizzi Boost',7500),
+(27,'Remera','2020-06-04','Supreme ',1500),
+(28,'Pantalon','2020-06-04','Bross Jean',2540),
+(29,'Pantalon','2020-06-04','Gronch',840);
+/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `solicitud_stock`
+--
+
+LOCK TABLES `solicitud_stock` WRITE;
+/*!40000 ALTER TABLE `solicitud_stock` DISABLE KEYS */;
+/*!40000 ALTER TABLE `solicitud_stock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `stock`
+--
+
+LOCK TABLES `stock` WRITE;
+/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
+INSERT INTO `stock` VALUES (7,0),(9,0),(10,0),(11,0);
+/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -59,4 +153,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-13 23:57:10
+-- Dump completed on 2020-06-04 19:18:58

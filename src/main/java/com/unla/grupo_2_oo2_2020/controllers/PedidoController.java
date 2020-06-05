@@ -45,10 +45,13 @@ public class PedidoController {
 	@Qualifier("productoService")
 	private IProductoService productoService;
 
-	 @GetMapping("")
+
+	
+	@GetMapping("")
 		public ModelAndView index() {
 			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_INDEX);
 			mAV.addObject("pedidos", pedidoService.getAll());
+			
 			return mAV;
 		}
 
@@ -67,6 +70,8 @@ public class PedidoController {
 	@PostMapping("/send")//RE-DO with ajax
 	public ModelAndView send(@ModelAttribute("pedido") PedidoModel pedidoModel) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_NEW);
+		
+		
 
 		if(pedidoService.validatePedido(pedidoModel)) {
 
