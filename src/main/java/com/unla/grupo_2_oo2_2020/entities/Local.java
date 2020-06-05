@@ -19,7 +19,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "comercio") // 'local' esta reservado en mysql
-@Data @NoArgsConstructor @ToString(exclude = {"pedidos","empleados"})
+@Data @NoArgsConstructor @ToString(exclude = {"pedidos","empleados","stock"})
 public class Local {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

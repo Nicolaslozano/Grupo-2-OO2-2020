@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-import com.unla.grupo_2_oo2_2020.converters.ClienteConverter;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
-import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
@@ -62,7 +59,6 @@ public class PedidoController {
 		PedidoModel pedido = new PedidoModel();
 		pedido.setIdCliente(id);
         mAV.addObject("pedido", pedido);
-		mAV.addObject("productos", productoService.getAll());
 
 		return mAV;
 	}

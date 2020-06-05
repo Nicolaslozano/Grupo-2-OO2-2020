@@ -20,8 +20,7 @@
 
                 <div class="form">
 
-                    <form class="well form-horizontal" action="#" th:action="@{/pedido/send}" th:object="${pedido}"
-                        method="post" id="contact_form">
+                    <form class="well form-horizontal" th:object="${pedido}" method="post" id="form-pedido-create">
                         <fieldset>
 
                             <div class="form_group">
@@ -34,12 +33,9 @@
                                 <label class="col-md-4 control-label">Producto</label>
                                 <div class="col-md-4 selectContainer">
                                     <div style="width: 300%" class="input-group">
-                                        <select name="producto" class="form-control selectpicker"
+                                        <select id="producto" name="producto" class="form-control selectpicker"
                                             th:field="*{idProducto}">
                                             <option value="0"> -- </option>
-                                            <option th:each="producto : ${productos}" th:value="${producto.idProducto}"
-                                                th:text="${producto.nombre + '  $' + producto.precio}">
-                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -93,6 +89,13 @@
                                 </div>
                             </div>
 
+                            <div>
+                                <br>
+                                <div id="feedback" class="" role="alert">
+                                </div>
+                                <div id="feedback-buttons" style="float: left; margin-right: 20px">
+                                </div>
+                            </div>
                         </fieldset>
                     </form>
                 </div>
@@ -123,48 +126,65 @@
     <th:block th:include="fragments/bottom :: bottom"></th:block>
 
     <script type="text/javascript">
-        //https://stackoverflow.com/questions/14661508/jquery-select-changes-another-select
         $(document).ready(function () {
-            // Pedir todos los locales cuando carga la vista
-            $.ajax({
-                url: "/api/local/getLocales",
-                type: "GET",
-                success: function (data) {
-                    var locales = data;
-                    if (typeof (data) == "string") {
-                        locales = JSON.parse(data);
+                // Pedir todos los locales cuando carga la vista
+                $.ajax({
+                    url: "/api/local/getLocales",
+                    type: "GET",
+                    success: function (data) {
+                        var locales = data;
+                        if (typeof (data) == "string") {
+                            locales = JSON.parse(data);
+                        }
+                        $.each(locales, function (index, local) {
+                            $("#local").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
+                        });
+                    },
+                    error: function (result) {
+                        console.log(["error getting locales", result]);
                     }
-                    $.each(locales, function (index, local) {
-                        $("#local").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
-                    });
-                },
-                error: function (result) {
-                    console.log(["error getting locales", result]);
-                }
-            });
-
-            // cuando cambio de local, pide los empleados de aquel local
-            $("#local").change(function () {
+                });
 
                 $.ajax({
-                    url: "/api/empleado/getEmpleados/" + $("#local").val(),
-                    type: 'GET',
+                    url: "/api/producto/getProductos",
+                    type: "GET",
                     success: function (data) {
-                        var empleados = data;
+                        var productos = data;
                         if (typeof (data) == "string") {
-                            empleados = JSON.parse(data);
+                            productos = JSON.parse(data);
                         }
-                        $("#vendedorOriginal").empty();
-                        $.each(empleados, function (index, empleado) {
-                            $("#vendedorOriginal").append($("<option></option>",
-                            { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
-                        })
+                        $.each(productos, function (index, producto) {
+                            $("#producto").append($("<option></option>", { "value": producto.idProducto, "text": producto.nombre + " $" + producto.precio }));
+                        });
                     },
-                    error: function (result) { console.log(["error", result]); },
+                    error: function (result) {
+                        console.log(["error getting productos", result]);
+                    }
+                });
+
+                // cuando cambio de local, pide los empleados de aquel local
+                $("#local").change(function () {
+
+                    $.ajax({
+                        url: "/api/empleado/getEmpleados/" + $("#local").val(),
+                        type: 'GET',
+                        success: function (data) {
+                            var empleados = data;
+                            if (typeof (data) == "string") {
+                                empleados = JSON.parse(data);
+                            }
+                            $("#vendedorOriginal").empty();
+                            $.each(empleados, function (index, empleado) {
+                                $("#vendedorOriginal").append($("<option></option>",
+                                    { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
+                            })
+                        },
+                        error: function (result) { console.log(["error", result]); },
+                    });
                 });
             });
-        });
     </script>
+    <script type="text/javascript" src="/js/auth/Pedido.js"></script>
 </body>
 
 </html>

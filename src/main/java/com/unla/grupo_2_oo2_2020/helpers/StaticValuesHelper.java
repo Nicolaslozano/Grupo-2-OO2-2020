@@ -20,5 +20,7 @@ public class StaticValuesHelper {
     public final static String SUCCESS_UPDATED = "success_updated";
     public final static String SUCCESS_REMOVED = "success_removed";
     public final static String SUCCESS_CREATED = "success_created";
+    public final static String ORDER_REJECTED = "order_rejected";
+    public final static String ORDER_ACCEPTED = "order_accepted";
 
 }
