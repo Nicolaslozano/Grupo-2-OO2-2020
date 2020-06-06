@@ -3,6 +3,7 @@ package com.unla.grupo_2_oo2_2020.controllers.api;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -25,10 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
+import com.unla.grupo_2_oo2_2020.services.IStockService;
 
 @RestController
 @RequestMapping("/api/pedido")
 public class PedidoRestController {
+
+    @Autowired
+    @Qualifier("stockService")
+    private IStockService stockService;
 
     @Autowired
     @Qualifier("pedidoService")
@@ -56,9 +62,9 @@ public class PedidoRestController {
     }
 
     @PostMapping("/sendPedido")
-    public ResponseEntity<?> createLocal(@Valid @RequestBody PedidoModel pedidoModel, Errors errors) {
+    public ResponseEntity<?> sendPedido(@Valid @RequestBody PedidoModel pedidoModel, Errors errors) {
 
-        HashMap<String, String> result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<String, String>();
 
         if (errors.hasErrors()) {
 
@@ -70,13 +76,13 @@ public class PedidoRestController {
             return ResponseEntity.badRequest().body(result);
         } else {
 
-            if (pedidoService.validatePedido(pedidoModel)) {
+            if (stockService.comprobarStock(pedidoModel, true)) {
 
                 pedidoModel.setAceptado(true);
                 pedidoService.insertOrUpdate(pedidoModel);
                 result.put(StaticValuesHelper.ORDER_ACCEPTED,
                         "Pedido despachado correctamente a "
-                                + localService.findById(pedidoModel.getIdLocal()).getDireccion() + "por un total de $"
+                                + localService.findById(pedidoModel.getIdLocal()).getDireccion() + " por un total de $"
                                 + pedidoService.getTotal(pedidoModel));
 
                 result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
@@ -87,6 +93,7 @@ public class PedidoRestController {
                 result.put(StaticValuesHelper.ORDER_REJECTED, "Pedido rechazado");
                 result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
                 result.put("retry", ViewRouteHelper.PEDIDO_NEW + "/" + pedidoModel.getIdCliente());
+
             }
         }
 

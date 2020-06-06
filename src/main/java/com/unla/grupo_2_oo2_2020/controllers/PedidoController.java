@@ -63,29 +63,4 @@ public class PedidoController {
 		return mAV;
 	}
 
-	@PostMapping("/send")//RE-DO with ajax
-	public ModelAndView send(@ModelAttribute("pedido") PedidoModel pedidoModel) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.PEDIDO_NEW);
-		
-		
-
-		if(pedidoService.validatePedido(pedidoModel)) {
-
-			pedidoModel.setAceptado(true);
-			pedidoService.insertOrUpdate(pedidoModel);
-			mAV.addObject("result", "Pedido aceptado");
-			mAV.addObject("total", pedidoService.getTotal(pedidoModel));
-		}
-		else {
-
-			pedidoModel.setAceptado(false);
-			pedidoService.insertOrUpdate(pedidoModel);
-			mAV.addObject("result", "Pedido rechazado");
-		}
-
-		mAV.addObject("productos", productoService.getAll());
-
-		return mAV;
-	}
-
 }

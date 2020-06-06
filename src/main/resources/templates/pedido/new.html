@@ -100,23 +100,31 @@
                     </form>
                 </div>
 
-            </div>
-
-            <div th:if="${result != null}" class="col-md-4 mb-5">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h2 class="card-title">Pedido</h2>
-                        <div style="float: left; margin-right: 20px">
-                            <p style="display:inline-block"><b th:text="${result}"></b></p>
-                            <p style="display:inline-block" th:if="${total != null}"><b th:text="${total}"></b>$ARS.</p>
+                <div class="modal fade" id="modalValidLocals" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"
+                                    aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="mySmallModalLabel">Seleccione un local con stock disponible...</h4>
+                            </div>
+                            <div class="modal-body">
+                                <ul id="modalValidLocals-list" class="list-group"></ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                    </div>
                 </div>
+
             </div>
 
         </div><!-- /.container -->
+
+        <!-- Modal -->
 
 
     </div>
@@ -127,62 +135,62 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-                // Pedir todos los locales cuando carga la vista
-                $.ajax({
-                    url: "/api/local/getLocales",
-                    type: "GET",
-                    success: function (data) {
-                        var locales = data;
-                        if (typeof (data) == "string") {
-                            locales = JSON.parse(data);
-                        }
-                        $.each(locales, function (index, local) {
-                            $("#local").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
-                        });
-                    },
-                    error: function (result) {
-                        console.log(["error getting locales", result]);
+            // Pedir todos los locales cuando carga la vista
+            $.ajax({
+                url: "/api/local/getLocales",
+                type: "GET",
+                success: function (data) {
+                    var locales = data;
+                    if (typeof (data) == "string") {
+                        locales = JSON.parse(data);
                     }
-                });
-
-                $.ajax({
-                    url: "/api/producto/getProductos",
-                    type: "GET",
-                    success: function (data) {
-                        var productos = data;
-                        if (typeof (data) == "string") {
-                            productos = JSON.parse(data);
-                        }
-                        $.each(productos, function (index, producto) {
-                            $("#producto").append($("<option></option>", { "value": producto.idProducto, "text": producto.nombre + " $" + producto.precio }));
-                        });
-                    },
-                    error: function (result) {
-                        console.log(["error getting productos", result]);
-                    }
-                });
-
-                // cuando cambio de local, pide los empleados de aquel local
-                $("#local").change(function () {
-
-                    $.ajax({
-                        url: "/api/empleado/getEmpleados/" + $("#local").val(),
-                        type: 'GET',
-                        success: function (data) {
-                            var empleados = data;
-                            if (typeof (data) == "string") {
-                                empleados = JSON.parse(data);
-                            }
-                            $("#vendedorOriginal").empty();
-                            $.each(empleados, function (index, empleado) {
-                                $("#vendedorOriginal").append($("<option></option>",
-                                    { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
-                            })
-                        },
-                        error: function (result) { console.log(["error", result]); },
+                    $.each(locales, function (index, local) {
+                        $("#local").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
                     });
+                },
+                error: function (result) {
+                    console.log(["error getting locales", result]);
+                }
+            });
+
+            $.ajax({
+                url: "/api/producto/getProductos",
+                type: "GET",
+                success: function (data) {
+                    var productos = data;
+                    if (typeof (data) == "string") {
+                        productos = JSON.parse(data);
+                    }
+                    $.each(productos, function (index, producto) {
+                        $("#producto").append($("<option></option>", { "value": producto.idProducto, "text": producto.nombre + " $" + producto.precio }));
+                    });
+                },
+                error: function (result) {
+                    console.log(["error getting productos", result]);
+                }
+            });
+
+            // cuando cambio de local, pide los empleados de aquel local
+            $("#local").change(function () {
+
+                $.ajax({
+                    url: "/api/empleado/getEmpleados/" + $("#local").val(),
+                    type: 'GET',
+                    success: function (data) {
+                        var empleados = data;
+                        if (typeof (data) == "string") {
+                            empleados = JSON.parse(data);
+                        }
+                        $("#vendedorOriginal").empty();
+                        $.each(empleados, function (index, empleado) {
+                            $("#vendedorOriginal").append($("<option></option>",
+                                { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
+                        })
+                    },
+                    error: function (result) { console.log(["error", result]); },
                 });
             });
+        });
     </script>
     <script type="text/javascript" src="/js/auth/Pedido.js"></script>
 </body>

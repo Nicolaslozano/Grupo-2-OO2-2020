@@ -1,14 +1,20 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.unla.grupo_2_oo2_2020.converters.LocalConverter;
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Stock;
 import com.unla.grupo_2_oo2_2020.models.LocalModel;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
+import com.unla.grupo_2_oo2_2020.repository.ILocalRepository;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
+import com.unla.grupo_2_oo2_2020.services.ILoteService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.IStockService;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
@@ -23,10 +29,6 @@ public class LocalService implements ILocalService {
     @Autowired
     @Qualifier("localRepository")
     private ILocalRepository localRepository;
-    
-    @Autowired
-    @Qualifier("loteRepository")
-    private ILoteRepository loteRepository;
 
     @Autowired
     @Qualifier("stockService")
@@ -41,15 +43,17 @@ public class LocalService implements ILocalService {
     private IEmpleadoService empleadoService;
 
     @Autowired
+    @Qualifier("loteService")
+    private ILoteService loteService;
+
+    @Autowired
     @Qualifier("localConverter")
     private LocalConverter localConverter;
-    
-    @Autowired
-	@Qualifier("productoService")
-	private IProductoService productoService;
-   
 
-   
+    @Autowired
+    @Qualifier("productoService")
+    private IProductoService productoService;
+
     @Override
     public List<Local> getAll() {
         // TODO Auto-generated method stub
@@ -58,7 +62,6 @@ public class LocalService implements ILocalService {
 
     @Override
     public Local findById(long idLocal) {
-
         return localRepository.findByIdLocal(idLocal);
     }
 
@@ -85,27 +88,35 @@ public class LocalService implements ILocalService {
     public void removeById(long idLocal) {
         localRepository.deleteById(idLocal);
     }
-    //FALTA LA VISTA PARA PODER TESTEAR Y TENGO QUE HACER MAS VERIFICACIONES
+
     @Override
-    public List<Local> getNearestValidLocals(PedidoModel pedidoModel) {
-        List<Local> nearestLocal = new ArrayList<Local>();
+    public Map<Double, LocalModel> getValidLocals(PedidoModel pedidoModel) {
+
         Local pedidoLocal = findById(pedidoModel.getIdLocal());
-        
+        PedidoModel pedidoExterno = new PedidoModel(0, pedidoModel.getIdProducto(), pedidoModel.getCantidad(),
+                pedidoModel.getIdLocal(), pedidoModel.getIdCliente(), pedidoModel.getIdVendedorOriginal(),
+                pedidoModel.getIdVendedorAuxiliar(), pedidoModel.isAceptado(), pedidoModel.getFecha());
+
+        // mapa para guardar locales y sus distancias con respecto al original
+        Map<Double, LocalModel> distanceMap = new HashMap<>();
+
         for (Local local : getAll()) {
 
-            if (local.getIdLocal() == pedidoModel.getIdLocal()  )
+            pedidoExterno.setIdLocal(local.getIdLocal());
+            if (local.getIdLocal() == pedidoModel.getIdLocal())
                 continue;
-            		//Para mi esta re mal pero no puedo acceder al producto asique compare por lote...
-             else if(loteRepository.findByStock(stockRepository.findByLocal(local))== loteRepository.findByStock(stockRepository.findByLocal(pedidoLocal))&&pedidoLocal.calculateDistance(pedidoLocal) < pedidoLocal.calculateDistance(local)) {
-            	 nearestLocal.add(local);
-               
-            }
+            else if (!stockService.comprobarStock(pedidoExterno, false))
+                continue;
 
+            distanceMap.put(pedidoLocal.calculateDistance(local), localConverter.entityToModel(local));
+        }
+
+        // el TreeMap se usa para ordenar un mapa segun sus keys, en este caso la
+        // distancia
+        Map<Double, LocalModel> treeMap = new TreeMap<>(distanceMap);
+        return treeMap;
     }
-		return nearestLocal;
-  }
-    
-    //FUNCION VIEJA CUANDO LA DE ARRIBA FUNCIONE,ELIMINAR
+
     @Override
     public Local getNearestValidLocal(PedidoModel pedidoModel) {
 
@@ -131,6 +142,6 @@ public class LocalService implements ILocalService {
         }
 
         return nearestLocal;
-    }  
-    
+    }
+
 }
