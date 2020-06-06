@@ -51,7 +51,7 @@ public class StockService implements IStockService {
     }
 
     @Override
-    public boolean comprobarStock(PedidoModel pedido) {
+    public boolean comprobarStock(PedidoModel pedido, boolean persistChanges) {
 
         boolean disponibleLocalmente = false;
         int cantidadAlcanzada = 0;
@@ -67,7 +67,8 @@ public class StockService implements IStockService {
 
                 disponibleLocalmente = true;
 
-                loteService.consumirProductos(lote.getIdLote(),cantidadPorConseguir);
+                if(persistChanges) loteService.consumirProductos(lote.getIdLote(),cantidadPorConseguir);
+
                 break;
 
             } else {
@@ -76,7 +77,7 @@ public class StockService implements IStockService {
             }
         }
 
-        if(disponibleLocalmente) {
+        if(disponibleLocalmente && persistChanges) {
 
             for (Lote loteVaciado : lotesVaciados) {
 

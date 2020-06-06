@@ -11,7 +11,7 @@ public interface IStockService {
  
     public Stock findById(long idLocal);
     
-    public boolean comprobarStock(PedidoModel pedido);
+    public boolean comprobarStock(PedidoModel pedido, boolean persistChanges);
 
 	public void removeById(long id);
 

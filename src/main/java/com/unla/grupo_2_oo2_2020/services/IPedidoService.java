@@ -13,8 +13,6 @@ public interface IPedidoService {
 	
 	public void insertOrUpdate(PedidoModel pedidoModel);
 
-    public boolean validatePedido(PedidoModel pedidoModel);
-
     public double getTotal(PedidoModel pedidoModel);
 
     public void removeById(long idPedido);

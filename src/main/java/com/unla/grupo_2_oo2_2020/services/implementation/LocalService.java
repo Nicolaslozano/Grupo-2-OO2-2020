@@ -1,6 +1,10 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.unla.grupo_2_oo2_2020.converters.LocalConverter;
 import com.unla.grupo_2_oo2_2020.entities.Local;
@@ -8,7 +12,9 @@ import com.unla.grupo_2_oo2_2020.entities.Stock;
 import com.unla.grupo_2_oo2_2020.models.LocalModel;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.repository.ILocalRepository;
+import com.unla.grupo_2_oo2_2020.services.IProductoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
+import com.unla.grupo_2_oo2_2020.services.ILoteService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.IStockService;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
@@ -37,8 +43,16 @@ public class LocalService implements ILocalService {
     private IEmpleadoService empleadoService;
 
     @Autowired
+    @Qualifier("loteService")
+    private ILoteService loteService;
+
+    @Autowired
     @Qualifier("localConverter")
     private LocalConverter localConverter;
+
+    @Autowired
+    @Qualifier("productoService")
+    private IProductoService productoService;
 
     @Override
     public List<Local> getAll() {
@@ -48,7 +62,6 @@ public class LocalService implements ILocalService {
 
     @Override
     public Local findById(long idLocal) {
-
         return localRepository.findByIdLocal(idLocal);
     }
 
@@ -77,6 +90,34 @@ public class LocalService implements ILocalService {
     }
 
     @Override
+    public Map<Double, LocalModel> getValidLocals(PedidoModel pedidoModel) {
+
+        Local pedidoLocal = findById(pedidoModel.getIdLocal());
+        PedidoModel pedidoExterno = new PedidoModel(0, pedidoModel.getIdProducto(), pedidoModel.getCantidad(),
+                pedidoModel.getIdLocal(), pedidoModel.getIdCliente(), pedidoModel.getIdVendedorOriginal(),
+                pedidoModel.getIdVendedorAuxiliar(), pedidoModel.isAceptado(), pedidoModel.getFecha());
+
+        // mapa para guardar locales y sus distancias con respecto al original
+        Map<Double, LocalModel> distanceMap = new HashMap<>();
+
+        for (Local local : getAll()) {
+
+            pedidoExterno.setIdLocal(local.getIdLocal());
+            if (local.getIdLocal() == pedidoModel.getIdLocal())
+                continue;
+            else if (!stockService.comprobarStock(pedidoExterno, false))
+                continue;
+
+            distanceMap.put(pedidoLocal.calculateDistance(local), localConverter.entityToModel(local));
+        }
+
+        // el TreeMap se usa para ordenar un mapa segun sus keys, en este caso la
+        // distancia
+        Map<Double, LocalModel> treeMap = new TreeMap<>(distanceMap);
+        return treeMap;
+    }
+
+    @Override
     public Local getNearestValidLocal(PedidoModel pedidoModel) {
 
         Local nearestLocal = new Local();
@@ -95,7 +136,6 @@ public class LocalService implements ILocalService {
             } else {
 
                 if (pedidoLocal.calculateDistance(local) < pedidoLocal.calculateDistance(nearestLocal)) {
-                    //JUST IF THAT LOCAL HAS ENOUGH STOCK TO SATISFY PEDIDO implement
                     nearestLocal = local;
                 }
             }
@@ -103,4 +143,5 @@ public class LocalService implements ILocalService {
 
         return nearestLocal;
     }
+
 }

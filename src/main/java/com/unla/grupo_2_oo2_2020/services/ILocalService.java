@@ -1,6 +1,7 @@
 package com.unla.grupo_2_oo2_2020.services;
 
 import java.util.List;
+import java.util.Map;
 
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.models.LocalModel;
@@ -14,7 +15,9 @@ public interface ILocalService {
 
     public LocalModel insertOrUpdate(LocalModel localModel);
 
-    public Local getNearestValidLocal(PedidoModel pedidoModel);
-
     public void removeById(long idLocal);
+
+	public Local getNearestValidLocal(PedidoModel pedidoModel);
+
+	public Map<Double, LocalModel> getValidLocals(PedidoModel pedidoModel);
 }
