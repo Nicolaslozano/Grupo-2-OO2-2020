@@ -72,7 +72,7 @@ public class LocalRestController {
 		List<LocalAndDistanceModel> result = new ArrayList<LocalAndDistanceModel>();
 
 		localService.getValidLocals(pedidoModel).entrySet().stream()
-				.forEach(e -> result.add(new LocalAndDistanceModel(e.getValue().getDireccion(), e.getKey())));
+				.forEach(e -> result.add(new LocalAndDistanceModel(e.getKey().getDireccion(), e.getValue())));
 
 		return ResponseEntity.ok(result);
 	}
