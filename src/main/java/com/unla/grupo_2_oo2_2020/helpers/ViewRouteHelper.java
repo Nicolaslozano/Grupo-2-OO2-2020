@@ -40,6 +40,9 @@ public class ViewRouteHelper {
     public final static String PRODUCTO_NEW = "producto/new";
     public final static String PRODUCTO_UPDATE = "producto/update";
     
+    //REPORTES
+    public final static String REPORTE_INDEX = "reporte/index";
+    
     
 	/**** Redirects ****/
     public final static String ROUTE = "/index";
@@ -49,5 +52,8 @@ public class ViewRouteHelper {
     public final static String PRODUCTO_ROOT = "/producto";
     public final static String LOTE_ROOT = "/lote";
     public final static String STOCK_ROOT = "/stock";
+    public final static String REPORTE_ROOT = "/reporte";
+
+	
 
 }
