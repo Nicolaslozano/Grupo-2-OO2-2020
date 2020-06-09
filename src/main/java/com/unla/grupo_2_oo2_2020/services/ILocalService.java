@@ -19,5 +19,5 @@ public interface ILocalService {
 
 	public Local getNearestValidLocal(PedidoModel pedidoModel);
 
-	public Map<Double, LocalModel> getValidLocals(PedidoModel pedidoModel);
+	public Map<LocalModel, Double> getValidLocals(PedidoModel pedidoModel);
 }

@@ -71,6 +71,21 @@ public class EmpleadoRestController {
 		return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
 	}
 
+	@GetMapping("getEmpleados/{idLocal}/except/{idPersona}")
+	public ResponseEntity<List<EmpleadoModel>> getEmpleadosByLocalExcept(@PathVariable("idLocal") long idLocal,
+			@PathVariable("idPersona") long idPersona) {
+
+		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
+
+		for (Empleado empleado : empleadoService.findByLocal(localService.findById(idLocal))) {
+
+			if (empleado.getIdPersona() == idPersona) continue;
+			empleados.add(empleadoConverter.entityToModel(empleado));
+		}
+
+		return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
+	}
+
 	@PostMapping("/createEmpleado")
 	public ResponseEntity<?> createEmpleado(@Valid @RequestBody EmpleadoModel empleadoModel, Errors errors) {
 

@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +61,19 @@ public class PedidoRestController {
 
         return new ResponseEntity<List<PedidoModel>>(pedidos, HttpStatus.OK);
     }
+
+    @GetMapping("/getPedidos/{idLocal}")
+	public ResponseEntity<List<PedidoModel>> get(@PathVariable("idLocal") long id) {
+
+		List<PedidoModel> pedidos = new ArrayList<PedidoModel>();
+
+		for (Pedido pedido : pedidoService.findByLocal(localService.findById(id))){
+			// why? porque sino no anda el JSON.parse cuando lo manda a la vista
+			pedidos.add(pedidoConverter.entityToModel(pedido));
+		}
+
+		return new ResponseEntity<List<PedidoModel>>(pedidos, HttpStatus.OK);
+	}
 
     @PostMapping("/sendPedido")
     public ResponseEntity<?> sendPedido(@Valid @RequestBody PedidoModel pedidoModel, Errors errors) {

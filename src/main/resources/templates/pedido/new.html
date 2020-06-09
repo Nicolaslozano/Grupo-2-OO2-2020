@@ -79,6 +79,19 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Vendedor auxiliar</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <select id="vendedorAuxiliar" name="vendedorAuxiliar"
+                                            class="form-control selectpicker" th:field="*{idVendedorAuxiliar}">
+                                            <option value="0"> -- </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Button -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
@@ -100,21 +113,19 @@
                     </form>
                 </div>
 
-                <div class="modal fade" id="modalValidLocals" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="modalValidLocals" tabindex="-1" role="dialog"
+                    aria-labelledby="mySmallModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"
-                                    aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="mySmallModalLabel">Seleccione un local con stock disponible...</h4>
+                                <h4 class="modal-title" id="mySmallModalLabel">Seleccione un local con stock
+                                    disponible...</h4>
                             </div>
                             <div class="modal-body">
                                 <ul id="modalValidLocals-list" class="list-group"></ul>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -173,6 +184,8 @@
             // cuando cambio de local, pide los empleados de aquel local
             $("#local").change(function () {
 
+                var firstEmpleado = true;
+
                 $.ajax({
                     url: "/api/empleado/getEmpleados/" + $("#local").val(),
                     type: 'GET',
@@ -182,14 +195,51 @@
                             empleados = JSON.parse(data);
                         }
                         $("#vendedorOriginal").empty();
+
+                        $("#vendedorOriginal").append($("<option></option>",
+                            { "value": 0, "text": "--" }));
+
                         $.each(empleados, function (index, empleado) {
                             $("#vendedorOriginal").append($("<option></option>",
                                 { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
+                            if (firstEmpleado) {
+                                firstEmpleado = false;
+                                changeVendedorAuxiliar();
+                            }
                         })
                     },
                     error: function (result) { console.log(["error", result]); },
                 });
             });
+
+            $("#vendedorOriginal").change(function () {
+                changeVendedorAuxiliar();
+            });
+
+            function changeVendedorAuxiliar() {
+                //sirve para cambiar los empleados auxiliares validos(o sea, no el original)
+                $.ajax({
+                    url: "/api/empleado/getEmpleados/" + $("#local").val() + "/except/" + $("#vendedorOriginal").val(),
+                    type: 'GET',
+                    success: function (data) {
+                        var empleados = data;
+                        if (typeof (data) == "string") {
+                            empleados = JSON.parse(data);
+                        }
+                        $("#vendedorAuxiliar").empty();
+
+                        $("#vendedorAuxiliar").append($("<option></option>",
+                            { "value": 0, "text": "--" }));
+
+                        $.each(empleados, function (index, empleado) {
+                            $("#vendedorAuxiliar").append($("<option></option>",
+                                { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
+                        })
+                    },
+                    error: function (result) { console.log(["error", result]); },
+                });
+            }
+
         });
     </script>
     <script type="text/javascript" src="/js/auth/Pedido.js"></script>

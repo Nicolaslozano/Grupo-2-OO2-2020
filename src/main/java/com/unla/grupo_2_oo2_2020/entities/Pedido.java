@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
@@ -28,22 +30,22 @@ public class Pedido {
 
 	@ManyToOne
 	@JoinColumn(name = "idProducto")
-	@Nullable
+	@NotNull
 	private Producto producto;
 
 	@ManyToOne
 	@JoinColumn(name = "idLocal")
-	@Nullable
+	@NotNull
 	private Local local;
 
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
-	@Nullable
+	@NotNull
 	private Cliente cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "id_vendedor_original")
-	@Nullable
+	@NotNull
 	private Empleado vendedorOriginal;
 
 	@ManyToOne
@@ -55,6 +57,7 @@ public class Pedido {
 	private boolean aceptado;
 
 	@Column(name = "cantidad")
+	@Min(1)
 	private int cantidad;
 
 	@Column(name = "fecha")

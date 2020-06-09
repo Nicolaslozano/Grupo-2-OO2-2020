@@ -48,7 +48,6 @@ public class LocalController {
 	@GetMapping("/distance")
 	public ModelAndView distance() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_CALCULAR_DISTANCIA);
-		mAV.addObject("locales", localService.getAll());
 		mAV.addObject("local_models", new LocalFormModel());
 
 		return mAV;

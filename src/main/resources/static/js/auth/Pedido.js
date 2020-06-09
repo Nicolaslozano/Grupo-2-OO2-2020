@@ -8,6 +8,7 @@ $(document).ready(function () {
         pedidoModel["cantidad"] = $("#cantidad").val();
         pedidoModel["idLocal"] = $("#local").val();
         pedidoModel["idVendedorOriginal"] = $("#vendedorOriginal").val();
+        pedidoModel["idVendedorAuxiliar"] = $("#vendedorAuxiliar").val();
 
         submitPedido(pedidoModel);
     });
@@ -73,7 +74,29 @@ function submitPedido(pedidoModel) {
         error: function (e) {
             var json = JSON.parse(e.responseText);
             console.log(json);
+            controlError(json);
         },
     });
 
+}
+
+function controlError(errors) {
+
+    $("#local").removeClass("is-invalid");
+    $("#producto").removeClass("is-invalid");
+    $("#cantidad").removeClass("is-invalid");
+    $("#vendedorOriginal").removeClass("is-invalid");
+
+    if (errors.local_required) {
+        $("#local").addClass("is-invalid");
+    }
+    if (errors.product_required) {
+        $("#producto").addClass("is-invalid");
+    }
+    if (errors.seller_required) {
+        $("#vendedorOriginal").addClass("is-invalid");
+    }
+    if (errors.quantity_required) {
+        $("#cantidad").addClass("is-invalid");
+    }
 }

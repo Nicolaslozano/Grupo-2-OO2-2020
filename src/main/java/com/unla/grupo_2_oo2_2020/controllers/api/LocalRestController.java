@@ -13,12 +13,12 @@ import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.LocalAndDistanceModel;
+import com.unla.grupo_2_oo2_2020.models.LocalFormModel;
 import com.unla.grupo_2_oo2_2020.models.LocalModel;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IStockService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -27,6 +27,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,7 +73,15 @@ public class LocalRestController {
 		List<LocalAndDistanceModel> result = new ArrayList<LocalAndDistanceModel>();
 
 		localService.getValidLocals(pedidoModel).entrySet().stream()
-				.forEach(e -> result.add(new LocalAndDistanceModel(e.getValue().getDireccion(), e.getKey())));
+				.forEach(e -> result.add(new LocalAndDistanceModel(e.getKey().getDireccion(), e.getValue())));
+
+		return ResponseEntity.ok(result);
+	}
+
+	@GetMapping("/{idLocal}/sueldos")
+	public ResponseEntity<?> getSueldos(@PathVariable("idLocal") long id) {
+		// TODO
+		List<LocalAndDistanceModel> result = new ArrayList<LocalAndDistanceModel>();
 
 		return ResponseEntity.ok(result);
 	}
@@ -130,6 +139,20 @@ public class LocalRestController {
 
 		result.put(StaticValuesHelper.SUCCESS_REMOVED, "Local eliminado");
 		result.put("redirect", ViewRouteHelper.LOCAL_ROOT);
+
+		return ResponseEntity.ok(result);
+	}
+
+	@PostMapping("/distance")
+	public ResponseEntity<?> calculateDistance(@RequestBody LocalFormModel localModels) {
+
+		Map<String, String> result = new HashMap<String, String>();
+		Local localSelected1 = localService.findById(localModels.getIdLocal_1());
+		Local localSelected2 = localService.findById(localModels.getIdLocal_2());
+
+		result.put("distance", String.valueOf(localSelected1.calculateDistance(localSelected2)));
+		result.put("local1", localSelected1.getDireccion());
+		result.put("local2", localSelected2.getDireccion());
 
 		return ResponseEntity.ok(result);
 	}
