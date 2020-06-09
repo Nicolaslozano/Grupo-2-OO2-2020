@@ -1,35 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <th:block th:include="fragments/head :: head"></th:block>
 
 <body>
-
     <div class="d-flex" id="wrapper">
-
         <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-
             <th:block th:include="fragments/navbar :: navbar"></th:block>
 
             <div class="container">
-
                 <div class="form">
-                    <form class="well form-horizontal" action="#" th:action="@{/local/calculate}"
-                        th:object="${local_models}" method="post" id="contact_form">
+                    <form class="well form-horizontal" id="form-local-distance">
                         <fieldset>
-
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Local 1</label>
                                 <div class="col-md-4 selectContainer">
-                                    <div style="width: 300%" class="input-group">
-                                        <select name="local" class="form-control selectpicker" th:field="*{idLocal_1}">
-                                            <option value="0"> -- </option>
-                                            <option th:each="local : ${locales}" th:value="${local.idLocal}"
-                                                th:text="${local.direccion}">
-                                            </option>
+                                    <div style="width: 300%;" class="input-group">
+                                        <select id="local1" name="local1" class="form-control selectpicker">
                                         </select>
                                     </div>
                                 </div>
@@ -38,12 +27,8 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Local 2</label>
                                 <div class="col-md-4 selectContainer">
-                                    <div style="width: 300%" class="input-group">
-                                        <select name="local" class="form-control selectpicker" th:field="*{idLocal_2}">
-                                            <option value="0"> -- </option>
-                                            <option th:each="local : ${locales}" th:value="${local.idLocal}"
-                                                th:text="${local.direccion}">
-                                            </option>
+                                    <div style="width: 300%;" class="input-group">
+                                        <select id="local2" name="local2" class="form-control selectpicker">
                                         </select>
                                     </div>
                                 </div>
@@ -52,46 +37,121 @@
                             <!-- Button -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
-                                <div class="col-md-4"><br>
+                                <div class="col-md-4">
+                                    <br />
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                        type="submit"
-                                        class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCALCULAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                        type="submit" class="btn btn-warning">
+                                        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCALCULAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                    </button>
                                 </div>
                             </div>
-
                         </fieldset>
                     </form>
-                </div><!-- Div Classform -->
-
-            </div><!-- /.container -->
-
-            <div th:if="${distance != null}" class="col-md-4 mb-5">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h2 class="card-title">Distancia</h2>
-                        <div style="float: left; margin-right: 20px">
-                            <p style="display:inline-block">La distancia entre</p>
-                            <p style="display:inline-block"><b th:text="${localSelected1.direccion}"></b></p>
-                            <p style="display:inline-block"> y</p>
-                            <p style="display:inline-block"><b th:text="${localSelected2.direccion}"></b></p>
-                            <p style="display:inline-block"> es de </p>
-                            <p style="display:inline-block"><b th:text="${distance}"></b>Km.</p>
-                            <p th:if="${localSelected1 == localSelected2}">(Mismo local)</p>
-                        </div>
-                        <div class="card-footer">
+                </div>
+                <!-- Div Classform -->
+                <div class="modal fade" id="modalDistance" tabindex="-1" role="dialog"
+                    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="mySmallModalLabel">Distancia</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div style="float: left; margin-right: 20px;">
+                                    <p style="display: inline-block;">La distancia entre</p>
+                                    <p style="display: inline-block;">
+                                        <b id="local1-modal-text"></b>
+                                    </p>
+                                    <p style="display: inline-block;">y</p>
+                                    <p style="display: inline-block;">
+                                        <b id="local2-modal-text"></b>
+                                    </p>
+                                    <p style="display: inline-block;">es de</p>
+                                    <p style="display: inline-block;">
+                                        <b id="distance-modal-text"></b>Km.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- /.container -->
 
         </div>
         <!-- /#page-content-wrapper -->
-
     </div>
     <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Pedir todos los locales cuando carga la vista
+            $.ajax({
+                url: "/api/local/getLocales",
+                type: "GET",
+                success: function (data) {
+                    var locales = data;
+                    if (typeof data == "string") {
+                        locales = JSON.parse(data);
+                    }
+                    $.each(locales, function (index, local) {
+                        $("#local1").append(
+                            $("<option></option>", {
+                                value: local.idLocal,
+                                text: local.direccion,
+                            })
+                        );
+                        $("#local2").append(
+                            $("<option></option>", {
+                                value: local.idLocal,
+                                text: local.direccion,
+                            })
+                        );
+                    });
+                },
+                error: function (result) {
+                    console.log(["error getting locales", result]);
+                },
+            });
 
+            $("#form-local-distance").submit(function (event) {
+                event.preventDefault();
+
+                var localModels = {};
+
+                localModels["idLocal_1"] = $("#local1").val();
+                localModels["idLocal_2"] = $("#local2").val();
+
+                calculateDistance(localModels);
+            });
+
+            function calculateDistance(localModels) {
+
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(localModels),
+                    url: "/api/local/distance",
+                    cache: false,
+                    timeout: 600000,
+                    success: function (data) {
+
+                        $("#modalDistance").modal('show');
+                        $("#local1-modal-text").html(data.local1);
+                        $("#local2-modal-text").html(data.local2);
+                        $("#distance-modal-text").html(data.distance);
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
