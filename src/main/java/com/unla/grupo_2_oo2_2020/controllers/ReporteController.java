@@ -23,7 +23,7 @@ public class ReporteController {
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.REPORTE_INDEX);
-		mAV.addObject("pedidos", pedidoService.ProductosEntreFechas(LocalDate.of(2020,04 ,1),LocalDate.now()));
+		mAV.addObject("pedidos", pedidoService.ProductosEntreFechas(LocalDate.of(2020,2 ,13),LocalDate.of(2020,2 ,13)));
 		mAV.addObject("pedidos", pedidoService.RankingProductos());
 		return mAV; 
 	}	
