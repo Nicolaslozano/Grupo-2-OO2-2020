@@ -39,6 +39,7 @@ public class ViewRouteHelper {
     public final static String PRODUCTO_NEW = "producto/new";
     public final static String PRODUCTO_UPDATE = "producto/update";
     public final static String PRODUCTO_RANKING = "producto/ranking";
+    public final static String PRODUCTO_VENTAS = "producto/ventas-entre-fechas";
 
 	/**** Redirects ****/
     public final static String ROUTE = "/index";
