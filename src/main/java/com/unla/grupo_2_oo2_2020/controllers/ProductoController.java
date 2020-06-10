@@ -31,7 +31,7 @@ import com.unla.grupo_2_oo2_2020.services.IProductoService;
 		@GetMapping("")
 		public ModelAndView index() {
 			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_INDEX);
-			mAV.addObject("productos", productoService.getAll());
+			//mAV.addObject("productos", productoService.getAll());
 			return mAV;
 		}
 
@@ -46,6 +46,18 @@ import com.unla.grupo_2_oo2_2020.services.IProductoService;
 		public ModelAndView get(@PathVariable("idProducto") long id) {
 			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_UPDATE);
 			mAV.addObject("producto", productoService.findById(id));
+			return mAV;
+		}
+
+		@GetMapping("/ranking")
+		public ModelAndView ranking() {
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_RANKING);
+			return mAV;
+		}
+
+		@GetMapping("/ventas-entre-fechas")
+		public ModelAndView ventas() {
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_VENTAS);
 			return mAV;
 		}
 

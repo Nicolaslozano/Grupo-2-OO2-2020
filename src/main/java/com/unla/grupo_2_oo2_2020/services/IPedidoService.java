@@ -22,8 +22,8 @@ public interface IPedidoService {
 
 	public List<Pedido> findByLocal(Local local);
 	
-	public Map<ProductoModel, Integer> RankingProductos();
+	public Map<ProductoModel, Integer> rankingProductos();
 
-	Map<ProductoModel, LocalDate> ProductosEntreFechas(LocalDate fecha1, LocalDate fecha2);
+	Map<ProductoModel, LocalDate> productosEntreFechas(LocalDate fecha1, LocalDate fecha2);
 
 }

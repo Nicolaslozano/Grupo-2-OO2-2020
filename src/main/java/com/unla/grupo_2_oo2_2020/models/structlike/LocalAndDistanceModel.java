@@ -1,4 +1,4 @@
-package com.unla.grupo_2_oo2_2020.models;
+package com.unla.grupo_2_oo2_2020.models.structlike;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
