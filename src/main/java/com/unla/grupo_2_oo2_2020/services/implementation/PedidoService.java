@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,6 @@ import static java.util.stream.Collectors.*;
 import java.time.LocalDate;
 
 import static java.util.Map.Entry.*;
-
 
 @Service("pedidoService")
 public class PedidoService implements IPedidoService {
@@ -62,7 +60,7 @@ public class PedidoService implements IPedidoService {
     @Autowired
     @Qualifier("pedidoConverter")
     private PedidoConverter pedidoConverter;
-    
+
     @Autowired
     @Qualifier("productoConverter")
     private ProductoConverter productoConverter;
@@ -96,47 +94,45 @@ public class PedidoService implements IPedidoService {
     public void removeById(long idPedido) {
         pedidoRepository.deleteById(idPedido);
     }
-     
-	@Override
-	public Map<ProductoModel, Integer> RankingProductos() {
-		Map<ProductoModel, Integer> rankingmap = new HashMap<>();
-		
-		
-		for (Pedido pedidos : getAll()) {
-			if(!pedidos.isAceptado())
-				continue;
-			rankingmap.put(productoConverter.entityToModel(productoService.findById(pedidos.getProducto().getIdProducto())),pedidos.getCantidad());
-		
-		} 
-		Map<ProductoModel, Integer> sorted  = rankingmap
-		        .entrySet()
-		        .stream()
-		        .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-		        .collect(
-		            toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-		                LinkedHashMap::new));
-		
-		return  sorted;
-	}
 
-	@Override
-	public Map<ProductoModel, LocalDate> ProductosEntreFechas(LocalDate fecha1, LocalDate fecha2) {
-		Map<ProductoModel, LocalDate> entrefechas = new HashMap<>();
+    @Override
+    public Map<ProductoModel, Integer> rankingProductos() {
 
-		for (Pedido pedidos : getAll()) {
-			if (!pedidos.isAceptado() )
-				continue;
-			if(pedidos.getFecha().isAfter(fecha1) && pedidos.getFecha().isBefore(fecha2)) {
-			entrefechas.put(
-					productoConverter.entityToModel(productoService.findById(pedidos.getProducto().getIdProducto())),
-					pedidos.getFecha());
-			}
+        Map<ProductoModel, Integer> rankingmap = new HashMap<>();
 
-		}
+        for (Pedido pedidos : getAll()) {
+            if (!pedidos.isAceptado())
+                continue;
+            rankingmap.put(
+                    productoConverter.entityToModel(productoService.findById(pedidos.getProducto().getIdProducto())),
+                    pedidos.getCantidad());
 
-		return entrefechas;
-	}
-    
+        }
+        Map<ProductoModel, Integer> sorted = rankingmap.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+
+        return sorted;
+    }
+
+    @Override
+    public Map<ProductoModel, LocalDate> productosEntreFechas(LocalDate fecha1, LocalDate fecha2) {
+
+        Map<ProductoModel, LocalDate> entrefechas = new HashMap<>();
+
+        for (Pedido pedidos : getAll()) {
+            if (!pedidos.isAceptado())
+                continue;
+            if (pedidos.getFecha().isAfter(fecha1) && pedidos.getFecha().isBefore(fecha2)) {
+                entrefechas.put(productoConverter.entityToModel(
+                        productoService.findById(pedidos.getProducto().getIdProducto())), pedidos.getFecha());
+            }
+
+        }
+
+        return entrefechas;
+    }
+
     @Override
     public double getTotal(PedidoModel pedidoModel) {
 
