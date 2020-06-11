@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.IStockService;
@@ -40,6 +41,10 @@ public class PedidoRestController {
     @Autowired
     @Qualifier("pedidoService")
     private IPedidoService pedidoService;
+
+    @Autowired
+    @Qualifier("empleadoService")
+    private IEmpleadoService empleadoService;
 
     @Autowired
     @Qualifier("pedidoConverter")
@@ -63,17 +68,17 @@ public class PedidoRestController {
     }
 
     @GetMapping("/getPedidos/{idLocal}")
-	public ResponseEntity<List<PedidoModel>> get(@PathVariable("idLocal") long id) {
+    public ResponseEntity<List<PedidoModel>> get(@PathVariable("idLocal") long id) {
 
-		List<PedidoModel> pedidos = new ArrayList<PedidoModel>();
+        List<PedidoModel> pedidos = new ArrayList<PedidoModel>();
 
-		for (Pedido pedido : pedidoService.findByLocal(localService.findById(id))){
-			// why? porque sino no anda el JSON.parse cuando lo manda a la vista
-			pedidos.add(pedidoConverter.entityToModel(pedido));
-		}
+        for (Pedido pedido : pedidoService.findByLocal(localService.findById(id))) {
+            // why? porque sino no anda el JSON.parse cuando lo manda a la vista
+            pedidos.add(pedidoConverter.entityToModel(pedido));
+        }
 
-		return new ResponseEntity<List<PedidoModel>>(pedidos, HttpStatus.OK);
-	}
+        return new ResponseEntity<List<PedidoModel>>(pedidos, HttpStatus.OK);
+    }
 
     @PostMapping("/sendPedido")
     public ResponseEntity<?> sendPedido(@Valid @RequestBody PedidoModel pedidoModel, Errors errors) {
@@ -88,11 +93,20 @@ public class PedidoRestController {
             }
 
             return ResponseEntity.badRequest().body(result);
+        }
+
+        if(pedidoModel.getIdVendedorAuxiliar() > 0){
+
+            pedidoModel.setEstado(StaticValuesHelper.PEDIDO_PENDIENTE);
+            pedidoService.insertOrUpdate(pedidoModel);
+            result.put(StaticValuesHelper.ORDER_PENDING_SENT, "Pedido pendiente enviado");
+            result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
+
         } else {
 
             if (stockService.comprobarStock(pedidoModel, true)) {
 
-                pedidoModel.setAceptado(true);
+                pedidoModel.setEstado(StaticValuesHelper.PEDIDO_ACEPTADO);
                 pedidoService.insertOrUpdate(pedidoModel);
                 result.put(StaticValuesHelper.ORDER_ACCEPTED,
                         "Pedido despachado correctamente a "
@@ -100,15 +114,56 @@ public class PedidoRestController {
                                 + pedidoService.getTotal(pedidoModel));
 
                 result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
+
+            } else if(!localService.getValidLocals(pedidoModel).isEmpty()){
+
+                result.put(StaticValuesHelper.ORDER_PENDING, "Pedido pendiente");
+                result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
+
             } else {
 
-                pedidoModel.setAceptado(false);
+                pedidoModel.setEstado(StaticValuesHelper.PEDIDO_RECHAZADO);
                 pedidoService.insertOrUpdate(pedidoModel);
                 result.put(StaticValuesHelper.ORDER_REJECTED, "Pedido rechazado");
                 result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
-                result.put("retry", ViewRouteHelper.PEDIDO_NEW + "/" + pedidoModel.getIdCliente());
-
             }
+        }
+
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/handlePedido")
+    public ResponseEntity<?> handlePedido(@Valid @RequestBody PedidoModel pedidoModel, Errors errors) {
+
+        HashMap<String, String> result = new HashMap<String, String>();
+        PedidoModel pedidoExterno = new PedidoModel(0, pedidoModel.getIdProducto(), pedidoModel.getCantidad(),
+                pedidoModel.getIdLocal(), pedidoModel.getIdCliente(), pedidoModel.getIdVendedorOriginal(),
+                pedidoModel.getIdVendedorAuxiliar(), pedidoModel.getEstado(), pedidoModel.getFecha());
+
+        pedidoExterno.setIdLocal(empleadoService.findById(pedidoModel.getIdVendedorAuxiliar()).getLocal().getIdLocal());
+
+        if (errors.hasErrors()) {
+
+            for (ObjectError error : errors.getAllErrors()) {
+
+                result.put(error.getDefaultMessage(), error.getDefaultMessage());
+            }
+
+            return ResponseEntity.badRequest().body(result);
+        } else {
+
+            switch (pedidoModel.getEstado()) {
+                case StaticValuesHelper.PEDIDO_ACEPTADO:
+                    stockService.comprobarStock(pedidoExterno, true);
+                    break;
+                case StaticValuesHelper.PEDIDO_RECHAZADO:
+                break;
+                default:
+                    break;
+            }
+
+            pedidoService.insertOrUpdate(pedidoModel);
+            result.put(StaticValuesHelper.SUCCESS_UPDATED, "Pedido actualizado");
         }
 
         return ResponseEntity.ok(result);

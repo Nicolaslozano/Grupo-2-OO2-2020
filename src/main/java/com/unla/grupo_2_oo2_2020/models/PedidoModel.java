@@ -26,12 +26,12 @@ public class PedidoModel {
 	@Min(value=1, message = StaticValuesHelper.SELLER_REQUIRED)
 	private long idVendedorOriginal;
 	private long idVendedorAuxiliar;
-	private boolean aceptado;
+	private int estado;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fecha;
 
 	public PedidoModel(long idPedido, long idProducto, int cantidad, long idLocal, long idCliente,
-			long idVendedorOriginal, long idVendedorAuxiliar, boolean aceptado, LocalDate fecha) {
+			long idVendedorOriginal, long idVendedorAuxiliar, int estado, LocalDate fecha) {
 
 		this.idPedido = idPedido;
 		this.idProducto = idProducto;
@@ -40,7 +40,7 @@ public class PedidoModel {
 		this.idCliente = idCliente;
 		this.idVendedorOriginal = idVendedorOriginal;
 		this.idVendedorAuxiliar = idVendedorAuxiliar;
-		this.aceptado = aceptado;
+		this.estado = estado;
 		this.fecha = fecha;
 	}
 

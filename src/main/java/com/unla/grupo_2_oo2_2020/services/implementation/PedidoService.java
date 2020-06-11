@@ -13,6 +13,7 @@ import com.unla.grupo_2_oo2_2020.converters.PedidoConverter;
 import com.unla.grupo_2_oo2_2020.converters.ProductoConverter;
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Pedido;
+import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
 import com.unla.grupo_2_oo2_2020.repository.IPedidoRepository;
@@ -101,7 +102,7 @@ public class PedidoService implements IPedidoService {
         Map<ProductoModel, Integer> rankingmap = new HashMap<>();
 
         for (Pedido pedidos : getAll()) {
-            if (!pedidos.isAceptado())
+            if (pedidos.getEstado() != StaticValuesHelper.PEDIDO_ACEPTADO)
                 continue;
             rankingmap.put(
                     productoConverter.entityToModel(productoService.findById(pedidos.getProducto().getIdProducto())),
@@ -121,7 +122,7 @@ public class PedidoService implements IPedidoService {
         Map<ProductoModel, LocalDate> entrefechas = new HashMap<>();
 
         for (Pedido pedidos : getAll()) {
-            if (!pedidos.isAceptado())
+            if (pedidos.getEstado() != StaticValuesHelper.PEDIDO_ACEPTADO)
                 continue;
             if (pedidos.getFecha().isAfter(fecha1) && pedidos.getFecha().isBefore(fecha2)) {
                 entrefechas.put(productoConverter.entityToModel(

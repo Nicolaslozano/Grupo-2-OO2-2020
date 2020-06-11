@@ -13,6 +13,8 @@ public interface ILocalService {
 
     public Local findById(long idLocal);
 
+    public Local findByDireccion(String direccion);
+
     public LocalModel insertOrUpdate(LocalModel localModel);
 
     public void removeById(long idLocal);

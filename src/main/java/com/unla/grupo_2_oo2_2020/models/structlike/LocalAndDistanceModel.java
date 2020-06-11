@@ -8,6 +8,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor @AllArgsConstructor
 public class LocalAndDistanceModel {
 
+    private long idLocal;
     private String direccion;
     private double distancia;
+
+    public LocalAndDistanceModel(String direccion, double distancia) {
+        this.direccion = direccion;
+        this.distancia = distancia;
+    }
 }
