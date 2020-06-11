@@ -16,6 +16,8 @@ public interface IPedidoService {
 	
 	public void insertOrUpdate(PedidoModel pedidoModel);
 
+	public Pedido findById(long idPedido);
+
     public double getTotal(PedidoModel pedidoModel);
 
     public void removeById(long idPedido);

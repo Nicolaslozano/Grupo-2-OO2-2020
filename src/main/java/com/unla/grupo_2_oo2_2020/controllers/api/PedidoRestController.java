@@ -67,6 +67,16 @@ public class PedidoRestController {
         return new ResponseEntity<List<PedidoModel>>(pedidos, HttpStatus.OK);
     }
 
+    @GetMapping("/getPedido/{idPedido}")
+    public ResponseEntity<PedidoModel> getPedido(@PathVariable("idPedido") long id) {
+
+        PedidoModel pedido = new PedidoModel();
+
+        pedido = pedidoConverter.entityToModel(pedidoService.findById(id));
+
+        return new ResponseEntity<PedidoModel>(pedido, HttpStatus.OK);
+    }
+
     @GetMapping("/getPedidos/{idLocal}")
     public ResponseEntity<List<PedidoModel>> get(@PathVariable("idLocal") long id) {
 
@@ -95,13 +105,11 @@ public class PedidoRestController {
             return ResponseEntity.badRequest().body(result);
         }
 
-        if(pedidoModel.getIdVendedorAuxiliar() > 0){
+        if (pedidoModel.getIdVendedorAuxiliar() > 0) {
 
             pedidoModel.setEstado(StaticValuesHelper.PEDIDO_PENDIENTE);
             pedidoService.insertOrUpdate(pedidoModel);
             result.put(StaticValuesHelper.ORDER_PENDING_SENT, "Pedido pendiente enviado");
-            result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
-
         } else {
 
             if (stockService.comprobarStock(pedidoModel, true)) {
@@ -114,18 +122,14 @@ public class PedidoRestController {
                                 + pedidoService.getTotal(pedidoModel));
 
                 result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
-
-            } else if(!localService.getValidLocals(pedidoModel).isEmpty()){
+            } else if (!localService.getValidLocals(pedidoModel).isEmpty()) {
 
                 result.put(StaticValuesHelper.ORDER_PENDING, "Pedido pendiente");
-                result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
-
             } else {
 
                 pedidoModel.setEstado(StaticValuesHelper.PEDIDO_RECHAZADO);
                 pedidoService.insertOrUpdate(pedidoModel);
                 result.put(StaticValuesHelper.ORDER_REJECTED, "Pedido rechazado");
-                result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
             }
         }
 
@@ -154,16 +158,23 @@ public class PedidoRestController {
 
             switch (pedidoModel.getEstado()) {
                 case StaticValuesHelper.PEDIDO_ACEPTADO:
-                    stockService.comprobarStock(pedidoExterno, true);
+                    if (!stockService.comprobarStock(pedidoExterno, true)) { // si ya no hay stock disponible
+                        pedidoModel.setEstado(StaticValuesHelper.PEDIDO_RECHAZADO);
+                        result.put(StaticValuesHelper.ORDER_REJECTED,
+                                "Ya no hay stock disponible para satisfacer el pedido");
+                    } else {
+                        result.put(StaticValuesHelper.ORDER_ACCEPTED, "Pedido aceptado");
+                    }
                     break;
                 case StaticValuesHelper.PEDIDO_RECHAZADO:
-                break;
+                    result.put(StaticValuesHelper.ORDER_REJECTED,
+                    "Pedido rechazado");
+                    break;
                 default:
                     break;
             }
 
             pedidoService.insertOrUpdate(pedidoModel);
-            result.put(StaticValuesHelper.SUCCESS_UPDATED, "Pedido actualizado");
         }
 
         return ResponseEntity.ok(result);

@@ -72,6 +72,11 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
+    public Pedido findById(long idPedido) {
+        return pedidoRepository.findByIdPedido(idPedido);
+    }
+
+    @Override
     public void insertOrUpdate(PedidoModel pedidoModel) {
 
         Pedido pedido = pedidoConverter.modelToEntity(pedidoModel);

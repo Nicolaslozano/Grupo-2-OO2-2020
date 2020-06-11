@@ -27,21 +27,55 @@ $(document).ready(function () {
 
         submitPedido(pedidoModel);
         $("#modalStockExterno").modal("hide");
+        $("#feedback").html("Pedido pendiente de revision");
+        $("#feedback").addClass("alert alert-warning");
+    });
+    $(".form-pedido-handle").submit(function (event) {
+        event.preventDefault();
+
+        var dataArray = $(this).serializeArray(),
+        pedidoModel = {};
+
+        $(dataArray).each(function(i, field){
+            pedidoModel[field.name] = field.value;
+        });
+
+        $.ajax({
+            url: "/api/pedido/getPedido/" + pedidoModel["idPedido"],
+            type: 'GET',
+            success: function (data) {
+                var pedido = data;
+                if (typeof (data) == "string") {
+                    pedido = JSON.parse(data);
+                }
+
+                $("#idPedido").val(pedido["idPedido"]);
+                $("#idCliente").val(pedido["idCliente"]);
+                $("#idProducto").val(pedido["idProducto"]);
+                $("#cantidad").val(pedido["cantidad"]);
+                $("#idLocal").val(pedido["idLocal"]);
+                $("#idVendedorOriginal").val(pedido["idVendedorOriginal"]);
+                $("#idVendedorAuxiliar").val(pedido["idVendedorAuxiliar"]);
+
+                $("#modalPedidoHandle").modal('show');
+
+            },
+            error: function (result) { console.log(["error", result]); },
+        });
+
     });
     $("#form-pedido-update").submit(function (event) {
         event.preventDefault();
-        var pedidoModel = {};
 
-        pedidoModel["idPedido"] = $("#idPedido").val();
-        pedidoModel["idCliente"] = $("#idCliente").val();
-        pedidoModel["idProducto"] = $("#producto").val();
-        pedidoModel["cantidad"] = $("#cantidad").val();
-        pedidoModel["idLocal"] = $("#local").val();
-        pedidoModel["idVendedorOriginal"] = $("#vendedorOriginal").val();
-        pedidoModel["idVendedorAuxiliar"] = $("#vendedorAuxiliar").val();
-        pedidoModel["estado"] = $("#estado").val();
+        var dataArray = $(this).serializeArray(),
+        pedidoModel = {};
 
-        submitPedido(pedidoModel);
+        $(dataArray).each(function(i, field){
+            pedidoModel[field.name] = field.value;
+        });
+
+        updatePedido(pedidoModel);
+        $("#modalPedidoHandle").modal('hide');
     });
 });
 
@@ -58,40 +92,17 @@ function submitPedido(pedidoModel) {
         success: function (data) {
             var json = data;
 
+            controlError(json);
+
             if (json.order_accepted) {
                 $("#feedback").html(json.order_accepted);
                 $("#feedback").addClass("alert alert-success");
 
-                $("#feedback-buttons").append(
-                    $("<a></a>", {
-                        href: json.redirect,
-                        text: "Volver",
-                        class: "btn btn-primary",
-                    })
-                );
             } else if (json.order_rejected) {
                 $("#feedback").html(json.order_rejected);
                 $("#feedback").addClass("alert alert-danger");
 
-                $("#feedback-buttons").append(
-                    $("<a></a>", {
-                        href: json.redirect,
-                        text: "Volver",
-                        class: "btn btn-primary",
-                    })
-                );
             } else if (json.order_pending) {
-
-                $("#feedback").html(json.order_pending);
-                $("#feedback").addClass("alert alert-warning");
-
-                $("#feedback-buttons").append(
-                    $("<a></a>", {
-                        href: json.redirect,
-                        text: "Volver",
-                        class: "btn btn-primary",
-                    })
-                );
 
                 $.ajax({
                     type: "POST",
@@ -105,7 +116,13 @@ function submitPedido(pedidoModel) {
                         if (typeof data == "string") {
                             locales = JSON.parse(data);
                         }
+
                         $("#modalStockExterno").modal("show");
+
+                        $("#localAuxiliar").empty();
+
+                        $("#localAuxiliar").append($("<option></option>",
+                            { "value": 0, "text": "--" }));
 
                         $.each(locales, function (index, local) {
                             $("#localAuxiliar").append(
@@ -128,6 +145,7 @@ function submitPedido(pedidoModel) {
             controlError(json);
         },
     });
+
 }
 
 function updatePedido(pedidoModel) {
@@ -142,10 +160,21 @@ function updatePedido(pedidoModel) {
         success: function (data) {
             var json = data;
 
+            if (json.order_accepted) {
+                $("#feedback").html(json.order_accepted);
+                $("#feedback").addClass("alert alert-success");
+
+            } else if (json.order_rejected) {
+                $("#feedback").html(json.order_rejected);
+                $("#feedback").addClass("alert alert-danger");
+
+            }
+
+            $("#modalPedidoResult").modal('show');
+
         },
         error: function (e) {
-            var json = JSON.parse(e.responseText);
-            console.log(json);
+            console.log(e);
         },
     });
 
@@ -154,12 +183,14 @@ function updatePedido(pedidoModel) {
 
 function controlError(errors) {
     $("#local").removeClass("is-invalid");
+    $("#localAuxiliar").removeClass("is-invalid");
     $("#producto").removeClass("is-invalid");
     $("#cantidad").removeClass("is-invalid");
     $("#vendedorOriginal").removeClass("is-invalid");
 
     if (errors.local_required) {
         $("#local").addClass("is-invalid");
+        $("#localAuxiliar").addClass("is-invalid");
     }
     if (errors.product_required) {
         $("#producto").addClass("is-invalid");
