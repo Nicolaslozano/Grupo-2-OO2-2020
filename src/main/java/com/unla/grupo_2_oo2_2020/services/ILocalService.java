@@ -13,11 +13,13 @@ public interface ILocalService {
 
     public Local findById(long idLocal);
 
+    public Local findByDireccion(String direccion);
+
     public LocalModel insertOrUpdate(LocalModel localModel);
 
     public void removeById(long idLocal);
 
 	public Local getNearestValidLocal(PedidoModel pedidoModel);
 
-	public Map<Double, LocalModel> getValidLocals(PedidoModel pedidoModel);
+	public Map<LocalModel, Double> getValidLocals(PedidoModel pedidoModel);
 }

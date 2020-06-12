@@ -1,5 +1,8 @@
 package com.unla.grupo_2_oo2_2020.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.grupo_2_oo2_2020.converters.ProductoConverter;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
+import com.unla.grupo_2_oo2_2020.models.structlike.ProductoAndCantidadModel;
+import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
 
 
@@ -23,6 +28,10 @@ import com.unla.grupo_2_oo2_2020.services.IProductoService;
 		@Autowired
 		@Qualifier("productoService")
 		private IProductoService productoService;
+		
+		@Autowired
+		@Qualifier("pedidoService")
+		private IPedidoService pedidoService;
 
 		@Autowired
 		@Qualifier("productoConverter")
@@ -31,7 +40,7 @@ import com.unla.grupo_2_oo2_2020.services.IProductoService;
 		@GetMapping("")
 		public ModelAndView index() {
 			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_INDEX);
-			mAV.addObject("productos", productoService.getAll());
+			//mAV.addObject("productos", productoService.getAll());
 			return mAV;
 		}
 
@@ -46,6 +55,24 @@ import com.unla.grupo_2_oo2_2020.services.IProductoService;
 		public ModelAndView get(@PathVariable("idProducto") long id) {
 			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_UPDATE);
 			mAV.addObject("producto", productoService.findById(id));
+			return mAV;
+		}
+
+		@GetMapping("/ranking")
+		public ModelAndView ranking() {
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_RANKING);
+			
+			List<ProductoAndCantidadModel> result = new ArrayList<ProductoAndCantidadModel>();
+
+	        pedidoService.rankingProductos().entrySet().stream()
+	                .forEach(e -> result.add(new ProductoAndCantidadModel(e.getKey().getNombre(), e.getValue())));
+				mAV.addObject("result",result);
+	        return mAV;
+		}
+
+		@GetMapping("/ventas-entre-fechas")
+		public ModelAndView askdate() {
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_VENTAS);
 			return mAV;
 		}
 

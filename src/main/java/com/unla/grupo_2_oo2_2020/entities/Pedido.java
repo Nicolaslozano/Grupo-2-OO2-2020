@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
@@ -28,22 +30,22 @@ public class Pedido {
 
 	@ManyToOne
 	@JoinColumn(name = "idProducto")
-	@Nullable
+	@NotNull
 	private Producto producto;
 
 	@ManyToOne
 	@JoinColumn(name = "idLocal")
-	@Nullable
+	@NotNull
 	private Local local;
 
 	@ManyToOne
 	@JoinColumn(name = "idCliente")
-	@Nullable
+	@NotNull
 	private Cliente cliente;
 
 	@ManyToOne
 	@JoinColumn(name = "id_vendedor_original")
-	@Nullable
+	@NotNull
 	private Empleado vendedorOriginal;
 
 	@ManyToOne
@@ -51,25 +53,26 @@ public class Pedido {
 	@Nullable
 	 private Empleado vendedorAuxiliar;
 
-	@Column(name = "aceptado")
-	private boolean aceptado;
+	@Column(name = "estado") // 0 RECHAZADO 1 ACEPTADO 2 PENDIENTE
+	private int estado;
 
 	@Column(name = "cantidad")
+	@Min(1)
 	private int cantidad;
 
 	@Column(name = "fecha")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fecha;
 
-	public Pedido(boolean aceptado, int cantidad) {
-		this.aceptado = aceptado;
+	public Pedido(int estado, int cantidad) {
+		this.estado = estado;
 		this.cantidad = cantidad;
 		this.fecha = LocalDate.now();
 	}
 
-	public Pedido(long idPedido, boolean aceptado, int cantidad) {
+	public Pedido(long idPedido, int estado, int cantidad) {
 		this.idPedido = idPedido;
-		this.aceptado = aceptado;
+		this.estado = estado;
 		this.cantidad = cantidad;
 		this.fecha = LocalDate.now();
 	}

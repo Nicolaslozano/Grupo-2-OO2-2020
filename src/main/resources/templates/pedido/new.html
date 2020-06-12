@@ -27,6 +27,10 @@
                                 <input type="hidden" th:field="*{idCliente}" />
                             </div>
 
+                            <div class="form_group">
+                                <input type="hidden" id="idVendedorAuxiliar" value="0" />
+                            </div>
+
                             <!-- Text input-->
 
                             <div class="form-group">
@@ -47,8 +51,8 @@
                                 <label class="col-md-4 control-label">Cantidad</label>
                                 <div class="col-md-4 inputGroupContainer">
                                     <div style="width: 300%" class="input-group">
-                                        <input name="cantidad" value="0" class="form-control" type="number"
-                                            th:field="*{cantidad}">
+                                        <input id="cantidad" name="cantidad" value="0" class="form-control"
+                                            type="number">
                                     </div>
                                 </div>
                             </div>
@@ -57,8 +61,7 @@
                                 <label class="col-md-4 control-label">Local</label>
                                 <div class="col-md-4 selectContainer">
                                     <div style="width: 300%" class="input-group">
-                                        <select id="local" name="local" class="form-control selectpicker"
-                                            th:field="*{idLocal}">
+                                        <select id="local" name="local" class="form-control selectpicker">
                                             <option value="0"> -- </option>
 
                                         </select>
@@ -71,7 +74,7 @@
                                 <div class="col-md-4 selectContainer">
                                     <div style="width: 300%" class="input-group">
                                         <select id="vendedorOriginal" name="vendedorOriginal"
-                                            class="form-control selectpicker" th:field="*{idVendedorOriginal}">
+                                            class="form-control selectpicker">
                                             <option value="0"> -- </option>
 
                                         </select>
@@ -94,28 +97,61 @@
                                 <div id="feedback" class="" role="alert">
                                 </div>
                                 <div id="feedback-buttons" style="float: left; margin-right: 20px">
+                                    <a href="/cliente" class="btn btn-info">Volver</a>
                                 </div>
                             </div>
                         </fieldset>
                     </form>
                 </div>
 
-                <div class="modal fade" id="modalValidLocals" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-sm">
+                <div class="modal fade" id="modalStockExterno" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"
-                                    aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="mySmallModalLabel">Seleccione un local con stock disponible...</h4>
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Seleccione un local con stock disponible
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                            <div class="modal-body">
-                                <ul id="modalValidLocals-list" class="list-group"></ul>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                            <form id="form-pedido-create-pending" method="post">
+                                <div class="modal-body mx-3">
+
+                                    <div class="form_group">
+                                        <input type="hidden" id="estado" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Local</label>
+                                        <div class="col-md-4 selectContainer">
+                                            <div style="width: 300%" class="input-group">
+                                                <select id="localAuxiliar" name="localAuxiliar"
+                                                    class="form-control selectpicker">
+                                                    <option value="0"> -- </option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label">Vendedor auxiliar</label>
+                                        <div class="col-md-4 selectContainer">
+                                            <div style="width: 300%" class="input-group">
+                                                <select id="vendedorAuxiliar" name="vendedorAuxiliar"
+                                                    class="form-control selectpicker">
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-info">Enviar</button>
+                                    <a id="submit-cancel" data-dismiss="modal" class="btn btn-danger">Cancelar</a>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -172,7 +208,6 @@
 
             // cuando cambio de local, pide los empleados de aquel local
             $("#local").change(function () {
-
                 $.ajax({
                     url: "/api/empleado/getEmpleados/" + $("#local").val(),
                     type: 'GET',
@@ -182,6 +217,10 @@
                             empleados = JSON.parse(data);
                         }
                         $("#vendedorOriginal").empty();
+
+                        $("#vendedorOriginal").append($("<option></option>",
+                            { "value": 0, "text": "--" }));
+
                         $.each(empleados, function (index, empleado) {
                             $("#vendedorOriginal").append($("<option></option>",
                                 { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
@@ -190,6 +229,27 @@
                     error: function (result) { console.log(["error", result]); },
                 });
             });
+
+            $("#localAuxiliar").change(function () {
+                $.ajax({
+                    url: "/api/empleado/getEmpleados/" + $("#localAuxiliar").val(),
+                    type: 'GET',
+                    success: function (data) {
+                        var empleados = data;
+                        if (typeof (data) == "string") {
+                            empleados = JSON.parse(data);
+                        }
+                        $("#vendedorAuxiliar").empty();
+
+                        $.each(empleados, function (index, empleado) {
+                            $("#vendedorAuxiliar").append($("<option></option>",
+                                { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
+                        })
+                    },
+                    error: function (result) { console.log(["error", result]); },
+                });
+            });
+
         });
     </script>
     <script type="text/javascript" src="/js/auth/Pedido.js"></script>

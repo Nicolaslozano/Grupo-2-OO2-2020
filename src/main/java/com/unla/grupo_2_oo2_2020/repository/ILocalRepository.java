@@ -13,5 +13,7 @@ public interface ILocalRepository extends JpaRepository<Local, Serializable> {
 
     public abstract Local findByIdLocal(long idLocal);
 
+    public abstract Local findByDireccion(String direccion);
+
     public abstract List<Local> findAll();
 }
