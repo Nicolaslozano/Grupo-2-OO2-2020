@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:include="fragments/head :: head"></th:block>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <th:block th:include="fragments/navbar :: navbar"></th:block>
+
+      <section id="tabs" class="list-tab">
+
+        <div class="container">
+
+          <div class="row">
+
+            <div class="col-md-12">
+
+              <div class="tab-content" id="nav-tabContent">
+
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <table class="table" cellspacing="0">
+                    <thead>
+
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                      </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                      <tr th:each="result : ${result}">
+                        <td><span th:text="${result.nombre}" /></td>
+                        <td><span th:text="${result.fecha}" /></td>
+                       
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <th:block th:include="fragments/bottom :: bottom"></th:block>
+</body>
+
+</html>
