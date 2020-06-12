@@ -27,5 +27,11 @@ public class StaticValuesHelper {
     public final static String SUCCESS_CREATED = "success_created";
     public final static String ORDER_REJECTED = "order_rejected";
     public final static String ORDER_ACCEPTED = "order_accepted";
+    public final static String ORDER_PENDING = "order_pending";
+    public final static String ORDER_PENDING_SENT = "order_pending_sent";
+
+    public final static int PEDIDO_RECHAZADO = 0;
+    public final static int PEDIDO_ACEPTADO = 1;
+    public final static int PEDIDO_PENDIENTE = 2;
 
 }

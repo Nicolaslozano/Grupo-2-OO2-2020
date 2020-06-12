@@ -12,11 +12,11 @@ public class PedidoConverter {
 		return new PedidoModel(pedido.getIdPedido(), pedido.getProducto().getIdProducto(), pedido.getCantidad(),
 				pedido.getLocal().getIdLocal(), pedido.getCliente().getIdPersona(),
 				pedido.getVendedorOriginal().getIdPersona(), pedido.getVendedorAuxiliar().getIdPersona(),
-				pedido.isAceptado(), pedido.getFecha());
+				pedido.getEstado(), pedido.getFecha());
 	}
 
 	public Pedido modelToEntity(PedidoModel pedidoModel) {
-		return new Pedido(pedidoModel.getIdPedido(), pedidoModel.isAceptado(), pedidoModel.getCantidad());
+		return new Pedido(pedidoModel.getIdPedido(), pedidoModel.getEstado(), pedidoModel.getCantidad());
 
 	}
 }

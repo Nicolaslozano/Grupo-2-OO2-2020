@@ -53,8 +53,8 @@ public class Pedido {
 	@Nullable
 	 private Empleado vendedorAuxiliar;
 
-	@Column(name = "aceptado")
-	private boolean aceptado;
+	@Column(name = "estado") // 0 RECHAZADO 1 ACEPTADO 2 PENDIENTE
+	private int estado;
 
 	@Column(name = "cantidad")
 	@Min(1)
@@ -64,15 +64,15 @@ public class Pedido {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fecha;
 
-	public Pedido(boolean aceptado, int cantidad) {
-		this.aceptado = aceptado;
+	public Pedido(int estado, int cantidad) {
+		this.estado = estado;
 		this.cantidad = cantidad;
 		this.fecha = LocalDate.now();
 	}
 
-	public Pedido(long idPedido, boolean aceptado, int cantidad) {
+	public Pedido(long idPedido, int estado, int cantidad) {
 		this.idPedido = idPedido;
-		this.aceptado = aceptado;
+		this.estado = estado;
 		this.cantidad = cantidad;
 		this.fecha = LocalDate.now();
 	}

@@ -67,6 +67,11 @@ public class LocalService implements ILocalService {
     }
 
     @Override
+    public Local findByDireccion(String direccion) {
+        return localRepository.findByDireccion(direccion);
+    }
+
+    @Override
     public LocalModel insertOrUpdate(LocalModel localModel) {
 
         Local local = localConverter.modelToEntity(localModel);
@@ -96,7 +101,7 @@ public class LocalService implements ILocalService {
         Local pedidoLocal = findById(pedidoModel.getIdLocal());
         PedidoModel pedidoExterno = new PedidoModel(0, pedidoModel.getIdProducto(), pedidoModel.getCantidad(),
                 pedidoModel.getIdLocal(), pedidoModel.getIdCliente(), pedidoModel.getIdVendedorOriginal(),
-                pedidoModel.getIdVendedorAuxiliar(), pedidoModel.isAceptado(), pedidoModel.getFecha());
+                pedidoModel.getIdVendedorAuxiliar(), pedidoModel.getEstado(), pedidoModel.getFecha());
 
         // mapa para guardar locales y sus distancias con respecto al original
         Map<LocalModel, Double> distanceMap = new HashMap<>();
