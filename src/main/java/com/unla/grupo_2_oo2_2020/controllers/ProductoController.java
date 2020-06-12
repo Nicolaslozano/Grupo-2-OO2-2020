@@ -1,5 +1,9 @@
 package com.unla.grupo_2_oo2_2020.controllers;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,7 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import com.unla.grupo_2_oo2_2020.converters.ProductoConverter;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
+import com.unla.grupo_2_oo2_2020.models.LocalModel;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
+import com.unla.grupo_2_oo2_2020.models.structlike.DateAndDateModel;
+import com.unla.grupo_2_oo2_2020.models.structlike.ProductoAndCantidadModel;
+import com.unla.grupo_2_oo2_2020.models.structlike.ProductoAndDateModel;
+import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
 
 
@@ -23,6 +32,10 @@ import com.unla.grupo_2_oo2_2020.services.IProductoService;
 		@Autowired
 		@Qualifier("productoService")
 		private IProductoService productoService;
+		
+		@Autowired
+		@Qualifier("pedidoService")
+		private IPedidoService pedidoService;
 
 		@Autowired
 		@Qualifier("productoConverter")
@@ -52,14 +65,36 @@ import com.unla.grupo_2_oo2_2020.services.IProductoService;
 		@GetMapping("/ranking")
 		public ModelAndView ranking() {
 			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_RANKING);
+			
+			List<ProductoAndCantidadModel> result = new ArrayList<ProductoAndCantidadModel>();
+
+	        pedidoService.rankingProductos().entrySet().stream()
+	                .forEach(e -> result.add(new ProductoAndCantidadModel(e.getKey().getNombre(), e.getValue())));
+				mAV.addObject("result",result);
+	        return mAV;
+		}
+
+		@GetMapping("/daterequiered")
+		public ModelAndView askdate() {
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_BETWEENDATE);
+			mAV.addObject("dates_models", new DateAndDateModel());
+
 			return mAV;
 		}
 
-		@GetMapping("/ventas-entre-fechas")
-		public ModelAndView ventas() {
+		@PostMapping("/ventas-entre-fechas")
+		public ModelAndView ventas(@ModelAttribute("dates_models") DateAndDateModel date) {
 			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_VENTAS);
+
+			List<ProductoAndDateModel> result = new ArrayList<ProductoAndDateModel>();
+
+			pedidoService.productosEntreFechas(date.getFecha1(), date.getFecha2()).entrySet().stream()
+					.forEach(e -> result.add(new ProductoAndDateModel(e.getKey().getNombre(), e.getValue())));
+
+			mAV.addObject("result", result);
 			return mAV;
 		}
+		
 
 		@PostMapping("/create")
 		public RedirectView create(@ModelAttribute("producto") ProductoModel productoModel) {
