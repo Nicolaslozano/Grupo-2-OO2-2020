@@ -30,19 +30,13 @@
 
                       <tr>
                         <th>Nombre</th>
-                        <th>Fecha</th>
+                        <th>Cantidad</th>
                       </tr>
 
                     </thead>
 
-                    <tbody>
+                    <tbody id="producto-rows">
 
-                      <tr th:each="result : ${result}">
-                        <td><span th:text="${result.nombre}" /></td>
-                        <td><span th:text="${result.fecha}" /></td>
-                       
-                        </td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -53,6 +47,47 @@
         </div>
       </section>
 
+      <div class="modal fade" id="modalFechas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">Seleccione dos fechas...</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form id="form-producto-getEntreFechas" method="post">
+              <div class="modal-body mx-3">
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Fecha 1</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%" class="input-group">
+                      <input name="fecha1" class="form-control" type="date" id="fecha1">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Fecha 2</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%" class="input-group">
+                      <input name="fecha2" class="form-control" type="date" id="fecha2">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer d-flex justify-content-center">
+                  <button type="submit" class="btn btn-info">Aceptar</button>
+                  <a id="submit-cancel" data-dismiss="modal" class="btn btn-danger">Cancelar</a>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
 
     </div>
     <!-- /#page-content-wrapper -->
@@ -61,6 +96,55 @@
   <!-- /#wrapper -->
 
   <th:block th:include="fragments/bottom :: bottom"></th:block>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#modalFechas").modal('show');
+
+      $("#form-producto-getEntreFechas").submit(function (e) {
+        e.preventDefault();
+
+        var dateModels = {};
+
+        dateModels["fecha1"] = $("#fecha1").val();
+        dateModels["fecha2"] = $("#fecha2").val();
+
+        submitFechas(dateModels);
+        $("#modalFechas").modal('hide');
+      });
+
+      function submitFechas(dateModels) {
+
+        $.ajax({
+        url: "/api/producto/getProductosEntreFechas",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(dateModels),
+        cache: false,
+        success: function (data) {
+          var productos = data;
+          if (typeof data == "string") {
+            productos = JSON.parse(data);
+          }
+          $.each(productos, function (index, producto) {
+            $("#producto-rows").append(
+              $("<tr></tr>").append(
+                $("<td></td>").append(
+                  $("<span></span>", { text: producto.nombre })
+                ),
+                $("<td></td>").append(
+                  $("<span></span>", { text: producto.cantidad })
+                ),
+              )
+            );
+          });
+        },
+        error: function (result) {
+          console.log(["error getting productos", result]);
+        },
+      });
+      }
+    });
+  </script>
 </body>
 
 </html>

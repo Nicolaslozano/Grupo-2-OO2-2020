@@ -26,6 +26,6 @@ public interface IPedidoService {
 	
 	public Map<ProductoModel, Integer> rankingProductos();
 
-	Map<ProductoModel, LocalDate> productosEntreFechas(LocalDate fecha1, LocalDate fecha2);
+	Map<ProductoModel, Integer> productosEntreFechas(LocalDate fecha1, LocalDate fecha2);
 
 }

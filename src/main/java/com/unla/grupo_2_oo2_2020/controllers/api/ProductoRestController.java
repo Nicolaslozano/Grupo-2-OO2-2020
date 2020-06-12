@@ -64,12 +64,12 @@ public class ProductoRestController {
     }
 
     @PostMapping("/getProductosEntreFechas")
-    public ResponseEntity<?> getProductosEntreFechas(@RequestBody DateAndDateModel fechasModel) {
+    public ResponseEntity<?> getProductosEntreFechas(@RequestBody DateAndDateModel dateModels) {
 
-        List<ProductoAndDateModel> result = new ArrayList<ProductoAndDateModel>();
+        List<ProductoAndCantidadModel> result = new ArrayList<ProductoAndCantidadModel>();
 
-        pedidoService.productosEntreFechas(fechasModel.getFecha1(), fechasModel.getFecha2()).entrySet().stream()
-                .forEach(e -> result.add(new ProductoAndDateModel(e.getKey().getNombre(), e.getValue())));
+        pedidoService.productosEntreFechas(dateModels.getFecha1(), dateModels.getFecha2()).entrySet().stream()
+                .forEach(e -> result.add(new ProductoAndCantidadModel(e.getKey().getNombre(), e.getValue())));
 
         return ResponseEntity.ok(result);
     }

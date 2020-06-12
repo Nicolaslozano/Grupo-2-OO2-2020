@@ -53,17 +53,4 @@ public class LocalController {
 		return mAV;
 	}
 
-	@PostMapping("/calculate")
-	public ModelAndView calculate(@ModelAttribute("local_models") LocalFormModel local_models) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOCAL_CALCULAR_DISTANCIA);
-		Local localSelected1 = localService.findById(local_models.getIdLocal_1());
-		Local localSelected2 = localService.findById(local_models.getIdLocal_2());
-		mAV.addObject("locales", localService.getAll());
-		mAV.addObject("localSelected1", localSelected1);
-		mAV.addObject("localSelected2", localSelected2);
-		mAV.addObject("distance",localSelected1.calculateDistance(localSelected2));
-
-		return mAV;
-	}
-
 }

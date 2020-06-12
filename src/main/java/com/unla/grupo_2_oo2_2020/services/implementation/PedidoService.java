@@ -29,8 +29,6 @@ import static java.util.stream.Collectors.*;
 
 import java.time.LocalDate;
 
-import static java.util.Map.Entry.*;
-
 @Service("pedidoService")
 public class PedidoService implements IPedidoService {
 
@@ -105,13 +103,22 @@ public class PedidoService implements IPedidoService {
     public Map<ProductoModel, Integer> rankingProductos() {
 
         Map<ProductoModel, Integer> rankingmap = new HashMap<>();
+        ProductoModel productoAuxiliar = new ProductoModel();
 
         for (Pedido pedidos : getAll()) {
             if (pedidos.getEstado() != StaticValuesHelper.PEDIDO_ACEPTADO)
                 continue;
-            rankingmap.put(
-                    productoConverter.entityToModel(productoService.findById(pedidos.getProducto().getIdProducto())),
-                    pedidos.getCantidad());
+
+            productoAuxiliar = productoConverter
+                    .entityToModel(productoService.findById(pedidos.getProducto().getIdProducto()));
+
+            if (rankingmap.get(productoAuxiliar) != null) { // si el producto ya se contó, que sume lo que ya estaba
+
+                rankingmap.put(productoAuxiliar, pedidos.getCantidad() + rankingmap.get(productoAuxiliar));
+            } else {
+
+                rankingmap.put(productoAuxiliar, pedidos.getCantidad());
+            }
 
         }
         Map<ProductoModel, Integer> sorted = rankingmap.entrySet().stream()
@@ -122,21 +129,33 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
-    public Map<ProductoModel, LocalDate> productosEntreFechas(LocalDate fecha1, LocalDate fecha2) {
+    public Map<ProductoModel, Integer> productosEntreFechas(LocalDate fecha1, LocalDate fecha2) {
 
-        Map<ProductoModel, LocalDate> entrefechas = new HashMap<>();
+        Map<ProductoModel, Integer> entreFechas = new HashMap<>();
+        ProductoModel productoAuxiliar = new ProductoModel();
 
         for (Pedido pedidos : getAll()) {
             if (pedidos.getEstado() != StaticValuesHelper.PEDIDO_ACEPTADO)
                 continue;
-            if (pedidos.getFecha().isAfter(fecha1) && pedidos.getFecha().isBefore(fecha2)) {
-                entrefechas.put(productoConverter.entityToModel(
-                        productoService.findById(pedidos.getProducto().getIdProducto())), pedidos.getFecha());
+            if ((pedidos.getFecha().isAfter(fecha1) || pedidos.getFecha().isEqual(fecha1))
+                    && (pedidos.getFecha().isBefore(fecha2) || pedidos.getFecha().isEqual(fecha2))) {
+
+                productoAuxiliar = productoConverter
+                        .entityToModel(productoService.findById(pedidos.getProducto().getIdProducto()));
+
+                if (entreFechas.get(productoAuxiliar) != null) {
+
+                    entreFechas.put(productoAuxiliar, pedidos.getCantidad() + entreFechas.get(productoAuxiliar));
+                } else {
+
+                    entreFechas.put(productoAuxiliar, pedidos.getCantidad());
+                }
+
             }
 
         }
 
-        return entrefechas;
+        return entreFechas;
     }
 
     @Override
