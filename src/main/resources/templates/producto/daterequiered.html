@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <th:block th:include="fragments/head :: head"></th:block>
+</head>
+
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <th:block th:include="fragments/navbar :: navbar"></th:block>
+
+            <div class="container">
+                <div class="form">
+                    <form class="well form-horizontal" id="form-ask-fechas">
+                        <fieldset>
+
+                        
+                            
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Fecha 1</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="fecha1" value="0" class="form-control" type="date" id="fecha1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Fecha 2</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%" class="input-group">
+                                        <input name="fecha2" value="0" class="form-control" type="date" id="fecha2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Button -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="col-md-4"><br>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                                        type="submit"
+                                        class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspBUSCAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
+                     
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <!-- /ClassForm -->
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
