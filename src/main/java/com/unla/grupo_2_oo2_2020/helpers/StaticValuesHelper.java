@@ -34,7 +34,7 @@ public class StaticValuesHelper {
     public final static int PEDIDO_ACEPTADO = 1;
     public final static int PEDIDO_PENDIENTE = 2;
     
-    
+    public final static double SUELDO_BASICO = 18000;
     public final static double COMISION_ORIGINAL = 0.05;
     public final static double COMISION_ORIGINALSUP = 0.03;
     public final static double COMISION_AUXILIAR = 0.02;

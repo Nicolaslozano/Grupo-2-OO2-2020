@@ -71,6 +71,11 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
+    public List<Pedido> getAccepted() {
+        return pedidoRepository.findAccepted();
+    }
+
+    @Override
     public Pedido findById(long idPedido) {
         return pedidoRepository.findByIdPedido(idPedido);
     }
@@ -135,7 +140,7 @@ public class PedidoService implements IPedidoService {
         Map<ProductoModel, Integer> entreFechas = new HashMap<>();
         ProductoModel productoAuxiliar = new ProductoModel();
         List<Pedido> pedidos;
-        if(local != null) {
+        if (local != null) {
             pedidos = findByLocal(local);
         } else {
             pedidos = getAll();
@@ -166,8 +171,12 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
-    public double getTotal(PedidoModel pedidoModel) {
+    public double getTotal(Pedido pedido) {
+        return ((productoService.findById(pedido.getProducto().getIdProducto())).getPrecio() * pedido.getCantidad());
+    }
 
+    @Override
+    public double getTotal(PedidoModel pedidoModel) {
         return ((productoService.findById(pedidoModel.getIdProducto())).getPrecio() * pedidoModel.getCantidad());
     }
 

@@ -33,7 +33,6 @@ public class EmpleadoController {
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_INDEX);
 		mAV.addObject("empleados", empleadoService.getAll());
-		mAV.addObject("empleados", empleadoService.calcularSueldo(6, empleadoConverter.entityToModel(empleadoService.findByDni(36962125))));
 		return mAV;
 	}
 

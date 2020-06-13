@@ -13,9 +13,7 @@ import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Pedido;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
-import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.repository.IEmpleadoRepository;
-import com.unla.grupo_2_oo2_2020.repository.IPedidoRepository;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
@@ -26,33 +24,30 @@ public class EmpleadoService implements IEmpleadoService {
 	@Autowired
 	@Qualifier("empleadoRepository")
 	private IEmpleadoRepository empleadoRepository;
-	
-	
+
 	@Autowired
 	@Qualifier("pedidoConverter")
 	private PedidoConverter pedidoConverter;
-	
+
 	@Autowired
 	@Qualifier("empleadoConverter")
 	private EmpleadoConverter empleadoConverter;
-	
+
 	@Autowired
 	@Qualifier("pedidoService")
 	private IPedidoService pedidoService;
-	
+
 	@Autowired
 	@Qualifier("localService")
 	private ILocalService localService;
 
 	@Override
 	public Empleado findById(long idPersona) {
-
 		return empleadoRepository.findByIdPersona(idPersona);
 	}
 
 	@Override
 	public Empleado findByIdFetchEagerly(long idPersona) {
-
 		return empleadoRepository.findByIdPersona_wDependencies(idPersona);
 	}
 
@@ -80,11 +75,10 @@ public class EmpleadoService implements IEmpleadoService {
 
 	@Override
 	public double calcularSueldo(int mes, EmpleadoModel empleadoModel) {
-		double sueldo = 0;
+		double sueldo = StaticValuesHelper.SUELDO_BASICO;
 		double porcentajesueldo;
 
-		for (Pedido pedido : pedidoService.findByLocal(localService.findById(empleadoModel.getIdLocal()))) {
-			
+		for (Pedido pedido : pedidoService.getAccepted()) {
 
 			porcentajesueldo = 0;
 
@@ -93,21 +87,18 @@ public class EmpleadoService implements IEmpleadoService {
 				if (pedido.getVendedorOriginal().getDni() == empleadoModel.getDni()
 						&& pedido.getVendedorAuxiliar() == null) {
 
-					porcentajesueldo = pedidoService.getTotal(pedidoConverter.entityToModel(pedido))
-							* StaticValuesHelper.COMISION_ORIGINAL;
+					porcentajesueldo = pedidoService.getTotal(pedido) * StaticValuesHelper.COMISION_ORIGINAL;
 					sueldo += porcentajesueldo;
-					
-					}else if (pedido.getVendedorAuxiliar() != null) {
+
+				} else if (pedido.getVendedorAuxiliar() != null) {
 
 					if (pedido.getVendedorOriginal().getDni() == empleadoModel.getDni()) {
-						porcentajesueldo = pedidoService.getTotal(pedidoConverter.entityToModel(pedido))
-								* StaticValuesHelper.COMISION_ORIGINALSUP;
+						porcentajesueldo = pedidoService.getTotal(pedido) * StaticValuesHelper.COMISION_ORIGINALSUP;
 						sueldo += porcentajesueldo;
 
 					}
 					if (pedido.getVendedorAuxiliar().getDni() == empleadoModel.getDni()) {
-						porcentajesueldo = pedidoService.getTotal(pedidoConverter.entityToModel(pedido)) 
-								* StaticValuesHelper.COMISION_AUXILIAR;
+						porcentajesueldo = pedidoService.getTotal(pedido) * StaticValuesHelper.COMISION_AUXILIAR;
 						sueldo += porcentajesueldo;
 
 					}
@@ -117,10 +108,9 @@ public class EmpleadoService implements IEmpleadoService {
 			}
 
 		}
-		return sueldo;
+		return Math.round(sueldo);
 	}
-	
-	
+
 	@Override
 	public void removeById(long idPersona) {
 		empleadoRepository.deleteById(idPersona);
