@@ -27,7 +27,7 @@
                         <th>Apellido</th>
                         <th>DNI</th>
                         <th>Email</th>
-                        <th><img src="/assets/bootstrap-icons/pencil-square.svg" alt="" width="45" height="20" title="Modificar"></th>
+                        <th><img src="/assets/bootstrap-icons/pencil-square.svg" alt="" width="90" height="20" title="Modificar"></th>
                         <th><img src="/assets/bootstrap-icons/truck.svg" alt="" width="110" height="23" title="Pedido"></th>
                         <th><img src="/assets/bootstrap-icons/trash.svg" alt="" width="70" height="20" title="Eliminar"></th>
                       </tr>
@@ -39,7 +39,7 @@
                         <td><span th:text="${cliente.dni}" /></td>
                         <td><span th:text="${cliente.email}" /></td>
                         <td>
-                          <a class="btn btn-info" th:href="@{/cliente/{id}(id=${cliente.idPersona})}">Ver</a>
+                          <a class="btn btn-info" th:href="@{/cliente/{id}(id=${cliente.idPersona})}">Modificar</a>
                         </td>
                         <td>
                           <a class="btn btn-info" th:href="@{/pedido/new/{id}(id=${cliente.idPersona})}">Hacer Pedido</a>

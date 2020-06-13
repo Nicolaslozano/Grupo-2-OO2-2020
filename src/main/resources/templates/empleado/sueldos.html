@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<th:block th:include="fragments/head :: head"></th:block>
+
+<body>
+
+  <div class="d-flex" id="wrapper">
+
+    <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <th:block th:include="fragments/navbar :: navbar"></th:block>
+
+      <section id="tabs" class="list-tab">
+
+        <div class="container">
+
+          <div class="row">
+
+            <div class="col-md-12">
+
+              <div class="tab-content" id="nav-tabContent">
+
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                  <table class="table" cellspacing="0">
+                    <thead>
+
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>DNI</th>
+                        <th>Trabajo</th>
+                        <th>Sueldo</th>
+                      <!-- EL SCROLLDOWN QUE ME PEDISTE ESTA ABAJO -->
+                      </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                      <tr th:each="empleado : ${empleados}">
+                        <td><span th:text="${empleado.nombre}" /></td>
+                        <td><span th:text="${empleado.apellido}" /></td>
+                        <td><span th:text="${empleado.dni}" /></td>
+                        <td><span th:text="${empleado.local.direccion}" /></td>
+        
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+		<!-- EL SCROLLDOWN QUE ME PEDISTE -->
+		<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Filtrar por Local
+						</button>
+						<div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+							<li th:each=" local : ${locales}">
+								<a class="dropdown-item" th:text="${local.direccion}"
+									th:href="@{/stock/{id}(id=${local.idLocal})}">
+								</a>
+							</li>
+						</div>
+					</div>
+			<!-- EL SCROLLDOWN QUE ME PEDISTE -->
+
+  <th:block th:include="fragments/bottom :: bottom"></th:block>
+</body>
+
+</html>

@@ -33,6 +33,7 @@ public class ViewRouteHelper {
     public final static String EMPLEADO_INDEX = "empleado/index";
     public final static String EMPLEADO_NEW = "empleado/new";
     public final static String EMPLEADO_UPDATE = "empleado/update";
+    public final static String EMPLEADO_SUELDO = "empleado/sueldo";
 
     //PRODUCTOS
     public final static String PRODUCTO_INDEX = "producto/index";
