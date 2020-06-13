@@ -22,6 +22,8 @@ public interface IEmpleadoService {
     public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel);
 
 	public void removeById(long idPersona);
+
+	double calcularSueldo(int mes, EmpleadoModel empleadoModel);
 	
 
 
