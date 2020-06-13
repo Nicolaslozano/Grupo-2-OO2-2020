@@ -30,15 +30,15 @@
 												<th>Cantidad</th>
 												<th>Local</th>
 												<th>Cliente</th>
-												<th>VendedorOriginal</th>
-												<th>VendedorAuxiliar</th>
+												<th>Vendedor Original</th>
+												<th>Vendedor Auxiliar</th>
 												<th>Fecha</th>
-												<th>Estado</th>
 												<th>Gestion</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="pedido : ${pedidos}" th:class="${pedido.estado ==1} ? greenbg : (${pedido.estado==2} ? yellowbg : redbg)"> 
+											<tr th:each="pedido : ${pedidos}"
+												th:class="${pedido.estado ==1} ? greenbg : (${pedido.estado==2} ? yellowbg : redbg)">
 												<!-- https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#simple-conditionals-if-and-unless -->
 												<td><span th:text="${pedido.producto.nombre}" /></td>
 												<td><span th:text="${pedido.cantidad}" /></td>
@@ -48,7 +48,6 @@
 												<td><span th:if="${pedido.vendedorAuxiliar !=null}"
 														th:text="${pedido.vendedorAuxiliar.dni}" /></td>
 												<td><span th:text="${pedido.fecha}" /></td>
-												<td><span th:text="${pedido.estado}" /></td>
 												<td>
 													<form th:if="${pedido.estado} == 2" class="form-pedido-handle">
 														<div class="form_group">
@@ -155,7 +154,7 @@
 									</div>
 								</div>
 								<div class="modal-footer d-flex justify-content-center">
-									<a data-dismiss="modal" class="btn btn-info">Aceptar</a>
+									<a href="" class="btn btn-info">Aceptar</a>
 								</div>
 							</div>
 						</div>
