@@ -38,7 +38,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="pedido : ${pedidos}">
+											<tr th:each="pedido : ${pedidos}" th:class="${pedido.estado ==1} ? greenbg : (${pedido.estado==2} ? yellowbg : redbg)"> 
 												<!-- https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#simple-conditionals-if-and-unless -->
 												<td><span th:text="${pedido.producto.nombre}" /></td>
 												<td><span th:text="${pedido.cantidad}" /></td>
