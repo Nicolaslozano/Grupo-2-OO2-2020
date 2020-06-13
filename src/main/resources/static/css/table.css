@@ -43,10 +43,14 @@
     overflow-x: hidden;
 }
 .greenbg{
-	background-color:  #40d300  
+	background-color:  #006907  
 	
 }
 .redbg{
-	background-color: red
+	background-color: #a61c1c
+	
+}
+.yellowbg{
+	background-color: #a6a307
 	
 }
