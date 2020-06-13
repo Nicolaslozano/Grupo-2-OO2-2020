@@ -18,6 +18,53 @@
 
         <div class="container">
 
+          <section>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <form id="form-producto-getEntreFechas" class="form-inline">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Local</label>
+                        <div class="col-md-4 selectContainer">
+                          <div class="input-group">
+                            <select id="filterLocal" name="filterLocal" class="selectpicker">
+                              <option value="0"> -- </option>
+
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Fecha 1</label>
+                        <div class="col-md-4 inputGroupContainer">
+                          <div style="width: 300%" class="input-group">
+                            <input name="fecha1" class="form-control" type="date" id="fecha1">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Fecha 2</label>
+                        <div class="col-md-4 inputGroupContainer">
+                          <div style="width: 300%" class="input-group">
+                            <input name="fecha2" class="form-control" type="date" id="fecha2">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div style="position: relative;left: 100px;" class="" align="center">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <div class="row">
 
             <div class="col-md-12">
@@ -45,48 +92,10 @@
             </div>
           </div>
         </div>
+
       </section>
 
-      <div class="modal fade" id="modalFechas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header text-center">
-              <h4 class="modal-title w-100 font-weight-bold">Seleccione dos fechas...</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form id="form-producto-getEntreFechas" method="post">
-              <div class="modal-body mx-3">
 
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Fecha 1</label>
-                  <div class="col-md-4 inputGroupContainer">
-                    <div style="width: 300%" class="input-group">
-                      <input name="fecha1" class="form-control" type="date" id="fecha1">
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                  <label class="col-md-4 control-label">Fecha 2</label>
-                  <div class="col-md-4 inputGroupContainer">
-                    <div style="width: 300%" class="input-group">
-                      <input name="fecha2" class="form-control" type="date" id="fecha2">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="modal-footer d-flex justify-content-center">
-                  <button type="submit" class="btn btn-info">Aceptar</button>
-                  <a id="submit-cancel" data-dismiss="modal" class="btn btn-danger">Cancelar</a>
-                </div>
-            </form>
-          </div>
-        </div>
-      </div>
 
 
     </div>
@@ -98,7 +107,23 @@
   <th:block th:include="fragments/bottom :: bottom"></th:block>
   <script type="text/javascript">
     $(document).ready(function () {
-      $("#modalFechas").modal('show');
+
+      $.ajax({
+        url: "/api/local/getLocales",
+        type: "GET",
+        success: function (data) {
+          var locales = data;
+          if (typeof (data) == "string") {
+            locales = JSON.parse(data);
+          }
+          $.each(locales, function (index, local) {
+            $("#filterLocal").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
+          });
+        },
+        error: function (result) {
+          console.log(["error getting locales", result]);
+        }
+      });
 
       $("#form-producto-getEntreFechas").submit(function (e) {
         e.preventDefault();
@@ -108,40 +133,40 @@
         dateModels["fecha1"] = $("#fecha1").val();
         dateModels["fecha2"] = $("#fecha2").val();
 
-        submitFechas(dateModels);
-        $("#modalFechas").modal('hide');
+        filterByLocal(dateModels, $("#filterLocal").val());
       });
 
-      function submitFechas(dateModels) {
+      function filterByLocal(dateModels, idLocal) {
 
         $.ajax({
-        url: "/api/producto/getProductosEntreFechas",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(dateModels),
-        cache: false,
-        success: function (data) {
-          var productos = data;
-          if (typeof data == "string") {
-            productos = JSON.parse(data);
-          }
-          $.each(productos, function (index, producto) {
-            $("#producto-rows").append(
-              $("<tr></tr>").append(
-                $("<td></td>").append(
-                  $("<span></span>", { text: producto.nombre })
-                ),
-                $("<td></td>").append(
-                  $("<span></span>", { text: producto.cantidad })
-                ),
-              )
-            );
-          });
-        },
-        error: function (result) {
-          console.log(["error getting productos", result]);
-        },
-      });
+          url: "/api/producto/getProductosEntreFechas" + "/" + idLocal,
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(dateModels),
+          cache: false,
+          success: function (data) {
+            var productos = data;
+            if (typeof data == "string") {
+              productos = JSON.parse(data);
+            }
+            $("#producto-rows").empty();
+            $.each(productos, function (index, producto) {
+              $("#producto-rows").append(
+                $("<tr></tr>").append(
+                  $("<td></td>").append(
+                    $("<span></span>", { text: producto.nombre })
+                  ),
+                  $("<td></td>").append(
+                    $("<span></span>", { text: producto.cantidad })
+                  ),
+                )
+              );
+            });
+          },
+          error: function (result) {
+            console.log(["error getting productos", result]);
+          },
+        });
       }
     });
   </script>
