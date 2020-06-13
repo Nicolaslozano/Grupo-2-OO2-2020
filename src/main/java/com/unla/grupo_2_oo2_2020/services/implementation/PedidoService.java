@@ -14,6 +14,7 @@ import com.unla.grupo_2_oo2_2020.converters.ProductoConverter;
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Pedido;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
+import com.unla.grupo_2_oo2_2020.models.LocalModel;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
 import com.unla.grupo_2_oo2_2020.repository.IPedidoRepository;
@@ -129,26 +130,32 @@ public class PedidoService implements IPedidoService {
     }
 
     @Override
-    public Map<ProductoModel, Integer> productosEntreFechas(LocalDate fecha1, LocalDate fecha2) {
+    public Map<ProductoModel, Integer> productosEntreFechas(LocalDate fecha1, LocalDate fecha2, Local local) {
 
         Map<ProductoModel, Integer> entreFechas = new HashMap<>();
         ProductoModel productoAuxiliar = new ProductoModel();
+        List<Pedido> pedidos;
+        if(local != null) {
+            pedidos = findByLocal(local);
+        } else {
+            pedidos = getAll();
+        }
 
-        for (Pedido pedidos : getAll()) {
-            if (pedidos.getEstado() != StaticValuesHelper.PEDIDO_ACEPTADO)
+        for (Pedido pedido : pedidos) {
+            if (pedido.getEstado() != StaticValuesHelper.PEDIDO_ACEPTADO)
                 continue;
-            if ((pedidos.getFecha().isAfter(fecha1) || pedidos.getFecha().isEqual(fecha1))
-                    && (pedidos.getFecha().isBefore(fecha2) || pedidos.getFecha().isEqual(fecha2))) {
+            if ((pedido.getFecha().isAfter(fecha1) || pedido.getFecha().isEqual(fecha1))
+                    && (pedido.getFecha().isBefore(fecha2) || pedido.getFecha().isEqual(fecha2))) {
 
                 productoAuxiliar = productoConverter
-                        .entityToModel(productoService.findById(pedidos.getProducto().getIdProducto()));
+                        .entityToModel(productoService.findById(pedido.getProducto().getIdProducto()));
 
                 if (entreFechas.get(productoAuxiliar) != null) {
 
-                    entreFechas.put(productoAuxiliar, pedidos.getCantidad() + entreFechas.get(productoAuxiliar));
+                    entreFechas.put(productoAuxiliar, pedido.getCantidad() + entreFechas.get(productoAuxiliar));
                 } else {
 
-                    entreFechas.put(productoAuxiliar, pedidos.getCantidad());
+                    entreFechas.put(productoAuxiliar, pedido.getCantidad());
                 }
 
             }

@@ -1,6 +1,7 @@
 package com.unla.grupo_2_oo2_2020.controllers.api;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,18 +10,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 
-import com.unla.grupo_2_oo2_2020.models.structlike.DateAndDateModel;
+import com.unla.grupo_2_oo2_2020.models.structlike.SalesByLocalModel;
 import com.unla.grupo_2_oo2_2020.models.structlike.ProductoAndCantidadModel;
 import com.unla.grupo_2_oo2_2020.models.structlike.ProductoAndDateModel;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
+import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.unla.grupo_2_oo2_2020.converters.ProductoConverter;
+import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Producto;
 
 @RestController
@@ -34,6 +42,10 @@ public class ProductoRestController {
     @Autowired
     @Qualifier("pedidoService")
     private IPedidoService pedidoService;
+
+    @Autowired
+    @Qualifier("localService")
+    private ILocalService localService;
 
     @Autowired
     @Qualifier("productoConverter")
@@ -63,12 +75,25 @@ public class ProductoRestController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/getProductosEntreFechas")
-    public ResponseEntity<?> getProductosEntreFechas(@RequestBody DateAndDateModel dateModels) {
+    @PostMapping("/getProductosEntreFechas/{idLocal}")
+    public ResponseEntity<?> getProductosEntreFechas(@Valid @RequestBody SalesByLocalModel dateModels,
+            @PathVariable("idLocal") long idLocal, Errors errors) {
 
         List<ProductoAndCantidadModel> result = new ArrayList<ProductoAndCantidadModel>();
+        Local local = localService.findById(idLocal);
+        HashMap<String, String> errorResult = new HashMap<String, String>();
 
-        pedidoService.productosEntreFechas(dateModels.getFecha1(), dateModels.getFecha2()).entrySet().stream()
+        if (errors.hasErrors()) {
+
+            for (ObjectError error : errors.getAllErrors()) {
+
+                errorResult.put(error.getDefaultMessage(), error.getDefaultMessage());
+            }
+
+            return ResponseEntity.badRequest().body(result);
+        }
+
+        pedidoService.productosEntreFechas(dateModels.getFecha1(), dateModels.getFecha2(), local).entrySet().stream()
                 .forEach(e -> result.add(new ProductoAndCantidadModel(e.getKey().getNombre(), e.getValue())));
 
         return ResponseEntity.ok(result);
