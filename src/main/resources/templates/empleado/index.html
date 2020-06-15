@@ -33,7 +33,7 @@
                         <th>Apellido</th>
                         <th>DNI</th>
                         <th>Trabajo</th>
-                        <th><img src="/assets/bootstrap-icons/pencil-square.svg" alt="" width="45" height="20" title="Modificar"></th>
+                        <th><img src="/assets/bootstrap-icons/pencil-square.svg" alt="" width="90" height="20" title="Modificar"></th>
                         <th><img src="/assets/bootstrap-icons/trash.svg" alt="" width="70" height="20" title="Eliminar"><th>
                       </tr>
 
@@ -47,7 +47,7 @@
                         <td><span th:text="${empleado.dni}" /></td>
                         <td><span th:text="${empleado.local.direccion}" /></td>
                         <td>
-                          <a class="btn btn-info" th:href="@{/empleado/{id}(id=${empleado.idPersona})}">Ver</a>
+                          <a class="btn btn-info" th:href="@{/empleado/{id}(id=${empleado.idPersona})}">Modificar</a>
                         </td>
                         <td>
                           <form class="form-empleado-remove">
