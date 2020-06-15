@@ -18,6 +18,20 @@
 
 				<div class="container">
 
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Filtrar por Local
+						</button>
+						<div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
+							<li th:each=" local : ${locales}">
+								<a class="dropdown-item" th:text="${local.direccion}"
+									th:href="@{/stock/{id}(id=${local.idLocal})}">
+								</a>
+							</li>
+						</div>
+					</div>
+
 					<div class="row">
 						<div class="col-md-12">
 							<div class="tab-content" id="nav-tabContent">
@@ -58,19 +72,6 @@
 						</div>
 					</div>
 
-					<div class="dropdown">
-						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Filtrar por Local
-						</button>
-						<div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-							<li th:each=" local : ${locales}">
-								<a class="dropdown-item" th:text="${local.direccion}"
-									th:href="@{/stock/{id}(id=${local.idLocal})}">
-								</a>
-							</li>
-						</div>
-					</div>
 				</div> <!--container-->
 			</section>
 
