@@ -21,7 +21,7 @@ public interface ILoteService {
 
 	public LoteModel insertOrUpdate(LoteModel LoteModel);
 
-	public void removeById(long idLote);
+	public void removeById(long idLote, boolean keepData);
 
 	public void consumirProductos(long idLote, int cantidad);
 }

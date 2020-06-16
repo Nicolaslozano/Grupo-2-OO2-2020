@@ -1,96 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <th:block th:include="fragments/head :: head"></th:block>
-</head>
+  </head>
 
-
-<body>
-
+  <body>
     <div class="d-flex" id="wrapper">
+      <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
-        <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <th:block th:include="fragments/navbar :: navbar"></th:block>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <th:block th:include="fragments/navbar :: navbar"></th:block>
-
-            <div class="container">
-                <div class="form">
-                    <form class="well form-horizontal" id="form-local-create">
-                        <fieldset>
-
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Direccion</label>
-                                <div class="col-md-4 inputGroupContainer">
-                                    <div style="width: 300%" class="input-group">
-                                        <input id="direccion" name="direccion" placeholder="Direccion"
-                                            class="form-control" type="text">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Latitud</label>
-                                <div class="col-md-4 inputGroupContainer">
-                                    <div style="width: 300%" class="input-group">
-                                        <input name="latitud" value="0" class="form-control" type="text" id="latitud">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Text input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Longitud</label>
-                                <div class="col-md-4 inputGroupContainer">
-                                    <div style="width: 300%" class="input-group">
-                                        <input name="longitud" value="0" class="form-control" type="text" id="longitud">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Text input-->
-
-                            <div class="form-group">
-                                <label class="col-md-4 control-label">Telefono</label>
-                                <div class="col-md-4 inputGroupContainer">
-                                    <div style="width: 300%" class="input-group">
-                                        <input name="telefono" value="" class="form-control" type="text" id="telefono">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- Button -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label"></label>
-                                <div class="col-md-4"><br>
-                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                        type="submit"
-                                        class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
-                                </div>
-                            </div>
-                            <div id="feedback">
-                                <br>
-                                <div class="" role="alert">
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
+        <div class="container">
+          <div class="form">
+            <form class="well form-horizontal" id="form-local-create">
+              <fieldset>
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Direccion</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        id="direccion"
+                        name="direccion"
+                        placeholder="Direccion"
+                        class="form-control"
+                        type="text"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <!-- /ClassForm -->
-            </div>
-            <!-- /.container -->
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Latitud</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        name="latitud"
+                        value="0"
+                        class="form-control"
+                        type="text"
+                        id="latitud"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Longitud</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        name="longitud"
+                        value="0"
+                        class="form-control"
+                        type="text"
+                        id="longitud"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Text input-->
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Telefono</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        name="telefono"
+                        value=""
+                        class="form-control"
+                        type="text"
+                        id="telefono"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label"></label>
+                  <div class="col-md-4">
+                    <br />
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                      type="submit"
+                      class="btn btn-warning"
+                    >
+                      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    </button>
+                  </div>
+                </div>
+                <div id="feedback">
+                  <br />
+                  <div class="" role="alert"></div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <!-- /ClassForm -->
         </div>
-        <!-- /#page-content-wrapper -->
+        <!-- /.container -->
+      </div>
+      <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
     <script type="text/javascript" src="/js/auth/Local.js"></script>
-</body>
-
+  </body>
 </html>

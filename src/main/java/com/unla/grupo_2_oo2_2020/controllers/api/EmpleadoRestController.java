@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
-
-import java.util.HashMap;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 import com.unla.grupo_2_oo2_2020.models.structlike.EmpleadoSalarioModel;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
@@ -29,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.unla.grupo_2_oo2_2020.converters.EmpleadoConverter;
 import com.unla.grupo_2_oo2_2020.entities.Empleado;
-import com.unla.grupo_2_oo2_2020.entities.Local;
 
 @RestController
 @RequestMapping("/api/empleado")
@@ -48,7 +45,7 @@ public class EmpleadoRestController {
 	private EmpleadoConverter empleadoConverter;
 
 	@GetMapping("/getEmpleados")
-	public ResponseEntity<List<Empleado>> getEmpleados() {
+	public ResponseEntity<List<EmpleadoModel>> getEmpleados() {
 
 		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
 
@@ -57,7 +54,7 @@ public class EmpleadoRestController {
 			empleados.add(empleadoConverter.entityToModel(empleado));
 		}
 
-		return new ResponseEntity<List<Empleado>>(empleadoService.getAll(), HttpStatus.OK);
+		return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
 	}
 
 	@GetMapping("getEmpleados/{idLocal}")
