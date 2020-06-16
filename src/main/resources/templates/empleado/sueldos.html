@@ -18,6 +18,53 @@
 
         <div class="container">
 
+          <section>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <form id="form-empleado-sueldo" class="form-inline">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Local</label>
+                        <div class="col-md-4 selectContainer">
+                          <div class="input-group">
+                            <select id="filterLocal" name="filterLocal" class="selectpicker">
+                              <option value="0"> -- </option>
+
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="col-md-4 control-label">Mes</label>
+                        <div class="col-md-4 selectContainer">
+                          <div class="input-group">
+                            <select id="filterMonth" name="filterMonth" class="selectpicker">
+                              <option value="1"> Enero </option>
+                              <option value="2"> Febrero </option>
+                              <option value="3"> Marzo </option>
+                              <option value="4"> Abril </option>
+                              <option value="5"> Mayo </option>
+                              <option value="6"> Junio </option>
+                              <option value="7"> Julio </option>
+                              <option value="8"> Agosto </option>
+                              <option value="9"> Septiembre </option>
+                              <option value="10"> Octubre </option>
+                              <option value="11"> Noviembre </option>
+                              <option value="12"> Diciembre </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <div class="row">
 
             <div class="col-md-12">
@@ -32,22 +79,13 @@
                         <th>Nombre</th>
                         <th>Apellido</th>
                         <th>DNI</th>
-                        <th>Trabajo</th>
                         <th>Sueldo</th>
-                      <!-- EL SCROLLDOWN QUE ME PEDISTE ESTA ABAJO -->
                       </tr>
 
                     </thead>
 
-                    <tbody>
+                    <tbody id="empleado-rows">
 
-                      <tr th:each="empleado : ${empleados}">
-                        <td><span th:text="${empleado.nombre}" /></td>
-                        <td><span th:text="${empleado.apellido}" /></td>
-                        <td><span th:text="${empleado.dni}" /></td>
-                        <td><span th:text="${empleado.local.direccion}" /></td>
-        
-                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -65,23 +103,78 @@
   </div>
   <!-- /#wrapper -->
 
-		<!-- EL SCROLLDOWN QUE ME PEDISTE -->
-		<div class="dropdown">
-						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Filtrar por Local
-						</button>
-						<div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton">
-							<li th:each=" local : ${locales}">
-								<a class="dropdown-item" th:text="${local.direccion}"
-									th:href="@{/stock/{id}(id=${local.idLocal})}">
-								</a>
-							</li>
-						</div>
-					</div>
-			<!-- EL SCROLLDOWN QUE ME PEDISTE -->
-
   <th:block th:include="fragments/bottom :: bottom"></th:block>
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      getEmpleadosAndSueldos();
+
+      $.ajax({
+        url: "/api/local/getLocales",
+        type: "GET",
+        success: function (data) {
+          var locales = data;
+          if (typeof (data) == "string") {
+            locales = JSON.parse(data);
+          }
+          $.each(locales, function (index, local) {
+            $("#filterLocal").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
+          });
+        },
+        error: function (result) {
+          console.log(["error getting locales", result]);
+        }
+      });
+
+      $("#filterLocal").change(function (e) {
+        e.preventDefault();
+        getEmpleadosAndSueldos();
+      });
+
+      $("#filterMonth").change(function (e) {
+        e.preventDefault();
+        getEmpleadosAndSueldos();
+      });
+
+      function getEmpleadosAndSueldos() {
+        $.ajax({
+          url: "/api/empleado/getEmpleados/sueldo/" + $("#filterMonth").val() + "/" + $("#filterLocal").val(),
+          type: "GET",
+          success: function (data) {
+            var empleados_sueldos = data;
+            if (typeof data == "string") {
+              empleados_sueldos = JSON.parse(data);
+            }
+
+            $("#empleado-rows").empty();
+
+            $.each(empleados_sueldos, function (index, empleado_sueldo) {
+              $("#empleado-rows").append(
+                $("<tr></tr>").append(
+                  $("<td></td>").append(
+                    $("<span></span>", { text: empleado_sueldo.empleado.nombre })
+                  ),
+                  $("<td></td>").append(
+                    $("<span></span>", { text: empleado_sueldo.empleado.apellido })
+                  ),
+                  $("<td></td>").append(
+                    $("<span></span>", { text: empleado_sueldo.empleado.dni })
+                  ),
+                  $("<td></td>").append(
+                    $("<span></span>", { text: empleado_sueldo.sueldo })
+                  ),
+                )
+              );
+            });
+          },
+          error: function (result) {
+            console.log(["error getting empleados", result]);
+          },
+        });
+      }
+    });
+
+  </script>
 </body>
 
 </html>

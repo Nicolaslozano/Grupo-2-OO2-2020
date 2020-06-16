@@ -44,6 +44,12 @@ public class EmpleadoController {
 		return mAV;
 	}
 
+	@GetMapping("/sueldos")
+	public ModelAndView sueldos() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_SUELDO);
+		return mAV;
+	}
+
 	@GetMapping("/{idPersona}")
 	public ModelAndView get(@PathVariable("idPersona") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_UPDATE);
