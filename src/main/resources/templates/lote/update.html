@@ -1,10 +1,128 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <th:block th:include="fragments/head :: head"></th:block>
+  </head>
 
-</body>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <th:block th:include="fragments/navbar :: navbar"></th:block>
+
+        <div class="container">
+          <div class="form">
+            <form
+              class="well form-horizontal"
+              th:object="${lote}"
+              id="form-lote-update"
+            >
+              <fieldset>
+                <div style="width: 300%;" class="form_group">
+                  <input id="idLote" type="hidden" th:field="*{idLote}" />
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Cantidad inicial</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        disabled
+                        id="cantidadInicial"
+                        name="cantidadInicial"
+                        placeholder="CantidadInicial"
+                        class="form-control"
+                        th:field="*{cantidadInicial}"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Cantidad Actual</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        id="cantidadActual"
+                        name="cantidadActual"
+                        placeholder="CantidadActual"
+                        class="form-control"
+                        th:field="*{cantidadActual}"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Producto</label>
+                  <div class="col-md-4 selectContainer">
+                    <div id="producto" style="width: 300%;" class="input-group">
+                      <select
+                        disabled
+                        name="producto"
+                        class="form-control selectpicker"
+                      >
+                        <option
+                          th:value="${lote.producto.idProducto}"
+                          th:text="${lote.producto.nombre}"
+                        ></option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Local</label>
+                  <div class="col-md-4 selectContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <select
+                        id="local"
+                        name="local"
+                        class="form-control selectpicker"
+                      >
+                        <option
+                          th:each="local : ${locales}"
+                          th:value="${local.idLocal}"
+                          th:text="${local.direccion}"
+                        >
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label"></label>
+                  <div class="col-md-4">
+                    <br />
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                      type="submit"
+                      class="btn btn-warning"
+                    >
+                      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACTUALIZAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    </button>
+                  </div>
+                </div>
+
+                <div id="feedback">
+                  <br />
+                  <div class="" role="alert"></div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <!-- /ClassForm -->
+        </div>
+        <!-- /.container -->
+      </div>
+      <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript" src="/js/auth/Lote.js"></script>
+  </body>
 </html>
