@@ -2,7 +2,12 @@ package com.unla.grupo_2_oo2_2020.models;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +15,11 @@ import lombok.NoArgsConstructor;
 public class ProductoModel {
 
 	private long idProducto;
+	@NotEmpty(message = StaticValuesHelper.NAME_REQUIRED)
 	private String nombre;
+	@NotEmpty(message = StaticValuesHelper.DESCRIPTION_REQUIRED)
 	private String descripcion;
+	@Min(value= 0,message = StaticValuesHelper.PRICE_REQUIRED)
 	private float precio;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaAlta;

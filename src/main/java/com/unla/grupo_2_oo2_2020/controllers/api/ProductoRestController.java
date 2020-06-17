@@ -1,5 +1,6 @@
 package com.unla.grupo_2_oo2_2020.controllers.api;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,10 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-
 import com.unla.grupo_2_oo2_2020.models.structlike.SalesByLocalModel;
 import com.unla.grupo_2_oo2_2020.models.structlike.ProductoAndCantidadModel;
-import com.unla.grupo_2_oo2_2020.models.structlike.ProductoAndDateModel;
+import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
@@ -24,12 +24,31 @@ import com.unla.grupo_2_oo2_2020.services.IProductoService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import javax.validation.Valid;
 
 import com.unla.grupo_2_oo2_2020.converters.ProductoConverter;
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Producto;
+import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
+import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 
 @RestController
 @RequestMapping("/api/producto")
@@ -98,4 +117,49 @@ public class ProductoRestController {
 
         return ResponseEntity.ok(result);
     }
+    
+    @PostMapping("/createProducto")
+    public ResponseEntity<?> createProducto(@Valid @RequestBody ProductoModel productoModel, Errors errors) {
+
+        HashMap<String, String> result = new HashMap<String, String>();
+
+        if (errors.hasErrors()) {
+
+            for (ObjectError error : errors.getAllErrors()) {
+
+                result.put(error.getDefaultMessage(), error.getDefaultMessage());
+            }
+
+            return ResponseEntity.badRequest().body(result);
+        }
+
+        return ResponseEntity.ok(result);
+    }
+
+	@PostMapping("/updateProducto")
+	public ResponseEntity<?> updateProducto(@Valid @RequestBody ProductoModel productoModel, Errors errors) {
+
+		Map<String, String> result = new HashMap<String, String>();
+
+		if (errors.hasErrors()) {
+
+			for (ObjectError error : errors.getAllErrors()) {
+
+				result.put(error.getDefaultMessage(), error.getDefaultMessage());
+			}
+
+			return ResponseEntity.badRequest().body(result);
+
+		} else {
+
+			productoService.insertOrUpdate(productoModel);
+			result.put(StaticValuesHelper.SUCCESS_UPDATED, "Producto actualizado");
+		}
+
+		return ResponseEntity.ok(result);
+	}
+
+
+	
+    
 }

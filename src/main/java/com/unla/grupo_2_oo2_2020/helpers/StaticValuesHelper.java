@@ -15,6 +15,8 @@ public class StaticValuesHelper {
     public final static String SELLER_REQUIRED = "seller_required";
     public final static String CLIENT_REQUIRED = "client_required";
     public final static String QUANTITY_REQUIRED = "quantity_required";
+    public final static String DESCRIPTION_REQUIRED = "description_required";
+    public final static String PRICE_REQUIRED = "price_required";
 
     public final static String EMAIL_ALREADY_EXISTS = "email_already_exists";
     public final static String PERSON_ALREADY_EXISTS = "person_already_exists";
