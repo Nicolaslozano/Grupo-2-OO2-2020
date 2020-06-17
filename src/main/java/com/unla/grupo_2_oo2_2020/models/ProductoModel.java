@@ -19,7 +19,7 @@ public class ProductoModel {
 	private String nombre;
 	@NotEmpty(message = StaticValuesHelper.DESCRIPTION_REQUIRED)
 	private String descripcion;
-	@NotEmpty(message = StaticValuesHelper.PRICE_REQUIRED)
+	@Min(value= 0,message = StaticValuesHelper.PRICE_REQUIRED)
 	private float precio;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaAlta;

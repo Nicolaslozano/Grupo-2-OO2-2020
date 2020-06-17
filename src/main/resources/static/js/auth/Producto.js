@@ -20,7 +20,7 @@ $(document).ready(function () {
         productoModel["precio"] = $("#precio").val();
        
 
-        submitProducto(ProductoModel);
+        submitProducto(productoModel);
     });
     $("#form-producto-update").submit(function (event) {
         event.preventDefault();

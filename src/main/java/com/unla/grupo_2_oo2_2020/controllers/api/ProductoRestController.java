@@ -119,7 +119,7 @@ public class ProductoRestController {
     }
     
     @PostMapping("/createProducto")
-    public ResponseEntity<?> createProducto(@Valid @RequestBody ClienteModel productoModel, Errors errors) {
+    public ResponseEntity<?> createProducto(@Valid @RequestBody ProductoModel productoModel, Errors errors) {
 
         HashMap<String, String> result = new HashMap<String, String>();
 
@@ -159,17 +159,7 @@ public class ProductoRestController {
 		return ResponseEntity.ok(result);
 	}
 
-	@DeleteMapping("/remove/{idProducto}")
-	public ResponseEntity<?> removeProducto(@PathVariable("idProducto") long id) {
 
-		Map<String, String> result = new HashMap<String, String>();
-
-		productoService.removeById(id);
-
-		result.put(StaticValuesHelper.SUCCESS_REMOVED, "Producto eliminado");
-		result.put("redirect", ViewRouteHelper.PRODUCTO_ROOT);
-
-		return ResponseEntity.ok(result);
-	}
+	
     
 }

@@ -17,8 +17,7 @@
             <div class="container">
             	<div class="form">
 
-                <form class="well form-horizontal" action="#" th:action="@{/producto/create}" th:object="${producto}"
-                    method="post" id="contact_form">
+                <form class="well form-horizontal"  id="form-producto-create">
                     <fieldset>
 
                         <!-- Text input-->
@@ -67,6 +66,7 @@
                         placeholder="Precio"
                         class="form-control"
                         type="number"
+                        value="0"
                       />
                     </div>
                   </div>

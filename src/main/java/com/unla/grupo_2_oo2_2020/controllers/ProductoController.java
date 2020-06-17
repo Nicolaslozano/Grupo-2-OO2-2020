@@ -72,5 +72,12 @@ import com.unla.grupo_2_oo2_2020.services.IProductoService;
 			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_VENTAS);
 			return mAV;
 		}
+		
+		@GetMapping("/remove/{idProducto}")
+		public ModelAndView remove(@PathVariable  long id) {
+			ModelAndView mAV = new ModelAndView(ViewRouteHelper.PRODUCTO_ROOT);
+			productoService.removeById(id);
+			return mAV;
+		}
 
 }
