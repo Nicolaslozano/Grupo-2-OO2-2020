@@ -1,16 +1,4 @@
 $(document).ready(function () {
-    $(".form-producto-remove").submit(function (event) {
-        event.preventDefault();
-
-        var dataArray = $(this).serializeArray(),
-        productoModel = {};
-
-        $(dataArray).each(function(i, field){
-        productoModel[field.name] = field.value;
-        });
-
-        removeProducto(prouctoModel);
-    });
     $("#form-producto-create").submit(function (event) {
         event.preventDefault();
         var productoModel = {};
@@ -18,7 +6,6 @@ $(document).ready(function () {
         productoModel["nombre"] = $("#nombre").val();
         productoModel["descripcion"] = $("#descripcion").val();
         productoModel["precio"] = $("#precio").val();
-       
 
         submitProducto(productoModel);
     });
@@ -35,30 +22,10 @@ $(document).ready(function () {
     });
 });
 
-function removeProducto(productoModel) {
-
-    $.ajax({
-        type: "DELETE",
-        contentType: "application/json",
-        data: JSON.stringify(empleadoModel),
-        url: "/api/producto/remove/" + productoModel.idProducto,
-        cache: false,
-        timeout: 600000,
-        success: function (data) {
-
-            if(data.success_removed) {
-
-                window.location.replace(data.redirect);
-            }
-        },
-    });
-}
-
 function submitProducto(productoModel) {
 
     var url;
 
-    //si llega el id es porque estamos actualizando un cliente
     if (productoModel.idProducto) {
         url = "/api/producto/updateProducto";
     } else {

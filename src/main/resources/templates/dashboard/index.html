@@ -1,94 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+  <th:block th:include="fragments/head :: head"></th:block>
 
-<th:block th:include="fragments/head :: head"></th:block>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
-<body>
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <th:block th:include="fragments/navbar :: navbar"></th:block>
 
-  <div class="d-flex" id="wrapper">
+        <div class="container">
+          <header class="jumbotron my-4">
+            <h1 class="display-3">Trabajo Practico Cuatrimestral</h1>
+            <h6>Orientacion a Objetos 2 / UNLa</h6>
+            <p class="lead"></p>
+          </header>
 
-    <th:block th:include="fragments/sidebar :: sidebar"></th:block>
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <th:block th:include="fragments/navbar :: navbar"></th:block>
-
-     <div class="container">
-      <header class="jumbotron my-4">
-        <h1 class="display-3">Trabajo Practico Cuatrimestral</h1>
-        <h6>Orientacion a Objetos 2 / UNLa</h6>
-        <p class="lead"></p>
-      </header>
-
-      <div class="row text-center">
-
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100">
-            <img class="card-img-top" src="/assets/DashBoardImages/universidad_nacional_de_lan--s.png" alt="">
-            <div class="card-body">
-              <h4 class="card-title">UNLa</h4>
-              <p class="card-text">Pagina oficial de la UNLa</p>
+          <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <img
+                  class="card-img-top"
+                  src="/assets/DashBoardImages/universidad_nacional_de_lan--s.png"
+                  alt=""
+                />
+                <div class="card-body">
+                  <h4 class="card-title">UNLa</h4>
+                  <p class="card-text">Pagina oficial de la UNLa</p>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-primary">Conocer mas!</a>
+                </div>
+              </div>
             </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Conocer mas!</a>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <img
+                  class="card-img-top"
+                  src="data:image/png;base64,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"
+                  alt=""
+                />
+                <div class="card-body">
+                  <h4 class="card-title">Repositorio</h4>
+                  <p class="card-text">
+                    Nuestro codigo es totalmente libre de uso
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <a
+                    href="https://github.com/Nicolaslozano/Grupo-2-OO2-2020"
+                    class="btn btn-primary"
+                    >Conocer mas!</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <img
+                  class="card-img-top"
+                  src="https://simpleicon.com/wp-content/uploads/users.png"
+                  alt=""
+                />
+                <div class="card-body">
+                  <h4 class="card-title">Grupo</h4>
+                  <p class="card-text">Nicolas Lozano</p>
+                  <p class="card-text">Alan Blangille</p>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-primary">Conocer mas!</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+              <div class="card h-100">
+                <img
+                  class="card-img-top"
+                  src="https://images.squarespace-cdn.com/content/v1/5d3b34b78e1a1d000123b7df/1566962445472-OG9TBOOD2WQ128J9OFRZ/ke17ZwdGBToddI8pDm48kGfiFqkITS6axXxhYYUCnlRZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxQ1ibo-zdhORxWnJtmNCajDe36aQmu-4Z4SFOss0oowgxUaachD66r8Ra2gwuBSqM/FAQs-512.png"
+                  alt=""
+                />
+                <div class="card-body">
+                  <h4 class="card-title">Preguntas Frecuentes</h4>
+                  <p class="card-text">
+                    Aca podes consultar las dudas frecuentes
+                  </p>
+                </div>
+                <div class="card-footer">
+                  <a href="#" class="btn btn-primary">Conocer mas !</a>
+                </div>
+              </div>
             </div>
           </div>
+          <!-- /.row -->
         </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100">
-            <img class="card-img-top" src="data:image/png;base64,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" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Repositorio</h4>
-              <p class="card-text">Nuestro codigo es totalmente libre  de uso </p>
-            </div>
-            <div class="card-footer">
-              <a href="https://github.com/Nicolaslozano/Grupo-2-OO2-2020" class="btn btn-primary">Conocer mas!</a>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100">
-            <img class="card-img-top" src="https://simpleicon.com/wp-content/uploads/users.png" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Grupo</h4>
-              <p class="card-text">Nicolas Lozano</p>
-              <p class="card-text">Alan Blangille</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Conocer mas!</a>
-            </div>
-          </div>
-        </div>
-  
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="card h-100">
-            <img class="card-img-top" src="https://images.squarespace-cdn.com/content/v1/5d3b34b78e1a1d000123b7df/1566962445472-OG9TBOOD2WQ128J9OFRZ/ke17ZwdGBToddI8pDm48kGfiFqkITS6axXxhYYUCnlRZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpxQ1ibo-zdhORxWnJtmNCajDe36aQmu-4Z4SFOss0oowgxUaachD66r8Ra2gwuBSqM/FAQs-512.png" alt="">
-            <div class="card-body">
-              <h4 class="card-title">Preguntas Frecuentes</h4>
-              <p class="card-text">Aca podes consultar las dudas frecuentes</p>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-primary">Conocer mas !</a>
-            </div>
-          </div>
-        </div>
-  
       </div>
-      <!-- /.row -->
-
-     </div>
-
+      <!-- /#page-content-wrapper -->
     </div>
-    <!-- /#page-content-wrapper -->
+    <!-- /#wrapper -->
 
-  </div>
-  <!-- /#wrapper -->
-
-  <th:block th:include="fragments/bottom :: bottom"></th:block>
-
-</body>
-
+    <th:block th:include="fragments/bottom :: bottom"></th:block>
+  </body>
 </html>

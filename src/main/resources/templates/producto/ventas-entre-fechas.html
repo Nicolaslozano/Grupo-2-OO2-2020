@@ -1,175 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
+  <th:block th:include="fragments/head :: head"></th:block>
 
-<th:block th:include="fragments/head :: head"></th:block>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
-<body>
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <th:block th:include="fragments/navbar :: navbar"></th:block>
 
-  <div class="d-flex" id="wrapper">
+        <section id="tabs" class="list-tab">
+          <div class="container">
+            <section>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <form id="form-producto-getEntreFechas" class="form-inline">
+                      <div class="row">
+                        <div class="form-group">
+                          <label class="col-md-4 control-label">Local</label>
+                          <div class="col-md-4 selectContainer">
+                            <div class="input-group">
+                              <select
+                                id="filterLocal"
+                                name="filterLocal"
+                                class="selectpicker"
+                              >
+                                <option value="0"> -- </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
 
-    <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+                        <div class="form-group">
+                          <label class="col-md-4 control-label">Fecha 1</label>
+                          <div class="col-md-4 inputGroupContainer">
+                            <div style="width: 300%;" class="input-group">
+                              <input
+                                name="fecha1"
+                                class="form-control"
+                                type="date"
+                                id="fecha1"
+                              />
+                            </div>
+                          </div>
+                        </div>
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <th:block th:include="fragments/navbar :: navbar"></th:block>
-
-      <section id="tabs" class="list-tab">
-
-        <div class="container">
-
-          <section>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-12">
-                  <form id="form-producto-getEntreFechas" class="form-inline">
-                    <div class="row">
-                      <div class="form-group">
-                        <label class="col-md-4 control-label">Local</label>
-                        <div class="col-md-4 selectContainer">
-                          <div class="input-group">
-                            <select id="filterLocal" name="filterLocal" class="selectpicker">
-                              <option value="0"> -- </option>
-
-                            </select>
+                        <div class="form-group">
+                          <label class="col-md-4 control-label">Fecha 2</label>
+                          <div class="col-md-4 inputGroupContainer">
+                            <div style="width: 300%;" class="input-group">
+                              <input
+                                name="fecha2"
+                                class="form-control"
+                                type="date"
+                                id="fecha2"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-
-                      <div class="form-group">
-                        <label class="col-md-4 control-label">Fecha 1</label>
-                        <div class="col-md-4 inputGroupContainer">
-                          <div style="width: 300%" class="input-group">
-                            <input name="fecha1" class="form-control" type="date" id="fecha1">
-                          </div>
+                      <div class="row">
+                        <div
+                          style="position: relative; left: 100px;"
+                          class=""
+                          align="center"
+                        >
+                          <button type="submit" class="btn btn-primary">
+                            Buscar
+                          </button>
                         </div>
                       </div>
-
-                      <div class="form-group">
-                        <label class="col-md-4 control-label">Fecha 2</label>
-                        <div class="col-md-4 inputGroupContainer">
-                          <div style="width: 300%" class="input-group">
-                            <input name="fecha2" class="form-control" type="date" id="fecha2">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div style="position: relative;left: 100px;" class="" align="center">
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                      </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <div class="row">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content" id="nav-tabContent">
+                  <div
+                    class="tab-pane fade show active"
+                    id="nav-home"
+                    role="tabpanel"
+                    aria-labelledby="nav-home-tab"
+                  >
+                    <table class="table" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Cantidad</th>
+                        </tr>
+                      </thead>
 
-            <div class="col-md-12">
-
-              <div class="tab-content" id="nav-tabContent">
-
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  <table class="table" cellspacing="0">
-                    <thead>
-
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Cantidad</th>
-                      </tr>
-
-                    </thead>
-
-                    <tbody id="producto-rows">
-
-                    </tbody>
-                  </table>
+                      <tbody id="producto-rows"></tbody>
+                    </table>
+                  </div>
                 </div>
-
               </div>
             </div>
           </div>
-        </div>
-
-      </section>
-
-
-
-
+        </section>
+      </div>
+      <!-- /#page-content-wrapper -->
     </div>
-    <!-- /#page-content-wrapper -->
+    <!-- /#wrapper -->
 
-  </div>
-  <!-- /#wrapper -->
-
-  <th:block th:include="fragments/bottom :: bottom"></th:block>
-  <script type="text/javascript">
-    $(document).ready(function () {
-
-      $.ajax({
-        url: "/api/local/getLocales",
-        type: "GET",
-        success: function (data) {
-          var locales = data;
-          if (typeof (data) == "string") {
-            locales = JSON.parse(data);
-          }
-          $.each(locales, function (index, local) {
-            $("#filterLocal").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
-          });
-        },
-        error: function (result) {
-          console.log(["error getting locales", result]);
-        }
-      });
-
-      $("#form-producto-getEntreFechas").submit(function (e) {
-        e.preventDefault();
-
-        var dateModels = {};
-
-        dateModels["fecha1"] = $("#fecha1").val();
-        dateModels["fecha2"] = $("#fecha2").val();
-
-        filterByLocal(dateModels, $("#filterLocal").val());
-      });
-
-      function filterByLocal(dateModels, idLocal) {
-
+    <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript">
+      $(document).ready(function () {
         $.ajax({
-          url: "/api/producto/getProductosEntreFechas" + "/" + idLocal,
-          type: "POST",
-          contentType: "application/json",
-          data: JSON.stringify(dateModels),
-          cache: false,
+          url: "/api/local/getLocales",
+          type: "GET",
           success: function (data) {
-            var productos = data;
+            var locales = data;
             if (typeof data == "string") {
-              productos = JSON.parse(data);
+              locales = JSON.parse(data);
             }
-            $("#producto-rows").empty();
-            $.each(productos, function (index, producto) {
-              $("#producto-rows").append(
-                $("<tr></tr>").append(
-                  $("<td></td>").append(
-                    $("<span></span>", { text: producto.nombre })
-                  ),
-                  $("<td></td>").append(
-                    $("<span></span>", { text: producto.cantidad })
-                  ),
-                )
+            $.each(locales, function (index, local) {
+              $("#filterLocal").append(
+                $("<option></option>", {
+                  value: local.idLocal,
+                  text: local.direccion,
+                })
               );
             });
           },
           error: function (result) {
-            console.log(["error getting productos", result]);
+            console.log(["error getting locales", result]);
           },
         });
-      }
-    });
-  </script>
-</body>
 
+        $("#form-producto-getEntreFechas").submit(function (e) {
+          e.preventDefault();
+
+          var dateModels = {};
+
+          dateModels["fecha1"] = $("#fecha1").val();
+          dateModels["fecha2"] = $("#fecha2").val();
+
+          filterByLocal(dateModels, $("#filterLocal").val());
+        });
+
+        function filterByLocal(dateModels, idLocal) {
+          $.ajax({
+            url: "/api/producto/getProductosEntreFechas" + "/" + idLocal,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(dateModels),
+            cache: false,
+            success: function (data) {
+              var productos = data;
+              if (typeof data == "string") {
+                productos = JSON.parse(data);
+              }
+              $("#producto-rows").empty();
+              $.each(productos, function (index, producto) {
+                $("#producto-rows").append(
+                  $("<tr></tr>").append(
+                    $("<td></td>").append(
+                      $("<span></span>", { text: producto.nombre })
+                    ),
+                    $("<td></td>").append(
+                      $("<span></span>", { text: producto.cantidad })
+                    )
+                  )
+                );
+              });
+            },
+            error: function (result) {
+              console.log(["error getting productos", result]);
+            },
+          });
+        }
+      });
+    </script>
+  </body>
 </html>

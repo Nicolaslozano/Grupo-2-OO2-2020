@@ -1,78 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+  <th:block th:include="fragments/head :: head"></th:block>
 
-<th:block th:include="fragments/head :: head"></th:block>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
-<body>
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <th:block th:include="fragments/navbar :: navbar"></th:block>
 
-  <div class="d-flex" id="wrapper">
-
-    <th:block th:include="fragments/sidebar :: sidebar"></th:block>
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <th:block th:include="fragments/navbar :: navbar"></th:block>
-
-      <section id="tabs" class="list-tab">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  <table class="table" cellspacing="0">
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>DNI</th>
-                        <th>Email</th>
-                        <th><img src="/assets/bootstrap-icons/pencil-square.svg" alt="" width="90" height="20" title="Modificar"></th>
-                        <th><img src="/assets/bootstrap-icons/truck.svg" alt="" width="110" height="23" title="Pedido"></th>
-                        <th><img src="/assets/bootstrap-icons/trash.svg" alt="" width="70" height="20" title="Eliminar"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr th:each="cliente : ${clientes}">
-                        <td><span th:text="${cliente.nombre}" /></td>
-                        <td><span th:text="${cliente.apellido}" /></td>
-                        <td><span th:text="${cliente.dni}" /></td>
-                        <td><span th:text="${cliente.email}" /></td>
-                        <td>
-                          <a class="btn btn-info" th:href="@{/cliente/{id}(id=${cliente.idPersona})}">Modificar</a>
-                        </td>
-                        <td>
-                          <a class="btn btn-info" th:href="@{/pedido/new/{id}(id=${cliente.idPersona})}">Hacer Pedido</a>
-                        </td>
-                        <td>
-                          <form class="form-cliente-remove">
-                            <div class="form_group">
-                              <input type="hidden" name="idPersona" th:value="${cliente.idPersona}"/>
-                            </div>
-                            <input class="btn btn-danger" type="submit" value="Eliminar"/>
-                          </form>
-
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+        <section id="tabs" class="list-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content" id="nav-tabContent">
+                  <div
+                    class="tab-pane fade show active"
+                    id="nav-home"
+                    role="tabpanel"
+                    aria-labelledby="nav-home-tab"
+                  >
+                    <table class="table" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Apellido</th>
+                          <th>DNI</th>
+                          <th>Email</th>
+                          <th>
+                            <img
+                              src="/assets/bootstrap-icons/pencil-square.svg"
+                              alt=""
+                              width="90"
+                              height="20"
+                              title="Modificar"
+                            />
+                          </th>
+                          <th>
+                            <img
+                              src="/assets/bootstrap-icons/truck.svg"
+                              alt=""
+                              width="110"
+                              height="23"
+                              title="Pedido"
+                            />
+                          </th>
+                          <th>
+                            <img
+                              src="/assets/bootstrap-icons/trash.svg"
+                              alt=""
+                              width="70"
+                              height="20"
+                              title="Eliminar"
+                            />
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="cliente : ${clientes}">
+                          <td><span th:text="${cliente.nombre}" /></td>
+                          <td><span th:text="${cliente.apellido}" /></td>
+                          <td><span th:text="${cliente.dni}" /></td>
+                          <td><span th:text="${cliente.email}" /></td>
+                          <td>
+                            <a
+                              class="btn btn-info"
+                              th:href="@{/cliente/{id}(id=${cliente.idPersona})}"
+                              >Modificar</a
+                            >
+                          </td>
+                          <td>
+                            <a
+                              class="btn btn-info"
+                              th:href="@{/pedido/new/{id}(id=${cliente.idPersona})}"
+                              >Hacer Pedido</a
+                            >
+                          </td>
+                          <td>
+                            <form class="form-cliente-remove">
+                              <div class="form_group">
+                                <input
+                                  type="hidden"
+                                  name="idPersona"
+                                  th:value="${cliente.idPersona}"
+                                />
+                              </div>
+                              <input
+                                class="btn btn-danger"
+                                type="submit"
+                                value="Eliminar"
+                              />
+                            </form>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-
             </div>
           </div>
-        </div>
-      </section>
-
-
+        </section>
+      </div>
+      <!-- /#page-content-wrapper -->
     </div>
-    <!-- /#page-content-wrapper -->
+    <!-- /#wrapper -->
 
-  </div>
-  <!-- /#wrapper -->
-
-  <th:block th:include="fragments/bottom :: bottom"></th:block>
-  <script type="text/javascript" src="/js/auth/Cliente.js"></script>
-</body>
-
+    <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript" src="/js/auth/Cliente.js"></script>
+  </body>
 </html>

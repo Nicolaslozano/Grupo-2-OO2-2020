@@ -1,131 +1,214 @@
 <div th:fragment="sidebar">
-    <!-- Sidebar -->
+  <!-- Sidebar -->
 
-    <div class="bg-light border-right" id="sidebar-wrapper">
-        <ul class="nav flex-column flex-nowrap overflow-hidden">
-          <li class="nav-item">
-            <a class="nav-link text-truncate" href="/"><i class="fa fa-home"></i> <span
-                class="d-none d-sm-inline">Dashboard</span></a>
-          </li>
-          <div class="dropdown-divider"></div>
-          <!-- Clientes -->
-          <li class="nav-item">
-            <a class="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><i
-                class="fa fa-table"></i> <span class="d-none d-sm-inline">Clientes</span>
-            </a>
-  
-            <!-- Clientes/submenu -->
-            <div class="collapse" id="submenu1" aria-expanded="false">
-              <ul class="flex-column pl-2 nav">
-                <li class="nav-item"><a class="nav-link py-0" href="/cliente"><span>Lista</span></a></li>
-                <li class="nav-item"><a class="nav-link py-0" href="/cliente/new"><span>Crear</span></a></li>
-              </ul>
-            </div>
-            <!--Clientes/submenu-->
-          </li>
-          <!--Clientes-->
-  
-          <!-- Empleados -->
-          <li class="nav-item">
-            <a class="nav-link collapsed text-truncate" href="#submenu2" data-toggle="collapse" data-target="#submenu2"><i
-                class="fa fa-table"></i> <span class="d-none d-sm-inline">Empleados</span>
-            </a>
-  
-            <!-- Empleados/submenu -->
-            <div class="collapse" id="submenu2" aria-expanded="false">
-              <ul class="flex-column pl-2 nav">
-                <li class="nav-item"><a class="nav-link py-0" href="/empleado"><span>Lista</span></a></li>
-                <li class="nav-item"><a class="nav-link py-0" href="/empleado/new"><span>Crear</span></a></li>
-                <li class="nav-item"><a class="nav-link py-0" href="/empleado/sueldos"><span>Sueldos</span></a></li>
-              </ul>
-            </div>
-            <!--Empleados/submenu-->
-          </li>
-          <!--Empleados-->
-  
-          <!-- Locales -->
-          <li class="nav-item">
-            <a class="nav-link collapsed text-truncate" href="#submenu3" data-toggle="collapse" data-target="#submenu3"><i
-                class="fa fa-table"></i> <span class="d-none d-sm-inline">Locales</span>
-            </a>
-  
-            <!-- Locales/submenu -->
-            <div class="collapse" id="submenu3" aria-expanded="false">
-              <ul class="flex-column pl-2 nav">
-                <li class="nav-item"><a class="nav-link py-0" href="/local"><span>Lista</span></a></li>
-                <li class="nav-item"><a class="nav-link py-0" href="/local/new"><span>Crear</span></a></li>
-                <li class="nav-item"><a class="nav-link py-0" href="/local/distance"><span>Calcular Distancia</span></a></li>
-              </ul>
-            </div>
-            <!--Locales/submenu-->
-          </li>
-          <!--Locales-->
-  
-          <!-- Lotes -->
-          <li class="nav-item">
-            <a class="nav-link collapsed text-truncate" href="#submenu4" data-toggle="collapse" data-target="#submenu4"><i
-                class="fa fa-table"></i> <span class="d-none d-sm-inline">Lotes</span>
-            </a>
-  
-            <!-- Lotes/submenu -->
-            <div class="collapse" id="submenu4" aria-expanded="false">
-              <ul class="flex-column pl-2 nav">
-                <li class="nav-item"><a class="nav-link py-0" href="/lote"><span>Lista</span></a></li>
-                <li class="nav-item"><a class="nav-link py-0" href="/lote/new"><span>Crear</span></a></li>
-              </ul>
-            </div>
-            <!--lotes/submenu-->
-          </li>
-          <!--lotes-->
-  
-          <!-- Productos -->
-          <li class="nav-item">
-            <a class="nav-link collapsed text-truncate" href="#submenu5" data-toggle="collapse" data-target="#submenu5"><i
-                class="fa fa-table"></i> <span class="d-none d-sm-inline">Productos</span>
-            </a>
-  
-            <!-- Productos/submenu -->
-            <div class="collapse" id="submenu5" aria-expanded="false">
-              <ul class="flex-column pl-2 nav">
-                <li class="nav-item"><a class="nav-link py-0" href="/producto"><span>Lista</span></a></li>
-                <li class="nav-item"><a class="nav-link py-0" href="/producto/new"><span>Crear</span></a></li>
-              </ul>
-            </div>
-            <!--Productos/submenu-->
-          </li>
-          <!--Productos-->
-  		
-  			  <!-- Pedidos -->
-          <li class="nav-item">
-            <a class="nav-link collapsed text-truncate" href="#submenu4" data-toggle="collapse" data-target="#submenu6"><i
-                class="fa fa-table"></i> <span class="d-none d-sm-inline">Pedidos</span>
-            </a>
-  
-            <!-- Pedidos/submenu -->
-            <div class="collapse" id="submenu6" aria-expanded="false">
-              <ul class="flex-column pl-2 nav">
-                <li class="nav-item"><a class="nav-link py-0" href="/pedido"><span>Lista</span></a></li>
-              </ul>
-            </div>
-            <!--Pedidos/submenu-->
-            
-              <!-- Reportes -->
-          <li class="nav-item">
-            <a class="nav-link collapsed text-truncate" href="#submenu7" data-toggle="collapse" data-target="#submenu7"><i
-                class="fa fa-table"></i> <span class="d-none d-sm-inline">Reportes</span>
-            </a>
-  			
-            <!--  Reporte/submenu -->
-            <div class="collapse" id="submenu7" aria-expanded="false">
-              <ul class="flex-column pl-2 nav">
-                <li class="nav-item"><a class="nav-link py-0" href="/producto/ranking"><span>Ranking de ventas</span></a></li>
-                <li class="nav-item"><a class="nav-link py-0" href="/producto/ventas-entre-fechas"><span>Ventas entre fechas</span></a></li>
-              </ul>
-            </div>
-            <!--Reporte/submenu-->	
-        </ul>
-      </div>
-  
-      <!-- /#sidebar-wrapper -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <ul class="nav flex-column flex-nowrap overflow-hidden">
+      <li class="nav-item">
+        <a class="nav-link text-truncate" href="/"
+          ><i class="fa fa-home"></i>
+          <span class="d-none d-sm-inline">Dashboard</span></a
+        >
+      </li>
+      <div class="dropdown-divider"></div>
+      <!-- Clientes -->
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed text-truncate"
+          href="#submenu1"
+          data-toggle="collapse"
+          data-target="#submenu1"
+          ><i class="fa fa-table"></i>
+          <span class="d-none d-sm-inline">Clientes</span>
+        </a>
 
+        <!-- Clientes/submenu -->
+        <div class="collapse" id="submenu1" aria-expanded="false">
+          <ul class="flex-column pl-2 nav">
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/cliente"><span>Lista</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/cliente/new"
+                ><span>Crear</span></a
+              >
+            </li>
+          </ul>
+        </div>
+        <!--Clientes/submenu-->
+      </li>
+      <!--Clientes-->
+
+      <!-- Empleados -->
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed text-truncate"
+          href="#submenu2"
+          data-toggle="collapse"
+          data-target="#submenu2"
+          ><i class="fa fa-table"></i>
+          <span class="d-none d-sm-inline">Empleados</span>
+        </a>
+
+        <!-- Empleados/submenu -->
+        <div class="collapse" id="submenu2" aria-expanded="false">
+          <ul class="flex-column pl-2 nav">
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/empleado"><span>Lista</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/empleado/new"
+                ><span>Crear</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/empleado/sueldos"
+                ><span>Sueldos</span></a
+              >
+            </li>
+          </ul>
+        </div>
+        <!--Empleados/submenu-->
+      </li>
+      <!--Empleados-->
+
+      <!-- Locales -->
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed text-truncate"
+          href="#submenu3"
+          data-toggle="collapse"
+          data-target="#submenu3"
+          ><i class="fa fa-table"></i>
+          <span class="d-none d-sm-inline">Locales</span>
+        </a>
+
+        <!-- Locales/submenu -->
+        <div class="collapse" id="submenu3" aria-expanded="false">
+          <ul class="flex-column pl-2 nav">
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/local"><span>Lista</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/local/new"><span>Crear</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/local/distance"
+                ><span>Calcular Distancia</span></a
+              >
+            </li>
+          </ul>
+        </div>
+        <!--Locales/submenu-->
+      </li>
+      <!--Locales-->
+
+      <!-- Lotes -->
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed text-truncate"
+          href="#submenu4"
+          data-toggle="collapse"
+          data-target="#submenu4"
+          ><i class="fa fa-table"></i>
+          <span class="d-none d-sm-inline">Lotes</span>
+        </a>
+
+        <!-- Lotes/submenu -->
+        <div class="collapse" id="submenu4" aria-expanded="false">
+          <ul class="flex-column pl-2 nav">
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/lote"><span>Lista</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/lote/new"><span>Crear</span></a>
+            </li>
+          </ul>
+        </div>
+        <!--lotes/submenu-->
+      </li>
+      <!--lotes-->
+
+      <!-- Productos -->
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed text-truncate"
+          href="#submenu5"
+          data-toggle="collapse"
+          data-target="#submenu5"
+          ><i class="fa fa-table"></i>
+          <span class="d-none d-sm-inline">Productos</span>
+        </a>
+
+        <!-- Productos/submenu -->
+        <div class="collapse" id="submenu5" aria-expanded="false">
+          <ul class="flex-column pl-2 nav">
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/producto"><span>Lista</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/producto/new"
+                ><span>Crear</span></a
+              >
+            </li>
+          </ul>
+        </div>
+        <!--Productos/submenu-->
+      </li>
+      <!--Productos-->
+
+      <!-- Pedidos -->
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed text-truncate"
+          href="#submenu4"
+          data-toggle="collapse"
+          data-target="#submenu6"
+          ><i class="fa fa-table"></i>
+          <span class="d-none d-sm-inline">Pedidos</span>
+        </a>
+
+        <!-- Pedidos/submenu -->
+        <div class="collapse" id="submenu6" aria-expanded="false">
+          <ul class="flex-column pl-2 nav">
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/pedido"><span>Lista</span></a>
+            </li>
+          </ul>
+        </div>
+        <!--Pedidos/submenu-->
+
+        <!-- Reportes -->
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link collapsed text-truncate"
+          href="#submenu7"
+          data-toggle="collapse"
+          data-target="#submenu7"
+          ><i class="fa fa-table"></i>
+          <span class="d-none d-sm-inline">Reportes</span>
+        </a>
+
+        <!--  Reporte/submenu -->
+        <div class="collapse" id="submenu7" aria-expanded="false">
+          <ul class="flex-column pl-2 nav">
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/producto/ranking"
+                ><span>Ranking de ventas</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link py-0" href="/producto/ventas-entre-fechas"
+                ><span>Ventas entre fechas</span></a
+              >
+            </li>
+          </ul>
+        </div>
+        <!--Reporte/submenu-->
+      </li>
+    </ul>
+  </div>
+
+  <!-- /#sidebar-wrapper -->
 </div>

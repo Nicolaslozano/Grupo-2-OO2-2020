@@ -1,6 +1,5 @@
 package com.unla.grupo_2_oo2_2020.controllers.api;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import com.unla.grupo_2_oo2_2020.models.structlike.SalesByLocalModel;
 import com.unla.grupo_2_oo2_2020.models.structlike.ProductoAndCantidadModel;
-import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
@@ -25,30 +23,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import javax.validation.Valid;
 
 import com.unla.grupo_2_oo2_2020.converters.ProductoConverter;
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Producto;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
-import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 
 @RestController
 @RequestMapping("/api/producto")
@@ -131,7 +111,11 @@ public class ProductoRestController {
             }
 
             return ResponseEntity.badRequest().body(result);
-        }
+        }else {
+
+			productoService.insertOrUpdate(productoModel);
+			result.put(StaticValuesHelper.SUCCESS_CREATED, "Producto creado");
+		}
 
         return ResponseEntity.ok(result);
     }
@@ -159,7 +143,4 @@ public class ProductoRestController {
 		return ResponseEntity.ok(result);
 	}
 
-
-	
-    
 }

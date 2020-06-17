@@ -1,180 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
+  <th:block th:include="fragments/head :: head"></th:block>
 
-<th:block th:include="fragments/head :: head"></th:block>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
-<body>
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <th:block th:include="fragments/navbar :: navbar"></th:block>
 
-  <div class="d-flex" id="wrapper">
+        <section id="tabs" class="list-tab">
+          <div class="container">
+            <section>
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <form id="form-empleado-sueldo" class="form-inline">
+                      <div class="row">
+                        <div class="form-group">
+                          <label class="col-md-4 control-label">Local</label>
+                          <div class="col-md-4 selectContainer">
+                            <div class="input-group">
+                              <select
+                                id="filterLocal"
+                                name="filterLocal"
+                                class="selectpicker"
+                              >
+                                <option value="0"> -- </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
 
-    <th:block th:include="fragments/sidebar :: sidebar"></th:block>
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <th:block th:include="fragments/navbar :: navbar"></th:block>
-
-      <section id="tabs" class="list-tab">
-
-        <div class="container">
-
-          <section>
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-12">
-                  <form id="form-empleado-sueldo" class="form-inline">
-                    <div class="row">
-                      <div class="form-group">
-                        <label class="col-md-4 control-label">Local</label>
-                        <div class="col-md-4 selectContainer">
-                          <div class="input-group">
-                            <select id="filterLocal" name="filterLocal" class="selectpicker">
-                              <option value="0"> -- </option>
-
-                            </select>
+                        <div class="form-group">
+                          <label class="col-md-4 control-label">Mes</label>
+                          <div class="col-md-4 selectContainer">
+                            <div class="input-group">
+                              <select
+                                id="filterMonth"
+                                name="filterMonth"
+                                class="selectpicker"
+                              >
+                                <option value="1"> Enero </option>
+                                <option value="2"> Febrero </option>
+                                <option value="3"> Marzo </option>
+                                <option value="4"> Abril </option>
+                                <option value="5"> Mayo </option>
+                                <option value="6"> Junio </option>
+                                <option value="7"> Julio </option>
+                                <option value="8"> Agosto </option>
+                                <option value="9"> Septiembre </option>
+                                <option value="10"> Octubre </option>
+                                <option value="11"> Noviembre </option>
+                                <option value="12"> Diciembre </option>
+                              </select>
+                            </div>
                           </div>
                         </div>
                       </div>
-
-                      <div class="form-group">
-                        <label class="col-md-4 control-label">Mes</label>
-                        <div class="col-md-4 selectContainer">
-                          <div class="input-group">
-                            <select id="filterMonth" name="filterMonth" class="selectpicker">
-                              <option value="1"> Enero </option>
-                              <option value="2"> Febrero </option>
-                              <option value="3"> Marzo </option>
-                              <option value="4"> Abril </option>
-                              <option value="5"> Mayo </option>
-                              <option value="6"> Junio </option>
-                              <option value="7"> Julio </option>
-                              <option value="8"> Agosto </option>
-                              <option value="9"> Septiembre </option>
-                              <option value="10"> Octubre </option>
-                              <option value="11"> Noviembre </option>
-                              <option value="12"> Diciembre </option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          <div class="row">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content" id="nav-tabContent">
+                  <div
+                    class="tab-pane fade show active"
+                    id="nav-home"
+                    role="tabpanel"
+                    aria-labelledby="nav-home-tab"
+                  >
+                    <table class="table" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Apellido</th>
+                          <th>DNI</th>
+                          <th>Sueldo</th>
+                        </tr>
+                      </thead>
 
-            <div class="col-md-12">
-
-              <div class="tab-content" id="nav-tabContent">
-
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  <table class="table" cellspacing="0">
-                    <thead>
-
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>DNI</th>
-                        <th>Sueldo</th>
-                      </tr>
-
-                    </thead>
-
-                    <tbody id="empleado-rows">
-
-                    </tbody>
-                  </table>
+                      <tbody id="empleado-rows"></tbody>
+                    </table>
+                  </div>
                 </div>
-
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-
+        </section>
+      </div>
+      <!-- /#page-content-wrapper -->
     </div>
-    <!-- /#page-content-wrapper -->
+    <!-- /#wrapper -->
 
-  </div>
-  <!-- /#wrapper -->
-
-  <th:block th:include="fragments/bottom :: bottom"></th:block>
-  <script type="text/javascript">
-    $(document).ready(function () {
-
-      getEmpleadosAndSueldos();
-
-      $.ajax({
-        url: "/api/local/getLocales",
-        type: "GET",
-        success: function (data) {
-          var locales = data;
-          if (typeof (data) == "string") {
-            locales = JSON.parse(data);
-          }
-          $.each(locales, function (index, local) {
-            $("#filterLocal").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
-          });
-        },
-        error: function (result) {
-          console.log(["error getting locales", result]);
-        }
-      });
-
-      $("#filterLocal").change(function (e) {
-        e.preventDefault();
+    <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript">
+      $(document).ready(function () {
         getEmpleadosAndSueldos();
-      });
 
-      $("#filterMonth").change(function (e) {
-        e.preventDefault();
-        getEmpleadosAndSueldos();
-      });
-
-      function getEmpleadosAndSueldos() {
         $.ajax({
-          url: "/api/empleado/getEmpleados/sueldo/" + $("#filterMonth").val() + "/" + $("#filterLocal").val(),
+          url: "/api/local/getLocales",
           type: "GET",
           success: function (data) {
-            var empleados_sueldos = data;
+            var locales = data;
             if (typeof data == "string") {
-              empleados_sueldos = JSON.parse(data);
+              locales = JSON.parse(data);
             }
-
-            $("#empleado-rows").empty();
-
-            $.each(empleados_sueldos, function (index, empleado_sueldo) {
-              $("#empleado-rows").append(
-                $("<tr></tr>").append(
-                  $("<td></td>").append(
-                    $("<span></span>", { text: empleado_sueldo.empleado.nombre })
-                  ),
-                  $("<td></td>").append(
-                    $("<span></span>", { text: empleado_sueldo.empleado.apellido })
-                  ),
-                  $("<td></td>").append(
-                    $("<span></span>", { text: empleado_sueldo.empleado.dni })
-                  ),
-                  $("<td></td>").append(
-                    $("<span></span>", { text: empleado_sueldo.sueldo })
-                  ),
-                )
+            $.each(locales, function (index, local) {
+              $("#filterLocal").append(
+                $("<option></option>", {
+                  value: local.idLocal,
+                  text: local.direccion,
+                })
               );
             });
           },
           error: function (result) {
-            console.log(["error getting empleados", result]);
+            console.log(["error getting locales", result]);
           },
         });
-      }
-    });
 
-  </script>
-</body>
+        $("#filterLocal").change(function (e) {
+          e.preventDefault();
+          getEmpleadosAndSueldos();
+        });
 
+        $("#filterMonth").change(function (e) {
+          e.preventDefault();
+          getEmpleadosAndSueldos();
+        });
+
+        function getEmpleadosAndSueldos() {
+          $.ajax({
+            url:
+              "/api/empleado/getEmpleados/sueldo/" +
+              $("#filterMonth").val() +
+              "/" +
+              $("#filterLocal").val(),
+            type: "GET",
+            success: function (data) {
+              var empleados_sueldos = data;
+              if (typeof data == "string") {
+                empleados_sueldos = JSON.parse(data);
+              }
+
+              $("#empleado-rows").empty();
+
+              $.each(empleados_sueldos, function (index, empleado_sueldo) {
+                $("#empleado-rows").append(
+                  $("<tr></tr>").append(
+                    $("<td></td>").append(
+                      $("<span></span>", {
+                        text: empleado_sueldo.empleado.nombre,
+                      })
+                    ),
+                    $("<td></td>").append(
+                      $("<span></span>", {
+                        text: empleado_sueldo.empleado.apellido,
+                      })
+                    ),
+                    $("<td></td>").append(
+                      $("<span></span>", { text: empleado_sueldo.empleado.dni })
+                    ),
+                    $("<td></td>").append(
+                      $("<span></span>", { text: empleado_sueldo.sueldo })
+                    )
+                  )
+                );
+              });
+            },
+            error: function (result) {
+              console.log(["error getting empleados", result]);
+            },
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
