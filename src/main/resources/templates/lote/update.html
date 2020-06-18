@@ -58,11 +58,12 @@
                 <div class="form-group">
                   <label class="col-md-4 control-label">Producto</label>
                   <div class="col-md-4 selectContainer">
-                    <div id="producto" style="width: 300%;" class="input-group">
+                    <div style="width: 300%;" class="input-group">
                       <select
                         disabled
                         name="producto"
                         class="form-control selectpicker"
+                        id="producto"
                       >
                         <option
                           th:value="${lote.producto.idProducto}"
@@ -83,9 +84,8 @@
                         class="form-control selectpicker"
                       >
                         <option
-                          th:each="local : ${locales}"
-                          th:value="${local.idLocal}"
-                          th:text="${local.direccion}"
+                          th:value="${lote.stock.idStock}"
+                          th:text="${lote.stock.local.direccion}"
                         >
                         </option>
                       </select>
@@ -123,6 +123,32 @@
     <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        // Pedir todos los locales cuando carga la vista
+        $.ajax({
+          url: "/api/local/getLocales/except/" + $("#local").val(),
+          type: "GET",
+          success: function (data) {
+            var locales = data;
+            if (typeof data == "string") {
+              locales = JSON.parse(data);
+            }
+            $.each(locales, function (index, local) {
+              $("#local").append(
+                $("<option></option>", {
+                  value: local.idLocal,
+                  text: local.direccion,
+                })
+              );
+            });
+          },
+          error: function (result) {
+            console.log(["error getting locales", result]);
+          },
+        });
+      });
+    </script>
     <script type="text/javascript" src="/js/auth/Lote.js"></script>
   </body>
 </html>

@@ -67,6 +67,21 @@ public class LocalRestController {
 		return new ResponseEntity<List<LocalModel>>(locales, HttpStatus.OK);
 	}
 
+	@GetMapping("getLocales/except/{idLocal}")
+	public ResponseEntity<List<LocalModel>> getLocalesExcept(@PathVariable("idLocal") long idLocal) {
+
+		List<LocalModel> locales = new ArrayList<LocalModel>();
+
+		for(Local local : localService.getAll()) {
+
+			if(local.getIdLocal() == idLocal) continue;
+
+			locales.add(localConverter.entityToModel(local));
+		}
+
+		return new ResponseEntity<List<LocalModel>>(locales, HttpStatus.OK);
+	}
+
 	@PostMapping("/getValidLocals")
 	public ResponseEntity<?> getValidLocals(@RequestBody PedidoModel pedidoModel) {
 

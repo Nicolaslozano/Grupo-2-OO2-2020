@@ -27,7 +27,7 @@ function submitLote(loteModel) {
 
     var url;
 
-    if (loteModel.idPersona) {
+    if (loteModel.idLote) {
         url = "/api/lote/updateLote";
     } else {
         url = "/api/lote/createLote";
