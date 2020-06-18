@@ -5,6 +5,8 @@ public class ViewRouteHelper {
     /**** Views ****/
 	//HOME
     public final static String INDEX = "dashboard/index";
+    public final static String REGISTRATION = "/registration";
+    public final static String LOGIN = "/login";
 
     //CLIENTE
     public final static String CLIENTE_INDEX = "cliente/index";
