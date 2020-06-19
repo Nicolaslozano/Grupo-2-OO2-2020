@@ -17,8 +17,7 @@
 
                 <div class="form">
 
-                    <form class="well form-horizontal" action="#" th:action="@{/producto/update}"
-                        th:object="${producto}" method="post" id="contact_form">
+                    <form class="well form-horizontal" th:object="${producto}"  id="form-producto-update">
                         <fieldset>
                             <div class="form_group">
                                 <input type="hidden" th:field="*{idProducto}" />
@@ -30,7 +29,7 @@
                                 <label class="col-md-4 control-label">Nombre</label>
                                 <div class="col-md-4 inputGroupContainer">
                                     <div style="width: 300%" class="input-group">
-                                        <input name="nombre" class="form-control" type="text" th:field="*{nombre}">
+                                        <input name="nombre" id="nombre" class="form-control" type="text" th:field="*{nombre}">
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +40,7 @@
                                 <label class="col-md-4 control-label">Descripcion</label>
                                 <div class="col-md-4 inputGroupContainer">
                                     <div style="width: 300%" class="input-group">
-                                        <input name="descripcion" value="0" class="form-control" type="text"
+                                        <input name="descripcion" id="descripcion" value="0" class="form-control" type="text"
                                             th:field="*{descripcion}">
                                     </div>
                                 </div>
@@ -55,7 +54,7 @@
                                 <label class="col-md-4 control-label">Precio</label>
                                 <div class="col-md-4 inputGroupContainer">
                                     <div style="width: 300%" class="input-group">
-                                        <input name="precio" value="0" class="form-control" type="number"
+                                        <input name="precio" id="precio" value="0" class="form-control" type="number"
                                             th:field="*{precio}">
                                     </div>
                                 </div>
@@ -71,7 +70,11 @@
                                         class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspACTUALIZAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
                                 </div>
                             </div>
-
+							  <div id="feedback">
+                                <br>
+                                <div class="" role="alert">
+                                </div>
+                            </div>
                         </fieldset>
                     </form>
 
@@ -86,6 +89,9 @@
     <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript" src="/js/auth/Producto.js"></script>
+    
+    
 </body>
 
 </html>

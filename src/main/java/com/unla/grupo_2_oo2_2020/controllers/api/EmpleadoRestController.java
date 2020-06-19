@@ -5,9 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
-
-import java.util.HashMap;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
+import com.unla.grupo_2_oo2_2020.models.structlike.EmpleadoSalarioModel;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
@@ -79,11 +78,39 @@ public class EmpleadoRestController {
 
 		for (Empleado empleado : empleadoService.findByLocal(localService.findById(idLocal))) {
 
-			if (empleado.getIdPersona() == idPersona) continue;
+			if (empleado.getIdPersona() == idPersona)
+				continue;
 			empleados.add(empleadoConverter.entityToModel(empleado));
 		}
 
 		return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
+	}
+
+	@GetMapping("getEmpleados/sueldo/{month}/{idLocal}")
+	public ResponseEntity<?> getSueldos(@PathVariable("month") int month, @PathVariable("idLocal") long idLocal) {
+
+		List<EmpleadoSalarioModel> empleados = new ArrayList<EmpleadoSalarioModel>();
+		EmpleadoModel empleadoAux;
+
+		if (idLocal > 0) {
+
+			for (Empleado empleado : empleadoService.findByLocal(localService.findById(idLocal))) {
+
+				empleadoAux = empleadoConverter.entityToModel(empleado);
+				empleados
+						.add(new EmpleadoSalarioModel(empleadoAux, empleadoService.calcularSueldo(month, empleadoAux)));
+			}
+		} else {
+
+			for (Empleado empleado : empleadoService.getAll()) {
+
+				empleadoAux = empleadoConverter.entityToModel(empleado);
+				empleados
+						.add(new EmpleadoSalarioModel(empleadoAux, empleadoService.calcularSueldo(month, empleadoAux)));
+			}
+		}
+
+		return new ResponseEntity<List<EmpleadoSalarioModel>>(empleados, HttpStatus.OK);
 	}
 
 	@PostMapping("/createEmpleado")

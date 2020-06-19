@@ -178,7 +178,6 @@ function updatePedido(pedidoModel) {
         },
     });
 
-
 }
 
 function controlError(errors) {

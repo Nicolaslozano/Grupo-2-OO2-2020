@@ -1,87 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+  <th:block th:include="fragments/head :: head"></th:block>
 
-<th:block th:include="fragments/head :: head"></th:block>
-
-<body>
-
+  <body>
     <div class="d-flex" id="wrapper">
+      <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
-        <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <th:block th:include="fragments/navbar :: navbar"></th:block>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <div class="container">
+          <div class="form">
+            <form class="well form-horizontal" id="form-producto-create">
+              <fieldset>
+                <!-- Text input-->
 
-            <th:block th:include="fragments/navbar :: navbar"></th:block>
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Nombre</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        id="nombre"
+                        name="nombre"
+                        placeholder="Nombre"
+                        class="form-control"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-            <div class="container">
-            	<div class="form">
+                <!-- Text input-->
 
-                <form class="well form-horizontal" action="#" th:action="@{/producto/create}" th:object="${producto}"
-                    method="post" id="contact_form">
-                    <fieldset>
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Descripcion</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        id="descripcion"
+                        name="descripcion"
+                        placeholder="Descripcion"
+                        class="form-control"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-                        <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Precio</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        id="precio"
+                        name="precio"
+                        placeholder="Precio"
+                        class="form-control"
+                        type="number"
+                        value="0"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- Text input-->
 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Nombre</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="nombre" placeholder="Nombre" class="form-control" type="text"
-                                        th:field="*{nombre}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Text input-->
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Descripcion</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="descripcion" placeholder="Descripcion" class="form-control" type="text"
-                                        th:field="*{descripcion}">
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <!-- Text input-->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Precio</label>
-                            <div class="col-md-4 inputGroupContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <input name="precio" placeholder="Precio" class="form-control" type="number"
-                                        th:field="*{precio}">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Text input-->
-
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
-                            <div class="col-md-4"><br>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                    type="submit"
-                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
-                            </div>
-                        </div>
-
-                    </fieldset>
-                </form>
-            </div>
-       	    <!-- /ClassForm -->
+                <!-- Button -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label"></label>
+                  <div class="col-md-4">
+                    <br />
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                      type="submit"
+                      class="btn btn-warning"
+                    >
+                      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    </button>
+                  </div>
+                </div>
+                <div id="feedback">
+                  <br />
+                  <div class="" role="alert"></div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <!-- /ClassForm -->
         </div>
-  	    <!-- /.container -->
+        <!-- /.container -->
+      </div>
+      <!-- /#page-content-wrapper -->
     </div>
-  	<!-- /#page-content-wrapper -->
- </div>
- <!-- /#wrapper -->
+    <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
-
-</body>
-
+    <script type="text/javascript" src="/js/auth/Producto.js"></script>
+  </body>
 </html>

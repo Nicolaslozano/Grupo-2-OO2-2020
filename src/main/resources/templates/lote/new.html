@@ -1,91 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <th:block th:include="fragments/head :: head"></th:block>
-</head>
+  </head>
 
-
-<body>
-
+  <body>
     <div class="d-flex" id="wrapper">
-        
-        <th:block th:include="fragments/sidebar :: sidebar"></th:block>
+      <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <th:block th:include="fragments/navbar :: navbar"></th:block>
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <th:block th:include="fragments/navbar :: navbar"></th:block>
 
-            <div class="container">
-            	<div class="form">
-                	<form class="well form-horizontal" action="#" th:action="@{/lote/create}" th:object="${lote}"
-                    	method="post" id="contact_form">
-                     <fieldset>
+        <div class="container">
+          <div class="form">
+            <form class="well form-horizontal" id="form-lote-create">
+              <fieldset>
+                <!-- Text input-->
 
-                        <!-- Text input-->
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Cantidad inicial</label>
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        id="cantidadInicial"
+                        name="cantidadInicial"
+                        placeholder="CantidadInicial"
+                        class="form-control"
+                        type="number"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-                        <div class="form-group">
-                          <label class="col-md-4 control-label">Cantidad inicial</label>
-                            <div class="col-md-4 inputGroupContainer">
-                               <div style="width: 300%" class="input-group">
-                                 <input name="cantidadInicial" placeholder="CantidadInicial" class="form-control" type="number"
-                                        th:field="*{cantidadInicial}">
-                                </div>
-                            </div>
-                        </div>
-      
-                           <!-- Text input-->
+                <!-- Text input-->
 
-                          <div class="form-group">
-                            <label class="col-md-4 control-label">Productos</label>
-                            <div class="col-md-4 selectContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <select name="producto" class="form-control selectpicker" th:field="*{idProducto}">
-                                        <option value="0"> -- </option>
-                                        <option th:each="producto : ${productos}" th:value="${producto.idProducto}"
-                                            th:text="${producto.nombre	}">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        
-                         <div class="form-group">
-                            <label class="col-md-4 control-label">Local</label>
-                            <div class="col-md-4 selectContainer">
-                                <div style="width: 300%" class="input-group">
-                                    <select name="local" class="form-control selectpicker" th:field="*{idStock}">
-                                        <option value="0"> -- </option>
-                                        <option th:each="local : ${locales}" th:value="${local.idLocal}"
-                                            th:text="${local.direccion}">
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Productos</label>
+                  <div class="col-md-4 selectContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <select
+                        id="producto"
+                        name="producto"
+                        class="form-control selectpicker"
+                      >
+                        <option value="0"> -- </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
-                        <!-- Button -->
-                        <div class="form-group">
-                            <label class="col-md-4 control-label"></label>
-                            	<div class="col-md-4"><br>
-                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
-                                    type="submit"
-                                    class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
-                            </div>
-                        </div>
+                <div class="form-group">
+                  <label class="col-md-4 control-label">Local</label>
+                  <div class="col-md-4 selectContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <select
+                        id="local"
+                        name="local"
+                        class="form-control selectpicker"
+                      >
+                        <option value="0"> -- </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
-                    </fieldset>
-                </form>
-            </div>
-            <!-- /ClassForm -->
+                <!-- Button -->
+                <div class="form-group">
+                  <label class="col-md-4 control-label"></label>
+                  <div class="col-md-4">
+                    <br />
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button
+                      type="submit"
+                      class="btn btn-warning"
+                    >
+                      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspCREAR&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                    </button>
+                  </div>
+                </div>
+
+                <div id="feedback">
+                  <br />
+                  <div class="" role="alert"></div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <!-- /ClassForm -->
         </div>
         <!-- /.container -->
+      </div>
+      <!-- /#page-content-wrapper -->
     </div>
-    <!-- /#page-content-wrapper -->
-  </div> 
-  <!-- /#wrapper -->
+    <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
-</body>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        // Pedir todos los locales cuando carga la vista
+        $.ajax({
+          url: "/api/local/getLocales",
+          type: "GET",
+          success: function (data) {
+            var locales = data;
+            if (typeof data == "string") {
+              locales = JSON.parse(data);
+            }
+            $.each(locales, function (index, local) {
+              $("#local").append(
+                $("<option></option>", {
+                  value: local.idLocal,
+                  text: local.direccion,
+                })
+              );
+            });
+          },
+          error: function (result) {
+            console.log(["error getting locales", result]);
+          },
+        });
 
+        $.ajax({
+          url: "/api/producto/getProductos",
+          type: "GET",
+          success: function (data) {
+            var productos = data;
+            if (typeof data == "string") {
+              productos = JSON.parse(data);
+            }
+            $.each(productos, function (index, producto) {
+              $("#producto").append(
+                $("<option></option>", {
+                  value: producto.idProducto,
+                  text: producto.nombre + " $" + producto.precio,
+                })
+              );
+            });
+          },
+          error: function (result) {
+            console.log(["error getting productos", result]);
+          },
+        });
+      });
+    </script>
+    <script type="text/javascript" src="/js/auth/Lote.js"></script>
+  </body>
 </html>

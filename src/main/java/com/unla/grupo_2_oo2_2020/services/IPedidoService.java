@@ -9,23 +9,26 @@ import com.unla.grupo_2_oo2_2020.entities.Pedido;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
 
-
 public interface IPedidoService {
 
-   public List<Pedido> getAll();
-	
+	public List<Pedido> getAll();
+
+	public List<Pedido> getAccepted();
+
 	public void insertOrUpdate(PedidoModel pedidoModel);
 
 	public Pedido findById(long idPedido);
 
-    public double getTotal(PedidoModel pedidoModel);
+	public double getTotal(Pedido pedido);
 
-    public void removeById(long idPedido);
+	public double getTotal(PedidoModel pedidoModel);
+
+	public void removeById(long idPedido);
 
 	public List<Pedido> findByLocal(Local local);
-	
+
 	public Map<ProductoModel, Integer> rankingProductos();
 
-	Map<ProductoModel, Integer> productosEntreFechas(LocalDate fecha1, LocalDate fecha2);
+	Map<ProductoModel, Integer> productosEntreFechas(LocalDate fecha1, LocalDate fecha2, Local local);
 
 }

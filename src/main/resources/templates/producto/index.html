@@ -1,103 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+  <th:block th:include="fragments/head :: head"></th:block>
 
-<th:block th:include="fragments/head :: head"></th:block>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <th:block th:include="fragments/sidebar :: sidebar"></th:block>
 
-<body>
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <th:block th:include="fragments/navbar :: navbar"></th:block>
 
-  <div class="d-flex" id="wrapper">
+        <section id="tabs" class="list-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="tab-content" id="nav-tabContent">
+                  <div
+                    class="tab-pane fade show active"
+                    id="nav-home"
+                    role="tabpanel"
+                    aria-labelledby="nav-home-tab"
+                  >
+                    <table class="table" cellspacing="0">
+                      <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Descripcion</th>
+                          <th>Precio</th>
+                          <th>FechaAlta</th>
+                          <th>
+                            <img
+                              src="/assets/bootstrap-icons/pencil-square.svg"
+                              alt=""
+                              width="90"
+                              height="20"
+                              title="Modificar"
+                            />
+                          </th>
 
-    <th:block th:include="fragments/sidebar :: sidebar"></th:block>
-
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-
-      <th:block th:include="fragments/navbar :: navbar"></th:block>
-
-      <section id="tabs" class="list-tab">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                  <table class="table" cellspacing="0">
-                    <thead>
-                      <tr>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Precio</th>
-                        <th>FechaAlta</th>
-                        <th><img src="/assets/bootstrap-icons/pencil-square.svg" alt="" width="45" height="20"
-                            title="Modificar"></th>
-                        <th><img src="/assets/bootstrap-icons/trash.svg" alt="" width="70" height="20" title="Eliminar">
-                        <th>
-                      </tr>
-                    </thead>
-                    <tbody id="producto-rows">
-
-                    </tbody>
-                  </table>
+                          <th>
+                            <img
+                              src="/assets/bootstrap-icons/trash.svg"
+                              alt=""
+                              width="70"
+                              height="20"
+                              title="Eliminar"
+                            />
+                          </th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody id="producto-rows"></tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
-
             </div>
           </div>
-        </div>
-      </section>
-
-
+        </section>
+      </div>
+      <!-- /#page-content-wrapper -->
     </div>
-    <!-- /#page-content-wrapper -->
+    <!-- /#wrapper -->
 
-  </div>
-  <!-- /#wrapper -->
-
-  <th:block th:include="fragments/bottom :: bottom"></th:block>
-  <script type="text/javascript">
-    $(document).ready(function () {
-
-      $.ajax({
-        url: "/api/producto/getProductos",
-        type: "GET",
-        success: function (data) {
-          var productos = data;
-          if (typeof data == "string") {
-            productos = JSON.parse(data);
-          }
-          $.each(productos, function (index, producto) {
-            $("#producto-rows").append(
-              $("<tr></tr>").append(
-                $("<td></td>").append(
-                  $("<span></span>", { text: producto.nombre })
-                ),
-                $("<td></td>").append(
-                  $("<span></span>", { text: producto.descripcion })
-                ),
-                $("<td></td>").append(
-                  $("<span></span>", { text: producto.precio })
-                ),
-                $("<td></td>").append(
-                  $("<span></span>", { text: producto.fechaAlta })
-                ),
-                $("<td></td>").append(
-                  $("<a></a>", { text: "Ver", href: "/producto/" + producto.idProducto, class: "btn btn-info" })
-                ),
-                $("<td></td>").append(
-                  $("<form></form>", { action: "/producto/remove/" + producto.idProducto, method: "post" }).append(
-                    $("<input></input>", { class: "btn btn-danger", type: "submit", value: "Eliminar" })
+    <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $.ajax({
+          url: "/api/producto/getProductos",
+          type: "GET",
+          success: function (data) {
+            var productos = data;
+            if (typeof data == "string") {
+              productos = JSON.parse(data);
+            }
+            $.each(productos, function (index, producto) {
+              $("#producto-rows").append(
+                $("<tr></tr>").append(
+                  $("<td></td>").append(
+                    $("<span></span>", { text: producto.nombre })
+                  ),
+                  $("<td></td>").append(
+                    $("<span></span>", { text: producto.descripcion })
+                  ),
+                  $("<td></td>").append(
+                    $("<span></span>", { text: "ARS$ " + producto.precio })
+                  ),
+                  $("<td></td>").append(
+                    $("<span></span>", { text: producto.fechaAlta })
+                  ),
+                  $("<td></td>").append(
+                    $("<a></a>", {
+                      text: "Modificar",
+                      href: "/producto/" + producto.idProducto,
+                      class: "btn btn-info",
+                    })
+                  ),
+                  $("<td></td>").append(
+                    $("<form></form>", {
+                      action: "/producto/remove/" + producto.idProducto,
+                      method: "post",
+                    }).append(
+                      $("<input></input>", {
+                        class: "btn btn-danger",
+                        type: "submit",
+                        value: "Eliminar",
+                      })
+                    )
                   )
-                ),
-              )
-            );
-          });
-        },
-        error: function (result) {
-          console.log(["error getting productos", result]);
-        },
+                )
+              );
+            });
+          },
+          error: function (result) {
+            console.log(["error getting productos", result]);
+          },
+        });
       });
-    });
-  </script>
-
-</body>
-
+    </script>
+    <script type="text/javascript" src="/js/auth/Producto.js"></script>
+  </body>
 </html>

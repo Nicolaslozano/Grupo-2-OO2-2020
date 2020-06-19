@@ -16,8 +16,7 @@
             <div class="container">
 
                 <div class="form">
-                    <form class="well form-horizontal" action="#" th:action="@{/local/update}" th:object="${local}"
-                        method="post" id="contact_form">
+                    <form class="well form-horizontal" th:object="${local}" id="form-local-update">
                         <fieldset>
                             <div style="width: 300%" class="form_group">
                                 <input type="hidden" th:field="*{idLocal}" />
@@ -94,6 +93,7 @@
     <!-- /#wrapper -->
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
+    <script type="text/javascript" src="/js/auth/Local.js"></script>
 </body>
 
 </html>

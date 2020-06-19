@@ -15,6 +15,8 @@ public class StaticValuesHelper {
     public final static String SELLER_REQUIRED = "seller_required";
     public final static String CLIENT_REQUIRED = "client_required";
     public final static String QUANTITY_REQUIRED = "quantity_required";
+    public final static String DESCRIPTION_REQUIRED = "description_required";
+    public final static String PRICE_REQUIRED = "price_required";
 
     public final static String EMAIL_ALREADY_EXISTS = "email_already_exists";
     public final static String PERSON_ALREADY_EXISTS = "person_already_exists";
@@ -33,5 +35,10 @@ public class StaticValuesHelper {
     public final static int PEDIDO_RECHAZADO = 0;
     public final static int PEDIDO_ACEPTADO = 1;
     public final static int PEDIDO_PENDIENTE = 2;
+    
+    public final static double SUELDO_BASICO = 18000;
+    public final static double COMISION_ORIGINAL = 0.05;
+    public final static double COMISION_ORIGINALSUP = 0.03;
+    public final static double COMISION_AUXILIAR = 0.02;
 
 }
