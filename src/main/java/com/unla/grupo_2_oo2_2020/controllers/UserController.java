@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import com.unla.grupo_2_oo2_2020.entities.User;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
+import com.unla.grupo_2_oo2_2020.models.UserModel;
 import com.unla.grupo_2_oo2_2020.services.ISecurityService;
 import com.unla.grupo_2_oo2_2020.services.IUserService;
 import com.unla.grupo_2_oo2_2020.validator.UserValidator;
@@ -40,8 +41,8 @@ public class UserController {
         return mAV;
     }
 
-    @PostMapping("/registration")
-    public String registration(@ModelAttribute("user") User userForm, BindingResult bindingResult) {
+    
+    public String asd(@ModelAttribute("user") User userForm, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -53,6 +54,22 @@ public class UserController {
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
         return ViewRouteHelper.INDEX;
+    }
+
+    @PostMapping("/registration")
+    public ModelAndView registration(@ModelAttribute("userModel") UserModel userModel, BindingResult bindingResult) {
+        userValidator.validate(userModel, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+
+            return new ModelAndView(ViewRouteHelper.REGISTRATION);
+        }
+
+        userService.save(userModel);
+
+        securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+        return new ModelAndView(ViewRouteHelper.INDEX);
     }
 
     @GetMapping("/login")

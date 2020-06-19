@@ -1,6 +1,6 @@
 package com.unla.grupo_2_oo2_2020.validator;
 
-import com.unla.grupo_2_oo2_2020.entities.User;
+import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.services.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +10,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-/**
- * To provide input-data validation for /registration controller with Spring
- * Validator, we implement org.springframework.validation.Validator. Error
- * codes, e.g. Size.userForm.username, are defined by validation.properties
- */
-
-@Component
-public class UserValidator implements Validator {
+@Component("clienteValidator")
+public class ClienteValidator implements Validator{
 
     @Autowired
     @Qualifier("userService")
@@ -25,27 +19,27 @@ public class UserValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+        return ClienteModel.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        User user = (User) o;
+        ClienteModel cliente = (ClienteModel) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
-        if (user.getUsername().length() < 6 || user.getUsername().length() > 32) {
+        if (cliente.getUsername().length() < 6 || cliente.getUsername().length() > 32) {
             errors.rejectValue("username", "Size.userForm.username");
         }
-        if (userService.findByUsername(user.getUsername()) != null) {
+        if (userService.findByUsername(cliente.getUsername()) != null) {
             errors.rejectValue("username", "Duplicate.userForm.username");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+        if (cliente.getPassword().length() < 8 || cliente.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
 
-        if (!user.getPasswordConfirm().equals(user.getPassword())) {
+        if (!cliente.getPasswordConfirm().equals(cliente.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
         }
     }

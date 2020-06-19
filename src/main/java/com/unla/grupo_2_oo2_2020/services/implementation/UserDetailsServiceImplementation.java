@@ -15,8 +15,7 @@ import java.util.Set;
 
 import com.unla.grupo_2_oo2_2020.entities.Role;
 import com.unla.grupo_2_oo2_2020.entities.User;
-import com.unla.grupo_2_oo2_2020.repository.IClienteRepository;
-import com.unla.grupo_2_oo2_2020.repository.IEmpleadoRepository;
+import com.unla.grupo_2_oo2_2020.services.IUserService;
 
 /**
  * To implement login/authentication with Spring Security, we need to implement
@@ -27,12 +26,8 @@ import com.unla.grupo_2_oo2_2020.repository.IEmpleadoRepository;
 public class UserDetailsServiceImplementation implements UserDetailsService {
 
     @Autowired
-    @Qualifier("clienteRepository")
-    private IClienteRepository clienteRepository;
-
-    @Autowired
-    @Qualifier("empleadoRepository")
-    private IEmpleadoRepository empleadoRepository;
+    @Qualifier("userService")
+    private IUserService userService;
 
     @Override
     @Transactional(readOnly = true)
@@ -40,12 +35,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
         User user = null;
 
-        if ((user = clienteRepository.findByUsername(username)) == null) {
-
-            user = empleadoRepository.findByUsername(username);
-        }
-
-        if (user == null)
+        if ((user = userService.findByUsername(username)) == null)
             throw new UsernameNotFoundException(username);
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
