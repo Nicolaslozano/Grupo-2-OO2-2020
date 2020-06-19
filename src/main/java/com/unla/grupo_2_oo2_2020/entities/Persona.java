@@ -12,23 +12,21 @@ import lombok.NoArgsConstructor;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="persona")
 @Data @NoArgsConstructor
+@Deprecated
 public abstract class Persona {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected long idPersona;
 
-	@Column(name="nombre", unique=false, nullable=false, length=45)
 	protected String nombre;
 
-	@Column(name="apellido", unique=false, nullable=false, length=45)
 	protected String apellido;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="fechaNacimiento")
 	protected LocalDate fechaNacimiento;
 
-	@Column(name="dni",nullable = false)
 	protected int dni;
 
 	public Persona(long idPersona, String nombre, String apellido, LocalDate fechaNacimiento, int dni) {

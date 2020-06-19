@@ -1,15 +1,18 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.unla.grupo_2_oo2_2020.converters.ClienteConverter;
 import com.unla.grupo_2_oo2_2020.entities.Cliente;
 import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.repository.IClienteRepository;
+import com.unla.grupo_2_oo2_2020.repository.IRoleRepository;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
 
 
@@ -25,6 +28,13 @@ public class ClienteService implements IClienteService {
     @Qualifier("clienteConverter")
     private ClienteConverter clienteConverter;
 
+    @Autowired
+    @Qualifier("roleRepository")
+    private IRoleRepository roleRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public List<Cliente> getAll() {
         // TODO Auto-generated method stub
@@ -32,9 +42,9 @@ public class ClienteService implements IClienteService {
     }
 
 	@Override
-	public Cliente findById(long idPersona) {
+	public Cliente findById(long id) {
 
-		return clienteRepository.findByIdPersona(idPersona);
+        return clienteRepository.findById(id);
     }
 
     @Override
@@ -48,16 +58,23 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
+	public Cliente findByUsername(String username) {
+		return clienteRepository.findByUsername(username);
+	}
+
+    @Override
     public ClienteModel insertOrUpdate(ClienteModel clienteModel) {
-		// TODO Auto-generated method stub
-		Cliente cliente = clienteConverter.modelToEntity(clienteModel);
+
+        Cliente cliente = clienteConverter.modelToEntity(clienteModel);
+        cliente.setPassword(bCryptPasswordEncoder.encode(cliente.getPassword()));
+        cliente.setRoles(new HashSet<>(roleRepository.findAll()));
 
 		clienteRepository.save(cliente);
 		return clienteConverter.entityToModel(cliente);
 	}
 
     @Override
-    public void removeById (long idPersona) {
-    	clienteRepository.deleteById(idPersona);
+    public void removeById (long id) {
+    	clienteRepository.deleteById(id);
     }
 }

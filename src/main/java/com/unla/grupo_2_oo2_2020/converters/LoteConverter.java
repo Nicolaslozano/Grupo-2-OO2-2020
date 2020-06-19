@@ -13,6 +13,7 @@ public class LoteConverter {
 	}
 
 	public Lote modelToEntity(LoteModel loteModel) {
-		return new Lote(loteModel.getIdLote(), loteModel.getCantidadInicial(), loteModel.getCantidadActual(), loteModel.isEstado());
+		return new Lote(loteModel.getIdLote(), loteModel.getCantidadInicial(), loteModel.getCantidadActual(),
+				loteModel.isEstado());
 	}
 }

@@ -9,14 +9,13 @@ import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 public class EmpleadoConverter {
 
 	public EmpleadoModel entityToModel(Empleado empleado) {
-		return new EmpleadoModel(empleado.getIdPersona(), empleado.getNombre(), empleado.getApellido(),
-				empleado.getFechaNacimiento(), empleado.getDni(), empleado.getFranjaHoraria(),
-				empleado.isTipoEmpleado(), empleado.getLocal().getIdLocal());
+		//FIXME
+		return new EmpleadoModel(id, nombre, apellido, fechaNacimiento, dni, franjaHoraria, tipoEmpleado, idLocal, username, password);
 	}
 
 	public Empleado modelToEntity(EmpleadoModel empleadoModel) {
-		return new Empleado(empleadoModel.getIdPersona(), empleadoModel.getNombre(), empleadoModel.getApellido(),
-				empleadoModel.getFechaNacimiento(), empleadoModel.getDni(), empleadoModel.getFranjaHoraria(),
-				empleadoModel.isTipoEmpleado());
+		return new Empleado(empleadoModel.getFranjaHoraria(), empleadoModel.isTipoEmpleado(), empleadoModel.getNombre(),
+				empleadoModel.getApellido(), empleadoModel.getFechaNacimiento(), empleadoModel.getDni(),
+				empleadoModel.getUsername(), empleadoModel.getPassword());
 	}
 }
