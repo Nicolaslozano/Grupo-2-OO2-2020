@@ -27,6 +27,12 @@ public class ClienteController {
 		return mAV;
 	}
 
+	@GetMapping("/registration")
+    public ModelAndView registration() {
+        ModelAndView mAV = new ModelAndView(ViewRouteHelper.REGISTRATION);
+        return mAV;
+    }
+
     @GetMapping("/new")
 	public ModelAndView create() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_NEW);

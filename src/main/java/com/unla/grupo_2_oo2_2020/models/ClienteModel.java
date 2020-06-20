@@ -3,7 +3,6 @@ package com.unla.grupo_2_oo2_2020.models;
 import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 
@@ -17,7 +16,6 @@ import lombok.NoArgsConstructor;
 public class ClienteModel extends UserModel {
 
 	@Email(message = StaticValuesHelper.EMAIL_REQUIRED)
-	@NotEmpty(message = StaticValuesHelper.EMAIL_REQUIRED)
 	private String email;
 
 	public ClienteModel(long id, String email, String nombre, String apellido, LocalDate fechaNacimiento,

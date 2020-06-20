@@ -1,7 +1,8 @@
 package com.unla.grupo_2_oo2_2020.entities;
 
 import javax.persistence.*;
-import java.util.Set;
+
+import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = "users")
+@ToString(exclude = {"users","privileges"})
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,18 @@ public class Role {
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private Collection<User> users;
 
+    @ManyToMany
+    @JoinTable(
+        name = "privilege",
+        joinColumns = @JoinColumn(
+          name = "role_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(
+          name = "privilege_id", referencedColumnName = "id"))
+    private Collection<Privilege> privileges;
+
+    public Role(String name) {
+        this.name = name;
+    }
 }

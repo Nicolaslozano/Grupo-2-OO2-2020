@@ -41,7 +41,6 @@ public class UserController {
         return mAV;
     }
 
-    
     public String asd(@ModelAttribute("user") User userForm, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
 

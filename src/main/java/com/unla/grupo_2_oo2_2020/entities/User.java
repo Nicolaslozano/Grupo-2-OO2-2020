@@ -5,7 +5,7 @@ import javax.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.Collection;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,7 +37,13 @@ public class User {
     protected String password;
 
     @ManyToMany
-    protected Set<Role> roles;
+    @JoinTable(
+        name = "role",
+        joinColumns = @JoinColumn(
+          name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(
+          name = "role_id", referencedColumnName = "id"))
+    protected Collection<Role> roles;
 
     public User(String nombre, String apellido,LocalDate fechaNacimiento, int dni, String username, String password) {
         this.nombre = nombre;

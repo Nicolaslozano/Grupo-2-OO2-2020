@@ -19,11 +19,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Qualifier("userDetailsServiceImplementation")
+    @Qualifier("userDetailsService")
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Bean
+    @Bean("bCryptPasswordEncoder")
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
     }
 
-    @Bean
+    @Bean("authenticationManager")
     public AuthenticationManager customAuthenticationManager() throws Exception {
         return authenticationManager();
     }

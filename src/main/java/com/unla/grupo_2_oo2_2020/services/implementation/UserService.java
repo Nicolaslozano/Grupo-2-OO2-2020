@@ -2,6 +2,7 @@ package com.unla.grupo_2_oo2_2020.services.implementation;
 
 import com.unla.grupo_2_oo2_2020.entities.User;
 import com.unla.grupo_2_oo2_2020.repository.IClienteRepository;
+import com.unla.grupo_2_oo2_2020.repository.IDefaultUserRepository;
 import com.unla.grupo_2_oo2_2020.repository.IEmpleadoRepository;
 import com.unla.grupo_2_oo2_2020.services.IUserService;
 
@@ -22,16 +23,39 @@ public class UserService implements IUserService{
 
     @Autowired
 	@Qualifier("empleadoRepository")
-	private IEmpleadoRepository empleadoRepository;
+    private IEmpleadoRepository empleadoRepository;
+    
+    @Autowired
+	@Qualifier("userRepository")
+	private IDefaultUserRepository userRepository;
 
     public User findByUsername(String username) {
         User user = null;
 
         if((user = clienteRepository.findByUsername(username)) != null) {
             return user;
-        }else {
-            user = empleadoRepository.findByUsername(username);
+        }else if((user = empleadoRepository.findByUsername(username)) != null){
+            return user;
+        } else {
+            user = userRepository.findByUsername(username);
             return user;
         }
+    }
+
+    public User findByDni(int dni) {
+        User user = null;
+
+        if((user = clienteRepository.findByDni(dni)) != null) {
+            return user;
+        }else if((user = empleadoRepository.findByDni(dni)) != null){
+            return user;
+        } else {
+            user = userRepository.findByDni(dni);
+            return user;
+        }
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 }

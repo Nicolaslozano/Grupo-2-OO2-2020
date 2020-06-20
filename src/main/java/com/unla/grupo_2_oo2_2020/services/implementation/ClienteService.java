@@ -33,6 +33,7 @@ public class ClienteService implements IClienteService {
     private IRoleRepository roleRepository;
 
     @Autowired
+    @Qualifier("bCryptPasswordEncoder")
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
