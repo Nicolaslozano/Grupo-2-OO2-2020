@@ -26,7 +26,6 @@ public class SecurityService implements ISecurityService {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
@@ -51,7 +50,7 @@ public class SecurityService implements ISecurityService {
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            logger.debug(String.format("Auto login %s successfully!", username));
+            logger.debug(String.format("AUTO LOGIN SUCCESSFUL %s", username));
         }
     }
 

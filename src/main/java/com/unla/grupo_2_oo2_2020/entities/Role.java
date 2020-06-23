@@ -2,6 +2,7 @@ package com.unla.grupo_2_oo2_2020.entities;
 
 import javax.persistence.*;
 
+
 import java.util.Collection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "role")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class Role {
 
     @ManyToMany
     @JoinTable(
-        name = "privilege",
+        name = "role_privileges",
         joinColumns = @JoinColumn(
           name = "role_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(

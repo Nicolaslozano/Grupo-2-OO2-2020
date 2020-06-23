@@ -78,7 +78,7 @@ public class EmpleadoRestController {
 
 		for (Empleado empleado : empleadoService.findByLocal(localService.findById(idLocal))) {
 
-			if (empleado.getIdPersona() == idPersona)
+			if (empleado.getId() == idPersona)
 				continue;
 			empleados.add(empleadoConverter.entityToModel(empleado));
 		}

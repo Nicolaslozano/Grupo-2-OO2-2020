@@ -127,7 +127,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     user.setRoles(Arrays.asList(adminRole));
     // set info admin
 
-    userRepository.save(user);
+    if(userRepository.findByUsername(user.getUsername()) == null) {
+      userRepository.save(user);
+    }
 
     alreadySetup = true;
   }

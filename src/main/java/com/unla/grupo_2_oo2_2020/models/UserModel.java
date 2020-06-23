@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class UserModel {
+public class UserModel {
 
 	protected long id;
 	protected String nombre;

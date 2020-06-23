@@ -6,10 +6,14 @@ import javax.validation.Valid;
 
 import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
+import com.unla.grupo_2_oo2_2020.services.ISecurityService;
+import com.unla.grupo_2_oo2_2020.services.IUserService;
+import com.unla.grupo_2_oo2_2020.validator.ClienteValidator;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,26 +32,30 @@ public class ClienteRestController {
     @Qualifier("clienteService")
     private IClienteService clienteService;
 
-    @PostMapping("/createCliente")
-    public ResponseEntity<?> createCliente(@Valid @RequestBody ClienteModel clienteModel, Errors errors) {
+    @Autowired
+    @Qualifier("userService")
+    private IUserService userService;
 
+    @Autowired
+    @Qualifier("securityService")
+    private ISecurityService securityService;
+
+    @Autowired
+    @Qualifier("clienteValidator")
+    private ClienteValidator clienteValidator;
+
+    @PostMapping("/createCliente")
+    public ResponseEntity<?> createCliente(@Valid @RequestBody ClienteModel clienteModel, BindingResult bindingResult) {
+        clienteValidator.validate(clienteModel, bindingResult);
         HashMap<String, String> result = new HashMap<String, String>();
 
-        if (errors.hasErrors()) {
+        if (bindingResult.hasErrors()) {
 
-            for (ObjectError error : errors.getAllErrors()) {
+            for (ObjectError error : bindingResult.getAllErrors()) {
 
-                result.put(error.getDefaultMessage(), error.getDefaultMessage());
+                result.put(error.getCode(), error.getDefaultMessage());
             }
 
-            return ResponseEntity.badRequest().body(result);
-        } else if (clienteService.findByDni(clienteModel.getDni()) != null) {
-
-            result.put(StaticValuesHelper.PERSON_ALREADY_EXISTS, "Persona ya existe");
-            return ResponseEntity.badRequest().body(result);
-        } else if (clienteService.findByEmail(clienteModel.getEmail()) != null) {
-
-            result.put(StaticValuesHelper.EMAIL_ALREADY_EXISTS, "Email ya esta en uso");
             return ResponseEntity.badRequest().body(result);
         } else {
 
@@ -72,7 +80,7 @@ public class ClienteRestController {
 
             return ResponseEntity.badRequest().body(result);
         } else if ((clienteService.findByEmail(clienteModel.getEmail()) != null) && (clienteService
-                .findByEmail(clienteModel.getEmail()).getIdPersona() != clienteModel.getIdPersona())) {
+                .findByEmail(clienteModel.getEmail()).getId() != clienteModel.getId())) {
 
             result.put(StaticValuesHelper.EMAIL_ALREADY_EXISTS, "Email ya esta en uso");
             return ResponseEntity.badRequest().body(result);
