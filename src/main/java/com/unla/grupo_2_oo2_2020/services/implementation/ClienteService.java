@@ -1,6 +1,6 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,8 @@ import com.unla.grupo_2_oo2_2020.converters.ClienteConverter;
 import com.unla.grupo_2_oo2_2020.entities.Cliente;
 import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.repository.IClienteRepository;
-import com.unla.grupo_2_oo2_2020.repository.IRoleRepository;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
+import com.unla.grupo_2_oo2_2020.services.IRoleService;
 
 
 
@@ -29,8 +29,8 @@ public class ClienteService implements IClienteService {
     private ClienteConverter clienteConverter;
 
     @Autowired
-    @Qualifier("roleRepository")
-    private IRoleRepository roleRepository;
+    @Qualifier("roleService")
+    private IRoleService roleService;
 
     @Autowired
     @Qualifier("bCryptPasswordEncoder")
@@ -68,7 +68,7 @@ public class ClienteService implements IClienteService {
 
         Cliente cliente = clienteConverter.modelToEntity(clienteModel);
         cliente.setPassword(bCryptPasswordEncoder.encode(cliente.getPassword()));
-        cliente.setRoles(new HashSet<>(roleRepository.findAll()));
+        cliente.setRoles(Arrays.asList(roleService.findByUserType(cliente)));
 
 		clienteRepository.save(cliente);
 		return clienteConverter.entityToModel(cliente);
