@@ -2,12 +2,17 @@ package com.unla.grupo_2_oo2_2020.controllers;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.util.Collection;
+import java.util.List;
+
 import javax.validation.Valid;
 
+import com.unla.grupo_2_oo2_2020.entities.Role;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
 import com.unla.grupo_2_oo2_2020.services.ISecurityService;
+import com.unla.grupo_2_oo2_2020.services.IUserService;
 import com.unla.grupo_2_oo2_2020.validator.ClienteValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +31,16 @@ public class UserController {
     private IClienteService clienteService;
 
     @Autowired
+    @Qualifier("userService")
+    private IUserService userService;
+
+    @Autowired
     @Qualifier("securityService")
     private ISecurityService securityService;
 
-   @Autowired
-   @Qualifier("clienteValidator")
-   private ClienteValidator clienteValidator;
+    @Autowired
+    @Qualifier("clienteValidator")
+    private ClienteValidator clienteValidator;
 
     @GetMapping("/registration")
     public ModelAndView registration() {
@@ -41,8 +50,9 @@ public class UserController {
         return mAV;
     }
 
-    @PostMapping("/registration") //SOLO CLIENTES
-    public ModelAndView registration(@Valid @ModelAttribute("cliente") ClienteModel clienteModel, BindingResult bindingResult) {
+    @PostMapping("/registration") // SOLO CLIENTES
+    public ModelAndView registration(@Valid @ModelAttribute("cliente") ClienteModel clienteModel,
+            BindingResult bindingResult) {
         clienteValidator.validate(clienteModel, bindingResult);
 
         ModelAndView mAV;
@@ -59,15 +69,12 @@ public class UserController {
         securityService.autoLogin(clienteModel.getUsername(), clienteModel.getPasswordConfirm());
 
         mAV = new ModelAndView(ViewRouteHelper.INDEX);
-        mAV.addObject("loggedUser", securityService.findLoggedInUsername());
-
         return mAV;
     }
 
     @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOGIN);
-
         return mAV;
     }
 
@@ -76,7 +83,6 @@ public class UserController {
         ModelAndView mAV = new ModelAndView(ViewRouteHelper.INDEX);
         securityService.autoLogin(username, password);
 
-        mAV.addObject("loggedUser", securityService.findLoggedInUsername());
         return mAV;
     }
 

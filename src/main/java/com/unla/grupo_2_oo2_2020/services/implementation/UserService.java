@@ -1,9 +1,11 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import com.unla.grupo_2_oo2_2020.entities.Role;
 import com.unla.grupo_2_oo2_2020.entities.User;
 import com.unla.grupo_2_oo2_2020.repository.IClienteRepository;
 import com.unla.grupo_2_oo2_2020.repository.IDefaultUserRepository;
 import com.unla.grupo_2_oo2_2020.repository.IEmpleadoRepository;
+import com.unla.grupo_2_oo2_2020.services.IRoleService;
 import com.unla.grupo_2_oo2_2020.services.IUserService;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,7 +29,11 @@ public class UserService implements IUserService{
     
     @Autowired
 	@Qualifier("userRepository")
-	private IDefaultUserRepository userRepository;
+    private IDefaultUserRepository userRepository;
+    
+    @Autowired
+    @Qualifier("roleService")
+    private IRoleService roleService;
 
     public User findByUsername(String username) {
         User user = null;
@@ -57,5 +63,16 @@ public class UserService implements IUserService{
 
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    @Override
+    public boolean hasRole(String username, String roleName) {
+        
+        User user = findByUsername(username);
+        Role role = roleService.findByName(roleName);
+
+        if(user.getRoles().contains(role)) {
+            return true;
+        }else return false;
     }
 }

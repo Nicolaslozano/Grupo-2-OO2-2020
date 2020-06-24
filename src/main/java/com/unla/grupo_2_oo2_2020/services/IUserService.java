@@ -9,4 +9,6 @@ public interface IUserService {
     User findByDni(int dni);
 
     void save(User user);
+
+    boolean hasRole(String username, String role);
 }

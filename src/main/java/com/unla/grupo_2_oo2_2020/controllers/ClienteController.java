@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 import com.unla.grupo_2_oo2_2020.services.IClienteService;
+import com.unla.grupo_2_oo2_2020.services.ISecurityService;
+import com.unla.grupo_2_oo2_2020.services.IUserService;
 
 
 @Controller
@@ -20,9 +22,26 @@ public class ClienteController {
 	@Qualifier("clienteService")
 	private IClienteService clienteService;
 
+	@Autowired
+    @Qualifier("securityService")
+	private ISecurityService securityService;
+	
+	@Autowired
+    @Qualifier("userService")
+    private IUserService userService;
+
+
     @GetMapping("")
 	public ModelAndView index() {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.CLIENTE_INDEX);
+
+		ModelAndView mAV;
+
+		if(userService.hasRole(securityService.findLoggedInUsername(), "ROLE_CLIENTE")) {
+			mAV = new ModelAndView(ViewRouteHelper.INDEX);
+			return mAV;
+		}
+
+		mAV = new ModelAndView(ViewRouteHelper.CLIENTE_INDEX);
 		mAV.addObject("clientes", clienteService.getAll());
 		return mAV;
 	}

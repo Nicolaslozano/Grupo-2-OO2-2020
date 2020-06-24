@@ -16,8 +16,15 @@
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li>
           <div class="btn-group">
-            <button id="userActionButton" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span th:text="${loggedUser}" class="ui-button-text"></span>
+            <button
+              id="userActionButton"
+              type="button"
+              class="btn btn-info dropdown-toggle"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <span  class="ui-button-text"></span>
             </button>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="#">Action</a>
@@ -40,5 +47,21 @@
         </li>
       </ul>
     </div>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $.ajax({
+          url: "/api/user/getLoggedUser",
+          type: "GET",
+          success: function (data) {
+            var user = data;
+
+            $("#userActionButton > span").html(user.username);
+          },
+          error: function (result) {
+            console.log(["error getting user", result]);
+          },
+        });
+      });
+    </script>
   </nav>
 </div>
