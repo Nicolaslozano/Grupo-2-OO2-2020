@@ -1,5 +1,6 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.unla.grupo_2_oo2_2020.repository.IRoleRepository;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
+import com.unla.grupo_2_oo2_2020.services.IRoleService;
 
 @Service("empleadoService")
 public class EmpleadoService implements IEmpleadoService {
@@ -45,8 +47,8 @@ public class EmpleadoService implements IEmpleadoService {
 	private ILocalService localService;
 
 	@Autowired
-    @Qualifier("roleRepository")
-    private IRoleRepository roleRepository;
+    @Qualifier("roleService")
+    private IRoleService roleService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -79,7 +81,7 @@ public class EmpleadoService implements IEmpleadoService {
 
 		empleado.setLocal(localService.findById(empleadoModel.getIdLocal()));
 		empleado.setPassword(bCryptPasswordEncoder.encode(empleado.getPassword()));
-        empleado.setRoles(new HashSet<>(roleRepository.findAll()));
+        empleado.setRoles(new HashSet<>(Arrays.asList(roleService.findByUserType(empleado))));
 
 		empleadoRepository.save(empleado);
 		return empleadoConverter.entityToModel(empleado);
