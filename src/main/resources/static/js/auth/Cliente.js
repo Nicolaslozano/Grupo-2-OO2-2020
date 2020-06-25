@@ -15,6 +15,9 @@ $(document).ready(function () {
         event.preventDefault();
         var clienteModel = {};
 
+        clienteModel["username"] = $("#username").val();
+        clienteModel["password"] = $("#password").val();
+        clienteModel["passwordConfirm"] = $("#passwordConfirm").val();
         clienteModel["nombre"] = $("#nombre").val();
         clienteModel["apellido"] = $("#apellido").val();
         clienteModel["dni"] = $("#dni").val();
@@ -27,7 +30,10 @@ $(document).ready(function () {
         event.preventDefault();
         var clienteModel = {};
 
-        clienteModel["idPersona"] = $("#idPersona").val();
+        clienteModel["id"] = $("#userId").val();
+        clienteModel["username"] = $("#username").val();
+        clienteModel["password"] = "";
+        clienteModel["passwordConfirm"] = "";
         clienteModel["nombre"] = $("#nombre").val();
         clienteModel["apellido"] = $("#apellido").val();
         clienteModel["dni"] = $("#dni").val();
@@ -44,7 +50,7 @@ function removeCliente(clienteModel) {
         type: "DELETE",
         contentType: "application/json",
         data: JSON.stringify(clienteModel),
-        url: "/api/cliente/remove/" + clienteModel.idPersona,
+        url: "/api/cliente/remove/" + clienteModel.id,
         cache: false,
         timeout: 600000,
         success: function (data) {
@@ -61,7 +67,7 @@ function submitCliente(clienteModel) {
     var url;
 
     //si llega el id es porque estamos actualizando un cliente
-    if (clienteModel.idPersona) {
+    if (clienteModel.id) {
         url = "/api/cliente/updateCliente";
     } else {
         url = "/api/cliente/createCliente";

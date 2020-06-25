@@ -62,4 +62,29 @@ public class ClienteValidator implements Validator{
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "apellido", "NotEmpty");
     }
+
+    public void validateUpdate(Object o, Errors errors) {
+        ClienteModel cliente = (ClienteModel) o;
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
+        if (cliente.getUsername().length() < 6 || cliente.getUsername().length() > 32) {
+            errors.rejectValue("username", "Size.userForm.username");
+        }
+        if ((userService.findByUsername(cliente.getUsername()) != null) && (userService.findByUsername(cliente.getUsername()).getId() != cliente.getId())) {
+            errors.rejectValue("username", "Duplicate.userForm.username");
+        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
+        if((clienteService.findByEmail(cliente.getEmail()) != null) && (clienteService.findByEmail(cliente.getEmail()).getId() != cliente.getId())) {
+            errors.rejectValue("email", "Duplicate.userForm.email");
+        }
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dni", "NotEmpty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nombre", "NotEmpty");
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "apellido", "NotEmpty");
+    }
 }

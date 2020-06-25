@@ -45,7 +45,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
   @Override
   @Transactional
   public void onApplicationEvent(ContextRefreshedEvent event) {
-    // TODO ingresar privilegios correctos y demas
     if (alreadySetup)
       return;
 

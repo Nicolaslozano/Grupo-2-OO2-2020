@@ -53,4 +53,6 @@ public class ViewRouteHelper {
     public final static String LOTE_ROOT = "/lote";
     public final static String STOCK_ROOT = "/stock";
 
+    public final static String ERROR_FORBIDDEN = "/error/403";
+
 }

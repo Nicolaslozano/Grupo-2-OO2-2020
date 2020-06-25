@@ -23,8 +23,6 @@ public class DashboardController {
 	@GetMapping("/index")
 	public ModelAndView index() {
 		ModelAndView modelAndView = new ModelAndView(ViewRouteHelper.INDEX);
-		modelAndView.addObject("loggedUser", securityService.findLoggedInUsername());
-
 		return modelAndView;
 	}
 

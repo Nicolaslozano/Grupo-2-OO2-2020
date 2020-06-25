@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,7 +54,7 @@ public class ClienteRestController {
 
             for (ObjectError error : bindingResult.getAllErrors()) {
 
-                result.put(error.getCode(), error.getDefaultMessage());
+                result.put(((FieldError) error).getField(), error.getCode());
             }
 
             return ResponseEntity.badRequest().body(result);
@@ -67,22 +68,20 @@ public class ClienteRestController {
     }
 
     @PostMapping("/updateCliente")
-    public ResponseEntity<?> updateCliente(@Valid @RequestBody ClienteModel clienteModel, Errors errors) {
+    public ResponseEntity<?> updateCliente(@Valid @RequestBody ClienteModel clienteModel, BindingResult bindingResult) {
 
+        clienteModel.setPassword(clienteService.findByDni(clienteModel.getDni()).getPassword()); //FIXME
+
+        clienteValidator.validateUpdate(clienteModel, bindingResult);
         HashMap<String, String> result = new HashMap<String, String>();
 
-        if (errors.hasErrors()) {
+        if (bindingResult.hasErrors()) {
 
-            for (ObjectError error : errors.getAllErrors()) {
+            for (ObjectError error : bindingResult.getAllErrors()) {
 
-                result.put(error.getDefaultMessage(), error.getDefaultMessage());
+                result.put(((FieldError) error).getField(), error.getCode());
             }
 
-            return ResponseEntity.badRequest().body(result);
-        } else if ((clienteService.findByEmail(clienteModel.getEmail()) != null) && (clienteService
-                .findByEmail(clienteModel.getEmail()).getId() != clienteModel.getId())) {
-
-            result.put(StaticValuesHelper.EMAIL_ALREADY_EXISTS, "Email ya esta en uso");
             return ResponseEntity.badRequest().body(result);
         } else {
 
@@ -93,8 +92,8 @@ public class ClienteRestController {
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/remove/{idPersona}")
-    public ResponseEntity<?> removeCliente(@PathVariable("idPersona") long id) {
+    @DeleteMapping("/remove/{id}")
+    public ResponseEntity<?> removeCliente(@PathVariable("id") long id) {
 
         HashMap<String, String> result = new HashMap<String, String>();
         clienteService.removeById(id);
