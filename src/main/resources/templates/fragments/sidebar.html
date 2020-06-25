@@ -231,6 +231,20 @@
               $("#reporte-ranking").addClass("disabled");
               $("#reporte-ventas").addClass("disabled");
             }
+
+            if(role.ROLE_VENDEDOR) {
+              $("#new-cliente").addClass("disabled");
+              $("#new-empleado").addClass("disabled");
+              $("#empleado-sueldos").addClass("disabled");
+              $("#new-local").addClass("disabled");
+              $("#new-lote").addClass("disabled");
+              $("#new-producto").addClass("disabled");
+            }
+
+            if(role.ROLE_GERENTE) {
+              $("#new-cliente").addClass("disabled");
+              $("#new-local").addClass("disabled");
+            }
           },
           error: function (result) {
             console.log(["error getting role", result]);

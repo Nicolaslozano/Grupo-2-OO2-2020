@@ -67,7 +67,15 @@ public class ClienteService implements IClienteService {
     public ClienteModel insertOrUpdate(ClienteModel clienteModel) {
 
         Cliente cliente = clienteConverter.modelToEntity(clienteModel);
-        cliente.setPassword(bCryptPasswordEncoder.encode(cliente.getPassword()));
+        String password;
+
+		if(cliente.getId() > 0) {
+			password = cliente.getPassword();
+		} else {
+			password = bCryptPasswordEncoder.encode(cliente.getPassword());
+        }
+
+        cliente.setPassword(password);
         cliente.setRoles(Arrays.asList(roleService.findByUserType(cliente)));
 
 		clienteRepository.save(cliente);

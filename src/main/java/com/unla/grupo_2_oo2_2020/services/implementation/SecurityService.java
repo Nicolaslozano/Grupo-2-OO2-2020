@@ -1,6 +1,8 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.services.ISecurityService;
+import com.unla.grupo_2_oo2_2020.services.IUserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * We create SecurityService to provide current logged-in user and auto login
@@ -24,6 +27,10 @@ public class SecurityService implements ISecurityService {
     @Autowired
     @Qualifier("authenticationManager")
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+	@Qualifier("userService")
+	private IUserService userService;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -52,6 +59,18 @@ public class SecurityService implements ISecurityService {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             logger.debug(String.format("AUTO LOGIN SUCCESSFUL %s", username));
         }
+    }
+
+    @Override
+    public ModelAndView redirectAccessForbidden(String role) {
+        ModelAndView mAV;
+
+		if (userService.hasRole(findLoggedInUsername(), role)) {
+			mAV = new ModelAndView(ViewRouteHelper.ERROR_FORBIDDEN);
+			return mAV;
+        }
+
+        return null;
     }
 
 }

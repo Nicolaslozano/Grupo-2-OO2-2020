@@ -37,8 +37,7 @@ public class ClienteController {
 
 		ModelAndView mAV;
 
-		if (userService.hasRole(securityService.findLoggedInUsername(), StaticValuesHelper.ROLE_CLIENTE)) {
-			mAV = new ModelAndView("error/403");
+		if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_CLIENTE)) != null) {
 			return mAV;
 		}
 
@@ -52,8 +51,13 @@ public class ClienteController {
 
 		ModelAndView mAV;
 
-		if (userService.hasRole(securityService.findLoggedInUsername(), StaticValuesHelper.ROLE_CLIENTE)) {
-			mAV = new ModelAndView(ViewRouteHelper.ERROR_FORBIDDEN);
+		if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_CLIENTE)) != null) {
+			return mAV;
+
+		} else if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_GERENTE)) != null) {
+			return mAV;
+
+		} else if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_VENDEDOR)) != null) {
 			return mAV;
 		}
 
@@ -68,9 +72,14 @@ public class ClienteController {
 		ModelAndView mAV;
 		Cliente cliente = clienteService.findById(id);
 
-		if ((userService.hasRole(securityService.findLoggedInUsername(), StaticValuesHelper.ROLE_CLIENTE))
+		if (((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_CLIENTE)) != null)
 				&& (userService.findByUsername(securityService.findLoggedInUsername()).getId() != id)) {
-			mAV = new ModelAndView(ViewRouteHelper.ERROR_FORBIDDEN);
+			return mAV;
+
+		} else if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_GERENTE)) != null) {
+			return mAV;
+
+		} else if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_VENDEDOR)) != null) {
 			return mAV;
 		}
 

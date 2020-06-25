@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,7 +144,7 @@ public class EmpleadoRestController {
 	@PostMapping("/updateEmpleado")
 	public ResponseEntity<?> updateCliente(@Valid @RequestBody EmpleadoModel empleadoModel, BindingResult bindingResult) {
 
-        empleadoModel.setPassword(empleadoService.findByDni(empleadoModel.getDni()).getPassword()); //FIXME
+        empleadoModel.setPassword(empleadoService.findByDni(empleadoModel.getDni()).getPassword());
 
         empleadoValidator.validateUpdate(empleadoModel, bindingResult);
         HashMap<String, String> result = new HashMap<String, String>();

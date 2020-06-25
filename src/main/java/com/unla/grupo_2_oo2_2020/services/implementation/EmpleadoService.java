@@ -1,7 +1,6 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import com.unla.grupo_2_oo2_2020.entities.Pedido;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 import com.unla.grupo_2_oo2_2020.repository.IEmpleadoRepository;
-import com.unla.grupo_2_oo2_2020.repository.IRoleRepository;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.IPedidoService;
@@ -78,9 +76,16 @@ public class EmpleadoService implements IEmpleadoService {
 	public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel) {
 		// TODO Auto-generated method stub
 		Empleado empleado = empleadoConverter.modelToEntity(empleadoModel);
+		String password;
+
+		if(empleado.getId() > 0) {
+			password = empleado.getPassword();
+		} else {
+			password = bCryptPasswordEncoder.encode(empleado.getPassword());
+		}
 
 		empleado.setLocal(localService.findById(empleadoModel.getIdLocal()));
-		empleado.setPassword(bCryptPasswordEncoder.encode(empleado.getPassword()));
+		empleado.setPassword(password);
         empleado.setRoles(Arrays.asList(roleService.findByUserType(empleado)));
 
 		empleadoRepository.save(empleado);
