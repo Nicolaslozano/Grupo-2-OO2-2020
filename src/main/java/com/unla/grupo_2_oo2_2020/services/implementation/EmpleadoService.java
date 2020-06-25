@@ -81,7 +81,7 @@ public class EmpleadoService implements IEmpleadoService {
 
 		empleado.setLocal(localService.findById(empleadoModel.getIdLocal()));
 		empleado.setPassword(bCryptPasswordEncoder.encode(empleado.getPassword()));
-        empleado.setRoles(new HashSet<>(Arrays.asList(roleService.findByUserType(empleado))));
+        empleado.setRoles(Arrays.asList(roleService.findByUserType(empleado)));
 
 		empleadoRepository.save(empleado);
 		return empleadoConverter.entityToModel(empleado);

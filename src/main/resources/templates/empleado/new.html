@@ -14,19 +14,17 @@
           <div class="form">
             <form class="well form-horizontal" id="form-empleado-create">
               <fieldset>
-               
-				
                 <!-- Text input-->
                 <div class="form-group">
                   <label class="col-md-4 control-label">Usuario</label>
                   <div class="col-md-4 inputGroupContainer">
                     <div style="width: 300%;" class="input-group">
                       <input
-                        name="usuario"
+                        name="username"
                         placeholder="Usuario"
                         class="form-control"
                         type="text"
-                        id="usuario"
+                        id="username"
                       />
                     </div>
                   </div>
@@ -37,16 +35,32 @@
                   <div class="col-md-4 inputGroupContainer">
                     <div style="width: 300%;" class="input-group">
                       <input
-                        name="contraseña"
+                        name="password"
                         placeholder="Contraseña"
                         class="form-control"
                         type="password"
-                        id="contraseña"
+                        id="password"
                       />
                     </div>
                   </div>
-                </div>               
-               
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-4 control-label"
+                    >Confirmar contraseña</label
+                  >
+                  <div class="col-md-4 inputGroupContainer">
+                    <div style="width: 300%;" class="input-group">
+                      <input
+                        name="passwordConfirm"
+                        class="form-control"
+                        type="password"
+                        id="passwordConfirm"
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 <!-- Text input-->
 
                 <div class="form-group">

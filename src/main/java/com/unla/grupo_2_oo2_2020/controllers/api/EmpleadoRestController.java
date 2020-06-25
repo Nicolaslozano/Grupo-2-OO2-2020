@@ -9,13 +9,16 @@ import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 import com.unla.grupo_2_oo2_2020.models.structlike.EmpleadoSalarioModel;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
+import com.unla.grupo_2_oo2_2020.validator.EmpleadoValidator;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,6 +42,10 @@ public class EmpleadoRestController {
 	@Autowired
 	@Qualifier("localService")
 	private ILocalService localService;
+
+	@Autowired
+	@Qualifier("empleadoValidator")
+	private EmpleadoValidator empleadoValidator;
 
 	@Autowired
 	@Qualifier("empleadoConverter")
@@ -70,15 +77,15 @@ public class EmpleadoRestController {
 		return new ResponseEntity<List<EmpleadoModel>>(empleados, HttpStatus.OK);
 	}
 
-	@GetMapping("getEmpleados/{idLocal}/except/{idPersona}")
+	@GetMapping("getEmpleados/{idLocal}/except/{id}")
 	public ResponseEntity<List<EmpleadoModel>> getEmpleadosByLocalExcept(@PathVariable("idLocal") long idLocal,
-			@PathVariable("idPersona") long idPersona) {
+			@PathVariable("id") long id) {
 
 		List<EmpleadoModel> empleados = new ArrayList<EmpleadoModel>();
 
 		for (Empleado empleado : empleadoService.findByLocal(localService.findById(idLocal))) {
 
-			if (empleado.getId() == idPersona)
+			if (empleado.getId() == id)
 				continue;
 			empleados.add(empleadoConverter.entityToModel(empleado));
 		}
@@ -114,57 +121,54 @@ public class EmpleadoRestController {
 	}
 
 	@PostMapping("/createEmpleado")
-	public ResponseEntity<?> createEmpleado(@Valid @RequestBody EmpleadoModel empleadoModel, Errors errors) {
+	public ResponseEntity<?> createEmpleado(@Valid @RequestBody EmpleadoModel empleadoModel, BindingResult bindingResult) {
+        empleadoValidator.validate(empleadoModel, bindingResult);
+        HashMap<String, String> result = new HashMap<String, String>();
 
-		HashMap<String, String> result = new HashMap<String, String>();
+        if (bindingResult.hasErrors()) {
 
-		if (errors.hasErrors()) {
+            for (ObjectError error : bindingResult.getAllErrors()) {
 
-			for (ObjectError error : errors.getAllErrors()) {
+                result.put(((FieldError) error).getField(), error.getCode());
+            }
 
-				result.put(error.getDefaultMessage(), error.getDefaultMessage());
-			}
+            return ResponseEntity.badRequest().body(result);
+        } else {
 
-			return ResponseEntity.badRequest().body(result);
-		} else if (empleadoService.findByDni(empleadoModel.getDni()) != null) {
+            empleadoService.insertOrUpdate(empleadoModel);
+            result.put(StaticValuesHelper.SUCCESS_CREATED, "Empleado creado");
+        }
 
-			result.put(StaticValuesHelper.PERSON_ALREADY_EXISTS, "Persona ya existe");
-			return ResponseEntity.badRequest().body(result);
-
-		} else {
-
-			empleadoService.insertOrUpdate(empleadoModel);
-			result.put(StaticValuesHelper.SUCCESS_CREATED, "Empleado creado");
-		}
-
-		return ResponseEntity.ok(result);
-	}
+        return ResponseEntity.ok(result);
+    }
 
 	@PostMapping("/updateEmpleado")
-	public ResponseEntity<?> updateEmpleado(@Valid @RequestBody EmpleadoModel empleadoModel, Errors errors) {
+	public ResponseEntity<?> updateCliente(@Valid @RequestBody EmpleadoModel empleadoModel, BindingResult bindingResult) {
 
-		HashMap<String, String> result = new HashMap<String, String>();
+        empleadoModel.setPassword(empleadoService.findByDni(empleadoModel.getDni()).getPassword()); //FIXME
 
-		if (errors.hasErrors()) {
+        empleadoValidator.validateUpdate(empleadoModel, bindingResult);
+        HashMap<String, String> result = new HashMap<String, String>();
 
-			for (ObjectError error : errors.getAllErrors()) {
+        if (bindingResult.hasErrors()) {
 
-				result.put(error.getDefaultMessage(), error.getDefaultMessage());
-			}
+            for (ObjectError error : bindingResult.getAllErrors()) {
 
-			return ResponseEntity.badRequest().body(result);
+                result.put(((FieldError) error).getField(), error.getCode());
+            }
 
-		} else {
+            return ResponseEntity.badRequest().body(result);
+        } else {
 
-			empleadoService.insertOrUpdate(empleadoModel);
-			result.put(StaticValuesHelper.SUCCESS_UPDATED, "Empleado actualizado");
-		}
+            empleadoService.insertOrUpdate(empleadoModel);
+            result.put(StaticValuesHelper.SUCCESS_UPDATED, "Empleado actualizado");
+        }
 
-		return ResponseEntity.ok(result);
-	}
+        return ResponseEntity.ok(result);
+    }
 
-	@DeleteMapping("/remove/{idPersona}")
-	public ResponseEntity<?> removeEmpleado(@PathVariable("idPersona") long id) {
+	@DeleteMapping("/remove/{id}")
+	public ResponseEntity<?> removeEmpleado(@PathVariable("id") long id) {
 
 		HashMap<String, String> result = new HashMap<String, String>();
 		empleadoService.removeById(id);

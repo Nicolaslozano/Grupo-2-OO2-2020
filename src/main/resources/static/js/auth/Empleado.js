@@ -15,6 +15,9 @@ $(document).ready(function () {
         event.preventDefault();
         var empleadoModel = {};
 
+        empleadoModel["username"] = $("#username").val();
+        empleadoModel["password"] = $("#password").val();
+        empleadoModel["passwordConfirm"] = $("#passwordConfirm").val();
         empleadoModel["nombre"] = $("#nombre").val();
         empleadoModel["apellido"] = $("#apellido").val();
         empleadoModel["dni"] = $("#dni").val();
@@ -28,7 +31,10 @@ $(document).ready(function () {
         event.preventDefault();
         var empleadoModel = {};
 
-        empleadoModel["idPersona"] = $("#idPersona").val();
+        empleadoModel["id"] = $("#userId").val();
+        empleadoModel["username"] = $("#username").val();
+        empleadoModel["password"] = "";
+        empleadoModel["passwordConfirm"] = "";
         empleadoModel["nombre"] = $("#nombre").val();
         empleadoModel["apellido"] = $("#apellido").val();
         empleadoModel["dni"] = $("#dni").val();
@@ -47,7 +53,7 @@ function removeEmpleado(empleadoModel) {
         type: "DELETE",
         contentType: "application/json",
         data: JSON.stringify(empleadoModel),
-        url: "/api/empleado/remove/" + empleadoModel.idPersona,
+        url: "/api/empleado/remove/" + empleadoModel.id,
         cache: false,
         timeout: 600000,
         success: function (data) {
@@ -65,7 +71,7 @@ function submitEmpleado(empleadoModel) {
     var url;
 
     //si llega el id es porque estamos actualizando un cliente
-    if (empleadoModel.idPersona) {
+    if (empleadoModel.id) {
         url = "/api/empleado/updateEmpleado";
     } else {
         url = "/api/empleado/createEmpleado";

@@ -165,7 +165,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     if (userRepository.findByUsername(user.getUsername()) == null) {
       userRepository.save(user);
     }
-
+    /*
     // PRODUCTOS
 
     ProductoModel producto = new ProductoModel();
@@ -566,7 +566,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     pedido1.setIdProducto(producto3.getIdProducto());
     pedido1.setIdVendedorOriginal(empleado1.getId());
     pedidoService.insertOrUpdate(pedido3);
-
+    */
     alreadySetup = true;
   }
 

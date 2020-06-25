@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.unla.grupo_2_oo2_2020.converters.EmpleadoConverter;
+import com.unla.grupo_2_oo2_2020.converters.LocalConverter;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
@@ -28,6 +29,10 @@ public class EmpleadoController {
 	@Autowired
 	@Qualifier("localService")
 	private ILocalService localService;
+
+	@Autowired
+	@Qualifier("localConverter")
+	private LocalConverter localConverter;
 
     @GetMapping("")
 	public ModelAndView index() {
@@ -50,11 +55,13 @@ public class EmpleadoController {
 		return mAV;
 	}
 
-	@GetMapping("/{idPersona}")
-	public ModelAndView get(@PathVariable("idPersona") long id) {
+	@GetMapping("/{id}")
+	public ModelAndView get(@PathVariable("id") long id) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_UPDATE);
-		mAV.addObject("empleado", empleadoConverter.entityToModel(empleadoService.findById(id)));
-		mAV.addObject("locales", localService.getAll());
+
+		EmpleadoModel empleado = empleadoConverter.entityToModel(empleadoService.findById(id));
+		mAV.addObject("empleado", empleado);
+		mAV.addObject("local", localConverter.entityToModel(localService.findById(empleado.getIdLocal())));
 		return mAV;
 	}
 

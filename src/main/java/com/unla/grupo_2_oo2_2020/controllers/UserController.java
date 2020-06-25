@@ -78,7 +78,6 @@ public class UserController {
     public ModelAndView logged(@ModelAttribute String username, @ModelAttribute String password) {
         ModelAndView mAV = new ModelAndView(ViewRouteHelper.INDEX);
         securityService.autoLogin(username, password);
-
         return mAV;
     }
 
