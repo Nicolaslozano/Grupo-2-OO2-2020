@@ -9,20 +9,23 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "cliente")
-@PrimaryKeyJoinColumn(referencedColumnName="idPersona")
-@Data @EqualsAndHashCode(callSuper = false) @NoArgsConstructor
-public class Cliente extends Persona {
+@PrimaryKeyJoinColumn(referencedColumnName = "id")
+@Data
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+public class Cliente extends User {
 
-	@Column(name = "email",nullable = false, length = 45)
 	private String email;
 
-	public Cliente(long idPersona,String email,String nombre,String apellido,LocalDate fechaNacimiento,int dni) {
-		super(idPersona,nombre,apellido,fechaNacimiento,dni);
+	public Cliente(long id, String email, String nombre, String apellido, LocalDate fechaNacimiento, int dni,
+			String username, String password) {
+		super(id, nombre, apellido, fechaNacimiento, dni, username, password);
 		this.email = email;
 	}
 
-	public Cliente(String email,String nombre,String apellido,LocalDate fechaNacimiento,int dni) {
-		super(nombre,apellido,fechaNacimiento,dni);
+	public Cliente(String email, String nombre, String apellido, LocalDate fechaNacimiento, int dni, String username,
+			String password) {
+		super(nombre, apellido, fechaNacimiento, dni, username, password);
 		this.email = email;
 	}
 

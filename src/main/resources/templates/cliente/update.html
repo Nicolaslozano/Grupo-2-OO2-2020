@@ -20,8 +20,25 @@
                     <form class="well form-horizontal" th:object="${cliente}" id="form-cliente-update">
                         <fieldset>
                             <div class="form_group">
-                                <input type="hidden" id="idPersona" th:field="*{idPersona}" />
+                                <input type="hidden" id="userId" th:field="*{id}" />
                             </div>
+                            	
+			                <!-- Text input-->
+			                <div class="form-group">
+			                  <label class="col-md-4 control-label">Nombre de usuario</label>
+			                  <div class="col-md-4 inputGroupContainer">
+			                    <div style="width: 300%;" class="input-group">
+			                      <input
+			                        name="usuario"
+			                        placeholder="Usuario"
+			                        class="form-control"
+			                        type="text"
+                                    id="username"
+                                    th:field="*{username}"
+			                      />
+			                    </div>
+			                  </div>
+			                </div>
 
                             <!-- Text input-->
 

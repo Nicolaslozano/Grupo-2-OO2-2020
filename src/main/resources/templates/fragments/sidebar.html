@@ -25,10 +25,10 @@
         <div class="collapse" id="submenu1" aria-expanded="false">
           <ul class="flex-column pl-2 nav">
             <li class="nav-item">
-              <a class="nav-link py-0" href="/cliente"><span>Lista</span></a>
+              <a id="list-cliente" class="nav-link py-0" href="/cliente"><span>Lista</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link py-0" href="/cliente/new"
+              <a id="new-cliente" class="nav-link py-0" href="/cliente/new"
                 ><span>Crear</span></a
               >
             </li>
@@ -53,15 +53,15 @@
         <div class="collapse" id="submenu2" aria-expanded="false">
           <ul class="flex-column pl-2 nav">
             <li class="nav-item">
-              <a class="nav-link py-0" href="/empleado"><span>Lista</span></a>
+              <a id="list-empleado" class="nav-link py-0" href="/empleado"><span>Lista</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link py-0" href="/empleado/new"
+              <a id="new-empleado" class="nav-link py-0" href="/empleado/new"
                 ><span>Crear</span></a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link py-0" href="/empleado/sueldos"
+              <a id="empleado-sueldos" class="nav-link py-0" href="/empleado/sueldos"
                 ><span>Sueldos</span></a
               >
             </li>
@@ -86,13 +86,13 @@
         <div class="collapse" id="submenu3" aria-expanded="false">
           <ul class="flex-column pl-2 nav">
             <li class="nav-item">
-              <a class="nav-link py-0" href="/local"><span>Lista</span></a>
+              <a id="list-local" class="nav-link py-0" href="/local"><span>Lista</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link py-0" href="/local/new"><span>Crear</span></a>
+              <a id="new-local" class="nav-link py-0" href="/local/new"><span>Crear</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link py-0" href="/local/distance"
+              <a id="local-distance" class="nav-link py-0" href="/local/distance"
                 ><span>Calcular Distancia</span></a
               >
             </li>
@@ -117,10 +117,10 @@
         <div class="collapse" id="submenu4" aria-expanded="false">
           <ul class="flex-column pl-2 nav">
             <li class="nav-item">
-              <a class="nav-link py-0" href="/lote"><span>Lista</span></a>
+              <a id="list-lote" class="nav-link py-0" href="/lote"><span>Lista</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link py-0" href="/lote/new"><span>Crear</span></a>
+              <a id="new-lote" class="nav-link py-0" href="/lote/new"><span>Crear</span></a>
             </li>
           </ul>
         </div>
@@ -143,10 +143,10 @@
         <div class="collapse" id="submenu5" aria-expanded="false">
           <ul class="flex-column pl-2 nav">
             <li class="nav-item">
-              <a class="nav-link py-0" href="/producto"><span>Lista</span></a>
+              <a id="list-producto" class="nav-link py-0" href="/producto"><span>Lista</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link py-0" href="/producto/new"
+              <a id="new-producto" class="nav-link py-0" href="/producto/new"
                 ><span>Crear</span></a
               >
             </li>
@@ -171,7 +171,7 @@
         <div class="collapse" id="submenu6" aria-expanded="false">
           <ul class="flex-column pl-2 nav">
             <li class="nav-item">
-              <a class="nav-link py-0" href="/pedido"><span>Lista</span></a>
+              <a id="list-pedido" class="nav-link py-0" href="/pedido"><span>Lista</span></a>
             </li>
           </ul>
         </div>
@@ -194,12 +194,12 @@
         <div class="collapse" id="submenu7" aria-expanded="false">
           <ul class="flex-column pl-2 nav">
             <li class="nav-item">
-              <a class="nav-link py-0" href="/producto/ranking"
+              <a id="reporte-ranking" class="nav-link py-0" href="/producto/ranking"
                 ><span>Ranking de ventas</span></a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link py-0" href="/producto/ventas-entre-fechas"
+              <a id="reporte-ventas" class="nav-link py-0" href="/producto/ventas-entre-fechas"
                 ><span>Ventas entre fechas</span></a
               >
             </li>
@@ -211,4 +211,31 @@
   </div>
 
   <!-- /#sidebar-wrapper -->
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $.ajax({
+          url: "/api/user/getLoggedUserRole",
+          type: "GET",
+          success: function (data) {
+            var role = data;
+
+            if(role.ROLE_CLIENTE) {
+              $("#list-cliente").addClass("disabled");
+              $("#list-empleado").addClass("disabled");
+              $("#new-cliente").addClass("disabled");
+              $("#new-empleado").addClass("disabled");
+              $("#empleado-sueldos").addClass("disabled");
+              $("#new-local").addClass("disabled");
+              $("#new-lote").addClass("disabled");
+              $("#new-producto").addClass("disabled");
+              $("#reporte-ranking").addClass("disabled");
+              $("#reporte-ventas").addClass("disabled");
+            }
+          },
+          error: function (result) {
+            console.log(["error getting role", result]);
+          },
+        });
+    });
+  </script>
 </div>

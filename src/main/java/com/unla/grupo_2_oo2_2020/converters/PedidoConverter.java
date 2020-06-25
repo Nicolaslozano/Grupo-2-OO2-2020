@@ -10,9 +10,8 @@ public class PedidoConverter {
 
 	public PedidoModel entityToModel(Pedido pedido) {
 		return new PedidoModel(pedido.getIdPedido(), pedido.getProducto().getIdProducto(), pedido.getCantidad(),
-				pedido.getLocal().getIdLocal(), pedido.getCliente().getIdPersona(),
-				pedido.getVendedorOriginal().getIdPersona(), pedido.getVendedorAuxiliar().getIdPersona(),
-				pedido.getEstado(), pedido.getFecha());
+				pedido.getLocal().getIdLocal(), pedido.getCliente().getId(), pedido.getVendedorOriginal().getId(),
+				pedido.getVendedorAuxiliar().getId(), pedido.getEstado(), pedido.getFecha());
 	}
 
 	public Pedido modelToEntity(PedidoModel pedidoModel) {

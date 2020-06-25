@@ -93,14 +93,6 @@ public class LocalRestController {
 		return ResponseEntity.ok(result);
 	}
 
-	@GetMapping("/{idLocal}/sueldos")
-	public ResponseEntity<?> getSueldos(@PathVariable("idLocal") long id) {
-		// TODO
-		List<LocalAndDistanceModel> result = new ArrayList<LocalAndDistanceModel>();
-
-		return ResponseEntity.ok(result);
-	}
-
 	@PostMapping("/createLocal")
 	public ResponseEntity<?> createLocal(@Valid @RequestBody LocalModel localModel, Errors errors) {
 

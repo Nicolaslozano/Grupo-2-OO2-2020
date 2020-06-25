@@ -66,14 +66,14 @@
                           <td>
                             <a
                               class="btn btn-info"
-                              th:href="@{/cliente/{id}(id=${cliente.idPersona})}"
+                              th:href="@{/cliente/{id}(id=${cliente.id})}"
                               >Modificar</a
                             >
                           </td>
                           <td>
                             <a
                               class="btn btn-info"
-                              th:href="@{/pedido/new/{id}(id=${cliente.idPersona})}"
+                              th:href="@{/pedido/new/{id}(id=${cliente.id})}"
                               >Hacer Pedido</a
                             >
                           </td>
@@ -82,8 +82,8 @@
                               <div class="form_group">
                                 <input
                                   type="hidden"
-                                  name="idPersona"
-                                  th:value="${cliente.idPersona}"
+                                  name="id"
+                                  th:value="${cliente.id}"
                                 />
                               </div>
                               <input
