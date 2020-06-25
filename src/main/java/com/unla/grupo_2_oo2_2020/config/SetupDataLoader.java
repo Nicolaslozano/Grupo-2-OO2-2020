@@ -122,36 +122,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
     // reportes
     Privilege viewReportPrivilege = createPrivilegeIfNotFound("VIEW_REPORT_PRIVILEGE");
-
-    List<Privilege> adminPrivileges = Arrays.asList(createClientePrivilege, editClientePrivilege,
-        deleteClientePrivilege, viewClientePrivilege, createEmpleadoPrivilege, editEmpleadoPrivilege,
-        deleteEmpleadoPrivilege, viewEmpleadoPrivilege, createLocalPrivilege, editLocalPrivilege, deleteLocalPrivilege,
-        viewLocalPrivilege, createLotePrivilege, editLotePrivilege, deleteLotePrivilege, viewLotePrivilege,
-        createProductoPrivilege, editProductoPrivilege, deleteProductoPrivilege, viewProductoPrivilege,
-        sendPedidoPrivilege, handlePedidoPrivilege, viewPedidoPrivilege, viewReportPrivilege);
-
-    List<Privilege> clientePrivileges = Arrays.asList(editClientePrivilege, viewLocalPrivilege, viewLotePrivilege,
-        viewProductoPrivilege, sendPedidoPrivilege, viewPedidoPrivilege);
-
-    List<Privilege> vendedorPrivileges = Arrays.asList(viewClientePrivilege, editEmpleadoPrivilege,
-        viewEmpleadoPrivilege, viewLocalPrivilege, editLotePrivilege, viewLotePrivilege, viewProductoPrivilege,
-        handlePedidoPrivilege, viewPedidoPrivilege, viewReportPrivilege);
-
-    // NOTE para mod/edit/del productos, añadir columna origenLocal para verificar
-    // si el producto es del local del gerente
-    List<Privilege> gerentePrivileges = Arrays.asList(viewClientePrivilege, createEmpleadoPrivilege,
-        editEmpleadoPrivilege, deleteEmpleadoPrivilege, viewEmpleadoPrivilege, editLocalPrivilege, viewLocalPrivilege,
-        createLotePrivilege, editLotePrivilege, deleteLotePrivilege, viewLotePrivilege, createProductoPrivilege,
-        editProductoPrivilege, deleteProductoPrivilege, viewProductoPrivilege, handlePedidoPrivilege,
-        viewPedidoPrivilege, viewReportPrivilege);
-
-    createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
-    createRoleIfNotFound("ROLE_CLIENTE", clientePrivileges);
-    createRoleIfNotFound("ROLE_VENDEDOR", vendedorPrivileges);
-    createRoleIfNotFound("ROLE_GERENTE", gerentePrivileges);
-
-    Role adminRole = roleRepository.findByName("ROLE_ADMIN");
-
+    
     
  // PRODUCTOS
 
@@ -165,46 +136,46 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
  	//////////////////////////////////////////////
  	
  	ProductoModel producto1 = new ProductoModel();
- 	producto.setNombre("Chombadidas");
- 	producto.setDescripcion("Remeras");
- 	producto.setFechaAlta(LocalDate.now());
- 	producto.setPrecio(500);
+ 	producto1.setNombre("Chombadidas");
+ 	producto1.setDescripcion("Remeras");
+ 	producto1.setFechaAlta(LocalDate.now());
+ 	producto1.setPrecio(500);
  	productoService.insertOrUpdate(producto1);
  	
  	//////////////////////////////////////////////
 
  	ProductoModel producto2 = new ProductoModel();
- 	producto.setNombre("Jeans");
- 	producto.setDescripcion("Pantalones");
- 	producto.setFechaAlta(LocalDate.now());
- 	producto.setPrecio(800);
+ 	producto2.setNombre("Jeans");
+ 	producto2.setDescripcion("Pantalones");
+ 	producto2.setFechaAlta(LocalDate.now());
+ 	producto2.setPrecio(800);
  	productoService.insertOrUpdate(producto2);
  	
  	//////////////////////////////////////////////
 
  	ProductoModel producto3 = new ProductoModel();
- 	producto.setNombre("Short");
- 	producto.setDescripcion("Pantalones");
- 	producto.setFechaAlta(LocalDate.now());
- 	producto.setPrecio(600);
+ 	producto3.setNombre("Short");
+ 	producto3.setDescripcion("Pantalones");
+ 	producto3.setFechaAlta(LocalDate.now());
+ 	producto3.setPrecio(600);
  	productoService.insertOrUpdate(producto3);
  	
  	//////////////////////////////////////////////
 
  	ProductoModel producto4 = new ProductoModel();
- 	producto.setNombre("Cordones");
- 	producto.setDescripcion("Indumentaria Calzado");
- 	producto.setFechaAlta(LocalDate.now());
- 	producto.setPrecio(150);
+ 	producto4.setNombre("Cordones");
+ 	producto4.setDescripcion("Indumentaria Calzado");
+ 	producto4.setFechaAlta(LocalDate.now());
+ 	producto4.setPrecio(150);
  	productoService.insertOrUpdate(producto4);
  	
  	//////////////////////////////////////////////
 
  	ProductoModel producto5 = new ProductoModel();
- 	producto.setNombre("Boxer");
- 	producto.setDescripcion("Ropa Interior");
- 	producto.setFechaAlta(LocalDate.now());
- 	producto.setPrecio(300);
+ 	producto5.setNombre("Boxer");
+ 	producto5.setDescripcion("Ropa Interior");
+ 	producto5.setFechaAlta(LocalDate.now());
+ 	producto5.setPrecio(300);
  	productoService.insertOrUpdate(producto5);
  	
      
@@ -220,19 +191,19 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
      //////////////////////////////////////////////
     
      LocalModel local2 = new LocalModel();
-     local1.setDireccion("Av. Montes de Oca 1941");
-     local1.setLatitud(-34.650165);
-     local1.setLongitud(-58.372336);
-     local1.setTelefono(222222222);
+     local2.setDireccion("Av. Montes de Oca 1941");
+     local2.setLatitud(-34.650165);
+     local2.setLongitud(-58.372336);
+     local2.setTelefono(222222222);
      localService.insertOrUpdate(local2);
      
      //////////////////////////////////////////////
      
      LocalModel local3 = new LocalModel();
-     local1.setDireccion("Sta Magdalena 501-599");
-     local1.setLatitud(-34.649291);
-     local1.setLongitud(-58.380543);
-     local1.setTelefono(333333);
+     local3.setDireccion("Sta Magdalena 501-599");
+     local3.setLatitud(-34.649291);
+     local3.setLongitud(-58.380543);
+     local3.setTelefono(333333);
      localService.insertOrUpdate(local3);
      
      
@@ -299,7 +270,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
      empleado1.setPassword(bCryptPasswordEncoder.encode("empleado1"));
      empleado1.setTipoEmpleado(true);
      empleado1.setIdLocal(local1.getIdLocal());
+     empleado1.setFranjaHoraria("Mañana");
      empleadoService.insertOrUpdate(empleado1);
+    
      
      //////////////////////////////////////////////
      
@@ -313,104 +286,111 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
      empleado2.setPassword(bCryptPasswordEncoder.encode("empleado2"));
      empleado2.setTipoEmpleado(false);
      empleado2.setIdLocal(local1.getIdLocal());
+     empleado2.setFranjaHoraria("Tarde");
      empleadoService.insertOrUpdate(empleado2);
      
      //////////////////////////////////////////////
      
      EmpleadoModel empleado3 = new  EmpleadoModel();
 
-     empleado1.setNombre("Martin");
-     empleado1.setApellido("Benitez");
-     empleado1.setDni(39406080);
-     empleado1.setFechaNacimiento(LocalDate.of(1997, 1, 5));
-     empleado1.setUsername("empleado3");
-     empleado1.setPassword(bCryptPasswordEncoder.encode("empleado3"));
-     empleado1.setTipoEmpleado(false);
-     empleado1.setIdLocal(local1.getIdLocal());
+     empleado3.setNombre("Martin");
+     empleado3.setApellido("Benitez");
+     empleado3.setDni(39406080);
+     empleado3.setFechaNacimiento(LocalDate.of(1997, 1, 5));
+     empleado3.setUsername("empleado3");
+     empleado3.setPassword(bCryptPasswordEncoder.encode("empleado3"));
+     empleado3.setTipoEmpleado(false);
+     empleado3.setIdLocal(local1.getIdLocal());
+     empleado3.setFranjaHoraria("Mañana");
      empleadoService.insertOrUpdate(empleado3);
-     
      //EMPLOYEES USERS  LOCAL 2
      
      EmpleadoModel empleado4 = new  EmpleadoModel();
 
-     empleado1.setNombre("Karen");
-     empleado1.setApellido("Perez");
-     empleado1.setDni(37406080);
-     empleado1.setFechaNacimiento(LocalDate.of(1994, 4, 5));
-     empleado1.setUsername("empleado4");
-     empleado1.setPassword(bCryptPasswordEncoder.encode("empleado4"));
-     empleado1.setTipoEmpleado(true);
-     empleado1.setIdLocal(local2.getIdLocal());
+     empleado4.setNombre("Karen");
+     empleado4.setApellido("Perez");
+     empleado4.setDni(37406080);
+     empleado4.setFechaNacimiento(LocalDate.of(1994, 4, 5));
+     empleado4.setUsername("empleado4");
+     empleado4.setPassword(bCryptPasswordEncoder.encode("empleado4"));
+     empleado4.setTipoEmpleado(true);
+     empleado4.setIdLocal(local2.getIdLocal());
+     empleado4.setFranjaHoraria("Tarde");
      empleadoService.insertOrUpdate(empleado4);
      
      //////////////////////////////////////////////
      
      EmpleadoModel empleado5 = new  EmpleadoModel();
 
-     empleado1.setNombre("Martina");
-     empleado1.setApellido("Malaspina");
-     empleado1.setDni(37409080);
-     empleado1.setFechaNacimiento(LocalDate.of(1999, 3, 15));
-     empleado1.setUsername("empleado5");
-     empleado1.setPassword(bCryptPasswordEncoder.encode("empleado5"));
-     empleado1.setTipoEmpleado(false);
-     empleado1.setIdLocal(local2.getIdLocal());
+     empleado5.setNombre("Martina");
+     empleado5.setApellido("Malaspina");
+     empleado5.setDni(37409080);
+     empleado5.setFechaNacimiento(LocalDate.of(1999, 3, 15));
+     empleado5.setUsername("empleado5");
+     empleado5.setPassword(bCryptPasswordEncoder.encode("empleado5"));
+     empleado5.setTipoEmpleado(false);
+     empleado5.setIdLocal(local2.getIdLocal());
+     empleado5.setFranjaHoraria("Mañana");
      empleadoService.insertOrUpdate(empleado5);
-     
      //////////////////////////////////////////////
      
      EmpleadoModel empleado6 = new  EmpleadoModel();
 
-     empleado1.setNombre("Jose");
-     empleado1.setApellido("Tellagori");
-     empleado1.setDni(30446880);
-     empleado1.setFechaNacimiento(LocalDate.of(1984, 10, 5));
-     empleado1.setUsername("empleado6");
-     empleado1.setPassword(bCryptPasswordEncoder.encode("empleado6"));
-     empleado1.setTipoEmpleado(false);
-     empleado1.setIdLocal(local2.getIdLocal());
+     empleado6.setNombre("Jose");
+     empleado6.setApellido("Tellagori");
+     empleado6.setDni(30446880);
+     empleado6.setFechaNacimiento(LocalDate.of(1984, 10, 5));
+     empleado6.setUsername("empleado6");
+     empleado6.setPassword(bCryptPasswordEncoder.encode("empleado6"));
+     empleado6.setTipoEmpleado(false);
+     empleado6.setIdLocal(local2.getIdLocal());
+     empleado6.setFranjaHoraria("Tarde");
      empleadoService.insertOrUpdate(empleado6);
      
  //EMPLOYEES USERS  LOCAL 3
      
      EmpleadoModel empleado7 = new  EmpleadoModel();
 
-     empleado1.setNombre("Joaquin");
-     empleado1.setApellido("Rubio");
-     empleado1.setDni(38506080);
-     empleado1.setFechaNacimiento(LocalDate.of(1993, 5, 9));
-     empleado1.setUsername("empleado7");
-     empleado1.setPassword(bCryptPasswordEncoder.encode("empleado7"));
-     empleado1.setTipoEmpleado(true);
-     empleado1.setIdLocal(local3.getIdLocal());
+     empleado7.setNombre("Joaquin");
+     empleado7.setApellido("Rubio");
+     empleado7.setDni(38506080);
+     empleado7.setFechaNacimiento(LocalDate.of(1993, 5, 9));
+     empleado7.setUsername("empleado7");
+     empleado7.setPassword(bCryptPasswordEncoder.encode("empleado7"));
+     empleado7.setTipoEmpleado(true);
+     empleado7.setIdLocal(local3.getIdLocal());
+     empleado7.setFranjaHoraria("Mañana");
      empleadoService.insertOrUpdate(empleado7);
      
      //////////////////////////////////////////////
      
      EmpleadoModel empleado8 = new  EmpleadoModel();
 
-     empleado1.setNombre("Valeria");
-     empleado1.setApellido("Benitez");
-     empleado1.setDni(28604010);
-     empleado1.setFechaNacimiento(LocalDate.of(1983, 3, 5));
-     empleado1.setUsername("empleado8");
-     empleado1.setPassword(bCryptPasswordEncoder.encode("empleado8"));
-     empleado1.setTipoEmpleado(false);
-     empleado1.setIdLocal(local3.getIdLocal());
+     empleado8.setNombre("Valeria");
+     empleado8.setApellido("Benitez");
+     empleado8.setDni(28604010);
+     empleado8.setFechaNacimiento(LocalDate.of(1983, 3, 5));
+     empleado8.setUsername("empleado8");
+     empleado8.setPassword(bCryptPasswordEncoder.encode("empleado8"));
+     empleado8.setTipoEmpleado(false);
+     empleado8.setIdLocal(local3.getIdLocal());
+     empleado8.setFranjaHoraria("Mañana");
      empleadoService.insertOrUpdate(empleado8);
      
      //////////////////////////////////////////////
      
      EmpleadoModel empleado9 = new  EmpleadoModel();
 
-     empleado1.setNombre("Jose");
-     empleado1.setApellido("Tellagori");
-     empleado1.setDni(30446880);
-     empleado1.setFechaNacimiento(LocalDate.of(1990, 3, 5));
-     empleado1.setUsername("empleado9");
-     empleado1.setPassword(bCryptPasswordEncoder.encode("empleado9"));
-     empleado1.setTipoEmpleado(false);
-     empleado1.setIdLocal(local3.getIdLocal());	
+     empleado9.setNombre("Jose");
+     empleado9.setApellido("Tellagori");
+     empleado9.setDni(30446880);
+     empleado9.setFechaNacimiento(LocalDate.of(1990, 3, 5));
+     empleado9.setUsername("empleado9");
+     empleado9.setPassword(bCryptPasswordEncoder.encode("empleado9"));
+     empleado9.setTipoEmpleado(false);
+     empleado9.setIdLocal(local3.getIdLocal());
+     empleado9.setFranjaHoraria("Tarde");
+     
      empleadoService.insertOrUpdate(empleado9);
      
      //////////////////////////////////////////////
@@ -551,6 +531,38 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     pedido1.setIdProducto(producto3.getIdProducto());
     pedido1.setIdVendedorOriginal(empleado1.getId());
     pedidoService.insertOrUpdate(pedido3);
+    
+    
+    
+    List<Privilege> adminPrivileges = Arrays.asList(createClientePrivilege, editClientePrivilege,
+        deleteClientePrivilege, viewClientePrivilege, createEmpleadoPrivilege, editEmpleadoPrivilege,
+        deleteEmpleadoPrivilege, viewEmpleadoPrivilege, createLocalPrivilege, editLocalPrivilege, deleteLocalPrivilege,
+        viewLocalPrivilege, createLotePrivilege, editLotePrivilege, deleteLotePrivilege, viewLotePrivilege,
+        createProductoPrivilege, editProductoPrivilege, deleteProductoPrivilege, viewProductoPrivilege,
+        sendPedidoPrivilege, handlePedidoPrivilege, viewPedidoPrivilege, viewReportPrivilege);
+
+    List<Privilege> clientePrivileges = Arrays.asList(editClientePrivilege, viewLocalPrivilege, viewLotePrivilege,
+        viewProductoPrivilege, sendPedidoPrivilege, viewPedidoPrivilege);
+
+    List<Privilege> vendedorPrivileges = Arrays.asList(viewClientePrivilege, editEmpleadoPrivilege,
+        viewEmpleadoPrivilege, viewLocalPrivilege, editLotePrivilege, viewLotePrivilege, viewProductoPrivilege,
+        handlePedidoPrivilege, viewPedidoPrivilege, viewReportPrivilege);
+
+    // NOTE para mod/edit/del productos, añadir columna origenLocal para verificar
+    // si el producto es del local del gerente
+    List<Privilege> gerentePrivileges = Arrays.asList(viewClientePrivilege, createEmpleadoPrivilege,
+        editEmpleadoPrivilege, deleteEmpleadoPrivilege, viewEmpleadoPrivilege, editLocalPrivilege, viewLocalPrivilege,
+        createLotePrivilege, editLotePrivilege, deleteLotePrivilege, viewLotePrivilege, createProductoPrivilege,
+        editProductoPrivilege, deleteProductoPrivilege, viewProductoPrivilege, handlePedidoPrivilege,
+        viewPedidoPrivilege, viewReportPrivilege);
+
+    createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
+    createRoleIfNotFound("ROLE_CLIENTE", clientePrivileges);
+    createRoleIfNotFound("ROLE_VENDEDOR", vendedorPrivileges);
+    createRoleIfNotFound("ROLE_GERENTE", gerentePrivileges);
+
+    Role adminRole = roleRepository.findByName("ROLE_ADMIN");
+
      
     
     User user = new User();
