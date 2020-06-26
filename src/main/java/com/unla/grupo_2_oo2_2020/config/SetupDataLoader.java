@@ -152,7 +152,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 
     User user = new User();
-
+    
     user.setNombre("Administrator");
     user.setApellido("1");
     user.setDni(1111);
@@ -165,7 +165,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     if (userRepository.findByUsername(user.getUsername()) == null) {
       userRepository.save(user);
     }
-    /*
+    
     // PRODUCTOS
 
     ProductoModel producto = new ProductoModel();
@@ -219,6 +219,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     producto5.setFechaAlta(LocalDate.now());
     producto5.setPrecio(300);
     productoService.insertOrUpdate(producto5);
+    
+    /////////////Declaracion de id ya que no funcionaba de otra manera..."
+    long prod1 =productoService.insertOrUpdate(producto1).getIdProducto();
+    long prod2 =productoService.insertOrUpdate(producto2).getIdProducto();
+    long prod3 =productoService.insertOrUpdate(producto3).getIdProducto();
+    long prod4 =productoService.insertOrUpdate(producto4).getIdProducto();
+    long prod5 =productoService.insertOrUpdate(producto5).getIdProducto();
 
     // LOCALES
 
@@ -256,7 +263,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     cliente1.setEmail("cliente1@hotmail.com");
     cliente1.setFechaNacimiento(LocalDate.of(1996, 10, 15));
     cliente1.setUsername("cliente1");
-    cliente1.setPassword(bCryptPasswordEncoder.encode("cliente1"));
+    cliente1.setPassword("cliente1");
     clienteService.insertOrUpdate(cliente1);
 
     //////////////////////////////////////////////
@@ -269,7 +276,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     cliente2.setEmail("cliente2@hotmail.com");
     cliente2.setFechaNacimiento(LocalDate.of(1993, 3, 15));
     cliente2.setUsername("cliente2");
-    cliente2.setPassword(bCryptPasswordEncoder.encode("cliente2"));
+    cliente2.setPassword("cliente2");
     clienteService.insertOrUpdate(cliente2);
 
     //////////////////////////////////////////////
@@ -282,7 +289,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     cliente3.setEmail("cliente3@hotmail.com");
     cliente3.setFechaNacimiento(LocalDate.of(1997, 5, 10));
     cliente3.setUsername("cliente3");
-    cliente3.setPassword(bCryptPasswordEncoder.encode("cliente3"));
+    cliente3.setPassword("cliente3");
     clienteService.insertOrUpdate(cliente3);
 
     //////////////////////////////////////////////
@@ -295,7 +302,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     cliente4.setEmail("cliente4@hotmail.com");
     cliente4.setFechaNacimiento(LocalDate.of(1990, 3, 5));
     cliente4.setUsername("cliente4");
-    cliente4.setPassword(bCryptPasswordEncoder.encode("cliente4"));
+    cliente4.setPassword("cliente4");
     clienteService.insertOrUpdate(cliente4);
 
     // EMPLOYEES USERS LOCAL 1
@@ -307,9 +314,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado1.setDni(27406080);
     empleado1.setFechaNacimiento(LocalDate.of(1985, 3, 5));
     empleado1.setUsername("empleado1");
-    empleado1.setPassword(bCryptPasswordEncoder.encode("empleado1"));
+    empleado1.setPassword("empleado1");
     empleado1.setTipoEmpleado(true);
-    empleado1.setIdLocal(local1.getIdLocal());
+    empleado1.setIdLocal(localService.findByDireccion(local1.getDireccion()).getIdLocal());
     empleado1.setFranjaHoraria("Mañana");
     empleadoService.insertOrUpdate(empleado1);
 
@@ -322,9 +329,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado2.setDni(3903080);
     empleado2.setFechaNacimiento(LocalDate.of(1990, 3, 20));
     empleado2.setUsername("empleado2");
-    empleado2.setPassword(bCryptPasswordEncoder.encode("empleado2"));
+    empleado2.setPassword("empleado2");
     empleado2.setTipoEmpleado(false);
-    empleado2.setIdLocal(local1.getIdLocal());
+    empleado2.setIdLocal(localService.findByDireccion(local1.getDireccion()).getIdLocal());
     empleado2.setFranjaHoraria("Tarde");
     empleadoService.insertOrUpdate(empleado2);
 
@@ -337,9 +344,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado3.setDni(39406080);
     empleado3.setFechaNacimiento(LocalDate.of(1997, 1, 5));
     empleado3.setUsername("empleado3");
-    empleado3.setPassword(bCryptPasswordEncoder.encode("empleado3"));
+    empleado3.setPassword("empleado3");
     empleado3.setTipoEmpleado(false);
-    empleado3.setIdLocal(local1.getIdLocal());
+    empleado3.setIdLocal(localService.findByDireccion(local1.getDireccion()).getIdLocal());
     empleado3.setFranjaHoraria("Mañana");
     empleadoService.insertOrUpdate(empleado3);
     // EMPLOYEES USERS LOCAL 2
@@ -351,10 +358,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado4.setDni(37406080);
     empleado4.setFechaNacimiento(LocalDate.of(1994, 4, 5));
     empleado4.setUsername("empleado4");
-    empleado4.setPassword(bCryptPasswordEncoder.encode("empleado4"));
+    empleado4.setPassword("empleado4");
     empleado4.setTipoEmpleado(true);
-    empleado4.setIdLocal(local2.getIdLocal());
-    empleado4.setFranjaHoraria("Tarde");
+    empleado4.setIdLocal(localService.findByDireccion(local2.getDireccion()).getIdLocal());    empleado4.setFranjaHoraria("Tarde");
     empleadoService.insertOrUpdate(empleado4);
 
     //////////////////////////////////////////////
@@ -366,9 +372,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado5.setDni(37409080);
     empleado5.setFechaNacimiento(LocalDate.of(1999, 3, 15));
     empleado5.setUsername("empleado5");
-    empleado5.setPassword(bCryptPasswordEncoder.encode("empleado5"));
+    empleado5.setPassword("empleado5");
     empleado5.setTipoEmpleado(false);
-    empleado5.setIdLocal(local2.getIdLocal());
+    empleado5.setIdLocal(localService.findByDireccion(local2.getDireccion()).getIdLocal());
     empleado5.setFranjaHoraria("Mañana");
     empleadoService.insertOrUpdate(empleado5);
     //////////////////////////////////////////////
@@ -380,9 +386,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado6.setDni(30446880);
     empleado6.setFechaNacimiento(LocalDate.of(1984, 10, 5));
     empleado6.setUsername("empleado6");
-    empleado6.setPassword(bCryptPasswordEncoder.encode("empleado6"));
+    empleado6.setPassword("empleado6");
     empleado6.setTipoEmpleado(false);
-    empleado6.setIdLocal(local2.getIdLocal());
+    empleado6.setIdLocal(localService.findByDireccion(local2.getDireccion()).getIdLocal());
     empleado6.setFranjaHoraria("Tarde");
     empleadoService.insertOrUpdate(empleado6);
 
@@ -395,9 +401,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado7.setDni(38506080);
     empleado7.setFechaNacimiento(LocalDate.of(1993, 5, 9));
     empleado7.setUsername("empleado7");
-    empleado7.setPassword(bCryptPasswordEncoder.encode("empleado7"));
+    empleado7.setPassword("empleado7");
     empleado7.setTipoEmpleado(true);
-    empleado7.setIdLocal(local3.getIdLocal());
+    empleado7.setIdLocal(localService.findByDireccion(local3.getDireccion()).getIdLocal());
     empleado7.setFranjaHoraria("Mañana");
     empleadoService.insertOrUpdate(empleado7);
 
@@ -410,9 +416,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado8.setDni(28604010);
     empleado8.setFechaNacimiento(LocalDate.of(1983, 3, 5));
     empleado8.setUsername("empleado8");
-    empleado8.setPassword(bCryptPasswordEncoder.encode("empleado8"));
+    empleado8.setPassword("empleado8");
     empleado8.setTipoEmpleado(false);
-    empleado8.setIdLocal(local3.getIdLocal());
+    empleado8.setIdLocal(localService.findByDireccion(local3.getDireccion()).getIdLocal());
     empleado8.setFranjaHoraria("Mañana");
     empleadoService.insertOrUpdate(empleado8);
 
@@ -425,9 +431,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado9.setDni(30446880);
     empleado9.setFechaNacimiento(LocalDate.of(1990, 3, 5));
     empleado9.setUsername("empleado9");
-    empleado9.setPassword(bCryptPasswordEncoder.encode("empleado9"));
+    empleado9.setPassword("empleado9");
     empleado9.setTipoEmpleado(false);
-    empleado9.setIdLocal(local3.getIdLocal());
+    empleado9.setIdLocal(localService.findByDireccion(local3.getDireccion()).getIdLocal());
     empleado9.setFranjaHoraria("Tarde");
 
     empleadoService.insertOrUpdate(empleado9);
@@ -440,9 +446,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     lote1local1.setCantidadActual(50);
     lote1local1.setCantidadInicial(50);
     lote1local1.setFechaIngreso(LocalDate.now());
-    lote1local1.setIdProducto(producto.getIdProducto());
-    lote1local1.setEstado(false);
-    lote1local1.setIdStock(local1.getIdLocal());
+    lote1local1.setIdProducto(prod1);
+    lote1local1.setEstado(true);
+    lote1local1.setIdStock(localService.findByDireccion(local1.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote1local1);
 
     //////////////////////////////////////////////
@@ -451,9 +457,9 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     lote2local1.setCantidadActual(50);
     lote2local1.setCantidadInicial(50);
     lote2local1.setFechaIngreso(LocalDate.now());
-    lote2local1.setIdProducto(producto1.getIdProducto());
-    lote2local1.setEstado(false);
-    lote2local1.setIdStock(local1.getIdLocal());
+    lote2local1.setIdProducto(prod3);
+    lote2local1.setEstado(true);
+    lote2local1.setIdStock(localService.findByDireccion(local1.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote2local1);
 
     //////////////////////////////////////////////
@@ -462,71 +468,71 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     lote3local1.setCantidadActual(50);
     lote3local1.setCantidadInicial(50);
     lote3local1.setFechaIngreso(LocalDate.now());
-    lote3local1.setIdProducto(producto2.getIdProducto());
-    lote3local1.setEstado(false);
-    lote3local1.setIdStock(local1.getIdLocal());
+    lote3local1.setIdProducto(prod2);
+    lote3local1.setEstado(true);
+    lote3local1.setIdStock(localService.findByDireccion(local1.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote3local1);
 
     ///////////////// LOCAL 2 /////////////////////////////
 
     LoteModel lote1local2 = new LoteModel();
-    lote1local1.setCantidadActual(50);
-    lote1local1.setCantidadInicial(50);
-    lote1local1.setFechaIngreso(LocalDate.now());
-    lote1local1.setIdProducto(producto2.getIdProducto());
-    lote1local1.setEstado(false);
-    lote1local1.setIdStock(local2.getIdLocal());
+    lote1local2.setCantidadActual(50);
+    lote1local2.setCantidadInicial(50);
+    lote1local2.setFechaIngreso(LocalDate.now());
+    lote1local2.setIdProducto(prod5);
+    lote1local2.setEstado(true);
+    lote1local2.setIdStock(localService.findByDireccion(local2.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote1local2);
 
     //////////////////////////////////////////////
     LoteModel lote2local2 = new LoteModel();
-    lote1local1.setCantidadActual(50);
-    lote1local1.setCantidadInicial(50);
-    lote1local1.setFechaIngreso(LocalDate.now());
-    lote1local1.setIdProducto(producto1.getIdProducto());
-    lote1local1.setEstado(false);
-    lote1local1.setIdStock(local2.getIdLocal());
+    lote2local2.setCantidadActual(50);
+    lote2local2.setCantidadInicial(50);
+    lote2local2.setFechaIngreso(LocalDate.now());
+    lote2local2.setIdProducto(prod3);
+    lote2local2.setEstado(true);
+    lote2local2.setIdStock(localService.findByDireccion(local2.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote2local2);
 
     //////////////////////////////////////////////
     LoteModel lote3local2 = new LoteModel();
-    lote1local1.setCantidadActual(50);
-    lote1local1.setCantidadInicial(50);
-    lote1local1.setFechaIngreso(LocalDate.now());
-    lote1local1.setIdProducto(producto4.getIdProducto());
-    lote1local1.setEstado(false);
-    lote1local1.setIdStock(local2.getIdLocal());
+    lote3local2.setCantidadActual(50);
+    lote3local2.setCantidadInicial(50);
+    lote3local2.setFechaIngreso(LocalDate.now());
+    lote3local2.setIdProducto(prod4);
+    lote3local2.setEstado(true);
+    lote3local2.setIdStock(localService.findByDireccion(local2.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote3local2);
 
     //////////////////// LOCAL 3 //////////////////////////
 
     LoteModel lote1local3 = new LoteModel();
-    lote1local1.setCantidadActual(50);
-    lote1local1.setCantidadInicial(50);
-    lote1local1.setFechaIngreso(LocalDate.now());
-    lote1local1.setIdProducto(producto3.getIdProducto());
-    lote1local1.setEstado(false);
-    lote1local1.setIdStock(local2.getIdLocal());
+    lote1local3.setCantidadActual(50);
+    lote1local3.setCantidadInicial(50);
+    lote1local3.setFechaIngreso(LocalDate.now());
+    lote1local3.setIdProducto(prod3);
+    lote1local3.setEstado(true);
+    lote1local3.setIdStock(localService.findByDireccion(local3.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote1local3);
 
     //////////////////////////////////////////////
     LoteModel lote2local3 = new LoteModel();
-    lote1local1.setCantidadActual(50);
-    lote1local1.setCantidadInicial(50);
-    lote1local1.setFechaIngreso(LocalDate.now());
-    lote1local1.setIdProducto(producto1.getIdProducto());
-    lote1local1.setEstado(false);
-    lote1local1.setIdStock(local2.getIdLocal());
+    lote2local3.setCantidadActual(50);
+    lote2local3.setCantidadInicial(50);
+    lote2local3.setFechaIngreso(LocalDate.now());
+    lote2local3.setIdProducto(prod2);
+    lote2local3.setEstado(true);
+    lote2local3.setIdStock(localService.findByDireccion(local3.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote2local3);
 
     //////////////////////////////////////////////
     LoteModel lote3local3 = new LoteModel();
-    lote1local1.setCantidadActual(50);
-    lote1local1.setCantidadInicial(50);
-    lote1local1.setFechaIngreso(LocalDate.now());
-    lote1local1.setIdProducto(producto5.getIdProducto());
-    lote1local1.setEstado(false);
-    lote1local1.setIdStock(local2.getIdLocal());
+    lote3local3.setCantidadActual(50);
+    lote3local3.setCantidadInicial(50);
+    lote3local3.setFechaIngreso(LocalDate.now());
+    lote3local3.setIdProducto(prod4);
+    lote3local3.setEstado(true);
+    lote3local3.setIdStock(localService.findByDireccion(local3.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote3local3);
 
     //////////////////////////////////////////////
@@ -537,36 +543,56 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     pedido1.setCantidad(30);
     pedido1.setEstado(2);
     pedido1.setFecha(LocalDate.now());
-    pedido1.setIdCliente(cliente1.getId());
-    pedido1.setIdLocal(local1.getIdLocal());
-    pedido1.setIdProducto(producto.getIdProducto());
-    pedido1.setIdVendedorOriginal(empleado1.getId());
+    pedido1.setIdCliente(clienteService.findByDni(cliente1.getDni()).getId());
+    pedido1.setIdLocal(localService.findByDireccion(local1.getDireccion()).getIdLocal());
+    pedido1.setIdProducto(prod1);
+    pedido1.setIdVendedorOriginal(empleadoService.findByDni(empleado1.getDni()).getId());
     pedidoService.insertOrUpdate(pedido1);
 
     // Pedido2
 
-    PedidoModel pedido2 = new PedidoModel();
-    pedido1.setCantidad(30);
-    pedido1.setEstado(1);
-    pedido1.setFecha(LocalDate.now());
-    pedido1.setIdCliente(cliente1.getId());
-    pedido1.setIdLocal(local1.getIdLocal());
-    pedido1.setIdProducto(producto1.getIdProducto());
-    pedido1.setIdVendedorOriginal(empleado1.getId());
+    PedidoModel pedido2= new PedidoModel();
+    pedido2.setCantidad(15);
+    pedido2.setEstado(1);
+    pedido2.setFecha(LocalDate.now());
+    pedido2.setIdCliente(clienteService.findByDni(cliente2.getDni()).getId());
+    pedido2.setIdLocal(localService.findByDireccion(local2.getDireccion()).getIdLocal());
+    pedido2.setIdProducto(prod2);
+    pedido2.setIdVendedorOriginal(empleadoService.findByDni(empleado4.getDni()).getId());
     pedidoService.insertOrUpdate(pedido2);
 
     // Pedido3
 
     PedidoModel pedido3 = new PedidoModel();
-    pedido1.setCantidad(30);
-    pedido1.setEstado(3);
-    pedido1.setFecha(LocalDate.now());
-    pedido1.setIdCliente(cliente1.getId());
-    pedido1.setIdLocal(local1.getIdLocal());
-    pedido1.setIdProducto(producto3.getIdProducto());
-    pedido1.setIdVendedorOriginal(empleado1.getId());
+    pedido3.setCantidad(25);
+    pedido3.setEstado(1);
+    pedido3.setFecha(LocalDate.now());
+    pedido3.setIdCliente(clienteService.findByDni(cliente3.getDni()).getId());
+    pedido3.setIdLocal(localService.findByDireccion(local3.getDireccion()).getIdLocal());
+    pedido3.setIdProducto(prod4);
+    pedido3.setIdVendedorOriginal(empleadoService.findByDni(empleado8.getDni()).getId());
     pedidoService.insertOrUpdate(pedido3);
-    */
+    
+    PedidoModel pedido4 = new PedidoModel();
+    pedido4.setCantidad(40);
+    pedido4.setEstado(1);
+    pedido4.setFecha(LocalDate.now());
+    pedido4.setIdCliente(clienteService.findByDni(cliente2.getDni()).getId());
+    pedido4.setIdLocal(localService.findByDireccion(local2.getDireccion()).getIdLocal());
+    pedido4.setIdProducto(prod5);
+    pedido4.setIdVendedorOriginal(empleadoService.findByDni(empleado5.getDni()).getId());
+    pedidoService.insertOrUpdate(pedido4);
+    
+    PedidoModel pedido5 = new PedidoModel();
+    pedido5.setCantidad(30);
+    pedido5.setEstado(3);
+    pedido5.setFecha(LocalDate.now());
+    pedido5.setIdCliente(clienteService.findByDni(cliente2.getDni()).getId());
+    pedido5.setIdLocal(localService.findByDireccion(local3.getDireccion()).getIdLocal());
+    pedido5.setIdProducto(prod3);
+    pedido5.setIdVendedorOriginal(empleadoService.findByDni(empleado8.getDni()).getId());
+    pedidoService.insertOrUpdate(pedido5);
+    
     alreadySetup = true;
   }
 
