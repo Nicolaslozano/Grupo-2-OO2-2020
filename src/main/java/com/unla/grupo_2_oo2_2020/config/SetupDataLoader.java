@@ -36,11 +36,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-  boolean alreadySetup = false;
-
   @Autowired
   @Qualifier("userRepository")
   private IDefaultUserRepository userRepository;
+
+  @Autowired
+  @Qualifier("setupRepository")
+  private ISetupRepository setupRepository;
 
   @Autowired
   @Qualifier("roleRepository")
@@ -81,7 +83,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
   @Override
   @Transactional
   public void onApplicationEvent(ContextRefreshedEvent event) {
-    if (alreadySetup)
+
+    if ((setupRepository.findById(1) != null) && (setupRepository.findById(1).isAlreadySetup()))
       return;
 
     // cliente
@@ -152,7 +155,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     Role adminRole = roleRepository.findByName("ROLE_ADMIN");
 
     User user = new User();
-    
+
     user.setNombre("Administrator");
     user.setApellido("1");
     user.setDni(1111);
@@ -165,7 +168,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     if (userRepository.findByUsername(user.getUsername()) == null) {
       userRepository.save(user);
     }
-    
+
     // PRODUCTOS
 
     ProductoModel producto = new ProductoModel();
@@ -173,7 +176,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     producto.setDescripcion("Zapatillas");
     producto.setFechaAlta(LocalDate.now());
     producto.setPrecio(1500);
-    productoService.insertOrUpdate(producto);
 
     //////////////////////////////////////////////
 
@@ -182,7 +184,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     producto1.setDescripcion("Remeras");
     producto1.setFechaAlta(LocalDate.now());
     producto1.setPrecio(500);
-    productoService.insertOrUpdate(producto1);
 
     //////////////////////////////////////////////
 
@@ -191,7 +192,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     producto2.setDescripcion("Pantalones");
     producto2.setFechaAlta(LocalDate.now());
     producto2.setPrecio(800);
-    productoService.insertOrUpdate(producto2);
 
     //////////////////////////////////////////////
 
@@ -200,7 +200,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     producto3.setDescripcion("Pantalones");
     producto3.setFechaAlta(LocalDate.now());
     producto3.setPrecio(600);
-    productoService.insertOrUpdate(producto3);
 
     //////////////////////////////////////////////
 
@@ -209,7 +208,6 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     producto4.setDescripcion("Indumentaria Calzado");
     producto4.setFechaAlta(LocalDate.now());
     producto4.setPrecio(150);
-    productoService.insertOrUpdate(producto4);
 
     //////////////////////////////////////////////
 
@@ -218,14 +216,13 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     producto5.setDescripcion("Ropa Interior");
     producto5.setFechaAlta(LocalDate.now());
     producto5.setPrecio(300);
-    productoService.insertOrUpdate(producto5);
-    
-    /////////////Declaracion de id ya que no funcionaba de otra manera..."
-    long prod1 =productoService.insertOrUpdate(producto1).getIdProducto();
-    long prod2 =productoService.insertOrUpdate(producto2).getIdProducto();
-    long prod3 =productoService.insertOrUpdate(producto3).getIdProducto();
-    long prod4 =productoService.insertOrUpdate(producto4).getIdProducto();
-    long prod5 =productoService.insertOrUpdate(producto5).getIdProducto();
+
+    ///////////// Declaracion de id ya que no funcionaba de otra manera..."
+    long prod1 = productoService.insertOrUpdate(producto1).getIdProducto();
+    long prod2 = productoService.insertOrUpdate(producto2).getIdProducto();
+    long prod3 = productoService.insertOrUpdate(producto3).getIdProducto();
+    long prod4 = productoService.insertOrUpdate(producto4).getIdProducto();
+    long prod5 = productoService.insertOrUpdate(producto5).getIdProducto();
 
     // LOCALES
 
@@ -360,7 +357,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     empleado4.setUsername("empleado4");
     empleado4.setPassword("empleado4");
     empleado4.setTipoEmpleado(true);
-    empleado4.setIdLocal(localService.findByDireccion(local2.getDireccion()).getIdLocal());    empleado4.setFranjaHoraria("Tarde");
+    empleado4.setIdLocal(localService.findByDireccion(local2.getDireccion()).getIdLocal());
+    empleado4.setFranjaHoraria("Tarde");
     empleadoService.insertOrUpdate(empleado4);
 
     //////////////////////////////////////////////
@@ -443,8 +441,8 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     // LOTE
 
     LoteModel lote1local1 = new LoteModel();
-    lote1local1.setCantidadActual(50);
-    lote1local1.setCantidadInicial(50);
+    lote1local1.setCantidadActual(20);
+    lote1local1.setCantidadInicial(20);
     lote1local1.setFechaIngreso(LocalDate.now());
     lote1local1.setIdProducto(prod1);
     lote1local1.setEstado(true);
@@ -530,7 +528,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     lote3local3.setCantidadActual(50);
     lote3local3.setCantidadInicial(50);
     lote3local3.setFechaIngreso(LocalDate.now());
-    lote3local3.setIdProducto(prod4);
+    lote3local3.setIdProducto(prod1);
     lote3local3.setEstado(true);
     lote3local3.setIdStock(localService.findByDireccion(local3.getDireccion()).getIdLocal());
     loteService.insertOrUpdate(lote3local3);
@@ -547,11 +545,12 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     pedido1.setIdLocal(localService.findByDireccion(local1.getDireccion()).getIdLocal());
     pedido1.setIdProducto(prod1);
     pedido1.setIdVendedorOriginal(empleadoService.findByDni(empleado1.getDni()).getId());
+    pedido1.setIdVendedorAuxiliar(empleadoService.findByDni(28604010).getId());
     pedidoService.insertOrUpdate(pedido1);
 
     // Pedido2
 
-    PedidoModel pedido2= new PedidoModel();
+    PedidoModel pedido2 = new PedidoModel();
     pedido2.setCantidad(15);
     pedido2.setEstado(1);
     pedido2.setFecha(LocalDate.now());
@@ -572,7 +571,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     pedido3.setIdProducto(prod4);
     pedido3.setIdVendedorOriginal(empleadoService.findByDni(empleado8.getDni()).getId());
     pedidoService.insertOrUpdate(pedido3);
-    
+
     PedidoModel pedido4 = new PedidoModel();
     pedido4.setCantidad(40);
     pedido4.setEstado(1);
@@ -582,18 +581,18 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     pedido4.setIdProducto(prod5);
     pedido4.setIdVendedorOriginal(empleadoService.findByDni(empleado5.getDni()).getId());
     pedidoService.insertOrUpdate(pedido4);
-    
+
     PedidoModel pedido5 = new PedidoModel();
     pedido5.setCantidad(30);
-    pedido5.setEstado(3);
+    pedido5.setEstado(0);
     pedido5.setFecha(LocalDate.now());
     pedido5.setIdCliente(clienteService.findByDni(cliente2.getDni()).getId());
     pedido5.setIdLocal(localService.findByDireccion(local3.getDireccion()).getIdLocal());
     pedido5.setIdProducto(prod3);
     pedido5.setIdVendedorOriginal(empleadoService.findByDni(empleado8.getDni()).getId());
     pedidoService.insertOrUpdate(pedido5);
-    
-    alreadySetup = true;
+
+    setupRepository.save(new DataAlreadySetupVariable(1,true));
   }
 
   @Transactional

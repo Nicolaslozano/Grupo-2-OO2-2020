@@ -31,24 +31,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/assets/**","/resources/**", "/vendor/**", "/static/**", "/js/**");
+        web.ignoring().antMatchers("/assets/**", "/resources/**", "/vendor/**", "/static/**", "/js/**");
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/resources/**", "/registration").permitAll().anyRequest().authenticated()
-                .and().formLogin().loginPage("/login").loginProcessingUrl("/loginValidation").defaultSuccessUrl("/index", true).permitAll().and().logout()
-                .logoutUrl("/requestLogout").deleteCookies("JSESSIONID").permitAll().and().httpBasic().disable().csrf()
-                .disable().cors();
+                .and().formLogin().loginPage("/login").loginProcessingUrl("/loginValidation")
+                .defaultSuccessUrl("/index", true).permitAll().and().logout().logoutUrl("/requestLogout")
+                .deleteCookies("JSESSIONID").permitAll().and().httpBasic().disable().csrf().disable().cors();
 
-        /*
-         * http.authorizeRequests() .antMatchers("/resources/**", "/static/**",
-         * "/login-style.css", "/log-in.js").permitAll() .anyRequest().authenticated()
-         * .and() .formLogin() .loginPage("/login") .loginProcessingUrl("/login/...")
-         * .defaultSuccessUrl("/index", true) .permitAll()
-         * .usernameParameter("username").passwordParameter("password") .and()
-         * .csrf().disable() .logout() .permitAll();
-         */
     }
 
     @Bean("authenticationManager")

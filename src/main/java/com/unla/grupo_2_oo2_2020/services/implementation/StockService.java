@@ -10,7 +10,6 @@ import com.unla.grupo_2_oo2_2020.converters.StockConverter;
 import com.unla.grupo_2_oo2_2020.entities.Lote;
 import com.unla.grupo_2_oo2_2020.entities.Pedido;
 import com.unla.grupo_2_oo2_2020.entities.Stock;
-import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.repository.IStockRepository;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
@@ -79,32 +78,13 @@ public class StockService implements IStockService {
         // cantidad total de productos pendientes de entrega al total que se puede
         // ofrecer
 
-        if (pedido.getEstado() == StaticValuesHelper.PEDIDO_PENDIENTE) {
+        for (Pedido p : pedidoService.findPendingByLocalAndProducto(localService.findById(pedido.getIdLocal()),
+                productoService.findById(pedido.getIdProducto()))) {
 
-            /*
-             * Si el pedido fue tercerizado entonces se chequean los pedidos de aquel local
-             */
+            if (p.getIdPedido() == pedido.getIdPedido())
+                continue;
+            cantidadAlcanzada -= p.getCantidad();
 
-            for (Pedido p : pedidoService.findPendingByLocalAndProducto(
-                    localService.findById(empleadoService.findById(pedido.getIdVendedorAuxiliar()).getLocal().getIdLocal()),
-                    productoService.findById(pedido.getIdProducto()))) {
-
-                if(p.getIdPedido() == pedido.getIdPedido()) continue;
-
-                cantidadAlcanzada -= p.getCantidad();
-            }
-
-        } else {
-
-            /*
-             * Si es un pedido comun, se chequea el propio local
-             */
-
-            for (Pedido p : pedidoService.findPendingByLocalAndProducto(localService.findById(pedido.getIdLocal()),
-                    productoService.findById(pedido.getIdProducto()))) {
-
-                cantidadAlcanzada -= p.getCantidad();
-            }
         }
 
         for (Lote lote : loteService.findByProductoAndStock(productoService.findById(pedido.getIdProducto()),
