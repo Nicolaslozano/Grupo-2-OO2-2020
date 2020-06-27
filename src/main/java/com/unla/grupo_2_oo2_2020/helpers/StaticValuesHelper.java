@@ -41,4 +41,9 @@ public class StaticValuesHelper {
     public final static double COMISION_ORIGINALSUP = 0.03;
     public final static double COMISION_AUXILIAR = 0.02;
 
+    public final static String ROLE_CLIENTE = "ROLE_CLIENTE";
+    public final static String ROLE_VENDEDOR = "ROLE_VENDEDOR";
+    public final static String ROLE_GERENTE = "ROLE_GERENTE";
+    public final static String ROLE_ADMIN = "ROLE_ADMIN";
+
 }

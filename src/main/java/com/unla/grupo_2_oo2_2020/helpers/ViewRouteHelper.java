@@ -5,6 +5,8 @@ public class ViewRouteHelper {
     /**** Views ****/
 	//HOME
     public final static String INDEX = "dashboard/index";
+    public final static String REGISTRATION = "/registration";
+    public final static String LOGIN = "/login";
 
     //CLIENTE
     public final static String CLIENTE_INDEX = "cliente/index";
@@ -50,5 +52,7 @@ public class ViewRouteHelper {
     public final static String PRODUCTO_ROOT = "/producto";
     public final static String LOTE_ROOT = "/lote";
     public final static String STOCK_ROOT = "/stock";
+
+    public final static String ERROR_FORBIDDEN = "/error/403";
 
 }

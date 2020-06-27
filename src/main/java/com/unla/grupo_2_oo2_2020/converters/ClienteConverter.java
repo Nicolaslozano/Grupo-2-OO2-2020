@@ -9,12 +9,13 @@ import com.unla.grupo_2_oo2_2020.models.ClienteModel;
 public class ClienteConverter {
 
     public ClienteModel entityToModel(Cliente cliente) {
-        return new ClienteModel(cliente.getIdPersona(), cliente.getEmail(), cliente.getNombre(), cliente.getApellido(),
-                cliente.getFechaNacimiento(), cliente.getDni());
+        return new ClienteModel(cliente.getId(), cliente.getEmail(), cliente.getNombre(), cliente.getApellido(),
+                cliente.getFechaNacimiento(), cliente.getDni(), cliente.getUsername(), cliente.getPassword());
     }
 
     public Cliente modelToEntity(ClienteModel clienteModel) {
-        return new Cliente(clienteModel.getIdPersona(), clienteModel.getEmail(), clienteModel.getNombre(), clienteModel.getApellido(),
-        clienteModel.getFechaNacimiento(), clienteModel.getDni());
+        return new Cliente(clienteModel.getId(), clienteModel.getEmail(), clienteModel.getNombre(),
+                clienteModel.getApellido(), clienteModel.getFechaNacimiento(), clienteModel.getDni(),
+                clienteModel.getUsername(), clienteModel.getPassword());
     }
 }

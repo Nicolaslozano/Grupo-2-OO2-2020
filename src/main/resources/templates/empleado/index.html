@@ -61,7 +61,7 @@
                           <td>
                             <a
                               class="btn btn-info"
-                              th:href="@{/empleado/{id}(id=${empleado.idPersona})}"
+                              th:href="@{/empleado/{id}(id=${empleado.id})}"
                               >Modificar</a
                             >
                           </td>
@@ -70,8 +70,8 @@
                               <div class="form_group">
                                 <input
                                   type="hidden"
-                                  name="idPersona"
-                                  th:value="${empleado.idPersona}"
+                                  name="id"
+                                  th:value="${empleado.id}"
                                 />
                               </div>
                               <input

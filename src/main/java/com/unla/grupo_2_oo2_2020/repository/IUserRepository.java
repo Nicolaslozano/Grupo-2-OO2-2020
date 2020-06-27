@@ -7,11 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface IPersonaBaseRepository<T>extends JpaRepository<T, Serializable>{
+public interface IUserRepository<T>extends JpaRepository<T, Serializable>{
 
-    public abstract T findByIdPersona(long idPersona);
+    public abstract T findById(long id);
 
     public abstract List<T> findAll();
 
     public abstract T findByDni(int dni);
+
+    public abstract T findByUsername(String username);
 }

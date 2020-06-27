@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "empleado")
-@PrimaryKeyJoinColumn(referencedColumnName="idPersona")
-@Data @EqualsAndHashCode(callSuper = false, exclude="local") @NoArgsConstructor
-public class Empleado extends Persona {
+@PrimaryKeyJoinColumn(referencedColumnName = "id")
+@Data
+@EqualsAndHashCode(callSuper = false, exclude = "local")
+@NoArgsConstructor
+public class Empleado extends User {
 
-	@Column(name = "franjaHoraria",length = 45)
 	private String franjaHoraria;
 
 	@Column(name = "tipoEmpleado")
@@ -23,17 +24,17 @@ public class Empleado extends Persona {
 	@JoinColumn(name = "idLocal")
 	private Local local;
 
-	public Empleado(long idPersona,String nombre, String apellido, LocalDate fechaNacimiento, int dni,
-			String franjaHoraria, boolean tipoEmpleado) {
-		super(idPersona,nombre, apellido, fechaNacimiento, dni);
+	public Empleado(long id, String franjaHoraria, boolean tipoEmpleado, String nombre, String apellido,
+			LocalDate fechaNacimiento, int dni, String username, String password) {
+		super(id, nombre, apellido, fechaNacimiento, dni, username, password);
 		this.franjaHoraria = franjaHoraria;
 		this.tipoEmpleado = tipoEmpleado;
 
 	}
 
-	public Empleado(String nombre, String apellido, LocalDate fechaNacimiento, int dni,
-			String franjaHoraria, boolean tipoEmpleado) {
-		super(nombre, apellido, fechaNacimiento, dni);
+	public Empleado(String franjaHoraria, boolean tipoEmpleado, String nombre, String apellido,
+			LocalDate fechaNacimiento, int dni, String username, String password) {
+		super(nombre, apellido, fechaNacimiento, dni, username, password);
 		this.franjaHoraria = franjaHoraria;
 		this.tipoEmpleado = tipoEmpleado;
 

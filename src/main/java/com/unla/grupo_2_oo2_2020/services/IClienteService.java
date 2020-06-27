@@ -12,12 +12,14 @@ public interface IClienteService {
 
     public ClienteModel insertOrUpdate(ClienteModel ClienteModel);
 
-    public void removeById(long idPersona);
+    public void removeById(long id);
 
-    public Cliente findById(long idPersona);
+    public Cliente findById(long id);
     
     public Cliente findByDni(int dni);
 
     public Cliente findByEmail(String email);
+
+    public Cliente findByUsername(String username);
 
 }
