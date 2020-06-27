@@ -1,5 +1,6 @@
 package com.unla.grupo_2_oo2_2020.services.implementation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -11,10 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.unla.grupo_2_oo2_2020.converters.PedidoConverter;
 import com.unla.grupo_2_oo2_2020.converters.ProductoConverter;
+import com.unla.grupo_2_oo2_2020.entities.Cliente;
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Pedido;
+import com.unla.grupo_2_oo2_2020.entities.Producto;
 import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
-import com.unla.grupo_2_oo2_2020.models.LocalModel;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
 import com.unla.grupo_2_oo2_2020.repository.IPedidoRepository;
@@ -97,7 +99,29 @@ public class PedidoService implements IPedidoService {
 
     @Override
     public List<Pedido> findByLocal(Local local) {
-        return pedidoRepository.findByLocal(local);
+
+        List<Pedido> pedidos = new ArrayList<Pedido>();
+
+        for(Pedido p : pedidoRepository.findByLocalNotExternal(local)) {
+
+            pedidos.add(p);
+        }
+
+        for(Pedido p : pedidoRepository.findPendingByLocal(local)) {
+
+            pedidos.add(p);
+        }
+        return pedidos;
+    }
+
+    @Override
+    public List<Pedido> findByCliente(Cliente cliente) {
+        return pedidoRepository.findByCliente(cliente);
+    }
+
+    @Override
+    public List<Pedido> findPendingByLocalAndProducto(Local local, Producto producto) {
+        return pedidoRepository.findPendingByLocalAndProducto(local, producto);
     }
 
     @Override

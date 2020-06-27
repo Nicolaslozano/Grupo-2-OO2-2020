@@ -62,6 +62,7 @@ public class SecurityService implements ISecurityService {
     }
 
     @Override
+    // devuelve una vista http 403 si el usuario logueado tiene el rol recibido
     public ModelAndView redirectAccessForbidden(String role) {
         ModelAndView mAV;
 

@@ -3,7 +3,6 @@ package com.unla.grupo_2_oo2_2020.entities;
 import javax.persistence.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
 import java.util.Collection;

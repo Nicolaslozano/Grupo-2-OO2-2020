@@ -97,7 +97,7 @@
                                 <div id="feedback" class="" role="alert">
                                 </div>
                                 <div id="feedback-buttons" style="float: left; margin-right: 20px">
-                                    <a href="/cliente" class="btn btn-info">Volver</a>
+                                    <a href="/index" class="btn btn-warning">Volver</a>
                                 </div>
                             </div>
                         </fieldset>
@@ -223,7 +223,7 @@
 
                         $.each(empleados, function (index, empleado) {
                             $("#vendedorOriginal").append($("<option></option>",
-                                { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
+                                { "value": empleado.id, "text": empleado.nombre + " " + empleado.apellido }));
                         })
                     },
                     error: function (result) { console.log(["error", result]); },
@@ -243,7 +243,7 @@
 
                         $.each(empleados, function (index, empleado) {
                             $("#vendedorAuxiliar").append($("<option></option>",
-                                { "value": empleado.idPersona, "text": empleado.nombre + " " + empleado.apellido }));
+                                { "value": empleado.id, "text": empleado.nombre + " " + empleado.apellido }));
                         })
                     },
                     error: function (result) { console.log(["error", result]); },

@@ -46,10 +46,10 @@
 												<td><span th:text="${pedido.cliente.dni}" /></td>
 												<td><span th:text="${pedido.vendedorOriginal.dni}" /></td>
 												<td><span th:if="${pedido.vendedorAuxiliar !=null}"
-														th:text="${pedido.vendedorAuxiliar.dni}" /></td>
+														th:text="${pedido.vendedorAuxiliar.dni} + ' (' + ${pedido.vendedorAuxiliar.local.direccion} + ')'" /></td>
 												<td><span th:text="${pedido.fecha}" /></td>
 												<td>
-													<form th:if="${pedido.estado} == 2" class="form-pedido-handle">
+													<form th:if="(${pedido.estado} == 2) and ${isHandlingAccessGranted}" class="form-pedido-handle">
 														<div class="form_group">
 															<input type="hidden" name="idPedido"
 																th:value="${pedido.idPedido}" />
