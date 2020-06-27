@@ -540,7 +540,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     PedidoModel pedido1 = new PedidoModel();
     pedido1.setCantidad(30);
     pedido1.setEstado(2);
-    pedido1.setFecha(LocalDate.now());
+    pedido1.setFecha(LocalDate.of(2020, 5, 1));
     pedido1.setIdCliente(clienteService.findByDni(cliente1.getDni()).getId());
     pedido1.setIdLocal(localService.findByDireccion(local1.getDireccion()).getIdLocal());
     pedido1.setIdProducto(prod1);
@@ -553,7 +553,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     PedidoModel pedido2 = new PedidoModel();
     pedido2.setCantidad(15);
     pedido2.setEstado(1);
-    pedido2.setFecha(LocalDate.now());
+    pedido2.setFecha(LocalDate.of(2020, 5, 10));
     pedido2.setIdCliente(clienteService.findByDni(cliente2.getDni()).getId());
     pedido2.setIdLocal(localService.findByDireccion(local2.getDireccion()).getIdLocal());
     pedido2.setIdProducto(prod2);
@@ -565,7 +565,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     PedidoModel pedido3 = new PedidoModel();
     pedido3.setCantidad(25);
     pedido3.setEstado(1);
-    pedido3.setFecha(LocalDate.now());
+    pedido3.setFecha(LocalDate.of(2020, 6, 15));
     pedido3.setIdCliente(clienteService.findByDni(cliente3.getDni()).getId());
     pedido3.setIdLocal(localService.findByDireccion(local3.getDireccion()).getIdLocal());
     pedido3.setIdProducto(prod4);
@@ -575,7 +575,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
     PedidoModel pedido4 = new PedidoModel();
     pedido4.setCantidad(40);
     pedido4.setEstado(1);
-    pedido4.setFecha(LocalDate.now());
+    pedido4.setFecha(LocalDate.of(2020, 6, 25));
     pedido4.setIdCliente(clienteService.findByDni(cliente2.getDni()).getId());
     pedido4.setIdLocal(localService.findByDireccion(local2.getDireccion()).getIdLocal());
     pedido4.setIdProducto(prod5);
