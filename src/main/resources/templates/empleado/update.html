@@ -20,9 +20,19 @@
                     <form class="well form-horizontal" th:object="${empleado}" id="form-empleado-update">
                         <fieldset>
                             <div style="width: 300%;" class="form_group">
-                                <input id="idPersona" type="hidden" th:field="*{idPersona}" />
+                                <input id="userId" type="hidden" th:field="*{id}" />
                             </div>
+
                             <!-- Text input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Usuario</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div style="width: 300%;" class="input-group">
+                                        <input name="username" placeholder="Usuario" class="form-control" type="text"
+                                            id="username" th:field="*{username}" />
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Nombre</label>
@@ -46,15 +56,14 @@
                                 </div>
                             </div>
 
-
-
                             <!-- Text input-->
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label">DNI</label>
                                 <div class="col-md-4 inputGroupContainer">
                                     <div style="width: 300%;" class="input-group">
-                                        <input disabled name="dni" id="dni" class="form-control" type="text" th:field="*{dni}">
+                                        <input disabled name="dni" id="dni" class="form-control" type="text"
+                                            th:field="*{dni}">
                                     </div>
                                 </div>
                             </div>
@@ -82,11 +91,19 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="col-md-4 control-label">Gerente?</label>
+                                <label class="col-md-4 control-label">Cargo</label>
                                 <div class="col-md-4 inputGroupContainer">
                                     <div style="width: 300%;" class="input-group">
-                                        <input id="tipoEmpleado" name="tipo_empleado" value="" class="form-control"
-                                            type="text" th:field="*{tipoEmpleado}">
+                                        <select id="tipoEmpleado" name="tipoEmpleado" class="form-control selectpicker">
+                                            <div th:if="!${empleado.tipoEmpleado}">
+                                                <option value="false">Vendedor</option>
+                                                <option value="true">Gerente</option>
+                                            </div>
+                                            <div th:if="${empleado.tipoEmpleado}">
+                                                <option value="true">Gerente</option>
+                                                <option value="false">Vendedor</option>
+                                            </div>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -96,8 +113,7 @@
                                 <div class="col-md-4 selectContainer">
                                     <div style="width: 300%;" class="input-group">
                                         <select id="idLocal" name="idLocal" class="form-control selectpicker">
-                                            <option th:each="local : ${locales}" th:value="${local.idLocal}"
-                                                th:text="${local.direccion}">
+                                            <option th:text="${local.direccion}" th:value="${local.idLocal}">
                                             </option>
                                         </select>
                                     </div>
@@ -132,6 +148,26 @@
 
     <th:block th:include="fragments/bottom :: bottom"></th:block>
     <script type="text/javascript" src="/js/auth/Empleado.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "/api/local/getLocales/except/" + $("#idLocal").val(),
+                type: "GET",
+                success: function (data) {
+                    var locales = data;
+                    if (typeof (data) == "string") {
+                        locales = JSON.parse(data);
+                    }
+                    $.each(locales, function (index, local) {
+                        $("#idLocal").append($("<option></option>", { "value": local.idLocal, "text": local.direccion }));
+                    });
+                },
+                error: function (result) {
+                    console.log(["error getting locales", result]);
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

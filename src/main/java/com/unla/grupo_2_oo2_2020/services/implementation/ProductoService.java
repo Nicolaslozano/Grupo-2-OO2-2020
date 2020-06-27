@@ -48,8 +48,7 @@ public class ProductoService implements IProductoService {
 			producto = productoConverter.modelToEntity(productoModel);
 		}
 
-		productoRepository.save(producto);
-		return productoConverter.entityToModel(producto);
+		return productoConverter.entityToModel(productoRepository.save(producto));
 	}
 
 	@Override

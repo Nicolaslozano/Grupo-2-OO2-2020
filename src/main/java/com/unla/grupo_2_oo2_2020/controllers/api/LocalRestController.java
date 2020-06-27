@@ -27,7 +27,6 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -89,14 +88,6 @@ public class LocalRestController {
 
 		localService.getValidLocals(pedidoModel).entrySet().stream().forEach(e -> result
 				.add(new LocalAndDistanceModel(e.getKey().getIdLocal(), e.getKey().getDireccion(), e.getValue())));
-
-		return ResponseEntity.ok(result);
-	}
-
-	@GetMapping("/{idLocal}/sueldos")
-	public ResponseEntity<?> getSueldos(@PathVariable("idLocal") long id) {
-		// TODO
-		List<LocalAndDistanceModel> result = new ArrayList<LocalAndDistanceModel>();
 
 		return ResponseEntity.ok(result);
 	}

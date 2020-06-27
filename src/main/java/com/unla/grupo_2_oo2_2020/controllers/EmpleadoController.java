@@ -8,16 +8,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.unla.grupo_2_oo2_2020.converters.EmpleadoConverter;
+import com.unla.grupo_2_oo2_2020.converters.LocalConverter;
+import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 import com.unla.grupo_2_oo2_2020.services.IEmpleadoService;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
+import com.unla.grupo_2_oo2_2020.services.ISecurityService;
+import com.unla.grupo_2_oo2_2020.services.IUserService;
 
 @Controller
 @RequestMapping("/empleado")
 public class EmpleadoController {
 
-    @Autowired
+	@Autowired
 	@Qualifier("empleadoService")
 	private IEmpleadoService empleadoService;
 
@@ -29,16 +33,45 @@ public class EmpleadoController {
 	@Qualifier("localService")
 	private ILocalService localService;
 
-    @GetMapping("")
+	@Autowired
+	@Qualifier("localConverter")
+	private LocalConverter localConverter;
+
+	@Autowired
+	@Qualifier("securityService")
+	private ISecurityService securityService;
+
+	@Autowired
+	@Qualifier("userService")
+	private IUserService userService;
+
+	@GetMapping("")
 	public ModelAndView index() {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_INDEX);
+
+		ModelAndView mAV;
+
+		if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_CLIENTE)) != null) {
+			return mAV;
+		}
+
+		mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_INDEX);
 		mAV.addObject("empleados", empleadoService.getAll());
 		return mAV;
 	}
 
-    @GetMapping("/new")
+	@GetMapping("/new")
 	public ModelAndView create() {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_NEW);
+
+		ModelAndView mAV;
+
+		if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_CLIENTE)) != null) {
+			return mAV;
+
+		} else if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_GERENTE)) != null) {
+			return mAV;
+		}
+
+		mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_NEW);
 		mAV.addObject("empleado", new EmpleadoModel());
 		mAV.addObject("locales", localService.getAll());
 		return mAV;
@@ -46,15 +79,34 @@ public class EmpleadoController {
 
 	@GetMapping("/sueldos")
 	public ModelAndView sueldos() {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_SUELDO);
+
+		ModelAndView mAV;
+
+		if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_CLIENTE)) != null) {
+			return mAV;
+
+		} else if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_GERENTE)) != null) {
+			return mAV;
+		}
+
+		mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_SUELDO);
 		return mAV;
 	}
 
-	@GetMapping("/{idPersona}")
-	public ModelAndView get(@PathVariable("idPersona") long id) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_UPDATE);
-		mAV.addObject("empleado", empleadoConverter.entityToModel(empleadoService.findById(id)));
-		mAV.addObject("locales", localService.getAll());
+	@GetMapping("/{id}")
+	public ModelAndView get(@PathVariable("id") long id) {
+		ModelAndView mAV;
+
+		if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_CLIENTE)) != null) {
+			return mAV;
+
+		} else if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_VENDEDOR)) != null) {
+			return mAV;
+		}
+		mAV = new ModelAndView(ViewRouteHelper.EMPLEADO_UPDATE);
+		EmpleadoModel empleado = empleadoConverter.entityToModel(empleadoService.findById(id));
+		mAV.addObject("empleado", empleado);
+		mAV.addObject("local", localConverter.entityToModel(localService.findById(empleado.getIdLocal())));
 		return mAV;
 	}
 

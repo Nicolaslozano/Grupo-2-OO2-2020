@@ -105,7 +105,7 @@ public class PedidoRestController {
             return ResponseEntity.badRequest().body(result);
         }
 
-        if (pedidoModel.getIdVendedorAuxiliar() > 0) {
+        if (pedidoModel.getIdVendedorAuxiliar() > 0) { //luego de enviar el pedido al otro negocio
 
             pedidoModel.setEstado(StaticValuesHelper.PEDIDO_PENDIENTE);
             pedidoService.insertOrUpdate(pedidoModel);
@@ -123,7 +123,7 @@ public class PedidoRestController {
 
                 result.put("redirect", ViewRouteHelper.CLIENTE_ROOT);
             } else if (!localService.getValidLocals(pedidoModel).isEmpty()) {
-
+                //significa que al usuario le salta el modal para decidir si enviar el pedido a otro local
                 result.put(StaticValuesHelper.ORDER_PENDING, "Pedido pendiente");
             } else {
 
@@ -140,7 +140,7 @@ public class PedidoRestController {
     public ResponseEntity<?> handlePedido(@Valid @RequestBody PedidoModel pedidoModel, Errors errors) {
 
         HashMap<String, String> result = new HashMap<String, String>();
-        PedidoModel pedidoExterno = new PedidoModel(0, pedidoModel.getIdProducto(), pedidoModel.getCantidad(),
+        PedidoModel pedidoExterno = new PedidoModel(pedidoModel.getIdPedido(), pedidoModel.getIdProducto(), pedidoModel.getCantidad(),
                 pedidoModel.getIdLocal(), pedidoModel.getIdCliente(), pedidoModel.getIdVendedorOriginal(),
                 pedidoModel.getIdVendedorAuxiliar(), pedidoModel.getEstado(), pedidoModel.getFecha());
 

@@ -11,10 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.grupo_2_oo2_2020.converters.LoteConverter;
+import com.unla.grupo_2_oo2_2020.helpers.StaticValuesHelper;
 import com.unla.grupo_2_oo2_2020.helpers.ViewRouteHelper;
 import com.unla.grupo_2_oo2_2020.services.ILocalService;
 import com.unla.grupo_2_oo2_2020.services.ILoteService;
 import com.unla.grupo_2_oo2_2020.services.IProductoService;
+import com.unla.grupo_2_oo2_2020.services.ISecurityService;
 
 @Controller
 @RequestMapping("/lote")
@@ -37,26 +39,40 @@ public class LoteController {
 	@Qualifier("productoService")
 	private IProductoService productoService;
 
-    @GetMapping("")
-	public ModelAndView index() {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOTE_INDEX);
-		mAV.addObject("lotes", loteService.getAll());
-		mAV.addObject("locales",localService.getAll());
-		return mAV;
-	}
+	@Autowired
+	@Qualifier("securityService")
+	private ISecurityService securityService;
 
     @GetMapping("/new")
 	public ModelAndView create() {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOTE_NEW);
+
+		ModelAndView mAV;
+
+		if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_CLIENTE)) != null) {
+			return mAV;
+
+		} else if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_VENDEDOR)) != null) {
+			return mAV;
+		}
+
+		mAV = new ModelAndView(ViewRouteHelper.LOTE_NEW);
 		return mAV;
 	}
 
 	@GetMapping("/{idLote}")
 	public ModelAndView get(@PathVariable("idLote") long id) {
-		ModelAndView mAV = new ModelAndView(ViewRouteHelper.LOTE_UPDATE);
+
+		ModelAndView mAV;
+
+		if ((mAV = securityService.redirectAccessForbidden(StaticValuesHelper.ROLE_CLIENTE)) != null) {
+			return mAV;
+
+		}
+
+		mAV = new ModelAndView(ViewRouteHelper.LOTE_UPDATE);
 		mAV.addObject("lote", loteService.findById(id));
 		mAV.addObject("locales", localService.getAll());
-		//mAV.addObject("productos", productoService.getAll());
+
 		return mAV;
 	}
 

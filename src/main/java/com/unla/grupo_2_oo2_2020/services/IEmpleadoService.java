@@ -9,11 +9,9 @@ import com.unla.grupo_2_oo2_2020.models.EmpleadoModel;
 
 public interface IEmpleadoService {
 
-    public Empleado findById(long idPersona);
+    public Empleado findById(long id);
 	
     public Empleado findByDni(int dni);
-
-    public Empleado findByIdFetchEagerly(long idPersona);
 
     public List<Empleado> getAll();
 
@@ -21,10 +19,10 @@ public interface IEmpleadoService {
 
     public EmpleadoModel insertOrUpdate(EmpleadoModel empleadoModel);
 
-	public void removeById(long idPersona);
+	public void removeById(long id);
 
 	double calcularSueldo(int mes, EmpleadoModel empleadoModel);
 	
-
+    public Empleado findByUsername(String username);
 
 }

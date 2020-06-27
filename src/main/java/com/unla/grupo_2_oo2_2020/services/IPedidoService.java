@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+import com.unla.grupo_2_oo2_2020.entities.Cliente;
 import com.unla.grupo_2_oo2_2020.entities.Local;
 import com.unla.grupo_2_oo2_2020.entities.Pedido;
+import com.unla.grupo_2_oo2_2020.entities.Producto;
 import com.unla.grupo_2_oo2_2020.models.PedidoModel;
 import com.unla.grupo_2_oo2_2020.models.ProductoModel;
 
@@ -19,13 +21,17 @@ public interface IPedidoService {
 
 	public Pedido findById(long idPedido);
 
+	public List<Pedido> findByLocal(Local local);
+
+	public List<Pedido> findByCliente(Cliente cliente);
+
+	public List<Pedido> findPendingByLocalAndProducto(Local local, Producto producto);
+
 	public double getTotal(Pedido pedido);
 
 	public double getTotal(PedidoModel pedidoModel);
 
 	public void removeById(long idPedido);
-
-	public List<Pedido> findByLocal(Local local);
 
 	public Map<ProductoModel, Integer> rankingProductos();
 
